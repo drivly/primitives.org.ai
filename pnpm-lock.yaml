@@ -11,9 +11,6 @@ importers:
       '@theguild/remark-mermaid':
         specifier: ^0.2.0
         version: 0.2.0(react@18.3.1)
-      next:
-        specifier: ^15.0.2
-        version: 15.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       nextra:
         specifier: ^4.0.0-app-router.34
         version: 4.0.0-app-router.35(acorn@8.14.0)(next@15.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2)
@@ -30,6 +27,9 @@ importers:
         specifier: ^5.4.0
         version: 5.4.0(react@18.3.1)
     devDependencies:
+      next:
+        specifier: ^15.1.0
+        version: 15.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       pagefind:
         specifier: ^1.1.1
         version: 1.2.0
