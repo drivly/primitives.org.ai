@@ -1,0 +1,57 @@
+# Examples
+
+## Complex Workflows
+
+### Blog Post Generation
+
+```typescript
+const listBlogPosts = (count, topic) => list`${count} blog post titles about ${topic}`
+const writeBlogPost = (title) => ai`write a blog post in markdown starting with "# ${title}"`
+
+async function* writeBlog(count, topic) {
+  for await (const title of listBlogPosts(count, topic)) {
+    const content = await writeBlogPost(title)
+    yield { title, content }
+  }
+}
+
+for await (const post of writeBlog(25, 'future of car sales')) {
+  console.log({ post })
+}
+```
+
+## Structured Output Examples
+
+### Recipe Generator
+
+```typescript
+const { object: recipe } = await generateObject({
+  model: 'gpt-4-turbo',
+  schema: z.object({
+    recipe: z.object({
+      name: z.string(),
+      ingredients: z.array(z.object({
+        name: z.string(),
+        amount: z.string()
+      })),
+      steps: z.array(z.string()),
+    }),
+  }),
+  prompt: 'Generate a chocolate cake recipe.',
+})
+```
+
+### Character Generator
+
+```typescript
+const { object: heroes } = await generateObject({
+  model: 'gpt-4-turbo',
+  output: 'array',
+  schema: z.object({
+    name: z.string(),
+    class: z.string().describe('Character class'),
+    description: z.string(),
+  }),
+  prompt: 'Generate 3 hero descriptions for an RPG.',
+})
+```

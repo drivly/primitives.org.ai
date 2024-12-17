@@ -1,0 +1,70 @@
+# Examples
+
+## Event-Driven Workflows
+
+### Support Ticket Processing
+
+```javascript
+import { ai, Workflow } from 'ai-workflows'
+
+const workflow = Workflow({
+  name: 'ticket-processor',
+  description: 'Automated support ticket processing'
+})
+
+workflow.on('ticket.created', async (ticket) => {
+  // Summarize ticket
+  const summary = await ai.summarize(ticket)
+  workflow.send('ticket.summarized', summary)
+
+  // Analyze sentiment
+  const sentiment = await ai.sentiment(ticket)
+  workflow.send('ticket.sentiment', sentiment)
+})
+
+workflow.on('ticket.summarized', (summary) => {
+  if (summary.priority === 'high') {
+    workflow.send('alert.team', summary)
+  }
+})
+```
+
+## Scheduled Tasks
+
+### KPI Monitoring
+
+```javascript
+const workflow = Workflow()
+
+workflow.every('weekday at 9am', async (context) => {
+  const kpis = await ai.analyzeKPIs(context)
+
+  if (kpis.alerts.length > 0) {
+    workflow.send('kpi.alert', kpis.alerts)
+  }
+
+  workflow.send('kpi.update', kpis.metrics)
+})
+```
+
+## Integrations
+
+### Database Integration
+
+```javascript
+import { createDatabase } from 'ai-database'
+import { Workflow } from 'ai-workflows'
+
+const workflow = Workflow()
+const db = createDatabase({ namespace: 'workflow-docs' })
+
+workflow.on('document.created', async (doc) => {
+  // Store document with vector embedding
+  await db.collection('documents').store({
+    content: doc.content,
+    embeddings: await ai.embed(doc.content)
+  })
+
+  workflow.send('document.indexed', doc.id)
+})
+```

@@ -1,14 +1,17 @@
-import { Bleed } from 'nextra/components'
+import { Cards } from 'nextra/components'
+import { SiMysql, SiOpenai, SiGithubactions, SiProbot } from 'react-icons/si'
 
-# Introduction
+# AI Primitives
 
-**Nextra** is a [Next.js](https://nextjs.org) based static site generator.
+Build AI-native applications with type-safe primitives powered by MDX and MDX-LD.
 
-It supports Markdown and React components ([MDX](/features/mdx)), automatically
-generated [sidebar and anchor links](/get-started#sidebar-and-anchor-links),
-file-system based routing, built-in syntax highlighting, image optimization,
-custom layouts, i18n, and all the features you love about Next.js.
+<Cards num={4}>
+  <Cards.Card icon={<SiMysql />} title='Database' href='/database'/>
+  <Cards.Card icon={<SiOpenai />} title='Functions' href='/functions'/>
+  <Cards.Card icon={<SiGithubactions />} title='Workflows' href='/workflows'/>
+  <Cards.Card icon={<SiProbot />} title='Agents' href='/agents'/>
+</Cards>
 
-Here's what you will get in 1 minute:
+## Why MDX & MDX-LD?
 
-<Bleed>![Nextra Example](/demo.png)</Bleed>
+MDX brings together structured data, unstructured content, executable code, and UI components. [MDX.org.AI](https://mdx.org.ai) extends this foundation with AI-native types, while [MDXLD.org](https://mdxld.org) provides the linked data infrastructure.

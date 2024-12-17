@@ -1,0 +1,39 @@
+# Getting Started with AI Agents
+
+## Installation
+
+```bash
+npm install ai-agents
+# or
+pnpm add ai-agents
+# or
+yarn add ai-agents
+```
+
+## Quick Start
+
+```typescript
+import { createAgent } from 'ai-agents'
+
+// Create an agent with MDX-based definition
+const agent = createAgent({
+  name: 'support-agent',
+  description: 'Handles customer support inquiries',
+  tools: ['search', 'respond', 'escalate']
+})
+
+// Handle incoming messages
+agent.on('message', async (message) => {
+  const response = await agent.process(message)
+  return response
+})
+
+// Visualize agent state
+const AgentUI = agent.getVisualization()
+```
+
+## Next Steps
+
+- Learn about [MDX-based definitions](/agents/api-reference#mdx-definitions)
+- Explore [tool integration](/agents/api-reference#tools)
+- See [visualization examples](/agents/examples#visualization)

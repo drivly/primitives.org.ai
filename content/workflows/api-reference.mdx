@@ -1,0 +1,52 @@
+# API Reference
+
+## Core Concepts
+
+### Workflow
+The main entry point for creating AI workflows.
+
+```typescript
+function Workflow(config?: WorkflowConfig): WorkflowInstance
+
+interface WorkflowConfig {
+  name?: string
+  description?: string
+}
+```
+
+### Events
+Handle and emit events within workflows.
+
+```typescript
+interface WorkflowInstance {
+  on(event: string, handler: (data: any) => void): void
+  send(event: string, data: any): void
+}
+```
+
+### Scheduling
+Schedule tasks with natural language expressions.
+
+```typescript
+interface WorkflowInstance {
+  every(schedule: string, task: (context: any) => void): void
+  at(time: string, task: (context: any) => void): void
+}
+```
+
+## Integration
+Built-in integration with other AI primitives.
+
+```typescript
+// Database integration
+workflow.on('document.created', async (doc) => {
+  const db = createDatabase({ namespace: 'workflow-docs' })
+  await db.collection('documents').store(doc)
+})
+
+// Functions integration
+workflow.on('analyze.text', async (text) => {
+  const sentiment = await ai`analyze sentiment of ${text}`
+  workflow.send('sentiment.analyzed', sentiment)
+})
+```

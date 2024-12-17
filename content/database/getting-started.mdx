@@ -1,0 +1,42 @@
+# Getting Started with AI Database
+
+## Installation
+
+```bash
+npm install ai-database
+# or
+pnpm add ai-database
+# or
+yarn add ai-database
+```
+
+## Quick Start
+
+```typescript
+import { createDatabase } from 'ai-database'
+
+// Initialize database with vector search capabilities
+const db = createDatabase({
+  namespace: 'my-app',
+  vectorSearch: true
+})
+
+// Store documents with embeddings
+await db.collection('documents').store({
+  content: 'Example document',
+  embeddings: [0.1, 0.2, 0.3]
+})
+
+// Perform hybrid search
+const results = await db.collection('documents').search({
+  query: 'example',
+  vector: [0.1, 0.2, 0.3],
+  threshold: 0.8
+})
+```
+
+## Next Steps
+
+- Learn about [hybrid vector search](/database/api-reference#vector-search)
+- Explore [synthetic data generation](/database/api-reference#synthetic-data)
+- Understand [RAG integration](/database/examples#rag-examples)
