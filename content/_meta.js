@@ -1,3 +1,7 @@
 export default {
-  index: '',
+  index: 'Introduction',
+  database: 'Database',
+  functions: 'Functions',
+  workflows: 'Workflows',
+  agents: 'Agents'
 }

@@ -1,0 +1,87 @@
+# Examples
+
+## Basic Agent
+
+### Customer Support Agent
+
+```mdx
+---
+name: SupportAgent
+description: Handles customer support inquiries
+tools:
+  - search
+  - respond
+  - escalate
+---
+
+# Support Agent
+
+The agent follows this workflow:
+1. Search knowledge base for relevant information
+2. Generate helpful response
+3. Escalate to human support if needed
+
+```typescript
+const agent = createAgent({
+  name: 'support',
+  mdxPath: './support-agent.mdx'
+})
+
+agent.on('message', async (message) => {
+  const knowledge = await agent.tools.search(message)
+  const response = await agent.tools.respond({ message, knowledge })
+  return response
+})
+```
+
+## Visualization
+
+### Agent State Component
+
+```typescript
+import { createAgent } from 'ai-agents'
+
+const agent = createAgent({
+  name: 'support-agent',
+  visualization: {
+    states: ['idle', 'searching', 'responding', 'escalated'],
+    transitions: {
+      idle: ['searching'],
+      searching: ['responding', 'escalated'],
+      responding: ['idle'],
+      escalated: ['idle']
+    }
+  }
+})
+
+// In your React component
+const AgentUI = agent.getVisualization()
+
+function Dashboard() {
+  return (
+    <div>
+      <h1>Support Agent Dashboard</h1>
+      <AgentUI />
+    </div>
+  )
+}
+```
+
+## Integration Examples
+
+### Using with AI Functions
+
+```typescript
+import { ai } from 'ai-functions'
+import { createAgent } from 'ai-agents'
+
+const agent = createAgent({
+  name: 'content-agent',
+  tools: ['write', 'edit', 'publish']
+})
+
+agent.on('write', async (topic) => {
+  const content = await ai`write a blog post about ${topic}`
+  return content
+})
+```

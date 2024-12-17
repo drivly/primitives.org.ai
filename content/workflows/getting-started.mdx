@@ -1,0 +1,41 @@
+# Getting Started with AI Workflows
+
+## Installation
+
+```bash
+npm install ai-workflows
+# or
+pnpm add ai-workflows
+# or
+yarn add ai-workflows
+```
+
+## Quick Start
+
+```javascript
+import { ai, Workflow } from 'ai-workflows'
+
+const workflow = Workflow()
+
+// Event-driven workflow example
+workflow.on('ticket.created', (ticket) => {
+  const summary = ai.summarize(ticket)
+  workflow.send('ticket.summarized', summary)
+})
+
+// Chain multiple steps
+workflow.on('ticket.summarized', (summary) =>
+  ai.sentiment(summary).then('update.ticket')
+)
+
+// Scheduled tasks
+workflow.every('30 minutes during business hours', (context) =>
+  ai.reviewKPIs(context).then('slack.post')
+)
+```
+
+## Next Steps
+
+- Learn about [event handling](/workflows/api-reference#events)
+- Explore [scheduled tasks](/workflows/api-reference#scheduling)
+- See [integration examples](/workflows/examples#integrations)

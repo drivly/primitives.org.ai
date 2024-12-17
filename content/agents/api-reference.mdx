@@ -1,0 +1,62 @@
+# API Reference
+
+## Core Concepts
+
+### Agent Definition
+Define agents using MDX with structured frontmatter.
+
+```mdx
+---
+name: SupportAgent
+description: Handles customer support inquiries
+tools:
+  - name: search
+    description: Search knowledge base
+  - name: respond
+    description: Send response to customer
+  - name: escalate
+    description: Escalate to human support
+---
+
+# Support Agent Logic
+
+The agent handles customer inquiries by:
+1. Searching knowledge base
+2. Generating responses
+3. Escalating complex issues
+```
+
+### Agent Instance
+Runtime instance of an MDX-defined agent.
+
+```typescript
+interface AgentConfig {
+  name: string
+  description: string
+  tools: string[]
+}
+
+function createAgent(config: AgentConfig): Agent
+
+interface Agent {
+  on(event: string, handler: Function): void
+  process(input: any): Promise<any>
+  getVisualization(): React.Component
+}
+```
+
+### Tool Integration
+Integrate with other AI primitives.
+
+```typescript
+import { tools } from 'ai-database'
+import { createAgent } from 'ai-agents'
+
+const agent = createAgent({
+  tools: [
+    tools.vectorSearch({
+      collection: 'knowledge-base'
+    })
+  ]
+})
+```

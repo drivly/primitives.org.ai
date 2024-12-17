@@ -1,0 +1,59 @@
+# Examples
+
+## Basic Usage
+
+### Document Storage
+```typescript
+const db = createDatabase({ namespace: 'my-app' })
+
+await db.collection('articles').store({
+  title: 'Getting Started with Vector Search',
+  content: 'Vector search enables semantic similarity...',
+  embeddings: [0.1, 0.2, 0.3]
+})
+```
+
+## RAG Examples
+
+### Simple RAG Implementation
+```typescript
+import { createDatabase } from 'ai-database'
+
+// Initialize database
+const db = createDatabase({
+  namespace: 'rag-example',
+  vectorSearch: true
+})
+
+// Store context documents
+await db.collection('context').store({
+  content: 'AI database documentation...',
+  embeddings: await getEmbeddings('AI database documentation...')
+})
+
+// Retrieve relevant context
+const context = await db.collection('context').search({
+  query: 'How do I implement vector search?',
+  threshold: 0.8
+})
+
+// Use context in AI completion
+const completion = await ai.complete({
+  prompt: `Context: ${context}\n\nQuestion: How do I implement vector search?`
+})
+```
+
+## Tool Integration Examples
+
+### Using with AI Functions
+```typescript
+import { tools } from 'ai-database'
+import { ai } from 'ai-functions'
+
+const searchTool = tools.vectorSearch({
+  collection: 'documents',
+  namespace: 'my-app'
+})
+
+const result = await ai.use(searchTool)`find documents about vector search`
+```

@@ -1,0 +1,55 @@
+# API Reference
+
+## Core Concepts
+
+### Template Literals
+Natural language prompts using template literals.
+
+```typescript
+import { ai, list } from 'ai-functions'
+
+// Basic usage
+const result = await ai`write a story about ${topic}`
+
+// List generation
+const items = await list`generate 5 ${category} items`
+```
+
+### Structured Output
+Generate typed objects using Zod schemas.
+
+```typescript
+import { generateObject } from 'ai'
+import { z } from 'zod'
+
+const { object } = await generateObject({
+  model: 'gpt-4-turbo',
+  schema: z.object({
+    recipe: z.object({
+      name: z.string(),
+      ingredients: z.array(z.object({
+        name: z.string(),
+        amount: z.string()
+      })),
+      steps: z.array(z.string()),
+    }),
+  }),
+  prompt: 'Generate a lasagna recipe.',
+})
+```
+
+### Streaming
+Stream responses for real-time updates.
+
+```typescript
+import { streamObject, streamText } from 'ai'
+
+const { textStream } = streamText({
+  model: 'gpt-4-turbo',
+  prompt: 'Write a story about...',
+})
+
+for await (const part of textStream) {
+  process.stdout.write(part)
+}
+```

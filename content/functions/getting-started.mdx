@@ -1,0 +1,47 @@
+# Getting Started with AI Functions
+
+## Installation
+
+```bash
+npm install ai-functions
+# or
+pnpm add ai-functions
+# or
+yarn add ai-functions
+```
+
+## Quick Start
+
+### Basic Template Literals
+
+```typescript
+import { ai, list } from 'ai-functions'
+
+// Basic list generation
+const things = await list`fun things to do in Miami`
+console.log(things)
+
+// Using async iterator
+for await (const thing of list`fun things to do in Miami`) {
+  console.log(thing)
+}
+```
+
+### Product Categorization
+
+```typescript
+const categorizeProduct = ai.categorizeProduct({
+  productType: 'App | API | Marketplace | Platform | Packaged Service | Professional Service | Website',
+  customer: 'ideal customer profile in 3-5 words',
+  solution: 'describe the offer in 4-10 words',
+  description: 'website meta description',
+})
+
+const product = await categorizeProduct({ domain: name })
+```
+
+## Next Steps
+
+- Learn about [structured output generation](/functions/api-reference#structured-output)
+- Explore [streaming responses](/functions/api-reference#streaming)
+- See [complex workflow examples](/functions/examples#complex-workflows)

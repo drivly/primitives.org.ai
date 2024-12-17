@@ -1,0 +1,48 @@
+# API Reference
+
+## Core Concepts
+
+### Database
+The main entry point for interacting with the AI database.
+
+```typescript
+interface DatabaseConfig {
+  namespace: string
+  vectorSearch?: boolean
+}
+
+function createDatabase(config: DatabaseConfig): Database
+```
+
+### Collections
+Logical groupings of related documents.
+
+```typescript
+interface Collection {
+  store(document: Document): Promise<void>
+  search(query: SearchQuery): Promise<SearchResult[]>
+}
+```
+
+### Vector Search
+Built-in support for hybrid vector search operations.
+
+```typescript
+interface SearchQuery {
+  query?: string
+  vector?: number[]
+  threshold?: number
+}
+```
+
+## Tool Integration
+AI-compatible tools that work with any LLM supporting function calling.
+
+```typescript
+import { tools } from 'ai-database'
+
+const searchTool = tools.vectorSearch({
+  collection: 'documents',
+  namespace: 'my-app'
+})
+```
