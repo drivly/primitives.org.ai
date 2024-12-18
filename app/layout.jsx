@@ -7,22 +7,22 @@ import 'nextra-theme-docs/style.css'
 export const { viewport } = Head
 
 export const metadata = {
-  metadataBase: new URL('https://nextra.site'),
+  metadataBase: new URL('https://primitives.org.ai'),
   title: {
-    template: '%s - Nextra',
+    template: '%s - AI Primitives',
   },
-  description: 'Nextra: the Next.js site builder',
-  applicationName: 'Nextra',
+  description: 'AI Primitives: Build AI-native applications with type-safe primitives',
+  applicationName: 'AI Primitives',
   generator: 'Next.js',
   appleWebApp: {
-    title: 'Nextra',
+    title: 'AI Primitives',
   },
   other: {
     'msapplication-TileImage': '/ms-icon-144x144.png',
     'msapplication-TileColor': '#fff',
   },
   twitter: {
-    site: 'https://nextra.site',
+    site: 'https://primitives.org.ai',
   },
 }
 
@@ -31,7 +31,7 @@ export default async function RootLayout({ children }) {
     <Navbar
       logo={
         <div>
-          <b>Nextra</b> <span style={{ opacity: '60%' }}>The Next Docs Builder</span>
+          AI <b>Primitives</b>
         </div>
       }
       // Next.js discord server
@@ -43,7 +43,6 @@ export default async function RootLayout({ children }) {
       <Head faviconGlyph='✦' />
       <body>
         <Layout
-          banner={<Banner storageKey='Nextra 2'>Nextra 2 Alpha</Banner>}
           navbar={navbar}
           footer={<Footer />}
           editLink='Edit this page on GitHub'
