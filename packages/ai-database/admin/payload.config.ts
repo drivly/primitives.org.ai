@@ -1,5 +1,6 @@
 import path from 'path'
 import { buildConfig } from 'payload/config'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
 // import { Nouns, Verbs, Resources, Relationships } from 'ai-database'
 
 export default buildConfig({
@@ -7,11 +8,10 @@ export default buildConfig({
   admin: {
     user: 'users',
   },
+  db: mongooseAdapter({
+    url: process.env.DATABASE_URI || 'mongodb://localhost/payload-admin',
+  }),
   collections: [
-    // Nouns,
-    // Verbs,
-    // Resources,
-    // Relationships,
     {
       slug: 'users',
       auth: true,
