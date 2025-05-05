@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx}\""
   },
   "dependencies": {
     "next": "15.3.1",
