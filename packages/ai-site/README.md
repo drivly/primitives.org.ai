@@ -1,7 +1,7 @@
 # ai-site
 
 [![npm version](https://img.shields.io/npm/v/ai-site.svg)](https://www.npmjs.com/package/ai-site)
-[![License](https://img.shields.io/npm/l/ai-site.svg)](https://github.com/drivly/primitives.org.ai/blob/main/pkgs/ai-site/LICENSE)
+[![License](https://img.shields.io/npm/l/ai-site.svg)](https://github.com/drivly/primitives.org.ai/blob/main/packages/ai-site/LICENSE)
 
 Zero-config solution for creating AI-powered Next.js websites using `ai-functions` and `ai-props`.
 
