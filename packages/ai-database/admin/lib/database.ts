@@ -25,23 +25,33 @@ export const detectDatabaseType = (uri?: string): DatabaseType => {
 }
 
 let memoryServer: MongoMemoryServer | null = null
+let memoryServerUri: string | null = null
+
+/**
+ * Initializes the in-memory MongoDB server
+ * @returns The URI of the in-memory MongoDB server
+ */
+export const initMemoryServer = async (): Promise<string> => {
+  if (!memoryServer) {
+    memoryServer = await MongoMemoryServer.create()
+    memoryServerUri = memoryServer.getUri()
+    console.log(`Using in-memory MongoDB server at ${memoryServerUri}`)
+  }
+  
+  return memoryServerUri as string
+}
 
 /**
  * Gets a MongoDB adapter using an in-memory MongoDB server
  * @returns MongoDB adapter configured with the memory server
  */
-export const getMemoryAdapter = async () => {
-  if (!memoryServer) {
-    memoryServer = await MongoMemoryServer.create()
-    const uri = memoryServer.getUri()
-    console.log(`Using in-memory MongoDB server at ${uri}`)
-    return mongooseAdapter({
-      url: uri,
-    })
+export const getMemoryAdapter = () => {
+  if (!memoryServerUri) {
+    throw new Error('Memory server not initialized. Call initMemoryServer first.')
   }
   
   return mongooseAdapter({
-    url: memoryServer.getUri(),
+    url: memoryServerUri,
   })
 }
 
@@ -50,11 +60,14 @@ export const getMemoryAdapter = async () => {
  * @param uri - Database connection URI
  * @returns Database adapter for Payload CMS
  */
-export const getDatabaseAdapter = async (uri?: string) => {
+export const getDatabaseAdapter = (uri?: string) => {
   const type = detectDatabaseType(uri)
   
   if (type === 'memory') {
-    return await getMemoryAdapter()
+    if (!memoryServerUri) {
+      throw new Error('Memory server not initialized. Call initMemoryServer first.')
+    }
+    return getMemoryAdapter()
   }
   
   if (type === 'postgres') {
@@ -75,5 +88,6 @@ export const stopMemoryServer = async () => {
   if (memoryServer) {
     await memoryServer.stop()
     memoryServer = null
+    memoryServerUri = null
   }
 }
