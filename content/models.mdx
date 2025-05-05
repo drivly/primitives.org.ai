@@ -1,13 +1,15 @@
 import { compileMdx } from 'nextra/compile'
 import { MDXRemote } from 'nextra/mdx-remote'
+import { Mermaid } from 'nextra-theme-docs'
 import fs from 'fs'
 
 <README/>
 
 export async function README() {
-  const readmeContent = fs.readFileSync('packages/ai-workflows/README.md', 'utf8')
+  const readmeContent = fs.readFileSync('packages/language-models/README.md', 'utf8')
   const rawJs = await compileMdx(`
   ${readmeContent}
   `)
-  return <MDXRemote compiledSource={rawJs} components={{}} />
+  return <MDXRemote compiledSource={rawJs} components={{ Mermaid }} />
 }
+
