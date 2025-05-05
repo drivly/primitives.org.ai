@@ -1,0 +1,54 @@
+{
+  "name": "ai-functions",
+  "version": "0.1.0",
+  "description": "Minimalist implementation of AI functions using ai-providers",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --format=cjs --external:ai-providers && esbuild src/index.ts --bundle --platform=node --outfile=dist/index.mjs --format=esm --external:ai-providers && tsc --declaration --emitDeclarationOnly --outDir dist",
+    "dev": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --format=cjs --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "ai",
+    "functions",
+    "openai"
+  ],
+  "author": "Drivly",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drivly/primitives.org.ai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/drivly/primitives.org.ai/issues"
+  },
+  "homepage": "https://mdx.org.ai",
+  "dependencies": {
+    "ai-providers": "^0.2.0",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "esbuild": "^0.25.2",
+    "eslint": "^9.17.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  }
+}
