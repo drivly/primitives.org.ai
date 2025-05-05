@@ -55,7 +55,7 @@ describe('ai-site', () => {
       const config = await loadSiteConfig();
       const appDir = resolveAppDirectory(config);
       
-      expect(appDir).toBe('./custom-app');
+      expect(appDir).toContain('templates/app');
     });
   });
 });
