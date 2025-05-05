@@ -2,6 +2,7 @@
   "name": "primitives.org.ai",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.8.1",
   "scripts": {
     "dev": "turbo dev",
     "build": "next build",
