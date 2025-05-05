@@ -5,7 +5,6 @@ import { createGoogleGenerativeAI } from '@ai-sdk/google'
 import { createAnthropic } from '@ai-sdk/anthropic'
 import { getModel, getModels, Model } from 'language-models'
 
-
 // Not in use for the inital release.
 const providerRegistry: Record<string, any> = {
   openrouter: createOpenAI({
@@ -13,8 +12,8 @@ const providerRegistry: Record<string, any> = {
     apiKey: process.env.OPENROUTER_API_KEY || process.env.AI_GATEWAY_TOKEN,
     headers: {
       'HTTP-Referer': 'http://workflows.do',
-      'X-Title': 'Workflows.do'
-    }
+      'X-Title': 'Workflows.do',
+    },
   }),
   google: createGoogleGenerativeAI({
     apiKey: process.env.GOOGLE_API_KEY,
@@ -109,7 +108,7 @@ class LLMProvider implements LanguageModelV1 {
   constructor(
     public modelId: string,
     public options: ProviderOptions,
-    private config?: Record<string, any>,
+    private config?: Record<string, any>
   ) {
     this.modelId = modelId
     this.options = options ?? {}
@@ -123,7 +122,9 @@ class LLMProvider implements LanguageModelV1 {
     this.apiKey = this.config?.apiKey
 
     if (!this.apiKey) {
-      throw new Error(`AI Provider found no API key. Please either provide an apiKey in the createLLMProvider config, or set the OPENROUTER_API_KEY environment variable.`)
+      throw new Error(
+        `AI Provider found no API key. Please either provide an apiKey in the createLLMProvider config, or set the OPENROUTER_API_KEY environment variable.`
+      )
     }
   }
 
@@ -187,7 +188,7 @@ class LLMProvider implements LanguageModelV1 {
     const provider = createOpenAI({
       baseURL: this.config?.baseURL || 'https://gateway.ai.cloudflare.com/v1/b6641681fe423910342b9ffa1364c76d/ai-functions/openrouter',
       apiKey: this.apiKey,
-      headers: this.config?.headers
+      headers: this.config?.headers,
     })
 
     return await provider(modelSlug, modelConfigMixin).doGenerate(options)

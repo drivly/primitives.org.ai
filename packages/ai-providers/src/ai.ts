@@ -12,11 +12,7 @@ import {
 import { model } from './provider'
 import { VercelAIToolSet, Composio } from 'composio-core'
 import TurndownService from 'turndown'
-import {
-  fetchWebsiteContents,
-  worker,
-  testTool
-} from './tools'
+import { fetchWebsiteContents, worker, testTool } from './tools'
 
 // Google specific fixes
 import { convertJSONSchemaToOpenAPISchema } from './providers/google'
@@ -26,7 +22,8 @@ const camelCaseToScreamingSnakeCase = (str: string) => {
   // When we see a capital letter, we need to prefix it with an underscore and make the whole string uppercase.
   return str
     .replaceAll('.', '_')
-    .replace(/([A-Z])/g, '_$1').toUpperCase()
+    .replace(/([A-Z])/g, '_$1')
+    .toUpperCase()
 }
 
 type GenerateTextOptions = Omit<Parameters<typeof aiGenerateText>[0], 'model'> & {
@@ -47,7 +44,7 @@ type StreamObjectOptions = Omit<Parameters<typeof aiStreamObject>[0], 'model'> &
   openrouterApiKey?: string
 }
 
-// Generates a config object from 
+// Generates a config object from
 export async function resolveConfig(options: GenerateTextOptions) {
   // If options.model is a string, use our llm provider.
   if (typeof options.model === 'string') {
@@ -59,7 +56,7 @@ export async function resolveConfig(options: GenerateTextOptions) {
 
   // @ts-expect-error - We know this property exists, but TS doesnt
   const parsedModel = options.model?.resolvedModel
-  
+
   if (parsedModel.parsed?.tools && Object.keys(parsedModel.parsed.tools).length > 0) {
     if (!options.user) {
       throw new Error('user is required when using tools')
@@ -69,21 +66,19 @@ export async function resolveConfig(options: GenerateTextOptions) {
 
     const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY })
     const connections = await composio.connectedAccounts.list({
-      user_uuid: options.user
+      user_uuid: options.user,
     })
 
     const composioToolset = new VercelAIToolSet({
       apiKey: process.env.COMPOSIO_API_KEY,
-      connectedAccountIds: connections.items
-        .map(connection => [connection.appName, connection.id])
-        .reduce((acc, [app, id]) => ({ ...acc, [app]: id }), {})
+      connectedAccountIds: connections.items.map((connection) => [connection.appName, connection.id]).reduce((acc, [app, id]) => ({ ...acc, [app]: id }), {}),
     })
 
-    const apps = toolNames.map(name => name.split('.')[0])
+    const apps = toolNames.map((name) => name.split('.')[0])
 
     const tools = await composioToolset.getTools({
       apps,
-      actions: toolNames.map(name => camelCaseToScreamingSnakeCase(name)),
+      actions: toolNames.map((name) => camelCaseToScreamingSnakeCase(name)),
     })
 
     options.tools = options.tools ?? {}
@@ -112,17 +107,14 @@ export async function resolveConfig(options: GenerateTextOptions) {
             jsonSchema: {
               ...tool.parameters.jsonSchema,
               additionalProperties: false,
-              strict: true
+              strict: true,
             },
           },
           execute: async (args: any) => {
-            console.log(
-              `[TOOL:${name}]`,
-              args
-            )
+            console.log(`[TOOL:${name}]`, args)
             // @ts-expect-error - TS doesnt like us calling this function even though it exists.
             return tool.execute(args)
-          }
+          },
         }
       }
     } else {
@@ -130,20 +122,16 @@ export async function resolveConfig(options: GenerateTextOptions) {
         options.tools[name] = {
           ...tool,
           execute: async (args: any) => {
-            console.log(
-              `[TOOL:${name}]`,
-              args
-            )
+            console.log(`[TOOL:${name}]`, args)
             // @ts-expect-error - TS doesnt like us calling this function even though it exists.
             return tool.execute(args)
-          }
+          },
         }
       }
     }
 
     // Apply model author specific fixes
     if (parsedModel.author == 'google') {
-
       // For each tool, we need to replace the jsonSchema with a google compatible one.
       for (const toolName in options.tools) {
         options.tools[toolName].parameters.jsonSchema = convertJSONSchemaToOpenAPISchema(options.tools[toolName].parameters.jsonSchema)
@@ -151,13 +139,9 @@ export async function resolveConfig(options: GenerateTextOptions) {
     }
 
     if (parsedModel.author == 'openai') {
-
       // For each tool, we need to replace the jsonSchema with a google compatible one.
       for (const toolName in options.tools) {
-
-        console.log(
-          options.tools[toolName].parameters.jsonSchema
-        )
+        console.log(options.tools[toolName].parameters.jsonSchema)
 
         options.tools[toolName].parameters.jsonSchema = alterSchemaForOpenAI(options.tools[toolName].parameters.jsonSchema)
       }
@@ -167,12 +151,7 @@ export async function resolveConfig(options: GenerateTextOptions) {
     if (isLLMProvider) {
       if (options.model.provider === 'openrouter') {
         // Remove any "illegal" openai keys
-        const illegalKeys = [
-          'default',
-          'minimum',
-          'maximum',
-          'examples'
-        ]
+        const illegalKeys = ['default', 'minimum', 'maximum', 'examples']
 
         const recursiveUpdate = (obj: any) => {
           if (Array.isArray(obj)) {
