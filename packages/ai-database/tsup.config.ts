@@ -8,7 +8,7 @@ export default {
     resolve: true,
   },
   clean: true,
-  outExtension: ({ format }) => ({
+  outExtension: ({ format }: { format: string }) => ({
     js: format === 'cjs' ? '.js' : '.mjs',
   }),
   tsconfig: './tsconfig.json',
