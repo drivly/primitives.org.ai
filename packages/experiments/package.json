@@ -29,13 +29,12 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx}'"
   },
-  "dependencies": {
-    "vitest": "^1.1.0"
-  },
   "devDependencies": {
+    "@types/node": "^22.15.6",
+    "prettier": "^3.4.2",
     "tsup": "^8.0.1",
     "typescript": "^5.2.2",
-    "prettier": "^3.4.2"
+    "vitest": "^1.6.1"
   },
   "repository": {
     "type": "git",
