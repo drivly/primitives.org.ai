@@ -3,6 +3,7 @@
 ## Core Concepts
 
 ### Database
+
 The main entry point for interacting with the AI database.
 
 ```typescript
@@ -15,6 +16,7 @@ function createDatabase(config: DatabaseConfig): Database
 ```
 
 ### Collections
+
 Logical groupings of related documents.
 
 ```typescript
@@ -25,6 +27,7 @@ interface Collection {
 ```
 
 ### Vector Search
+
 Built-in support for hybrid vector search operations.
 
 ```typescript
@@ -36,6 +39,7 @@ interface SearchQuery {
 ```
 
 ## Tool Integration
+
 AI-compatible tools that work with any LLM supporting function calling.
 
 ```typescript
@@ -43,6 +47,6 @@ import { tools } from 'ai-database'
 
 const searchTool = tools.vectorSearch({
   collection: 'documents',
-  namespace: 'my-app'
+  namespace: 'my-app',
 })
 ```

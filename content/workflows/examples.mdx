@@ -9,7 +9,7 @@ import { ai, Workflow } from 'ai-workflows'
 
 const workflow = Workflow({
   name: 'ticket-processor',
-  description: 'Automated support ticket processing'
+  description: 'Automated support ticket processing',
 })
 
 workflow.on('ticket.created', async (ticket) => {
@@ -62,7 +62,7 @@ workflow.on('document.created', async (doc) => {
   // Store document with vector embedding
   await db.collection('documents').store({
     content: doc.content,
-    embeddings: await ai.embed(doc.content)
+    embeddings: await ai.embed(doc.content),
   })
 
   workflow.send('document.indexed', doc.id)

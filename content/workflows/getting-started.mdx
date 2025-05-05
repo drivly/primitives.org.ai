@@ -24,14 +24,10 @@ workflow.on('ticket.created', (ticket) => {
 })
 
 // Chain multiple steps
-workflow.on('ticket.summarized', (summary) =>
-  ai.sentiment(summary).then('update.ticket')
-)
+workflow.on('ticket.summarized', (summary) => ai.sentiment(summary).then('update.ticket'))
 
 // Scheduled tasks
-workflow.every('30 minutes during business hours', (context) =>
-  ai.reviewKPIs(context).then('slack.post')
-)
+workflow.every('30 minutes during business hours', (context) => ai.reviewKPIs(context).then('slack.post'))
 ```
 
 ## Next Steps

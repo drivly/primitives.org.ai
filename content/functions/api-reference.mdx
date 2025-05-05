@@ -3,6 +3,7 @@
 ## Core Concepts
 
 ### Template Literals
+
 Natural language prompts using template literals.
 
 ```typescript
@@ -16,6 +17,7 @@ const items = await list`generate 5 ${category} items`
 ```
 
 ### Structured Output
+
 Generate typed objects using Zod schemas.
 
 ```typescript
@@ -27,10 +29,12 @@ const { object } = await generateObject({
   schema: z.object({
     recipe: z.object({
       name: z.string(),
-      ingredients: z.array(z.object({
-        name: z.string(),
-        amount: z.string()
-      })),
+      ingredients: z.array(
+        z.object({
+          name: z.string(),
+          amount: z.string(),
+        }),
+      ),
       steps: z.array(z.string()),
     }),
   }),
@@ -39,6 +43,7 @@ const { object } = await generateObject({
 ```
 
 ### Streaming
+
 Stream responses for real-time updates.
 
 ```typescript

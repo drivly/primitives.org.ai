@@ -18,20 +18,20 @@ import { createDatabase } from 'ai-database'
 // Initialize database with vector search capabilities
 const db = createDatabase({
   namespace: 'my-app',
-  vectorSearch: true
+  vectorSearch: true,
 })
 
 // Store documents with embeddings
 await db.collection('documents').store({
   content: 'Example document',
-  embeddings: [0.1, 0.2, 0.3]
+  embeddings: [0.1, 0.2, 0.3],
 })
 
 // Perform hybrid search
 const results = await db.collection('documents').search({
   query: 'example',
   vector: [0.1, 0.2, 0.3],
-  threshold: 0.8
+  threshold: 0.8,
 })
 ```
 

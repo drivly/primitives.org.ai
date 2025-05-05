@@ -3,6 +3,7 @@
 ## Core Concepts
 
 ### Agent Definition
+
 Define agents using MDX with structured frontmatter.
 
 ```mdx
@@ -21,12 +22,14 @@ tools:
 # Support Agent Logic
 
 The agent handles customer inquiries by:
+
 1. Searching knowledge base
 2. Generating responses
 3. Escalating complex issues
 ```
 
 ### Agent Instance
+
 Runtime instance of an MDX-defined agent.
 
 ```typescript
@@ -46,6 +49,7 @@ interface Agent {
 ```
 
 ### Tool Integration
+
 Integrate with other AI primitives.
 
 ```typescript
@@ -55,8 +59,8 @@ import { createAgent } from 'ai-agents'
 const agent = createAgent({
   tools: [
     tools.vectorSearch({
-      collection: 'knowledge-base'
-    })
-  ]
+      collection: 'knowledge-base',
+    }),
+  ],
 })
 ```
