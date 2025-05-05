@@ -113,7 +113,11 @@ export const createPayloadDB = (payload: any): PayloadDB => {
 export const initializePayloadDB = async (config: any): Promise<PayloadDB> => {
   try {
     const { getPayload } = await import('payload')
-    const payload = await getPayload({ config })
+    const payload = await getPayload({
+      config,
+      secret: process.env.PAYLOAD_SECRET || 'default-secret-key',
+      local: true,
+    })
     return createPayloadDB(payload)
   } catch (error) {
     console.error('Error initializing payload DB:', error)

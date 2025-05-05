@@ -26,11 +26,11 @@ pnpm add ai-database
 
 ### Quick Start
 
-The simplest way to use this package is to export everything in your Next.js API route file:
+The simplest way to use this package is to export the API route handlers in your Next.js API route file:
 
 ```typescript
 // app/api/[[...path]]/route.ts
-export * from 'ai-database'
+export * from 'ai-database/api'
 ```
 
 This single line gives you working API endpoints for all your collections with full CRUD support.
