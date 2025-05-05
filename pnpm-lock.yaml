@@ -222,7 +222,7 @@ importers:
         specifier: ^1.0.0
         version: 1.6.1(@types/node@18.19.87)(lightningcss@1.29.2)(sass@1.69.4)(terser@5.39.0)
 
-  pkgs/ai-site:
+  packages/ai-site:
     dependencies:
       ai-functions:
         specifier: ^0.3.0
