@@ -1,0 +1,86 @@
+name: Update Language Models
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Run every hour
+  workflow_dispatch:     # Allow manual triggering
+
+jobs:
+  update-models:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+      
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+      
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Build language-models package
+        run: pnpm --filter language-models build
+      
+      - name: Fetch latest language models
+        run: pnpm --filter language-models generate:models
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if [[ -n "$(git status --porcelain packages/language-models/src/models.ts)" ]]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected in language models"
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected in language models"
+          fi
+      
+      - name: Configure Git
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions"
+      
+      - name: Commit changes
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git add packages/language-models/src/models.ts
+          git commit -m "chore: update language models [skip ci]"
+      
+      - name: Install release-it
+        if: steps.check_changes.outputs.changes == 'true'
+        run: pnpm add -D release-it @release-it/conventional-changelog --filter language-models
+      
+      - name: Release new version
+        if: steps.check_changes.outputs.changes == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd packages/language-models
+          pnpm release -- patch --ci

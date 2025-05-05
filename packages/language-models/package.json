@@ -11,19 +11,22 @@
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"**/*.{ts,json}\"",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "release": "release-it"
   },
   "dependencies": {
     "camelcase-keys": "^8.0.0",
     "json5": "^2.2.3"
   },
   "devDependencies": {
+    "@release-it/conventional-changelog": "^10.0.1",
     "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.0.0",
     "node-fetch": "^3.3.0",
     "prettier": "^3.0.0",
+    "release-it": "^19.0.2",
     "typescript": "^5.0.0",
     "vitest": "^1.0.0"
   },
