@@ -83,69 +83,78 @@ export const list = new Proxy(function () {}, {
       const [template, ...expressions] = args
       const prompt = String.raw({ raw: template }, ...expressions)
 
-      const templateResult = async (config: any = {}) => {
-        if (config.iterator === true) {
-          let firstItemPromise: Promise<string> | null = null
-          let firstItemResolver: ((value: string) => void) | null = null
+      const createAsyncIterableProxy = () => {
+        let firstItemPromise: Promise<string> | null = null
+        let firstItemResolver: ((value: string) => void) | null = null
+        let iterator: AsyncGenerator<string, void, unknown> | null = null
 
-          const iterator = createListIterator(prompt, config)
-
-          firstItemPromise = new Promise<string>((resolve) => {
-            firstItemResolver = resolve
-          })
-
-          const wrappedIterator = async function* () {
-            let isFirst = true
-            for await (const item of iterator) {
-              if (isFirst && firstItemResolver) {
-                firstItemResolver(item)
-                isFirst = false
-              }
-              yield item
-            }
+        const getIterator = (config: AIFunctionOptions = {}) => {
+          if (!iterator) {
+            iterator = createListIterator(prompt, config)
           }
-
-          const result = Object.assign(async (opts?: AIFunctionOptions) => templateResult({ ...config, ...opts }), {
-            [Symbol.asyncIterator]: wrappedIterator,
-            then: firstItemPromise.then.bind(firstItemPromise),
-            catch: firstItemPromise.catch.bind(firstItemPromise),
-            finally: firstItemPromise.finally.bind(firstItemPromise),
-          })
-
-          return result
+          return iterator
         }
 
-        const modelName = config.model || defaultConfig.model
-        const model = getAIProvider(modelName)
-
-        const schema = z.array(z.string())
-
-        const systemPrompt = "Respond only with a numbered, markdown ordered list. Each item should be on a new line starting with a number followed by a period."
-        const mergedConfig = {
-          ...config,
-          system: config.system 
-            ? `${config.system}\n${systemPrompt}` 
-            : systemPrompt
-        }
-
-        const result = await generateObject({
-          model,
-          prompt,
-          schema,
-          output: 'array',
-          temperature: mergedConfig.temperature,
-          maxTokens: mergedConfig.maxTokens,
-          ...mergedConfig,
+        firstItemPromise = new Promise<string>((resolve) => {
+          firstItemResolver = resolve
         })
 
-        return result.object
+        const wrappedIterator = async function* (config: AIFunctionOptions = {}) {
+          let isFirst = true
+          for await (const item of getIterator(config)) {
+            if (isFirst && firstItemResolver) {
+              firstItemResolver(item)
+              isFirst = false
+            }
+            yield item
+          }
+        }
+
+        return new Proxy(async (config: AIFunctionOptions = {}) => {
+          const modelName = config.model || defaultConfig.model
+          const model = getAIProvider(modelName)
+
+          const schema = z.array(z.string())
+
+          const systemPrompt = "Respond only with a numbered, markdown ordered list. Each item should be on a new line starting with a number followed by a period."
+          const mergedConfig = {
+            ...config,
+            system: config.system 
+              ? `${config.system}\n${systemPrompt}` 
+              : systemPrompt
+          }
+
+          const result = await generateObject({
+            model,
+            prompt,
+            schema,
+            output: 'array',
+            temperature: mergedConfig.temperature,
+            maxTokens: mergedConfig.maxTokens,
+            ...mergedConfig,
+          })
+
+          return result.object
+        }, {
+          get: (target, prop) => {
+            if (prop === Symbol.asyncIterator) {
+              return () => wrappedIterator()
+            }
+            if (prop === 'then') {
+              return firstItemPromise?.then.bind(firstItemPromise)
+            }
+            if (prop === 'catch') {
+              return firstItemPromise?.catch.bind(firstItemPromise)
+            }
+            if (prop === 'finally') {
+              return firstItemPromise?.finally.bind(firstItemPromise)
+            }
+            return target[prop as keyof typeof target]
+          }
+        })
       }
 
-      if (args.length === 1) {
-        return templateResult()
-      }
-
-      return templateResult
+      return createAsyncIterableProxy()
     }
 
     throw new Error('list function must be used as a template literal tag')

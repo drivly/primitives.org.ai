@@ -39,8 +39,8 @@ const text = await ai`Write a short story about a robot`
 const items = await list`List 5 programming languages`
 
 // Generate a list with async iterator support
-const languages = await list`List 10 programming languages`({ iterator: true })
-for await (const language of languages) {
+// The list function automatically detects when it's used in a for-await-of loop
+for await (const language of list`List 10 programming languages`) {
   console.log(`Processing language: ${language}`)
 }
 ```
