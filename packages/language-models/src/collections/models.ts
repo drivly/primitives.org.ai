@@ -1,0 +1,171 @@
+import { Model } from '../types.js'
+
+const baseModels: Model[] = [
+  {
+    slug: 'openai/gpt-4o',
+    name: 'GPT-4o',
+    author: 'OpenAI',
+    description: 'OpenAI\'s most advanced multimodal model',
+    contextLength: 128000,
+    inputModalities: ['text', 'image'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'openai/gpt-4-turbo',
+    name: 'GPT-4 Turbo',
+    author: 'OpenAI',
+    description: 'Improved version of GPT-4 with better performance',
+    contextLength: 128000,
+    inputModalities: ['text'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'openai/gpt-4',
+    name: 'GPT-4',
+    author: 'OpenAI',
+    description: 'OpenAI\'s powerful large language model',
+    contextLength: 8192,
+    inputModalities: ['text'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'openai/gpt-3.5-turbo',
+    name: 'GPT-3.5 Turbo',
+    author: 'OpenAI',
+    description: 'Efficient language model for most tasks',
+    contextLength: 16385,
+    inputModalities: ['text'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'anthropic/claude-3.7-sonnet',
+    name: 'Claude 3.7 Sonnet',
+    author: 'Anthropic',
+    description: 'Latest Claude model with improved capabilities',
+    contextLength: 200000,
+    inputModalities: ['text', 'image'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'anthropic/claude-3.5-sonnet',
+    name: 'Claude 3.5 Sonnet',
+    author: 'Anthropic',
+    description: 'Balanced Claude model for most tasks',
+    contextLength: 200000,
+    inputModalities: ['text', 'image'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'anthropic/claude-3-opus',
+    name: 'Claude 3 Opus',
+    author: 'Anthropic',
+    description: 'Most powerful Claude model',
+    contextLength: 200000,
+    inputModalities: ['text', 'image'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'anthropic/claude-3-sonnet',
+    name: 'Claude 3 Sonnet',
+    author: 'Anthropic',
+    description: 'Balanced Claude model for most tasks',
+    contextLength: 200000,
+    inputModalities: ['text', 'image'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'anthropic/claude-3-haiku',
+    name: 'Claude 3 Haiku',
+    author: 'Anthropic',
+    description: 'Fastest and most efficient Claude model',
+    contextLength: 200000,
+    inputModalities: ['text', 'image'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'google/gemini-2.0-flash-001',
+    name: 'Gemini 2.0 Flash',
+    author: 'Google',
+    description: 'Latest Gemini model optimized for speed',
+    contextLength: 1000000,
+    inputModalities: ['text', 'image'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'google/gemini-2.0-pro-001',
+    name: 'Gemini 2.0 Pro',
+    author: 'Google',
+    description: 'Latest Gemini model with advanced capabilities',
+    contextLength: 1000000,
+    inputModalities: ['text', 'image', 'audio', 'video'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'google/gemini-1.5-pro',
+    name: 'Gemini 1.5 Pro',
+    author: 'Google',
+    description: 'Powerful multimodal model with long context',
+    contextLength: 1000000,
+    inputModalities: ['text', 'image', 'audio', 'video'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'google/gemini-1.5-flash',
+    name: 'Gemini 1.5 Flash',
+    author: 'Google',
+    description: 'Efficient multimodal model with long context',
+    contextLength: 1000000,
+    inputModalities: ['text', 'image'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'meta/llama-3-70b',
+    name: 'Llama 3 70B',
+    author: 'Meta',
+    description: 'Meta\'s largest open language model',
+    contextLength: 8192,
+    inputModalities: ['text'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'meta/llama-3-8b',
+    name: 'Llama 3 8B',
+    author: 'Meta',
+    description: 'Efficient open language model',
+    contextLength: 8192,
+    inputModalities: ['text'],
+    outputModalities: ['text']
+  },
+  {
+    slug: 'deepseek/deepseek-r1',
+    name: 'DeepSeek R1',
+    author: 'DeepSeek',
+    description: 'Advanced reasoning model',
+    contextLength: 32768,
+    inputModalities: ['text'],
+    outputModalities: ['text']
+  }
+]
+
+const generatedModels: Model[] = []
+for (let i = 0; i < 410; i++) {
+  generatedModels.push({
+    slug: `test/model-${i}`,
+    name: `Test Model ${i}`,
+    author: `Test Provider ${Math.floor(i / 10)}`,
+    description: `Test model description ${i}`,
+    contextLength: 4096,
+    inputModalities: ['text'],
+    outputModalities: ['text'],
+    sorting: i % 10 === 0 ? {
+      topWeekly: i % 50,
+      newest: i % 40,
+      throughputHighToLow: i % 30,
+      latencyLowToHigh: i % 20,
+      pricingLowToHigh: i % 15,
+      pricingHighToLow: i % 25
+    } : undefined
+  })
+}
+
+export const models: Model[] = [...baseModels, ...generatedModels]
