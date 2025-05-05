@@ -1,0 +1,56 @@
+{
+  "name": "experiments",
+  "version": "0.1.0",
+  "description": "A minimalistic experiment framework for AI tasks with automatic parameter handling",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src --ext .ts,.tsx",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": [
+    "ai",
+    "experiments",
+    "testing",
+    "vitest"
+  ],
+  "author": "Drivly",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drivly/primitives.org.ai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/drivly/primitives.org.ai/issues"
+  },
+  "homepage": "https://mdx.org.ai",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "peerDependencies": {
+    "vitest": "^1.0.0"
+  }
+}
