@@ -1,3 +1,3 @@
-# `ai-functions`
+# `ai-providers`
 
 this is a test
