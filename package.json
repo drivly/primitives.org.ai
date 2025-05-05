@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx}\""
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx}\"",
+    "test": "pnpm --recursive test"
   },
   "dependencies": {
     "@theguild/remark-mermaid": "^0.3.0",
