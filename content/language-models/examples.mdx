@@ -1,0 +1,32 @@
+# Examples
+
+## Basic Usage
+
+```typescript
+import { createModel } from 'language-models';
+
+const model = createModel({
+  provider: 'openai',
+  model: 'gpt-4',
+  apiKey: process.env.OPENAI_API_KEY
+});
+
+const response = await model.generate('Explain quantum computing');
+console.log(response);
+```
+
+## Streaming
+
+```typescript
+import { createModel } from 'language-models';
+
+const model = createModel({
+  provider: 'anthropic',
+  model: 'claude-3-opus',
+  apiKey: process.env.ANTHROPIC_API_KEY
+});
+
+for await (const chunk of model.generateStream('Write a poem about AI')) {
+  process.stdout.write(chunk);
+}
+```

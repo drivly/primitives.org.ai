@@ -1,0 +1,32 @@
+# Getting Started
+
+## Installation
+
+```bash
+npm install language-models
+```
+
+## Setup
+
+```typescript
+import { createModel } from 'language-models';
+
+// Create a model instance
+const model = createModel({
+  provider: 'openai',
+  model: 'gpt-4',
+  apiKey: process.env.OPENAI_API_KEY
+});
+```
+
+## Basic Usage
+
+```typescript
+// Generate text
+const response = await model.generate('Hello, world!');
+console.log(response);
+
+// Generate embeddings
+const embeddings = await model.embeddings('Semantic search vector');
+console.log(embeddings);
+```

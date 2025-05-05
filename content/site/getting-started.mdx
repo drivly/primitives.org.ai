@@ -1,0 +1,30 @@
+# Getting Started
+
+## Installation
+
+```bash
+npm install ai-site
+```
+
+## Setup
+
+```typescript
+import { createAISite } from 'ai-site';
+
+// Create a site instance
+const site = createAISite({
+  providers: [
+    { type: 'openai', apiKey: process.env.OPENAI_API_KEY }
+  ]
+});
+```
+
+## Basic Usage
+
+```typescript
+// Use the site instance in your application
+const result = await site.process({
+  prompt: "Generate a product description",
+  model: "gpt-4"
+});
+```

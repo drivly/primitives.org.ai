@@ -1,0 +1,20 @@
+# API Reference
+
+## Provider Interface
+
+```typescript
+interface Provider {
+  generate(prompt: string, options?: GenerateOptions): Promise<string>;
+  generateStream(prompt: string, options?: GenerateOptions): AsyncIterable<string>;
+}
+```
+
+## Configuration
+
+```typescript
+interface ProviderConfig {
+  apiKey?: string;
+  model?: string;
+  baseUrl?: string;
+}
+```
