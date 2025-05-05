@@ -1,6 +1,6 @@
 import React from 'react'
 import { Metadata } from 'next'
-import { getPayloadClient } from '@payloadcms/next/utilities'
+import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import config from '../../../payload.config'
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function AdminPage({ params }: { params: { slug: string[] } }) {
   const { slug } = params
 
-  const payload = await getPayloadClient({
+  const payload = await getPayload({
     config,
   })
 
