@@ -10,4 +10,7 @@ export default defineConfig({
       inline: ['vitest'],
     },
   },
+  resolve: {
+    conditions: ['node'],
+  },
 })
