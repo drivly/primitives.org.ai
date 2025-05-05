@@ -9240,7 +9240,7 @@ snapshots:
 
   '@types/node-fetch@2.6.12':
     dependencies:
-      '@types/node': 20.17.32
+      '@types/node': 22.15.3
       form-data: 4.0.2
 
   '@types/node@18.19.87':
