@@ -4,6 +4,7 @@ import { xai } from '@ai-sdk/xai'
 import { groq } from '@ai-sdk/groq'
 import { bedrock } from '@ai-sdk/amazon-bedrock'
 import { google } from '@ai-sdk/google'
+import { vertex } from '@ai-sdk/google-vertex'
 import { perplexity } from '@ai-sdk/perplexity'
 import { createProviderRegistry } from 'ai'
 
@@ -15,6 +16,7 @@ export const registry = createProviderRegistry(
     groq,
     bedrock,
     google,
+    googleVertex: vertex,
     perplexity
   },
   { separator: '/' },
