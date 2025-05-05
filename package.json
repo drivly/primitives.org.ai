@@ -2,6 +2,9 @@
   "name": "example-docs",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "next build",
     "dev": "next --turbopack",
