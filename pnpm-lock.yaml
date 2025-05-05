@@ -280,6 +280,25 @@ importers:
         specifier: ^5.4.2
         version: 5.8.3
 
+  packages/experiments:
+    dependencies:
+      vitest:
+        specifier: ^1.1.0
+        version: 1.6.1(@types/node@20.17.32)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.69.4)(terser@5.39.0)
+    devDependencies:
+      '@types/node':
+        specifier: ^20.17.0
+        version: 20.17.32
+      prettier:
+        specifier: ^3.4.2
+        version: 3.5.3
+      tsup:
+        specifier: ^8.0.1
+        version: 8.4.0(@swc/core@1.6.1(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.7.1)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.8.3
+
   packages/language-models:
     dependencies:
       camelcase:
