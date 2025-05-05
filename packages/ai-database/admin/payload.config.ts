@@ -1,14 +1,17 @@
 import path from 'path'
 import { buildConfig } from 'payload/config'
+// import { Nouns, Verbs, Resources, Relationships } from 'ai-database'
 
 export default buildConfig({
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
   admin: {
     user: 'users',
-    bundler: {
-      configPath: path.resolve(__dirname, './next.config.js'),
-    },
   },
   collections: [
+    // Nouns,
+    // Verbs,
+    // Resources,
+    // Relationships,
     {
       slug: 'users',
       auth: true,
@@ -28,5 +31,8 @@ export default buildConfig({
   },
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
+  },
+  db: ({ payload }) => {
+    return {} as any;
   },
 })
