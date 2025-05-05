@@ -1,0 +1,73 @@
+# AI Functions
+
+[![npm version](https://badge.fury.io/js/%40ai-primitives%2Fpackage-template.svg)](https://www.npmjs.com/package/@ai-primitives/package-template)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Template literal API for natural AI prompts with structured outputs.
+
+## Features
+
+- 🚀 TypeScript for type safety and modern JavaScript features
+- ⚡️ Vitest for fast, modern testing
+- 🎨 Prettier for consistent code formatting
+- 🔍 ESLint for code quality
+- 📦 Semantic versioning with automated releases
+- 🔄 GitHub Actions for CI/CD
+- Template literal API for natural prompts
+- Async iterator support
+- Structured output with Zod schemas
+- Type-safe API
+
+## Installation
+
+```bash
+pnpm add ai-functions
+# or
+npm install ai-functions
+# or
+yarn add ai-functions
+```
+
+## Usage
+
+```typescript
+import { ai, list } from 'ai-functions'
+
+// Basic list generation
+const things = await list`fun things to do in Miami`
+console.log(things)
+
+// Using async iterator
+for await (const thing of list`fun things to do in Miami`) {
+  console.log(thing)
+}
+```
+
+## Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Run tests
+pnpm test
+
+# Build the package
+pnpm build
+
+# Lint the code
+pnpm lint
+```
+
+## License
+
+MIT © [AI Primitives](https://mdx.org.ai)
+
+## Dependencies
+
+This package uses the following key dependencies:
+
+- TypeScript for static typing
+- Vitest for testing
+- ESLint for linting
+- Prettier for code formatting

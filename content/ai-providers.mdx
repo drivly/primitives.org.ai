@@ -1,0 +1,38 @@
+# AI Providers
+
+Abstraction layer for different AI service providers.
+
+## Features
+
+- Unified API for multiple AI providers
+- Provider-specific configuration
+- Fallback support
+- Support for OpenAI, Anthropic, and other providers
+
+## Installation
+
+```bash
+pnpm add ai-providers
+# or
+npm install ai-providers
+# or
+yarn add ai-providers
+```
+
+## Usage
+
+```typescript
+import { createProvider } from 'ai-providers'
+
+const provider = createProvider({
+  type: 'openai',
+  apiKey: process.env.OPENAI_API_KEY,
+  defaultModel: 'gpt-4o'
+})
+
+const completion = await provider.createCompletion({ prompt: 'Hello, world!' })
+```
+
+## License
+
+MIT © [AI Primitives](https://mdx.org.ai)

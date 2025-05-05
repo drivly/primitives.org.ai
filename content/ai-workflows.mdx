@@ -1,0 +1,44 @@
+# AI Workflows
+
+Composable AI Workflows & Durable Execution Framework.
+
+## Features
+
+- Event-driven workflows
+- Scheduled tasks
+- Integration with other primitives
+- State management
+- Durable execution
+
+## Installation
+
+```bash
+pnpm add ai-workflows
+# or
+npm install ai-workflows
+# or
+yarn add ai-workflows
+```
+
+## Usage
+
+```javascript
+import { ai, Workflow } from 'ai-workflows'
+
+const workflow = Workflow()
+
+workflow.on('ticket.created', (ticket) => {
+  const summary = ai.summarize(ticket)
+  workflow.send('ticket.summarized', summary)
+})
+
+workflow.on('ticket.summarized', (summary) => ai.sentiment(summary).then('update.ticket'))
+
+workflow.every('30 minutes during business hours', (context) => ai.reviewKPIs(context).then('slack.post'))
+
+export default workflow
+```
+
+## License
+
+MIT © [AI Primitives](https://mdx.org.ai)

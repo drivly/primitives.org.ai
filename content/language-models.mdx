@@ -1,0 +1,34 @@
+# Language Models
+
+Utilities and Tools for the AI SDK, Functions, Workflows, Observability, and Evals.
+
+## Features
+
+- Support for multiple language model providers
+- Provider/creator/model syntax for flexible model selection
+- Integration with other AI primitives
+- Support for capabilities configuration
+
+## Installation
+
+```bash
+pnpm add language-models
+# or
+npm install language-models
+# or
+yarn add language-models
+```
+
+## Usage
+
+```typescript
+import { getSupportedModel } from 'language-models'
+
+const model = getSupportedModel('@openai/openai/gpt-4o:code,online')
+// or
+const model = getSupportedModel('@anthropic/anthropic/claude-3.7-sonnet:thinking,code,online')
+```
+
+## License
+
+MIT © [AI Primitives](https://mdx.org.ai)
