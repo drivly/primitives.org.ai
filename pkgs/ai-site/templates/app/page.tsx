@@ -1,8 +1,7 @@
 import React from 'react';
-import { ai } from 'ai-functions';
 
-export default async function Home() {
-  const welcomeMessage = await ai`Generate a welcome message for an AI-powered website`;
+export default function Home() {
+  const welcomeMessage = "Welcome to your new AI-powered website built with ai-site!";
   
   return (
     <div className="container">
