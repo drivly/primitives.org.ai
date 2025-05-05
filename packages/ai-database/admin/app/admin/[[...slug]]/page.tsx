@@ -1,6 +1,6 @@
 import React from 'react'
 import { Metadata } from 'next'
-import { getPayload } from 'payload/next'
+import { getPayload } from 'payload/next-app-router'
 import { notFound } from 'next/navigation'
 import config from '../../../payload.config'
 
