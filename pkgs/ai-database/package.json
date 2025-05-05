@@ -1,0 +1,48 @@
+{
+  "name": "ai-database",
+  "version": "0.1.0",
+  "description": "AI-native database abstraction with hybrid vector search capabilities",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "ai-database": "bin/cli.js"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "admin"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "admin": "node dist/cli.js admin",
+    "admin:dev": "node dist/cli.js admin dev",
+    "admin:build": "node dist/cli.js admin build",
+    "admin:start": "node dist/cli.js admin start",
+    "test": "vitest run",
+    "lint": "eslint src"
+  },
+  "keywords": [
+    "ai",
+    "database",
+    "vector-search",
+    "payload-cms"
+  ],
+  "author": "Drivly",
+  "license": "MIT",
+  "dependencies": {
+    "@payloadcms/db-mongodb": "^3.0.0",
+    "@payloadcms/db-postgres": "^3.0.0",
+    "@payloadcms/richtext-slate": "^3.0.0",
+    "mongodb-memory-server": "^9.0.0",
+    "payload": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "eslint": "^8.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  }
+}
