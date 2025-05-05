@@ -1,9 +1,8 @@
 import { CollectionConfig } from 'payload/types'
-import { postgresAdapter } from '@payloadcms/db-postgres'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { MongoMemoryServer } from 'mongodb-memory-server'
 
-export type DatabaseType = 'postgres' | 'mongodb' | 'memory'
+export type DatabaseType = 'mongodb' | 'memory'
 
 /**
  * Detects the database type from a connection URI
@@ -12,10 +11,6 @@ export type DatabaseType = 'postgres' | 'mongodb' | 'memory'
  */
 export const detectDatabaseType = (uri?: string): DatabaseType => {
   if (!uri) return 'memory'
-  
-  if (uri.startsWith('postgres://') || uri.startsWith('postgresql://')) {
-    return 'postgres'
-  }
   
   if (uri.startsWith('mongodb://') || uri.startsWith('mongodb+srv://')) {
     return 'mongodb'
@@ -68,12 +63,6 @@ export const getDatabaseAdapter = (uri?: string) => {
       throw new Error('Memory server not initialized. Call initMemoryServer first.')
     }
     return getMemoryAdapter()
-  }
-  
-  if (type === 'postgres') {
-    return postgresAdapter({
-      pool: { connectionString: uri },
-    })
   }
   
   return mongooseAdapter({
