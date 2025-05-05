@@ -3,28 +3,28 @@
 ## Basic Usage
 
 ```typescript
-import { createProvider } from 'ai-providers';
+import { createProvider } from 'ai-providers'
 
 const provider = createProvider({
   type: 'openai',
   apiKey: process.env.OPENAI_API_KEY,
-});
+})
 
-const response = await provider.generate('Tell me a joke about programming');
-console.log(response);
+const response = await provider.generate('Tell me a joke about programming')
+console.log(response)
 ```
 
 ## Streaming
 
 ```typescript
-import { createProvider } from 'ai-providers';
+import { createProvider } from 'ai-providers'
 
 const provider = createProvider({
   type: 'anthropic',
   apiKey: process.env.ANTHROPIC_API_KEY,
-});
+})
 
 for await (const chunk of provider.generateStream('Write a short story')) {
-  process.stdout.write(chunk);
+  process.stdout.write(chunk)
 }
 ```

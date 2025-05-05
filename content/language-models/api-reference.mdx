@@ -4,9 +4,9 @@
 
 ```typescript
 interface LanguageModel {
-  generate(prompt: string, options?: GenerateOptions): Promise<string>;
-  generateStream(prompt: string, options?: GenerateOptions): AsyncIterable<string>;
-  embeddings(text: string | string[]): Promise<number[][]>;
+  generate(prompt: string, options?: GenerateOptions): Promise<string>
+  generateStream(prompt: string, options?: GenerateOptions): AsyncIterable<string>
+  embeddings(text: string | string[]): Promise<number[][]>
 }
 ```
 
@@ -14,9 +14,9 @@ interface LanguageModel {
 
 ```typescript
 interface ModelConfig {
-  provider: string;
-  model: string;
-  apiKey?: string;
-  baseUrl?: string;
+  provider: string
+  model: string
+  apiKey?: string
+  baseUrl?: string
 }
 ```

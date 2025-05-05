@@ -4,8 +4,8 @@
 
 ```typescript
 interface Provider {
-  generate(prompt: string, options?: GenerateOptions): Promise<string>;
-  generateStream(prompt: string, options?: GenerateOptions): AsyncIterable<string>;
+  generate(prompt: string, options?: GenerateOptions): Promise<string>
+  generateStream(prompt: string, options?: GenerateOptions): AsyncIterable<string>
 }
 ```
 
@@ -13,8 +13,8 @@ interface Provider {
 
 ```typescript
 interface ProviderConfig {
-  apiKey?: string;
-  model?: string;
-  baseUrl?: string;
+  apiKey?: string
+  model?: string
+  baseUrl?: string
 }
 ```

@@ -9,19 +9,19 @@ npm install ai-providers
 ## Setup
 
 ```typescript
-import { createProvider } from 'ai-providers';
+import { createProvider } from 'ai-providers'
 
 // Create a provider instance
 const provider = createProvider({
   type: 'openai', // or 'anthropic', 'google', etc.
   apiKey: process.env.OPENAI_API_KEY,
-});
+})
 ```
 
 ## Basic Usage
 
 ```typescript
 // Generate text
-const response = await provider.generate('Hello, world!');
-console.log(response);
+const response = await provider.generate('Hello, world!')
+console.log(response)
 ```

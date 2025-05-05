@@ -6,5 +6,5 @@ export default {
   site: 'Site',
   'language-models': 'Language Models',
   workflows: 'Workflows',
-  agents: 'Agents'
+  agents: 'Agents',
 }
