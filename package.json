@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "turbo dev",
-    "build": "turbo build",
+    "build": "next build",
     "start": "next start",
     "lint": "turbo lint",
     "test": "turbo test",
