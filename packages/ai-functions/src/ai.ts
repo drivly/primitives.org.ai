@@ -1,4 +1,4 @@
-import { model } from 'ai-providers'
+import { model } from 'ai-providers/dist/index.js'
 import { z } from 'zod'
 import type { AIFunctionOptions, AIFunctionConfig } from './types'
 
