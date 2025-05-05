@@ -9,10 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@payloadcms/db-mongodb": "^3.0.0",
-    "@payloadcms/db-postgres": "^3.0.0",
+    "@payloadcms/db-mongodb": "^3.36.1",
+    "@payloadcms/db-postgres": "^3.36.1",
     "ai-database": "workspace:*",
-    "mongodb-memory-server": "^9.0.0",
+    "mongodb-memory-server": "^9.5.0",
     "next": "^14.0.0",
     "payload": "^2.0.0",
     "react": "^18.0.0",
