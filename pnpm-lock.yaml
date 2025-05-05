@@ -178,6 +178,9 @@ importers:
 
   packages/language-models:
     dependencies:
+      camelcase:
+        specifier: ^8.0.0
+        version: 8.0.0
       camelcase-keys:
         specifier: ^8.0.0
         version: 8.0.2
@@ -188,6 +191,9 @@ importers:
       '@release-it/conventional-changelog':
         specifier: ^10.0.1
         version: 10.0.1(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.1.0)(release-it@19.0.2(@types/node@18.19.87))
+      '@types/camelcase':
+        specifier: ^5.2.4
+        version: 5.2.4
       '@types/node':
         specifier: ^18.0.0
         version: 18.19.87
@@ -2396,6 +2402,10 @@ packages:
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
+
+  '@types/camelcase@5.2.4':
+    resolution: {integrity: sha512-JWwptVdUMImf+3HNozv0FFyxELml7WQviImEopqA+nEfAT8oMDB3GoVUdkSdxhKxb3wyYeD6uykaQtoDKx3Sbg==}
+    deprecated: This is a stub types definition. camelcase provides its own type definitions, so you do not need this installed.
 
   '@types/d3-array@3.2.1':
     resolution: {integrity: sha512-Y2Jn2idRrLzUfAKV2LyRImR+y4oa2AntrgID95SHJxuMUrkNXmanDSed71sRNZysveJVt1hLLemQZIady0FpEg==}
@@ -10454,6 +10464,10 @@ snapshots:
   '@tokenizer/token@0.3.0': {}
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
+
+  '@types/camelcase@5.2.4':
+    dependencies:
+      camelcase: 8.0.0
 
   '@types/d3-array@3.2.1': {}
 

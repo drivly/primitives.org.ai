@@ -15,11 +15,13 @@
     "release": "release-it"
   },
   "dependencies": {
+    "camelcase": "^8.0.0",
     "camelcase-keys": "^8.0.0",
     "json5": "^2.2.3"
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "^10.0.1",
+    "@types/camelcase": "^5.2.4",
     "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
