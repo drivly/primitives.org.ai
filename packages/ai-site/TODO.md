@@ -34,9 +34,16 @@
 
 7. **Testing**
    - [ ] Test CLI functionality
-   - [ ] Test configuration loading
-   - [ ] Test Next.js integration
+   - [x] Test configuration loading
+   - [x] Test Next.js integration
    - [ ] Test with example site
+
+   **Known Issues:**
+   - PostCSS configuration error when running tests locally:
+     ```
+     Failed to load PostCSS config: Failed to load PostCSS config (searchPath: /home/ubuntu/repos/primitives.org.ai/packages/ai-site): [TypeError] Invalid PostCSS Plugin found at: plugins[0]
+     ```
+     This is due to an invalid plugin in the root postcss.config.mjs file.
 
 8. **Documentation**
    - [ ] Complete README.md
