@@ -1,0 +1,41 @@
+{
+  "name": "language-models",
+  "version": "0.1.0",
+  "description": "Language model abstractions",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && npm run generate:models",
+    "generate:models": "node dist/scripts/fetch-models.js",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"**/*.{ts,json}\"",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "camelcase-keys": "^8.0.0",
+    "json5": "^2.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "node-fetch": "^3.3.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drivly/primitives.org.ai"
+  },
+  "bugs": {
+    "url": "https://github.com/drivly/primitives.org.ai/issues"
+  },
+  "homepage": "https://mdx.org.ai"
+}
