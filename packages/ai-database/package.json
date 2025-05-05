@@ -4,6 +4,9 @@
   "description": "Minimalistic package that exports Payload collections and Next.js API route handlers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "ai-database": "./dist/bin.js"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
