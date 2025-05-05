@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 
 export default function AdminPage() {
   return (
@@ -11,9 +10,9 @@ export default function AdminPage() {
       <p className="mb-4">
         In a production environment, this would be integrated with Payload CMS.
       </p>
-      <Link href="/" className="text-blue-500 hover:underline">
+      <a href="/" className="text-blue-500 hover:underline">
         Back to Home
-      </Link>
+      </a>
     </div>
   )
 }
