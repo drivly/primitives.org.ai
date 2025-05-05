@@ -11,7 +11,7 @@ export const metadata = {
 const banner = <Banner storageKey='some-key'>Nextra 4.0 is released 🎉</Banner>
 const navbar = (
   <Navbar
-    logo={<p><b>primitives</b>.org.<b>ai</b></p>}
+    logo={<p><b>primitives</b>.org.ai</p>}
     // ... Your additional navbar options
   />
 )

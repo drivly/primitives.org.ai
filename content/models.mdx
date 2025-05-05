@@ -1,6 +1,5 @@
 import { compileMdx } from 'nextra/compile'
 import { MDXRemote } from 'nextra/mdx-remote'
-import { Mermaid } from 'nextra-theme-docs'
 import fs from 'fs'
 
 <README/>
@@ -10,6 +9,6 @@ export async function README() {
   const rawJs = await compileMdx(`
   ${readmeContent}
   `)
-  return <MDXRemote compiledSource={rawJs} components={{ Mermaid }} />
+  return <MDXRemote compiledSource={rawJs} components={{  }} />
 }
 
