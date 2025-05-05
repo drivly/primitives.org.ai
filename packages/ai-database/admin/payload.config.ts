@@ -1,13 +1,6 @@
 import path from 'path'
 import { buildConfig } from 'payload/config'
 // import { Nouns, Verbs, Resources, Relationships } from 'ai-database'
-import { getDatabaseAdapter, initMemoryServer } from './lib/database'
-
-if (!process.env.DATABASE_URI) {
-  initMemoryServer().catch(err => {
-    console.error('Failed to initialize memory server:', err)
-  })
-}
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
@@ -38,13 +31,5 @@ export default buildConfig({
   },
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
-  },
-  upload: {
-    useTempFiles: true,
-    disableLocalStorage: true,
-  },
-  db: ({ payload }) => {
-    const databaseURI = process.env.DATABASE_URI
-    return getDatabaseAdapter(databaseURI)
   },
 })
