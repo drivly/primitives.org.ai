@@ -1,0 +1,42 @@
+{
+  "name": "language-models",
+  "version": "0.1.0",
+  "description": "Language model integrations for AI applications",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "website": "https://mdx.org.ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drivly/primitives.org.ai.git",
+    "directory": "packages/language-models"
+  },
+  "bugs": {
+    "url": "https://github.com/drivly/primitives.org.ai/issues"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "ai",
+    "language-models",
+    "nlp"
+  ],
+  "author": "Drivly Tech",
+  "license": "MIT",
+  "dependencies": {
+    "camelcase": "^7.0.1"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6",
+    "prettier": "^3.4.2",
+    "eslint": "^8.56.0"
+  }
+}
