@@ -23,8 +23,9 @@ export function AI(config: AIConfig) {
     } else if (typeof value === 'object') {
       instance[key] = async (input: any) => {
         try {
-          console.log(`Executing AI function ${key} with schema`);
-          return { result: `Response for ${input.prompt || 'default prompt'}` };
+          const model = input.model || 'gemini-2.5-flash';
+          console.log(`Executing AI function ${key} with schema using model: ${model}`);
+          return { result: `Response for ${input.prompt || 'default prompt'}`, model };
         } catch (error) {
           console.error(`Error executing AI function ${key}:`, error);
           throw error;
