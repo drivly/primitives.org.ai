@@ -37,7 +37,7 @@ const createSchemaFromObject = (obj: Record<string, any>): z.ZodType<any> => {
 /**
  * Stream an object from the AI model
  */
-const streamObject = async (options: StreamObjectOptions): Promise<StreamObjectResult> => {
+export const streamObject = async (options: StreamObjectOptions): Promise<StreamObjectResult> => {
   const { model, prompt, schema, ...rest } = options
   
   const stream = await model.streamComplete({
@@ -115,18 +115,22 @@ export const AI: React.FC<AIProps> = ({
         if (stream) {
           setIsStreaming(true)
           
-          const { objectStream } = await streamObject({
-            model: modelInstance,
-            prompt,
-            schema,
-            output: output as 'object' | 'array',
-          })
-          
-          for await (const obj of objectStream) {
-            setResult(obj)
+          try {
+            const { objectStream } = await streamObject({
+              model: modelInstance,
+              prompt,
+              schema,
+              output: output as 'object' | 'array',
+            })
+            
+            for await (const obj of objectStream) {
+              setResult(obj)
+            }
+          } catch (err) {
+            setError(err instanceof Error ? err : new Error(String(err)))
+          } finally {
+            setIsStreaming(false)
           }
-          
-          setIsStreaming(false)
         } else {
           const response = await generateObject({
             model: modelInstance,
@@ -157,12 +161,12 @@ export const AI: React.FC<AIProps> = ({
       >
         {result.map((item, index) => (
           <div key={index}>
-            {children(item, { isStreaming })}
+            {children(item, { isStreaming, error })}
           </div>
         ))}
       </div>
     )
   }
   
-  return children ? children(result, { isStreaming }) : null
+  return children ? children(result, { isStreaming, error }) : null
 }

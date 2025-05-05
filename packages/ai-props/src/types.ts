@@ -42,7 +42,7 @@ export interface AIProps {
   /**
    * Render function that receives the generated props
    */
-  children?: (props: any, state: { isStreaming: boolean }) => ReactNode
+  children?: (props: any, state: { isStreaming: boolean, error: Error | null }) => ReactNode
   
   /**
    * Optional API endpoint for proxy implementation
