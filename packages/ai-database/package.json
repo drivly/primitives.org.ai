@@ -1,0 +1,57 @@
+{
+  "name": "ai-database",
+  "version": "0.1.0",
+  "description": "Minimalistic package that exports Payload collections and Next.js API route handlers",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./api": {
+      "types": "./dist/api.d.ts",
+      "import": "./dist/api.mjs",
+      "require": "./dist/api.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "payload": "^2.0.0"
+  },
+  "peerDependencies": {
+    "next": "^14.0.0",
+    "payload": "^2.0.0",
+    "react": "^18.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drivly/primitives.org.ai"
+  },
+  "homepage": "https://mdx.org.ai",
+  "bugs": {
+    "url": "https://github.com/drivly/primitives.org.ai/issues"
+  },
+  "keywords": [
+    "payload",
+    "cms",
+    "database",
+    "api",
+    "next.js"
+  ],
+  "license": "MIT"
+}
