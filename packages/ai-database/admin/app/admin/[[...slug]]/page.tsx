@@ -13,6 +13,7 @@ export default async function AdminPage({ params }: { params: { slug: string[] }
 
   const payload = await getPayload({
     config,
+    secret: process.env.PAYLOAD_SECRET || 'your-payload-secret-key',
   })
 
   if (!payload) {
