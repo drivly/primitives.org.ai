@@ -2,10 +2,10 @@ import type { MetaRecord } from 'nextra'
 
 export default {
   index: 'Overview',
-  functions: 'Functions',
-  workflows: 'Workflows',
+  functions: 'Function',
+  workflows: 'Workflow',
   database: 'Database',
-  providers: 'Providers',
-  'language-models': 'Models',
+  providers: 'Provider',
+  models: 'Model',
   site: 'Site',
 } satisfies MetaRecord

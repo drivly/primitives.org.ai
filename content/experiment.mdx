@@ -5,7 +5,7 @@ import fs from 'fs'
 <README />
 
 export async function README() {
-  const readmeContent = fs.readFileSync('packages/language-models/README.md', 'utf8')
+  const readmeContent = fs.readFileSync('packages/ai-experiments/README.md', 'utf8')
   const rawJs = await compileMdx(`
   ${readmeContent}
   `)

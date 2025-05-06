@@ -1,0 +1,13 @@
+import { compileMdx } from 'nextra/compile'
+import { MDXRemote } from 'nextra/mdx-remote'
+import fs from 'fs'
+
+<README />
+
+export async function README() {
+  const readmeContent = fs.readFileSync('packages/ai-business/README.md', 'utf8')
+  const rawJs = await compileMdx(`
+  ${readmeContent}
+  `)
+  return <MDXRemote compiledSource={rawJs} components={{}} />
+}
