@@ -1,5 +1,5 @@
 import { getPayload } from 'payload'
-import config from '../payload.config'
+import config from '../payload.config.js'
 
 let cachedPayload: any = null
 
@@ -7,7 +7,6 @@ export const initializePayload = async () => {
   if (!cachedPayload) {
     cachedPayload = await getPayload({
       config,
-      local: process.env.NODE_ENV === 'development',
     })
   }
   
