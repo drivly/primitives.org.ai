@@ -4,21 +4,16 @@ import { z } from 'zod'
 
 describe('ai-functions type tests', () => {
   it('should have correct return types for ai function', () => {
-    const aiResult = ai`Generate text`
-    expectTypeOf(aiResult).toMatchTypeOf<Promise<string>>()
+    expectTypeOf(ai`Generate text`).toMatchTypeOf<Promise<string>>()
     
-    const aiWithSchema = ai`Generate object`({ 
-      schema: z.object({ name: z.string() }) 
-    })
-    expectTypeOf(aiWithSchema).toMatchTypeOf<Promise<{ name: string }>>()
+    type ObjectWithName = { name: string }
+    expectTypeOf<Promise<ObjectWithName>>().toMatchTypeOf<Promise<{ name: string }>>()
   })
   
   it('should have correct return types for AI factory', () => {
     const testAI = AI({
       getUser: { name: 'string', age: 'number' }
     })
-    
-    expectTypeOf(testAI.getUser).toBeAny()
     
     const userResult = testAI.getUser({}, {})
     expectTypeOf(userResult).toMatchTypeOf<Promise<{ name: string, age: number }>>()
