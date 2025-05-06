@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { AI } from '../src'
+import { AIContext } from '../src/types'
 
 describe('AI Workflows', () => {
   describe('AI function', () => {
@@ -27,7 +28,14 @@ describe('AI Workflows', () => {
 
     it('should allow functions to access other AI functions through context', async () => {
       const testAI = AI({
-        ideate: async (args: { topic: string }, ctx) => { 
+        ideate: async (args: { topic: string }, ctx: AIContext<{
+          leanCanvas: {
+            productName: string;
+            problem: string[];
+            solution: string[];
+            uniqueValueProposition: string;
+          }
+        }>) => { 
           const { ai } = ctx
           const results = await ai.leanCanvas({ topic: args.topic })
           
@@ -48,7 +56,7 @@ describe('AI Workflows', () => {
       expect(typeof testAI.ideate).toBe('function')
       expect(typeof testAI.leanCanvas).toBe('function')
 
-      const result = await testAI.ideate({ topic: 'AI-powered project management' }, {})
+      const result = await testAI.ideate({ topic: 'AI-powered project management' }, { ai: testAI })
       
       expect(result).toHaveProperty('ideas')
       expect(result).toHaveProperty('problemStatements')
@@ -61,7 +69,16 @@ describe('AI Workflows', () => {
 
     it('should handle nested AI configurations', async () => {
       const nestedAI = AI({
-        generateReport: async (args: { data: any }, ctx) => {
+        generateReport: async (args: { data: any }, ctx: AIContext<{
+          summarize: {
+            summary: string;
+            keyPoints: string[];
+          };
+          analyzeSentiment: {
+            score: number;
+            label: string;
+          };
+        }>) => {
           const { ai } = ctx
           const summary = await ai.summarize({ text: 'Some text to summarize' })
           const sentiment = await ai.analyzeSentiment({ text: 'Some text to analyze' })
@@ -88,7 +105,7 @@ describe('AI Workflows', () => {
       expect(typeof nestedAI.summarize).toBe('function')
       expect(typeof nestedAI.analyzeSentiment).toBe('function')
 
-      const result = await nestedAI.generateReport({ data: 'test data' }, {})
+      const result = await nestedAI.generateReport({ data: 'test data' }, { ai: nestedAI })
       
       expect(result).toHaveProperty('summary')
       expect(result).toHaveProperty('sentiment')

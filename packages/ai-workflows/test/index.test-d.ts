@@ -1,8 +1,16 @@
 import { expectTypeOf } from 'vitest'
 import { AI } from '../src'
+import { AIContext } from '../src/types'
 
 const testAI = AI({
-  ideate: async (args: { topic: string }, ctx) => { 
+  ideate: async (args: { topic: string }, ctx: AIContext<{
+    leanCanvas: {
+      productName: string;
+      problem: string[];
+      solution: string[];
+      uniqueValueProposition: string;
+    }
+  }>) => { 
     const { ai } = ctx
     const results = await ai.leanCanvas({ topic: args.topic })
     
@@ -38,7 +46,16 @@ expectTypeOf(testAI.leanCanvas).returns.resolves.toMatchTypeOf<{
 }>()
 
 const nestedAI = AI({
-  generateReport: async (args: { data: any }, ctx) => {
+  generateReport: async (args: { data: any }, ctx: AIContext<{
+    summarize: {
+      summary: string;
+      keyPoints: string[];
+    };
+    analyzeSentiment: {
+      score: number;
+      label: string;
+    };
+  }>) => {
     const { ai } = ctx
     const summary = await ai.summarize({ text: 'Some text to summarize' })
     const sentiment = await ai.analyzeSentiment({ text: 'Some text to analyze' })
