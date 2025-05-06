@@ -37,17 +37,17 @@
 
 ### 6. Create Entry Point
 - [x] Export all experiment runners from index.ts
-- [ ] Test importing from the entry point
+- [x] Test importing from the entry point
 
 ### 7. Testing
-- [ ] Test blog title generation experiment
-- [ ] Test blog content generation experiment
-- [ ] Verify markdown files are correctly generated
-- [ ] Verify YAML frontmatter contains required metadata
+- [x] Test blog title generation experiment
+- [x] Test blog content generation experiment
+- [x] Verify markdown files are correctly generated
+- [x] Verify YAML frontmatter contains required metadata
 
 ### 8. Documentation
-- [ ] Update README.md with final implementation details
-- [ ] Document any additional features or considerations
+- [x] Update README.md with final implementation details
+- [x] Document any additional features or considerations
 
 ## Technical Considerations
 - Use temperature range [0, 0.3, 0.7, 1.0] for experiments
