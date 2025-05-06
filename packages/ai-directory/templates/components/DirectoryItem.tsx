@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 
 export interface DirectoryItemProps {
   item: any
@@ -10,7 +9,7 @@ export function DirectoryItem({ item, viewMode = 'grid' }: DirectoryItemProps) {
   const { id, name, description, image, category } = item
   
   return (
-    <Link href={`/${id}`} className='directory-item-link'>
+    <a href={`/${id}`} className='directory-item-link'>
       <div className={`directory-item directory-item-${viewMode}`}>
         {image && (
           <img 
@@ -35,6 +34,6 @@ export function DirectoryItem({ item, viewMode = 'grid' }: DirectoryItemProps) {
         
         <div className='item-link'>View Details &rarr;</div>
       </div>
-    </Link>
+    </a>
   )
 }
