@@ -268,6 +268,76 @@ importers:
         specifier: ^5.8.2
         version: 5.8.3
 
+  packages/ai-primitives:
+    dependencies:
+      ai-brand:
+        specifier: workspace:*
+        version: link:../ai-brand
+      ai-business:
+        specifier: workspace:*
+        version: link:../ai-business
+      ai-database:
+        specifier: workspace:*
+        version: link:../ai-database
+      ai-directory:
+        specifier: workspace:*
+        version: link:../ai-directory
+      ai-experiments:
+        specifier: workspace:*
+        version: link:../ai-experiments
+      ai-functions:
+        specifier: workspace:*
+        version: link:../ai-functions
+      ai-plans:
+        specifier: workspace:*
+        version: link:../ai-plans
+      ai-props:
+        specifier: workspace:*
+        version: link:../ai-props
+      ai-providers:
+        specifier: workspace:*
+        version: link:../ai-providers
+      ai-screenshot:
+        specifier: workspace:*
+        version: link:../ai-screenshot
+      ai-service:
+        specifier: workspace:*
+        version: link:../ai-service
+      ai-site:
+        specifier: workspace:*
+        version: link:../ai-site
+      ai-startups:
+        specifier: workspace:*
+        version: link:../ai-startups
+      ai-workflows:
+        specifier: workspace:*
+        version: link:../ai-workflows
+      react:
+        specifier: '>=18.0.0'
+        version: 19.1.0
+    devDependencies:
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.15.12
+      '@types/react':
+        specifier: ^18.3.20
+        version: 18.3.21
+      esbuild:
+        specifier: ^0.25.2
+        version: 0.25.4
+      eslint:
+        specifier: ^9.17.0
+        version: 9.26.0(jiti@2.4.2)
+      prettier:
+        specifier: ^3.4.2
+        version: 3.5.3
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.3
+      vitest:
+        specifier: ^3.0.9
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.69.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+
   packages/ai-props:
     dependencies:
       ai-functions:
