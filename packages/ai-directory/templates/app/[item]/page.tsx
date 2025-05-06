@@ -6,9 +6,9 @@ import { useParams, useRouter } from 'next/navigation'
 export default function ItemDetailPage() {
   const params = useParams()
   const router = useRouter()
-  const [item, setItem] = useState(null)
+  const [item, setItem] = useState<any>(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
   
   const itemId = params?.item
 
