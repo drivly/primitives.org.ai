@@ -84,7 +84,7 @@ export default function ItemDetailPage() {
         
         {item.tags && item.tags.length > 0 && (
           <div className='item-tags'>
-            {item.tags.map(tag => (
+            {item.tags.map((tag: string) => (
               <span key={tag} className='item-tag'>{tag}</span>
             ))}
           </div>
