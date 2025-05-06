@@ -1,7 +1,4 @@
-'use client';
-
 import React from 'react'
-import ReactMarkdown from 'react-markdown'
 
 /**
  * Props for the BlogContent component
@@ -11,13 +8,22 @@ export interface BlogContentProps {
 }
 
 /**
- * Blog content component that renders markdown content using react-markdown
- * This is a client component to handle ESM compatibility issues
+ * Blog content component that renders markdown content
+ * Simple implementation that uses dangerouslySetInnerHTML for markdown rendering
  */
 export function BlogContent({ markdown }: BlogContentProps) {
+  const htmlContent = markdown
+    .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+    .replace(/\*\*(.*)\*\*/gm, '<strong>$1</strong>')
+    .replace(/\*(.*)\*/gm, '<em>$1</em>')
+    .replace(/\n/gm, '<br />')
+
   return (
-    <div className="blog-content">
-      <ReactMarkdown>{markdown}</ReactMarkdown>
-    </div>
+    <div 
+      className="blog-content"
+      dangerouslySetInnerHTML={{ __html: htmlContent }}
+    />
   )
 }
