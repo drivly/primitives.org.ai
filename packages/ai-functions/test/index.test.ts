@@ -39,7 +39,7 @@ describe('ai-functions', () => {
     })
   })
 
-  itWithEnv('should have proper types when using list function', async () => {
+  it('should have proper types when using list function', async () => {
     const result = await list`List 3 programming languages`
     
     expect(Array.isArray(result)).toBe(true)
