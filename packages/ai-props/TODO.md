@@ -3,12 +3,14 @@
 ## Implementation Tasks
 
 - [ ] Setup Package Structure
+
   - [x] Create basic directory structure
   - [ ] Create package.json with dependencies
   - [ ] Configure TypeScript (tsconfig.json)
   - [ ] Setup build process
 
 - [ ] Core Component Implementation
+
   - [ ] Create AI.tsx component
     - [ ] Implement basic component structure
     - [ ] Add state management for results and streaming status
@@ -23,11 +25,13 @@
     - [ ] Manage streaming state
 
 - [ ] Type Definitions
+
   - [ ] Define AIProps interface
   - [ ] Create utility types for schema handling
   - [ ] Add proper typing for children render props
 
 - [ ] Error Handling
+
   - [ ] Implement error states
   - [ ] Add error boundaries
   - [ ] Handle network and API errors
@@ -41,10 +45,12 @@
 ## Technical Challenges
 
 - [ ] Handling partial results during streaming
+
   - Need to parse incomplete JSON and update state incrementally
   - Must handle potential parsing errors gracefully
 
 - [ ] Schema conversion
+
   - Converting simple object schemas to Zod schemas
   - Handling pipe-separated string options as enums
 

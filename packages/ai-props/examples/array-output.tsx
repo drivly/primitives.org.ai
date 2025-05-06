@@ -10,7 +10,7 @@ export const ArrayOutputExample = () => {
       schema={{
         name: 'string',
         description: 'string',
-        category: 'Frontend | Backend | DevOps | Design'
+        category: 'Frontend | Backend | DevOps | Design',
       }}
       prompt='Generate 6 product ideas for developer tools'
     >
@@ -21,9 +21,7 @@ export const ArrayOutputExample = () => {
           ) : (
             <>
               <h2 className='text-lg font-bold'>{props.name}</h2>
-              <span className='inline-block px-2 py-1 text-xs bg-gray-100 rounded-full'>
-                {props.category}
-              </span>
+              <span className='inline-block px-2 py-1 text-xs bg-gray-100 rounded-full'>{props.category}</span>
               <p className='mt-2 text-sm'>{props.description}</p>
               {isStreaming && (
                 <div className='absolute inset-0 bg-white/50 flex items-center justify-center'>

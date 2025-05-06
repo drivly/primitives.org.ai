@@ -9,11 +9,11 @@ import { AIProps, StreamObjectOptions, StreamObjectResult } from './types'
  */
 const createSchemaFromObject = (obj: Record<string, any>): z.ZodType<any> => {
   const schemaObj: Record<string, z.ZodType<any>> = {}
-  
+
   Object.entries(obj).forEach(([key, value]) => {
     if (typeof value === 'string') {
       if (value.includes('|')) {
-        const options = value.split('|').map(opt => opt.trim())
+        const options = value.split('|').map((opt) => opt.trim())
         schemaObj[key] = z.enum(options as [string, ...string[]])
       } else {
         schemaObj[key] = z.string().describe(value)
@@ -30,7 +30,7 @@ const createSchemaFromObject = (obj: Record<string, any>): z.ZodType<any> => {
       schemaObj[key] = z.any()
     }
   })
-  
+
   return z.object(schemaObj)
 }
 
@@ -39,30 +39,29 @@ const createSchemaFromObject = (obj: Record<string, any>): z.ZodType<any> => {
  */
 export const streamObject = async (options: StreamObjectOptions): Promise<StreamObjectResult> => {
   const { model, prompt, schema, ...rest } = options
-  
+
   const stream = await model.streamComplete({
     prompt,
     ...rest,
   })
-  
+
   let buffer = ''
   let currentObject: any = {}
-  
+
   const objectStream = {
     [Symbol.asyncIterator]() {
       return {
         async next() {
           for await (const chunk of stream) {
             buffer += chunk.text
-            
+
             try {
               const jsonObject = JSON.parse(buffer)
               currentObject = schema && schema.parse ? schema.parse(jsonObject) : jsonObject
               return { value: currentObject, done: false }
-            } catch (e) {
-            }
+            } catch (e) {}
           }
-          
+
           try {
             const jsonObject = JSON.parse(buffer)
             currentObject = schema && schema.parse ? schema.parse(jsonObject) : jsonObject
@@ -76,45 +75,41 @@ export const streamObject = async (options: StreamObjectOptions): Promise<Stream
         },
         async throw(e?: any) {
           return { value: undefined, done: true }
-        }
+        },
       }
-    }
+    },
   }
-  
+
   return { objectStream }
 }
 
 /**
  * AI component for generating props for React components
  */
-export const AI: React.FC<AIProps> = ({ 
-  model: modelInput, 
-  schema: schemaInput, 
-  prompt, 
+export const AI: React.FC<AIProps> = ({
+  model: modelInput,
+  schema: schemaInput,
+  prompt,
   stream = false,
   output = 'object',
   cols = 1,
   apiEndpoint,
-  children 
+  children,
 }) => {
   const [result, setResult] = useState<any>(output === 'array' ? [] : {})
   const [isStreaming, setIsStreaming] = useState(false)
   const [error, setError] = useState<Error | null>(null)
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const modelInstance = typeof modelInput === 'string' 
-          ? createModel(modelInput) 
-          : modelInput
-        
-        const schema = typeof schemaInput === 'object' && !('parse' in schemaInput)
-          ? createSchemaFromObject(schemaInput)
-          : schemaInput as z.ZodType<any>
-        
+        const modelInstance = typeof modelInput === 'string' ? createModel(modelInput) : modelInput
+
+        const schema = typeof schemaInput === 'object' && !('parse' in schemaInput) ? createSchemaFromObject(schemaInput) : (schemaInput as z.ZodType<any>)
+
         if (stream) {
           setIsStreaming(true)
-          
+
           try {
             const { objectStream } = await streamObject({
               model: modelInstance,
@@ -122,7 +117,7 @@ export const AI: React.FC<AIProps> = ({
               schema,
               output: output as 'object' | 'array',
             })
-            
+
             for await (const obj of objectStream) {
               setResult(obj)
             }
@@ -138,7 +133,7 @@ export const AI: React.FC<AIProps> = ({
             schema,
             output,
           })
-          
+
           setResult(response.object)
         }
       } catch (err) {
@@ -146,27 +141,25 @@ export const AI: React.FC<AIProps> = ({
         setIsStreaming(false)
       }
     }
-    
+
     fetchData()
   }, [modelInput, schemaInput, prompt, stream, output, apiEndpoint])
-  
+
   if (output === 'array' && Array.isArray(result) && children) {
     return (
-      <div 
-        style={{ 
-          display: 'grid', 
+      <div
+        style={{
+          display: 'grid',
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
-          gap: '1rem'
+          gap: '1rem',
         }}
       >
         {result.map((item, index) => (
-          <div key={index}>
-            {children(item, { isStreaming, error })}
-          </div>
+          <div key={index}>{children(item, { isStreaming, error })}</div>
         ))}
       </div>
     )
   }
-  
+
   return children ? children(result, { isStreaming, error }) : null
 }

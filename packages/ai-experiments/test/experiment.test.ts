@@ -24,12 +24,12 @@ describe('Experiment', () => {
     })
 
     expect(result.results.length).toBe(4) // 2 models × 2 temperatures
-    
-    const combinations = result.results.map(r => ({
+
+    const combinations = result.results.map((r) => ({
       model: r.params.model,
-      temperature: r.params.temperature
+      temperature: r.params.temperature,
     }))
-    
+
     expect(combinations).toContainEqual({ model: 'gpt-4o', temperature: 0 })
     expect(combinations).toContainEqual({ model: 'gpt-4o', temperature: 0.7 })
     expect(combinations).toContainEqual({ model: 'gpt-4o-mini', temperature: 0 })
@@ -46,8 +46,8 @@ describe('Experiment', () => {
     })
 
     expect(result.results.length).toBe(2) // 1 model × 1 temperature × 2 inputs
-    
-    const processedInputs = result.results.map(r => r.params.input)
+
+    const processedInputs = result.results.map((r) => r.params.input)
     expect(processedInputs).toContain('input1')
     expect(processedInputs).toContain('input2')
   })

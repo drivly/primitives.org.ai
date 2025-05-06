@@ -7,8 +7,6 @@ describe('ai-functions', () => {
     setupTestEnvironment()
   })
 
-
-
   it('should export the ai function', () => {
     expect(ai).toBeDefined()
   })
@@ -23,7 +21,7 @@ describe('ai-functions', () => {
 
   it('should generate text content with proper structure', async () => {
     const result = await ai`Generate a short description of artificial intelligence`
-    
+
     expect(result).toBeDefined()
     expect(typeof result).toBe('string')
     expect(result.length).toBeGreaterThan(10)
@@ -41,16 +39,16 @@ describe('ai-functions', () => {
 
   it('should have proper types when using list function', async () => {
     const result = await list`List 3 programming languages`
-    
+
     expect(Array.isArray(result)).toBe(true)
-    
+
     expectTypeOf(result).toEqualTypeOf<string[]>()
-    
+
     result.forEach((item: string) => {
       expect(typeof item).toBe('string')
       expect(item.length).toBeGreaterThan(0)
     })
-    
+
     const firstItem = result[0]
     expect(typeof firstItem.toUpperCase()).toBe('string')
   })

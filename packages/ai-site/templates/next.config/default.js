@@ -8,6 +8,6 @@ module.exports = {
     appDir: true,
   },
   webpack: (config, { isServer }) => {
-    return config;
+    return config
   },
-};
+}

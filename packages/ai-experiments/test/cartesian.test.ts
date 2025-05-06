@@ -8,11 +8,7 @@ describe('cartesian', () => {
 
   it('should return correct cartesian product for single key', () => {
     const result = cartesian({ a: [1, 2, 3] })
-    expect(result).toEqual([
-      { a: 1 },
-      { a: 2 },
-      { a: 3 }
-    ])
+    expect(result).toEqual([{ a: 1 }, { a: 2 }, { a: 3 }])
   })
 
   it('should return correct cartesian product for multiple keys', () => {
@@ -21,7 +17,7 @@ describe('cartesian', () => {
       { a: 1, b: 'x' },
       { a: 1, b: 'y' },
       { a: 2, b: 'x' },
-      { a: 2, b: 'y' }
+      { a: 2, b: 'y' },
     ])
   })
 
@@ -31,7 +27,7 @@ describe('cartesian', () => {
       { a: 1, b: 'x', c: true },
       { a: 1, b: 'x', c: false },
       { a: 2, b: 'x', c: true },
-      { a: 2, b: 'x', c: false }
+      { a: 2, b: 'x', c: false },
     ])
   })
 })

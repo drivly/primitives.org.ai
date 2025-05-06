@@ -1,9 +1,9 @@
 vi.mock('ai-functions', () => ({
-  generateObject: vi.fn()
+  generateObject: vi.fn(),
 }))
 
 vi.mock('ai-providers', () => ({
-  model: vi.fn()
+  model: vi.fn(),
 }))
 
 import React from 'react'
@@ -20,14 +20,14 @@ describe('AI Component', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     clearResponseCache()
-    
+
     vi.mocked(generateObject).mockResolvedValue(defaultMockResponse)
     vi.mocked(model).mockReturnValue({
       name: 'gpt-4o',
-      provider: 'openai'
+      provider: 'openai',
     })
   })
-  
+
   afterEach(() => {
     vi.restoreAllMocks()
   })
@@ -39,7 +39,7 @@ describe('AI Component', () => {
           model='gpt-4o'
           schema={{
             title: 'string',
-            content: 'string'
+            content: 'string',
           }}
           prompt='Generate test content'
         >
@@ -53,35 +53,8 @@ describe('AI Component', () => {
     it('should render with minimal required props', async () => {
       vi.mocked(generateObject).mockResolvedValueOnce({
         object: {
-          title: 'Test Title'
-        }
-      })
-
-      render(
-        <AI
-          model='gpt-4o'
-          schema={{
-            title: 'string'
-          }}
-          prompt='Generate a title'
-        >
-          {(props) => <h1 data-testid="title">{props.title}</h1>}
-        </AI>
-      )
-
-      await waitFor(() => {
-        expect(screen.getByTestId('title')).toBeInTheDocument()
-      })
-      
-      expect(generateObject).toHaveBeenCalledTimes(1)
-    })
-
-    it('should render with all configuration options', async () => {
-      vi.mocked(generateObject).mockResolvedValueOnce({
-        object: {
           title: 'Test Title',
-          content: 'Test Content'
-        }
+        },
       })
 
       render(
@@ -89,7 +62,34 @@ describe('AI Component', () => {
           model='gpt-4o'
           schema={{
             title: 'string',
-            content: 'string'
+          }}
+          prompt='Generate a title'
+        >
+          {(props) => <h1 data-testid='title'>{props.title}</h1>}
+        </AI>
+      )
+
+      await waitFor(() => {
+        expect(screen.getByTestId('title')).toBeInTheDocument()
+      })
+
+      expect(generateObject).toHaveBeenCalledTimes(1)
+    })
+
+    it('should render with all configuration options', async () => {
+      vi.mocked(generateObject).mockResolvedValueOnce({
+        object: {
+          title: 'Test Title',
+          content: 'Test Content',
+        },
+      })
+
+      render(
+        <AI
+          model='gpt-4o'
+          schema={{
+            title: 'string',
+            content: 'string',
           }}
           prompt='Generate content'
           stream={false}
@@ -97,7 +97,7 @@ describe('AI Component', () => {
           cols={1}
         >
           {(props, { isStreaming }) => (
-            <div data-testid="content">
+            <div data-testid='content'>
               <h1>{props.title}</h1>
               <p>{props.content}</p>
               {isStreaming && <div>Loading...</div>}
@@ -118,8 +118,8 @@ describe('AI Component', () => {
         object: {
           title: 'Test Title',
           views: 100,
-          isPublished: true
-        }
+          isPublished: true,
+        },
       })
 
       render(
@@ -128,12 +128,12 @@ describe('AI Component', () => {
           schema={{
             title: 'string',
             views: 'number',
-            isPublished: 'boolean'
+            isPublished: 'boolean',
           }}
           prompt='Generate an article metadata'
         >
           {(props) => (
-            <div data-testid="metadata">
+            <div data-testid='metadata'>
               <h1>{props.title}</h1>
               <p>Views: {props.views}</p>
               <p>Published: {props.isPublished ? 'Yes' : 'No'}</p>
@@ -152,24 +152,20 @@ describe('AI Component', () => {
         object: {
           title: 'Test Title',
           content: 'Test Content',
-          wordCount: 500
-        }
+          wordCount: 500,
+        },
       })
 
       const ArticleSchema = z.object({
         title: z.string(),
         content: z.string(),
-        wordCount: z.number()
+        wordCount: z.number(),
       })
 
       render(
-        <AI
-          model='gpt-4o'
-          schema={ArticleSchema}
-          prompt='Generate an article'
-        >
+        <AI model='gpt-4o' schema={ArticleSchema} prompt='Generate an article'>
           {(props) => (
-            <div data-testid="article">
+            <div data-testid='article'>
               <h1>{props.title}</h1>
               <p>{props.content}</p>
               <span>Word count: {props.wordCount}</span>
@@ -186,19 +182,19 @@ describe('AI Component', () => {
     it('should handle pipe-separated enum values', async () => {
       vi.mocked(generateObject).mockResolvedValueOnce({
         object: {
-          category: 'Technology'
-        }
+          category: 'Technology',
+        },
       })
 
       render(
         <AI
           model='gpt-4o'
           schema={{
-            category: 'Technology | Business | Science | Health'
+            category: 'Technology | Business | Science | Health',
           }}
           prompt='Generate a category'
         >
-          {(props) => <div data-testid="category">{props.category}</div>}
+          {(props) => <div data-testid='category'>{props.category}</div>}
         </AI>
       )
 
@@ -215,8 +211,8 @@ describe('AI Component', () => {
       vi.mocked(generateObject).mockResolvedValueOnce({
         object: {
           title: 'Test Title',
-          content: 'Test Content'
-        }
+          content: 'Test Content',
+        },
       })
 
       render(
@@ -224,13 +220,13 @@ describe('AI Component', () => {
           model='gpt-4o'
           schema={{
             title: 'string',
-            content: 'string'
+            content: 'string',
           }}
           prompt='Generate an article'
           output='object'
         >
           {(props) => (
-            <div data-testid="article">
+            <div data-testid='article'>
               <h1>{props.title}</h1>
               <p>{props.content}</p>
             </div>
@@ -248,8 +244,8 @@ describe('AI Component', () => {
         object: [
           { title: 'Item 1', description: 'Description 1' },
           { title: 'Item 2', description: 'Description 2' },
-          { title: 'Item 3', description: 'Description 3' }
-        ]
+          { title: 'Item 3', description: 'Description 3' },
+        ],
       })
 
       render(
@@ -257,14 +253,14 @@ describe('AI Component', () => {
           model='gpt-4o'
           schema={{
             title: 'string',
-            description: 'string'
+            description: 'string',
           }}
           prompt='Generate a list of items'
           output='array'
           cols={3}
         >
           {(props) => (
-            <div data-testid="item">
+            <div data-testid='item'>
               <h3>{props.title}</h3>
               <p>{props.description}</p>
             </div>
@@ -287,8 +283,8 @@ describe('AI Component', () => {
             expected: 'string',
             received: 'undefined',
             path: ['title'],
-            message: 'Required'
-          }
+            message: 'Required',
+          },
         ])
       )
 
@@ -299,14 +295,14 @@ describe('AI Component', () => {
           model='gpt-4o'
           schema={z.object({
             title: z.string(),
-            content: z.string()
+            content: z.string(),
           })}
           prompt='Generate invalid content'
         >
           {(props, { error }) => (
             <div>
               {error ? (
-                <div data-testid="error">Error: {error.message}</div>
+                <div data-testid='error'>Error: {error.message}</div>
               ) : (
                 <div>
                   <h1>{props.title}</h1>
@@ -332,14 +328,14 @@ describe('AI Component', () => {
           model='gpt-4o'
           schema={{
             title: 'string',
-            content: 'string'
+            content: 'string',
           }}
           prompt='Generate content that fails'
         >
           {(props, { error }) => (
             <div>
               {error ? (
-                <div data-testid="api-error">Error: {error.message}</div>
+                <div data-testid='api-error'>Error: {error.message}</div>
               ) : (
                 <div>
                   <h1>{props.title}</h1>
@@ -358,23 +354,21 @@ describe('AI Component', () => {
     })
 
     it('should handle malformed responses', async () => {
-      vi.mocked(generateObject).mockRejectedValueOnce(
-        new Error('Failed to parse AI response as JSON')
-      )
+      vi.mocked(generateObject).mockRejectedValueOnce(new Error('Failed to parse AI response as JSON'))
 
       render(
         <AI
           model='gpt-4o'
           schema={{
             title: 'string',
-            content: 'string'
+            content: 'string',
           }}
           prompt='Generate malformed content'
         >
           {(props, { error }) => (
             <div>
               {error ? (
-                <div data-testid="malformed-error">Error: {error.message}</div>
+                <div data-testid='malformed-error'>Error: {error.message}</div>
               ) : (
                 <div>
                   <h1>{props.title}</h1>
@@ -401,7 +395,7 @@ describe('AI Component', () => {
         return new Promise((resolve) => {
           setTimeout(() => {
             resolve({
-              object: { title: 'Test', content: 'Content' }
+              object: { title: 'Test', content: 'Content' },
             })
           }, 100)
         })
@@ -412,18 +406,14 @@ describe('AI Component', () => {
           model='gpt-4o'
           schema={{
             title: 'string',
-            content: 'string'
+            content: 'string',
           }}
           prompt='Generate streaming content'
           stream={true}
         >
           {(props, { isStreaming }) => {
             streamingState = isStreaming
-            return (
-              <div data-testid="streaming">
-                {isStreaming ? 'Loading...' : props.title}
-              </div>
-            )
+            return <div data-testid='streaming'>{isStreaming ? 'Loading...' : props.title}</div>
           }}
         </AI>
       )
@@ -441,7 +431,7 @@ describe('AI Component', () => {
   describe('Edge Cases', () => {
     it('should handle empty results', async () => {
       vi.mocked(generateObject).mockResolvedValueOnce({
-        object: {}
+        object: {},
       })
 
       render(
@@ -449,12 +439,12 @@ describe('AI Component', () => {
           model='gpt-4o'
           schema={{
             title: 'string',
-            content: 'string'
+            content: 'string',
           }}
           prompt='Generate empty content'
         >
           {(props) => (
-            <div data-testid="empty">
+            <div data-testid='empty'>
               <h1>{props.title || 'No Title'}</h1>
               <p>{props.content || 'No Content'}</p>
             </div>
@@ -474,15 +464,11 @@ describe('AI Component', () => {
         <AI
           model='invalid-model'
           schema={{
-            title: 'string'
+            title: 'string',
           }}
           prompt='Generate with invalid model'
         >
-          {(props, { error }) => (
-            <div data-testid="invalid-input">
-              {error ? `Error: ${error.message}` : props.title}
-            </div>
-          )}
+          {(props, { error }) => <div data-testid='invalid-input'>{error ? `Error: ${error.message}` : props.title}</div>}
         </AI>
       )
 

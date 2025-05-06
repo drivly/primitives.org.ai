@@ -46,19 +46,19 @@ export const registry: ReturnType<typeof createProviderRegistry> = createProvide
     replicate,
     luma
   },
-  { separator: '/' },
+  { separator: '/' }
 )
 
 export const languageModel = (modelId: string) => {
   const [provider, model] = modelId.split('/')
   console.log(`Using provider: ${provider}, model: ${model}`)
-  
+
   return {
     generate: async (options: any) => {
       return { text: `Response from ${modelId}` }
     },
     stream: async (options: any) => {
       return { text: `Streaming response from ${modelId}` }
-    }
+    },
   }
 }

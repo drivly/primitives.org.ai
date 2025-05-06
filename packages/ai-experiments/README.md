@@ -17,42 +17,42 @@ pnpm add ai-experiments
 ### Basic Example
 
 ```typescript
-import { Experiment } from 'ai-experiments';
+import { Experiment } from 'ai-experiments'
 
 const result = await Experiment('simple-test', {
   models: ['gpt-4o'],
   temperature: 0.7,
   prompt: 'What is the capital of France?',
-});
+})
 
-console.log(result);
+console.log(result)
 ```
 
 ### Using Parameter Combinations
 
 ```typescript
-import { Experiment } from 'ai-experiments';
+import { Experiment } from 'ai-experiments'
 
 const result = await Experiment('temperature-comparison', {
   models: ['gpt-4o', 'gpt-4o-mini'],
   temperature: [0, 0.3, 0.7, 1.0],
   prompt: 'Generate a creative story about a robot.',
-});
+})
 
 // This will run 8 combinations (2 models × 4 temperatures)
-console.log(result);
+console.log(result)
 ```
 
 ### Using the Cartesian Function Directly
 
 ```typescript
-import { cartesian } from 'ai-experiments';
+import { cartesian } from 'ai-experiments'
 
 const combinations = cartesian({
   model: ['gpt-4o', 'gpt-4o-mini'],
   temperature: [0, 0.7],
-  maxTokens: [100, 500]
-});
+  maxTokens: [100, 500],
+})
 
 // Returns:
 // [
@@ -71,14 +71,14 @@ const combinations = cartesian({
 
 ```typescript
 // vitest.config.ts
-import { defineConfig } from 'vitest/config';
-import { createRunner } from 'ai-experiments';
+import { defineConfig } from 'vitest/config'
+import { createRunner } from 'ai-experiments'
 
 export default createRunner({
   outputDir: '.ai/experiments',
   testMatch: ['**/*experiment*.(js|ts|mjs|cjs)'],
   watch: false,
-});
+})
 ```
 
 ## API Reference
@@ -86,10 +86,7 @@ export default createRunner({
 ### Experiment
 
 ```typescript
-function Experiment<T = any, E = any>(
-  name: string,
-  config: ExperimentConfig<T, E>
-): Promise<ExperimentResult>
+function Experiment<T = any, E = any>(name: string, config: ExperimentConfig<T, E>): Promise<ExperimentResult>
 ```
 
 #### Parameters
@@ -107,6 +104,7 @@ function Experiment<T = any, E = any>(
 #### Returns
 
 Promise that resolves to an `ExperimentResult` object with:
+
 - `name`: Name of the experiment
 - `results`: Array of results for each parameter combination
 - `totalTime`: Total time taken for the experiment
@@ -115,9 +113,7 @@ Promise that resolves to an `ExperimentResult` object with:
 ### cartesian
 
 ```typescript
-function cartesian<T extends Record<string, readonly any[]>>(
-  spec: T
-): Array<{ [K in keyof T]: T[K][number] }>
+function cartesian<T extends Record<string, readonly any[]>>(spec: T): Array<{ [K in keyof T]: T[K][number] }>
 ```
 
 #### Parameters

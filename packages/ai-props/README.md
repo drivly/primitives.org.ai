@@ -30,11 +30,11 @@ yarn add ai-props
 import { AI } from 'ai-props'
 
 // Simple string-based OpenAI model
-<AI
+;<AI
   model='gpt-4.1'
   schema={{
     title: 'string',
-    content: 'string'
+    content: 'string',
   }}
   prompt='Generate content'
 >
@@ -77,12 +77,12 @@ const customModel = model('claude-3.7-sonnet')
 ```tsx
 import { AI } from 'ai-props'
 
-<AI
+;<AI
   model='gpt-4.1'
   stream={true}
   schema={{
     title: 'string',
-    content: 'string'
+    content: 'string',
   }}
   prompt='Generate an article about React'
 >
@@ -90,9 +90,7 @@ import { AI } from 'ai-props'
     <article className={isStreaming ? 'animate-pulse' : ''}>
       <h1>{props.title}</h1>
       <div>{props.content}</div>
-      {isStreaming && (
-        <div className='text-gray-500'>Generating content...</div>
-      )}
+      {isStreaming && <div className='text-gray-500'>Generating content...</div>}
     </article>
   )}
 </AI>
@@ -103,14 +101,14 @@ import { AI } from 'ai-props'
 ```tsx
 import { AI } from 'ai-props'
 
-<AI
+;<AI
   model='gpt-4.1'
   schema={{
     productType: 'App | API | Marketplace | Platform',
     profile: {
       customer: 'customer description',
-      solution: 'solution description'
-    }
+      solution: 'solution description',
+    },
   }}
   prompt='Generate a product profile'
 >
@@ -131,13 +129,13 @@ import { AI } from 'ai-props'
 ```tsx
 import { AI } from 'ai-props'
 
-<AI
+;<AI
   model='gpt-4.1'
   output='array'
   cols={3}
   schema={{
     name: 'string',
-    description: 'string'
+    description: 'string',
   }}
   prompt='Generate 6 product ideas'
 >
@@ -154,16 +152,16 @@ import { AI } from 'ai-props'
 
 ### AI Component Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `model` | `string \| ModelObject` | `'gpt-4o'` | AI model to use. Can be a string (e.g., 'gpt-4.1') or a model object from ai-providers |
-| `schema` | `Record<string, any> \| z.ZodType` | Required | Schema defining the structure of the generated content |
-| `prompt` | `string` | Required | Prompt to send to the AI model |
-| `stream` | `boolean` | `false` | Whether to stream the AI response in real-time |
-| `output` | `'object' \| 'array'` | `'object'` | Output format for the generated content |
-| `cols` | `number` | `1` | Number of columns for array output (only used when output='array') |
-| `children` | `(props: any, state: { isStreaming: boolean }) => React.ReactNode` | Required | Render function that receives the generated props |
-| `apiEndpoint` | `string` | `undefined` | Optional API endpoint for proxy implementation |
+| Prop          | Type                                                               | Default     | Description                                                                            |
+| ------------- | ------------------------------------------------------------------ | ----------- | -------------------------------------------------------------------------------------- |
+| `model`       | `string \| ModelObject`                                            | `'gpt-4o'`  | AI model to use. Can be a string (e.g., 'gpt-4.1') or a model object from ai-providers |
+| `schema`      | `Record<string, any> \| z.ZodType`                                 | Required    | Schema defining the structure of the generated content                                 |
+| `prompt`      | `string`                                                           | Required    | Prompt to send to the AI model                                                         |
+| `stream`      | `boolean`                                                          | `false`     | Whether to stream the AI response in real-time                                         |
+| `output`      | `'object' \| 'array'`                                              | `'object'`  | Output format for the generated content                                                |
+| `cols`        | `number`                                                           | `1`         | Number of columns for array output (only used when output='array')                     |
+| `children`    | `(props: any, state: { isStreaming: boolean }) => React.ReactNode` | Required    | Render function that receives the generated props                                      |
+| `apiEndpoint` | `string`                                                           | `undefined` | Optional API endpoint for proxy implementation                                         |
 
 ## Dependencies
 
