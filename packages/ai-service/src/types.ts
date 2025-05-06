@@ -1,8 +1,14 @@
-import { AIFunction } from 'ai-functions'
-
 /**
  * Type definitions for ai-service package
  */
+
+/**
+ * Type for AI function that can be called with input
+ * Matches the AIFunction type from ai-functions package
+ */
+export type AIFunction<TInput = any, TOutput = any> = {
+  (input: TInput, config?: any): Promise<TOutput>
+}
 
 /**
  * Types of entities that can be wrapped by Service
