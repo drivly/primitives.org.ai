@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Primitives.org.ai
 
-## Getting Started
+A collection of primitives for simplifying AI development. These primitives provide building blocks for creating AI-powered applications with minimal configuration.
 
-First, run the development server:
+## Primitives
+
+| Name | Description | Links |
+|------|-------------|-------|
+| **ai-database** | Minimalistic package that exports Payload CMS collection configurations and Next.js API route handlers to simplify database operations in AI applications. | [Code](https://github.com/drivly/primitives.org.ai/tree/main/packages/ai-database) • [Docs](https://primitives.org.ai/database) • [npm](https://www.npmjs.com/package/ai-database) |
+| **ai-functions** | Elegant, type-safe AI functions that deliver predictable results. Transform unpredictable AI outputs into reliable, deterministic components for your applications. | [Code](https://github.com/drivly/primitives.org.ai/tree/main/packages/ai-functions) • [Docs](https://primitives.org.ai/functions) • [npm](https://www.npmjs.com/package/ai-functions) |
+| **ai-props** | React component for generating AI-powered props for your components. Provides component-friendly, real-time streaming of AI-generated content. | [Code](https://github.com/drivly/primitives.org.ai/tree/main/packages/ai-props) • [Docs](https://primitives.org.ai/props) • [npm](https://www.npmjs.com/package/ai-props) |
+| **ai-providers** | Provider router for AI models including OpenAI, Anthropic, Google, and more. Offers a unified interface for working with multiple AI providers. | [Code](https://github.com/drivly/primitives.org.ai/tree/main/packages/ai-providers) • [Docs](https://primitives.org.ai/providers) • [npm](https://www.npmjs.com/package/ai-providers) |
+| **ai-site** | Zero-config solution for creating AI-powered Next.js websites using `ai-functions` and `ai-props`. Provides automatic integration with minimal setup. | [Code](https://github.com/drivly/primitives.org.ai/tree/main/packages/ai-site) • [Docs](https://primitives.org.ai/site) • [npm](https://www.npmjs.com/package/ai-site) |
+| **ai-workflows** | Framework for creating multi-step AI workflows with state management and error handling. Orchestrates complex AI interactions. | [Code](https://github.com/drivly/primitives.org.ai/tree/main/packages/ai-workflows) • [Docs](https://primitives.org.ai/workflows) • [npm](https://www.npmjs.com/package/ai-workflows) |
+| **language-models** | Unified interface for working with various language models across different providers. Simplifies model selection and usage. | [Code](https://github.com/drivly/primitives.org.ai/tree/main/packages/language-models) • [Docs](https://primitives.org.ai/models) • [npm](https://www.npmjs.com/package/language-models) |
+| **experiments** | A minimalistic experiment runner for AI tasks. Supports parameter combinations and structured output for AI experimentation. | [Code](https://github.com/drivly/primitives.org.ai/tree/main/packages/ai-experiments) • [Docs](https://primitives.org.ai/experiments) • [npm](https://www.npmjs.com/package/@ai-primitives/experiments) |
+
+## Installation
+
+You can install any of the primitives using npm, yarn, or pnpm:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Using npm
+npm install ai-database ai-functions ai-props
+
+# Using yarn
+yarn add ai-database ai-functions ai-props
+
+# Using pnpm
+pnpm add ai-database ai-functions ai-props
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Each primitive can be installed individually based on your needs.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Documentation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For detailed documentation on each primitive, visit [primitives.org.ai](https://primitives.org.ai).
