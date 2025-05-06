@@ -1,8 +1,6 @@
-import { nextConfig as payloadNextConfig } from 'payload/next'
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  ...payloadNextConfig,
+  transpilePackages: ['payload', '@payloadcms/db-mongodb', '@payloadcms/db-postgres', '@payloadcms/richtext-slate'],
 }
 
 export default nextConfig

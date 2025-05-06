@@ -1,4 +1,6 @@
+// @ts-expect-error - Type declarations provided in custom types folder
 import { postgresAdapter } from '@payloadcms/db-postgres'
+// @ts-expect-error - Type declarations provided in custom types folder
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { getMemoryAdapter } from './memory-server.js'
 
