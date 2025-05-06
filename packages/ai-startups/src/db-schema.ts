@@ -236,7 +236,11 @@ export const generateDatabase = (config: {
     },
   }
   
-  const relationships = [
+  const relationships: Array<{
+    from: string
+    to: string
+    type: 'one-to-one' | 'one-to-many' | 'many-to-many'
+  }> = [
     {
       from: 'services',
       to: 'startups',
