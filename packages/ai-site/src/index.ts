@@ -18,5 +18,16 @@ export async function initSite() {
 }
 
 export { loadSiteConfig } from './config-loader';
+export type { 
+  SiteConfig,
+  LandingPageConfig,
+  HeroSection,
+  FeaturesSection,
+  TestimonialsSection,
+  PricingSection,
+  CTASection,
+  FAQSection
+} from './config-loader';
 export { resolveNextConfig } from './next-config';
 export { resolveAppDirectory } from './app-directory';
+export { landingPageSchema, themeSchema, abTestingSchema } from './schemas/landing-page';
