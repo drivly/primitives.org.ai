@@ -1,14 +1,14 @@
 
 export default {
-  config(input) {
+  config(input: { stage?: string }) {
     return {
       name: "aws-example",
       removal: input?.stage === "production" ? "retain" : "remove",
       protect: ["production"].includes(input?.stage),
     };
   },
-  stacks(app) {
-    app.stack(function Site({ stack }) {
+  stacks(app: any) {
+    app.stack(function Site({ stack }: { stack: any }) {
       const site = new stack.NextjsSite({
         path: ".",
       });
