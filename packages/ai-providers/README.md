@@ -25,7 +25,7 @@ const response = await model.generate({
 - Perplexity (`perplexity/...`)
 - ElevenLabs (`elevenlabs/...`)
 
-<!-- The following providers are planned but not yet available in the npm registry:
+{/* The following providers are planned but not yet available in the npm registry:
 - Azure OpenAI (`azure/...`)
 - Fal (`fal/...`)
 - DeepInfra (`deepinfra/...`)
@@ -43,4 +43,4 @@ const response = await model.generate({
 - LMNT (`lmnt/...`)
 - Hume (`hume/...`)
 - Rev.ai (`revai/...`)
--->
+*/}
