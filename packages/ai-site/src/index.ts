@@ -17,8 +17,8 @@ export async function initSite() {
   };
 }
 
-export { 
-  loadSiteConfig,
+export { loadSiteConfig } from './config-loader';
+export type { 
   SiteConfig,
   LandingPageConfig,
   HeroSection,
