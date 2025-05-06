@@ -6,6 +6,14 @@ const nextConfig: NextConfig = {
 
 export default nextConfig
 
-// added by create cloudflare to enable calling `getCloudflareContext()` in `next dev`
-import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
-initOpenNextCloudflareForDev()
+if (process.env.NODE_ENV === 'development') {
+  try {
+    import('@opennextjs/cloudflare').then(({ initOpenNextCloudflareForDev }) => {
+      initOpenNextCloudflareForDev();
+    }).catch(err => {
+      console.warn('Failed to initialize OpenNext Cloudflare for dev:', err);
+    });
+  } catch (error) {
+    console.warn('Failed to import @opennextjs/cloudflare:', error);
+  }
+}
