@@ -4,10 +4,10 @@
  * @returns Language model instance
  */
 export declare const model: (modelId: string) => {
-    generate: (options: any) => Promise<{
-        text: string;
-    }>;
-    stream: (options: any) => Promise<{
-        text: string;
-    }>;
-};
+  generate: (options: any) => Promise<{
+    text: string
+  }>
+  stream: (options: any) => Promise<{
+    text: string
+  }>
+}

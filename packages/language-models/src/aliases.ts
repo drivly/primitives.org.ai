@@ -1,7 +1,7 @@
 export const aliases: Record<string, string> = {
-  'gemini': 'google/gemini-2.0-flash-001',
+  gemini: 'google/gemini-2.0-flash-001',
   'claude-3.7-sonnet': 'anthropic/claude-3.7-sonnet',
-  'r1': 'deepseek/deepseek-r1',
+  r1: 'deepseek/deepseek-r1',
   'gpt-4': 'openai/gpt-4',
   'gpt-4o': 'openai/gpt-4o',
   'claude-3-opus': 'anthropic/claude-3-opus',
@@ -15,7 +15,7 @@ export const aliases: Record<string, string> = {
   'gpt-3.5-turbo-16k': 'openai/gpt-3.5-turbo-16k',
   'dall-e-3': 'openai/dall-e-3',
   'dall-e-2': 'openai/dall-e-2',
-  'whisper': 'openai/whisper',
+  whisper: 'openai/whisper',
   'tts-1': 'openai/tts-1',
   'tts-1-hd': 'openai/tts-1-hd',
   'gemini-pro': 'google/gemini-1.5-pro',
@@ -36,7 +36,7 @@ export const aliases: Record<string, string> = {
   'mixtral-8x22b': 'mistral/mixtral-8x22b',
   'command-r': 'cohere/command-r',
   'command-r-plus': 'cohere/command-r-plus',
-  'command': 'cohere/command',
+  command: 'cohere/command',
   'embed-english': 'cohere/embed-english',
   'embed-multilingual': 'cohere/embed-multilingual',
   'stable-diffusion-3': 'stability/stable-diffusion-3',
@@ -49,5 +49,5 @@ export const aliases: Record<string, string> = {
   'j2-light': 'ai21/j2-light',
   'midjourney-v6': 'midjourney/v6',
   'midjourney-v5': 'midjourney/v5',
-  'midjourney-v4': 'midjourney/v4'
+  'midjourney-v4': 'midjourney/v4',
 }

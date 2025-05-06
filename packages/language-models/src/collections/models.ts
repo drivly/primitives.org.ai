@@ -5,10 +5,10 @@ const baseModels: Model[] = [
     slug: 'openai/gpt-4o',
     name: 'GPT-4o',
     author: 'OpenAI',
-    description: 'OpenAI\'s most advanced multimodal model',
+    description: "OpenAI's most advanced multimodal model",
     contextLength: 128000,
     inputModalities: ['text', 'image'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'openai/gpt-4-turbo',
@@ -17,16 +17,16 @@ const baseModels: Model[] = [
     description: 'Improved version of GPT-4 with better performance',
     contextLength: 128000,
     inputModalities: ['text'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'openai/gpt-4',
     name: 'GPT-4',
     author: 'OpenAI',
-    description: 'OpenAI\'s powerful large language model',
+    description: "OpenAI's powerful large language model",
     contextLength: 8192,
     inputModalities: ['text'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'openai/gpt-3.5-turbo',
@@ -35,7 +35,7 @@ const baseModels: Model[] = [
     description: 'Efficient language model for most tasks',
     contextLength: 16385,
     inputModalities: ['text'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'anthropic/claude-3.7-sonnet',
@@ -44,7 +44,7 @@ const baseModels: Model[] = [
     description: 'Latest Claude model with improved capabilities',
     contextLength: 200000,
     inputModalities: ['text', 'image'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'anthropic/claude-3.5-sonnet',
@@ -53,7 +53,7 @@ const baseModels: Model[] = [
     description: 'Balanced Claude model for most tasks',
     contextLength: 200000,
     inputModalities: ['text', 'image'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'anthropic/claude-3-opus',
@@ -62,7 +62,7 @@ const baseModels: Model[] = [
     description: 'Most powerful Claude model',
     contextLength: 200000,
     inputModalities: ['text', 'image'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'anthropic/claude-3-sonnet',
@@ -71,7 +71,7 @@ const baseModels: Model[] = [
     description: 'Balanced Claude model for most tasks',
     contextLength: 200000,
     inputModalities: ['text', 'image'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'anthropic/claude-3-haiku',
@@ -80,7 +80,7 @@ const baseModels: Model[] = [
     description: 'Fastest and most efficient Claude model',
     contextLength: 200000,
     inputModalities: ['text', 'image'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'google/gemini-2.0-flash-001',
@@ -89,7 +89,7 @@ const baseModels: Model[] = [
     description: 'Latest Gemini model optimized for speed',
     contextLength: 1000000,
     inputModalities: ['text', 'image'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'google/gemini-2.0-pro-001',
@@ -98,7 +98,7 @@ const baseModels: Model[] = [
     description: 'Latest Gemini model with advanced capabilities',
     contextLength: 1000000,
     inputModalities: ['text', 'image', 'audio', 'video'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'google/gemini-1.5-pro',
@@ -107,7 +107,7 @@ const baseModels: Model[] = [
     description: 'Powerful multimodal model with long context',
     contextLength: 1000000,
     inputModalities: ['text', 'image', 'audio', 'video'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'google/gemini-1.5-flash',
@@ -116,16 +116,16 @@ const baseModels: Model[] = [
     description: 'Efficient multimodal model with long context',
     contextLength: 1000000,
     inputModalities: ['text', 'image'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'meta/llama-3-70b',
     name: 'Llama 3 70B',
     author: 'Meta',
-    description: 'Meta\'s largest open language model',
+    description: "Meta's largest open language model",
     contextLength: 8192,
     inputModalities: ['text'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'meta/llama-3-8b',
@@ -134,7 +134,7 @@ const baseModels: Model[] = [
     description: 'Efficient open language model',
     contextLength: 8192,
     inputModalities: ['text'],
-    outputModalities: ['text']
+    outputModalities: ['text'],
   },
   {
     slug: 'deepseek/deepseek-r1',
@@ -143,8 +143,8 @@ const baseModels: Model[] = [
     description: 'Advanced reasoning model',
     contextLength: 32768,
     inputModalities: ['text'],
-    outputModalities: ['text']
-  }
+    outputModalities: ['text'],
+  },
 ]
 
 const generatedModels: Model[] = []
@@ -157,14 +157,17 @@ for (let i = 0; i < 410; i++) {
     contextLength: 4096,
     inputModalities: ['text'],
     outputModalities: ['text'],
-    sorting: i % 10 === 0 ? {
-      topWeekly: i % 50,
-      newest: i % 40,
-      throughputHighToLow: i % 30,
-      latencyLowToHigh: i % 20,
-      pricingLowToHigh: i % 15,
-      pricingHighToLow: i % 25
-    } : undefined
+    sorting:
+      i % 10 === 0
+        ? {
+            topWeekly: i % 50,
+            newest: i % 40,
+            throughputHighToLow: i % 30,
+            latencyLowToHigh: i % 20,
+            pricingLowToHigh: i % 15,
+            pricingHighToLow: i % 25,
+          }
+        : undefined,
   })
 }
 

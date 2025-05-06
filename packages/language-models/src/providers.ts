@@ -20,13 +20,10 @@ const baseProviders = [
   'Perplexity',
   'Together AI',
   'Weights & Biases',
-  'Anyscale'
+  'Anyscale',
 ]
 
-export const providers: string[] = [
-  ...baseProviders,
-  ...Array.from({ length: 400 }, (_, i) => `Test Provider ${i}`)
-]
+export const providers: string[] = [...baseProviders, ...Array.from({ length: 400 }, (_, i) => `Test Provider ${i}`)]
 
 export function getProviderName(provider: string): string {
   switch (provider.toLowerCase()) {

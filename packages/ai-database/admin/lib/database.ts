@@ -12,11 +12,11 @@ export type DatabaseType = 'mongodb' | 'memory'
  */
 export const detectDatabaseType = (uri?: string): DatabaseType => {
   if (!uri) return 'memory'
-  
+
   if (uri.startsWith('mongodb://') || uri.startsWith('mongodb+srv://')) {
     return 'mongodb'
   }
-  
+
   return 'mongodb'
 }
 
@@ -40,7 +40,7 @@ export const getMemoryAdapter = () => {
   if (!memoryServerUri) {
     throw new Error('Database not initialized. Call initMemoryServer first.')
   }
-  
+
   return {
     url: memoryServerUri,
   }
@@ -53,14 +53,14 @@ export const getMemoryAdapter = () => {
  */
 export const getDatabaseAdapter = (uri?: string) => {
   const type = detectDatabaseType(uri)
-  
+
   if (type === 'memory') {
     if (!memoryServerUri) {
       throw new Error('Database not initialized. Call initMemoryServer first.')
     }
     return getMemoryAdapter()
   }
-  
+
   return {
     url: uri || '',
   }
