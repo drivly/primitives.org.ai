@@ -1,5 +1,5 @@
 ---
-"digital-workers": minor
+"digital-workers": patch
 ---
 
 Initial release of digital-workers package with:
