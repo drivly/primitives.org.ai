@@ -12,6 +12,7 @@ This example contains only the essential files needed to create an AI site:
 ## How to Use This Example
 
 1. Install dependencies:
+
    ```bash
    npm install
    # or
@@ -21,6 +22,7 @@ This example contains only the essential files needed to create an AI site:
    ```
 
 2. Run the development server:
+
    ```bash
    npm run dev
    # or

@@ -13,13 +13,13 @@ export async function createOrGetProduct<T>(config: ServiceConfig<T>): Promise<s
     const description = metadata.description || `AI ${type} with ${pricing.model} pricing`
 
     const existingProducts = await stripe.products.list({
-      active: true
+      active: true,
     })
 
     const productMetadata = {
       entityType: type,
       pricingModel: pricing.model,
-      ...metadata
+      ...metadata,
     }
 
     const existing = existingProducts.data.find(
@@ -33,7 +33,7 @@ export async function createOrGetProduct<T>(config: ServiceConfig<T>): Promise<s
     const product = await stripe.products.create({
       name,
       description,
-      metadata: productMetadata
+      metadata: productMetadata,
     })
 
     return product.id
@@ -52,7 +52,7 @@ export async function createOrGetPrice<T>(config: ServiceConfig<T>, productId: s
 
     const existingPrices = await stripe.prices.list({
       product: productId,
-      active: true
+      active: true,
     })
 
     if (existingPrices.data.length > 0) {
@@ -62,7 +62,7 @@ export async function createOrGetPrice<T>(config: ServiceConfig<T>, productId: s
     let priceData: Stripe.PriceCreateParams = {
       product: productId,
       currency: 'usd',
-      metadata: { ...metadata }
+      metadata: { ...metadata },
     }
 
     switch (pricing.model) {
@@ -70,7 +70,7 @@ export async function createOrGetPrice<T>(config: ServiceConfig<T>, productId: s
         priceData = {
           ...priceData,
           unit_amount: Math.round(pricing.pricePerUse * 100), // Convert to cents
-          currency: 'usd'
+          currency: 'usd',
         }
         break
       }
@@ -82,8 +82,8 @@ export async function createOrGetPrice<T>(config: ServiceConfig<T>, productId: s
             unit_amount: Math.round(pricing.perUser.price * 100),
             currency: 'usd',
             recurring: {
-              interval: interval === 'yearly' ? 'year' : interval === 'daily' ? 'day' : interval === 'hourly' ? 'day' : 'month'
-            }
+              interval: interval === 'yearly' ? 'year' : interval === 'daily' ? 'day' : interval === 'hourly' ? 'day' : 'month',
+            },
           }
         } else if (pricing.perInstance) {
           const interval = pricing.perInstance.interval || 'monthly'
@@ -92,8 +92,8 @@ export async function createOrGetPrice<T>(config: ServiceConfig<T>, productId: s
             unit_amount: Math.round(pricing.perInstance.price * 100),
             currency: 'usd',
             recurring: {
-              interval: interval === 'yearly' ? 'year' : interval === 'daily' ? 'day' : interval === 'hourly' ? 'day' : 'month'
-            }
+              interval: interval === 'yearly' ? 'year' : interval === 'daily' ? 'day' : interval === 'hourly' ? 'day' : 'month',
+            },
           }
         }
         break
@@ -102,7 +102,7 @@ export async function createOrGetPrice<T>(config: ServiceConfig<T>, productId: s
         priceData = {
           ...priceData,
           unit_amount: 100, // $1.00
-          currency: 'usd'
+          currency: 'usd',
         }
       }
     }
@@ -123,7 +123,7 @@ export async function createSubscription(customerId: string, priceId: string, me
     return await stripe.subscriptions.create({
       customer: customerId,
       items: [{ price: priceId }],
-      metadata
+      metadata,
     })
   } catch (error) {
     console.error('Error creating subscription:', error)
@@ -138,7 +138,7 @@ export async function recordUsage(subscriptionItemId: string, quantity: number):
   try {
     return await stripe.subscriptionItems.createUsageRecord(subscriptionItemId, {
       quantity,
-      action: 'increment'
+      action: 'increment',
     })
   } catch (error) {
     console.error('Error recording usage:', error)

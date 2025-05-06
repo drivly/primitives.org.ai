@@ -10,7 +10,7 @@ const nextConfig = {
       ...config.resolve.fallback,
       'cloudflare:sockets': false,
     }
-    
+
     return config
   },
 }

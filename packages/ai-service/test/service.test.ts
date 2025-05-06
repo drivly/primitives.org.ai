@@ -10,19 +10,19 @@ vi.mock('stripe', () => {
     default: vi.fn().mockImplementation(() => ({
       products: {
         create: vi.fn().mockResolvedValue({ id: 'prod_mock123' }),
-        list: vi.fn().mockResolvedValue({ data: [] })
+        list: vi.fn().mockResolvedValue({ data: [] }),
       },
       prices: {
         create: vi.fn().mockResolvedValue({ id: 'price_mock123' }),
-        list: vi.fn().mockResolvedValue({ data: [] })
+        list: vi.fn().mockResolvedValue({ data: [] }),
       },
       subscriptions: {
-        create: vi.fn().mockResolvedValue({ id: 'sub_mock123' })
+        create: vi.fn().mockResolvedValue({ id: 'sub_mock123' }),
       },
       subscriptionItems: {
-        createUsageRecord: vi.fn().mockResolvedValue({ id: 'usage_mock123' })
-      }
-    }))
+        createUsageRecord: vi.fn().mockResolvedValue({ id: 'usage_mock123' }),
+      },
+    })),
   }
 })
 
@@ -37,8 +37,8 @@ describe('Service', () => {
       type: 'function',
       pricing: {
         model: 'payPerUse',
-        pricePerUse: 0.05
-      }
+        pricePerUse: 0.05,
+      },
     })
 
     const result = await pricedFunction('test input')
@@ -57,8 +57,8 @@ describe('Service', () => {
       type: 'function',
       pricing: {
         model: 'payPerUse',
-        pricePerUse: 0.05
-      }
+        pricePerUse: 0.05,
+      },
     })
 
     const price = await pricedFunction.calculatePrice({})
@@ -73,9 +73,9 @@ describe('Service', () => {
         model: 'subscription',
         perUser: {
           price: 10,
-          interval: 'monthly'
-        }
-      }
+          interval: 'monthly',
+        },
+      },
     })
 
     const price = await pricedFunction.calculatePrice({ userId: 'user123' })
@@ -90,9 +90,9 @@ describe('Service', () => {
         model: 'subscription',
         perUser: {
           price: 10,
-          interval: 'monthly'
-        }
-      }
+          interval: 'monthly',
+        },
+      },
     })
 
     const subscription = await pricedFunction.createSubscription('cus_123456')

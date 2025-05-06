@@ -1,6 +1,6 @@
 export default {
   entry: {
-    'index': 'src/index.ts',
+    index: 'src/index.ts',
   },
   format: ['esm', 'cjs'],
   dts: true,

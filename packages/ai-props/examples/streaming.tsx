@@ -8,7 +8,7 @@ export const StreamingExample = () => {
       stream={true}
       schema={{
         title: 'string',
-        content: 'string'
+        content: 'string',
       }}
       prompt='Generate an article about AI-powered React components'
     >
@@ -20,9 +20,7 @@ export const StreamingExample = () => {
             <>
               <h1 className='text-2xl font-bold mb-4'>{props.title}</h1>
               <div className='prose'>{props.content}</div>
-              {isStreaming && (
-                <div className='text-gray-500 mt-4'>Generating content...</div>
-              )}
+              {isStreaming && <div className='text-gray-500 mt-4'>Generating content...</div>}
             </>
           )}
         </article>

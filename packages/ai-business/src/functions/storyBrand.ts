@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 /**
  * Create a StoryBrand framework for a business or product
- * 
+ *
  * @param input - Input data or string to create StoryBrand for
  * @param config - Configuration options
  * @returns A StoryBrand framework object
@@ -14,16 +14,16 @@ export const storyBrand = async (
     modelName?: string
     system?: string
     temperature?: number
-  } = {},
+  } = {}
 ) => {
   const {
     modelName = 'google/gemini-2.5-flash-preview',
     system = 'You are an expert business consultant specializing in the StoryBrand framework for clarifying marketing messages',
     temperature = 0.7,
   } = config
-  
+
   const inputStr = typeof input === 'string' ? input : JSON.stringify(input)
-  
+
   const schema = z.object({
     productName: z.string().describe('name of the product or service'),
     hero: z.string().describe('description of the customer and their challenges'),
@@ -40,7 +40,7 @@ export const storyBrand = async (
     failure: z.string().describe("description of what failure looks like if they don't use the product"),
     messagingExamples: z.array(z.string()).describe('example marketing messages based on this framework'),
   })
-  
+
   try {
     const result = await model(modelName).generate({
       prompt: `Create a StoryBrand framework for: \n\n${inputStr}`,
@@ -48,7 +48,7 @@ export const storyBrand = async (
       temperature,
       schema,
     })
-    
+
     return JSON.parse(result.text)
   } catch (error) {
     console.error('Error generating StoryBrand framework:', error)

@@ -66,7 +66,7 @@ const amy = Agent({
 const result = await amy.do('sendMessage', {
   recipient: 'customer@example.com',
   subject: 'Order Status Update',
-  body: 'Your order has been shipped and will arrive in 2-3 business days.'
+  body: 'Your order has been shipped and will arrive in 2-3 business days.',
 })
 
 // Execute a custom operation
@@ -74,7 +74,7 @@ const customResult = await amy.execute({
   operation: 'processRefund',
   orderId: '12345',
   amount: 99.99,
-  reason: 'Customer request'
+  reason: 'Customer request',
 })
 ```
 
@@ -84,11 +84,11 @@ const customResult = await amy.execute({
 // Set up an event handler for a trigger
 amy.onTicketCreated(async (ticket) => {
   console.log(`New ticket created: ${ticket.id}`)
-  
+
   // Automatically respond to the ticket
   await amy.do('sendMessage', {
     ticketId: ticket.id,
-    message: 'Thank you for your inquiry. We will respond shortly.'
+    message: 'Thank you for your inquiry. We will respond shortly.',
   })
 })
 ```
@@ -111,28 +111,28 @@ Creates a new autonomous agent with the provided configuration.
 
 The configuration object for creating an agent.
 
-| Property | Type | Description |
-|----------|------|-------------|
-| name | string | The name of the agent |
-| url | string | The URL associated with the agent |
-| role | string | The role or purpose of the agent |
-| objective | string | The main objective or goal of the agent |
-| keyResults | string[] | Key performance indicators for the agent |
+| Property     | Type     | Description                                    |
+| ------------ | -------- | ---------------------------------------------- |
+| name         | string   | The name of the agent                          |
+| url          | string   | The URL associated with the agent              |
+| role         | string   | The role or purpose of the agent               |
+| objective    | string   | The main objective or goal of the agent        |
+| keyResults   | string[] | Key performance indicators for the agent       |
 | integrations | string[] | External services the agent can integrate with |
-| triggers | string[] | Events that the agent can respond to |
-| searches | string[] | Types of searches the agent can perform |
-| actions | string[] | Actions that the agent can perform |
+| triggers     | string[] | Events that the agent can respond to           |
+| searches     | string[] | Types of searches the agent can perform        |
+| actions      | string[] | Actions that the agent can perform             |
 
 ### AutonomousAgent
 
 The agent instance returned by the Agent function.
 
-| Property/Method | Type | Description |
-|-----------------|------|-------------|
-| config | AgentConfig | The configuration of the agent |
-| execute | (input: Record<string, any>, options?: any) => Promise<any> | Executes a custom operation |
-| do | Proxy | A proxy for executing actions defined in the agent's configuration |
-| [triggerName] | Function | Dynamic event handlers for each trigger defined in the agent's configuration |
+| Property/Method | Type                                                        | Description                                                                  |
+| --------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| config          | AgentConfig                                                 | The configuration of the agent                                               |
+| execute         | (input: Record<string, any>, options?: any) => Promise<any> | Executes a custom operation                                                  |
+| do              | Proxy                                                       | A proxy for executing actions defined in the agent's configuration           |
+| [triggerName]   | Function                                                    | Dynamic event handlers for each trigger defined in the agent's configuration |
 
 ## Dependencies
 

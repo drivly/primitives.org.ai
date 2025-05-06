@@ -13,11 +13,19 @@ const getAIProvider = (modelName: string | undefined) => {
 /**
  * Generate an object using the AI model
  */
-const generateObject = async (options: { model: any; prompt: string; schema?: z.ZodType<any>; temperature?: number; maxTokens?: number; output?: string; [key: string]: any }) => {
+const generateObject = async (options: {
+  model: any
+  prompt: string
+  schema?: z.ZodType<any>
+  temperature?: number
+  maxTokens?: number
+  output?: string
+  [key: string]: any
+}) => {
   const { model, prompt, schema, ...rest } = options
 
   const hasCompleteMethod = model && typeof model.complete === 'function'
-  
+
   if (schema) {
     let response
     if (hasCompleteMethod) {
@@ -63,7 +71,7 @@ const generateText = async (options: { model: any; prompt: string; temperature?:
   const { model, prompt, ...rest } = options
 
   const hasCompleteMethod = model && typeof model.complete === 'function'
-  
+
   let response
   if (hasCompleteMethod) {
     response = await model.complete({

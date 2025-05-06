@@ -4,14 +4,14 @@ module.exports = {
   nextConfig: {
     reactStrictMode: true,
     experimental: {
-      appDir: true
-    }
+      appDir: true,
+    },
   },
   appDir: './custom-app',
   aiFunctions: {
-    enabled: true
+    enabled: true,
   },
   aiProps: {
-    enabled: true
-  }
-};
+    enabled: true,
+  },
+}

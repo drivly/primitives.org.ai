@@ -1,5 +1,5 @@
-import { defineConfig } from 'vitest/config';
-import { resolve } from 'path';
+import { defineConfig } from 'vitest/config'
+import { resolve } from 'path'
 
 export default defineConfig({
   test: {
@@ -10,7 +10,7 @@ export default defineConfig({
     css: false, // Disable CSS processing completely
     root: resolve(__dirname), // Use package directory as root to avoid parent postcss config
     deps: {
-      inline: [/.*postcss.*/] // Inline postcss dependencies to avoid loading from parent
-    }
-  }
-});
+      inline: [/.*postcss.*/], // Inline postcss dependencies to avoid loading from parent
+    },
+  },
+})

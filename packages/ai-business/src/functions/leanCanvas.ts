@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 /**
  * Create a Lean Canvas for a business idea or product
- * 
+ *
  * @param input - Input data or string to create Lean Canvas for
  * @param config - Configuration options
  * @returns A Lean Canvas object
@@ -14,16 +14,16 @@ export const leanCanvas = async (
     modelName?: string
     system?: string
     temperature?: number
-  } = {},
+  } = {}
 ) => {
   const {
     modelName = 'google/gemini-2.5-flash-preview',
     system = 'You are an expert business consultant specializing in Lean Canvas for startups and new products',
     temperature = 0.7,
   } = config
-  
+
   const inputStr = typeof input === 'string' ? input : JSON.stringify(input)
-  
+
   const schema = z.object({
     productName: z.string().describe('name of the product or service'),
     problem: z.array(z.string()).describe('top 3 problems the product solves'),
@@ -36,7 +36,7 @@ export const leanCanvas = async (
     costStructure: z.array(z.string()).describe('list of operational costs'),
     revenueStreams: z.array(z.string()).describe('list of revenue sources'),
   })
-  
+
   try {
     const result = await model(modelName).generate({
       prompt: `Create a Lean Canvas for: \n\n${inputStr}`,
@@ -44,7 +44,7 @@ export const leanCanvas = async (
       temperature,
       schema,
     })
-    
+
     return JSON.parse(result.text)
   } catch (error) {
     console.error('Error generating Lean Canvas:', error)

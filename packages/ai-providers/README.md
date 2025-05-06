@@ -9,7 +9,7 @@ import { languageModel } from 'ai-providers'
 
 const model = languageModel('openai/gpt-4')
 const response = await model.generate({
-  messages: [{ role: 'user', content: 'Hello, world!' }]
+  messages: [{ role: 'user', content: 'Hello, world!' }],
 })
 ```
 

@@ -11,8 +11,8 @@ pnpm add ai-service
 ## Usage
 
 ```typescript
-import { Service } from 'ai-service';
-import { ai } from 'ai-functions';
+import { Service } from 'ai-service'
+import { ai } from 'ai-functions'
 
 // Create a priced function service
 const pricedFunction = Service({
@@ -20,27 +20,27 @@ const pricedFunction = Service({
   type: 'function',
   pricing: {
     model: 'payPerUse',
-    pricePerUse: 0.05 // $0.05 per use
-  }
-});
+    pricePerUse: 0.05, // $0.05 per use
+  },
+})
 
 // Use the function as normal
-const result = await pricedFunction('Generate a summary of this text...');
+const result = await pricedFunction('Generate a summary of this text...')
 
 // Calculate the price for usage
 const price = await pricedFunction.calculatePrice({
   inputs: 10,
-  outputs: 5
-});
+  outputs: 5,
+})
 
 // Record usage for billing
 const usage = await pricedFunction.recordUsage({
   inputs: 10,
-  outputs: 5
-});
+  outputs: 5,
+})
 
 // Create a subscription for a customer
-const subscription = await pricedFunction.createSubscription('cus_123456');
+const subscription = await pricedFunction.createSubscription('cus_123456')
 ```
 
 ## Pricing Models

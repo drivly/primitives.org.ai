@@ -91,12 +91,7 @@ export interface OutcomePricingConfig extends BasePricingConfig {
 /**
  * Union type of all pricing configurations
  */
-export type PricingConfig =
-  | PayPerUsePricingConfig
-  | PrepaidPricingConfig
-  | PostpaidPricingConfig
-  | SubscriptionPricingConfig
-  | OutcomePricingConfig
+export type PricingConfig = PayPerUsePricingConfig | PrepaidPricingConfig | PostpaidPricingConfig | SubscriptionPricingConfig | OutcomePricingConfig
 
 /**
  * Usage data for calculating prices

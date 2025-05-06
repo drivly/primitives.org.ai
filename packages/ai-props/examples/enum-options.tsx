@@ -9,8 +9,8 @@ export const EnumOptionsExample = () => {
         productType: 'App | API | Marketplace | Platform',
         profile: {
           customer: 'customer description',
-          solution: 'solution description'
-        }
+          solution: 'solution description',
+        },
       }}
       prompt='Generate a product profile for a developer tool'
     >
@@ -29,9 +29,7 @@ export const EnumOptionsExample = () => {
                 <h3 className='text-lg font-semibold'>Solution</h3>
                 <p>{props.profile.solution}</p>
               </div>
-              {isStreaming && (
-                <div className='text-gray-500 mt-4'>Generating content...</div>
-              )}
+              {isStreaming && <div className='text-gray-500 mt-4'>Generating content...</div>}
             </>
           )}
         </div>

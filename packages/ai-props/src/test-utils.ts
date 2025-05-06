@@ -23,16 +23,14 @@ export function generateCacheKey(...args: any[]): string {
  * @param fn The function to cache
  * @returns A cached function
  */
-export function createCachedFunction<T extends (...args: any[]) => Promise<any>>(
-  fn: T
-): T {
+export function createCachedFunction<T extends (...args: any[]) => Promise<any>>(fn: T): T {
   return (async (...args: Parameters<T>) => {
     const key = generateCacheKey(...args)
-    
+
     if (responseCache.has(key)) {
       return responseCache.get(key)
     }
-    
+
     const result = await fn(...args)
     responseCache.set(key, result)
     return result
@@ -44,17 +42,15 @@ export function createCachedFunction<T extends (...args: any[]) => Promise<any>>
  * @param fn The function to spy on and cache
  * @returns A spy function with caching
  */
-export function createCachedFunctionSpy<T extends (...args: any[]) => Promise<any>>(
-  fn: T
-): T & { calls: any[][] } {
+export function createCachedFunctionSpy<T extends (...args: any[]) => Promise<any>>(fn: T): T & { calls: any[][] } {
   const calls: any[][] = []
   const cachedFn = createCachedFunction(fn)
-  
+
   const spy = (async (...args: Parameters<T>) => {
     calls.push([...args])
     return cachedFn(...args)
   }) as T & { calls: any[][] }
-  
+
   spy.calls = calls
   return spy
 }
@@ -65,6 +61,6 @@ export function createCachedFunctionSpy<T extends (...args: any[]) => Promise<an
 export const defaultMockResponse = {
   object: {
     title: 'Test Title',
-    content: 'Test Content'
-  }
+    content: 'Test Content',
+  },
 }

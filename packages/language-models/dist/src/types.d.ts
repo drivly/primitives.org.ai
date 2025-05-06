@@ -1,1 +1,1 @@
-export type Model = string;
+export type Model = string

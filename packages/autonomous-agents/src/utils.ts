@@ -8,42 +8,42 @@ export function createAgentProxy(config: any, state: Record<string, any>) {
   return new Proxy(function doMethod() {}, {
     apply: async (target: any, thisArg: any, args: any[]) => {
       const [action, ...params] = args
-      
+
       if (!config.actions.includes(action)) {
         throw new Error(`Action '${action}' is not defined for agent ${config.name}`)
       }
-      
+
       const startTime = Date.now()
-      
+
       try {
         const result = {
           action,
           params,
           agent: config.name,
           timestamp: new Date().toISOString(),
-          success: true
+          success: true,
         }
-        
+
         const executionTime = Date.now() - startTime
-        
+
         if (!state.actions) {
           state.actions = []
         }
-        
+
         state.actions.push({
           action,
           params,
           timestamp: new Date().toISOString(),
           executionTime,
-          result
+          result,
         })
-        
+
         return result
       } catch (error) {
         console.error(`Error executing action ${action} for agent ${config.name}:`, error)
         throw error
       }
-    }
+    },
   })
 }
 
@@ -56,21 +56,21 @@ export function createAgentProxy(config: any, state: Record<string, any>) {
 export function createEventHandler(trigger: string, config: any) {
   return async function eventHandler(...args: any[]) {
     const startTime = Date.now()
-    
+
     try {
       const result = {
         trigger,
         args,
         agent: config.name,
         timestamp: new Date().toISOString(),
-        processed: true
+        processed: true,
       }
-      
+
       const executionTime = Date.now() - startTime
-      
+
       return {
         ...result,
-        executionTime
+        executionTime,
       }
     } catch (error) {
       console.error(`Error handling event ${trigger} for agent ${config.name}:`, error)
@@ -89,14 +89,14 @@ export function monitorKeyResult(keyResult: string, value: any, state: Record<st
   if (!state.keyResults) {
     state.keyResults = {}
   }
-  
+
   if (!state.keyResults[keyResult]) {
     state.keyResults[keyResult] = []
   }
-  
+
   state.keyResults[keyResult].push({
     value,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   })
 }
 
@@ -113,7 +113,7 @@ export function callIntegration(integration: string, method: string, ...params: 
     method,
     params,
     timestamp: new Date().toISOString(),
-    success: true
+    success: true,
   }
 }
 
@@ -128,6 +128,6 @@ export function performSearch(searchType: string, query: string) {
     searchType,
     query,
     timestamp: new Date().toISOString(),
-    results: []
+    results: [],
   }
 }

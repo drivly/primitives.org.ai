@@ -6,21 +6,17 @@ export const metadata = {
   description: 'Generated with ai-site',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body>
         <main>{children}</main>
-        <footer className="footer">
-          <div className="container">
+        <footer className='footer'>
+          <div className='container'>
             <p>© {new Date().getFullYear()}</p>
             <nav>
-              <a href="/privacy">Privacy Policy</a>
-              <a href="/terms">Terms of Service</a>
+              <a href='/privacy'>Privacy Policy</a>
+              <a href='/terms'>Terms of Service</a>
             </nav>
           </div>
         </footer>

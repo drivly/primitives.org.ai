@@ -10,28 +10,23 @@ const priceIds = new Map<string, string>()
  * @param config Configuration for the service
  * @returns Enhanced entity with pricing/billing methods
  */
-export function Service<T>({
-  entity,
-  type,
-  pricing,
-  metadata = {}
-}: ServiceConfig<T>): ServiceWrapped<T> {
+export function Service<T>({ entity, type, pricing, metadata = {} }: ServiceConfig<T>): ServiceWrapped<T> {
   let productId: string = ''
   let priceId: string = ''
 
   const initializeStripe = async () => {
     const instanceId = metadata.id || Math.random().toString(36).substring(2, 15)
     const cacheKey = `${type}-${pricing.model}-${instanceId}`
-    
+
     if (productIds.has(cacheKey) && priceIds.has(cacheKey)) {
       productId = productIds.get(cacheKey) || ''
       priceId = priceIds.get(cacheKey) || ''
       return
     }
-    
+
     productId = await createOrGetProduct({ entity, type, pricing, metadata })
     productIds.set(cacheKey, productId)
-    
+
     priceId = await createOrGetPrice({ entity, type, pricing, metadata }, productId)
     priceIds.set(cacheKey, priceId)
   }
@@ -48,16 +43,16 @@ export function Service<T>({
 
   const recordUsageForBilling = async (usage: UsageData): Promise<any> => {
     await ensureInitialized()
-    
+
     if (usage.subscriptionItemId) {
       const amount = await calculatePriceForUsage(usage)
       return recordStripeUsage(usage.subscriptionItemId, Math.round(amount * 100))
     }
-    
+
     return {
       usage,
       price: await calculatePriceForUsage(usage),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     }
   }
 
@@ -66,7 +61,7 @@ export function Service<T>({
     return createStripeSubscription(customerId, priceId, {
       entityType: type,
       pricingModel: pricing.model,
-      ...metadata
+      ...metadata,
     })
   }
 
@@ -88,15 +83,15 @@ export function Service<T>({
     const wrappedFunction = async (...args: any[]) => {
       return (entity as any)(...args)
     }
-    
+
     Object.assign(wrappedFunction, {
       calculatePrice: calculatePriceForUsage,
       recordUsage: recordUsageForBilling,
       createSubscription: createSubscriptionForCustomer,
       getProductId: getProductIdMethod,
-      getPriceId: getPriceIdMethod
+      getPriceId: getPriceIdMethod,
     })
-    
+
     return wrappedFunction as ServiceWrapped<T>
   } else {
     return {
@@ -105,7 +100,7 @@ export function Service<T>({
       recordUsage: recordUsageForBilling,
       createSubscription: createSubscriptionForCustomer,
       getProductId: getProductIdMethod,
-      getPriceId: getPriceIdMethod
+      getPriceId: getPriceIdMethod,
     } as ServiceWrapped<T>
   }
 }

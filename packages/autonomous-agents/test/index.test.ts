@@ -18,11 +18,11 @@ describe('autonomous-agents', () => {
       integrations: ['test'],
       triggers: ['onTest'],
       searches: ['testSearch'],
-      actions: ['testAction']
+      actions: ['testAction'],
     }
 
     const agent = Agent(config)
-    
+
     expect(agent).toBeDefined()
     expect(agent.config).toEqual(config)
   })
@@ -37,9 +37,9 @@ describe('autonomous-agents', () => {
       integrations: ['test'],
       triggers: ['onTest'],
       searches: ['testSearch'],
-      actions: ['testAction']
+      actions: ['testAction'],
     })
-    
+
     expect(agent.execute).toBeDefined()
     expect(typeof agent.execute).toBe('function')
   })
@@ -54,9 +54,9 @@ describe('autonomous-agents', () => {
       integrations: ['test'],
       triggers: ['onTest'],
       searches: ['testSearch'],
-      actions: ['testAction']
+      actions: ['testAction'],
     })
-    
+
     expect(agent.do).toBeDefined()
   })
 
@@ -70,9 +70,9 @@ describe('autonomous-agents', () => {
       integrations: ['test'],
       triggers: ['onTest'],
       searches: ['testSearch'],
-      actions: ['testAction']
+      actions: ['testAction'],
     })
-    
+
     expect(agent.onTest).toBeDefined()
     expect(typeof agent.onTest).toBe('function')
   })
@@ -87,11 +87,11 @@ describe('autonomous-agents', () => {
       integrations: ['test'],
       triggers: ['onTest'],
       searches: ['testSearch'],
-      actions: ['testAction']
+      actions: ['testAction'],
     })
-    
+
     const result = await agent.execute({ test: 'input' })
-    
+
     expect(result).toBeDefined()
     expect(result.data).toBe('executed')
     expect(result.agent).toBe('TestAgent')
@@ -108,9 +108,9 @@ describe('autonomous-agents', () => {
       integrations: ['test'],
       triggers: ['onTest'],
       searches: ['testSearch'],
-      actions: ['testAction']
+      actions: ['testAction'],
     })
-    
+
     await expect(async () => {
       await agent.do('undefinedAction')
     }).rejects.toThrow("Action 'undefinedAction' is not defined for agent TestAgent")

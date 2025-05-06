@@ -12,16 +12,15 @@ export type AIFunction<TInput = any, TOutput = any> = {
 /**
  * Represents an event handler for AI events
  */
-export type AIEventHandler<TEvent = any, TResult = any> = 
-  (event: TEvent, context: any) => Promise<TResult>
+export type AIEventHandler<TEvent = any, TResult = any> = (event: TEvent, context: any) => Promise<TResult>
 
 /**
  * Configuration object for AI functions with preserved types
  */
 export type AIWorkflowConfig<T extends Record<string, any>> = {
-  [K in keyof T]: T[K] extends (...args: any[]) => any 
-    ? T[K] 
-    : T[K] extends object 
+  [K in keyof T]: T[K] extends (...args: any[]) => any
+    ? T[K]
+    : T[K] extends object
       ? T[K] // Schema object
       : never
 }
@@ -31,11 +30,7 @@ export type AIWorkflowConfig<T extends Record<string, any>> = {
  */
 export type AIContext<T extends Record<string, any> = Record<string, any>> = {
   ai: {
-    [K in keyof T]: T[K] extends (...args: infer Args) => infer Return
-      ? (...args: Args) => Return
-      : T[K] extends object
-        ? (input: any) => Promise<T[K]>
-        : never
+    [K in keyof T]: T[K] extends (...args: infer Args) => infer Return ? (...args: Args) => Return : T[K] extends object ? (input: any) => Promise<T[K]> : never
   }
   [key: string]: any
 }
