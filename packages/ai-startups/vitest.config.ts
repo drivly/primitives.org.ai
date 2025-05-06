@@ -5,5 +5,6 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     exclude: ['**/node_modules/**', '**/dist/**'],
+    css: false, // Disable CSS processing completely
   },
 })
