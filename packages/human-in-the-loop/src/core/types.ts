@@ -113,6 +113,26 @@ export interface SlackConfig {
    * Webhook URL for callbacks
    */
   webhookUrl?: string
+
+  /**
+   * Slack API token
+   */
+  token?: string
+
+  /**
+   * Thread timestamp to reply in a thread
+   */
+  thread_ts?: string
+
+  /**
+   * Message attachments
+   */
+  attachments?: any[]
+
+  /**
+   * Response type ('in_channel' or 'ephemeral')
+   */
+  response_type?: 'in_channel' | 'ephemeral'
 }
 
 /**
