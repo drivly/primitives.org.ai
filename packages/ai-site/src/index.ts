@@ -22,3 +22,5 @@ export type { SiteConfig, LandingPageConfig, HeroSection, FeaturesSection, Testi
 export { resolveNextConfig } from './next-config'
 export { resolveAppDirectory } from './app-directory'
 export { landingPageSchema, themeSchema, abTestingSchema } from './schemas/landing-page'
+
+export * from './components/blog'

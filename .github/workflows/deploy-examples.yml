@@ -1,0 +1,73 @@
+name: Deploy Examples
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'examples/**'
+  workflow_dispatch:
+    inputs:
+      example:
+        description: 'Example to deploy (all, vercel, cloudflare, netlify, aws)'
+        required: true
+        default: 'all'
+
+jobs:
+  build:
+    name: Build Examples
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install Dependencies
+        run: |
+          cd examples
+          if [ "${{ github.event.inputs.example }}" = "all" ] || [ "${{ github.event.inputs.example }}" = "base-app" ]; then
+            cd base-app && npm install && cd ..
+          fi
+          if [ "${{ github.event.inputs.example }}" = "all" ] || [ "${{ github.event.inputs.example }}" = "vercel" ]; then
+            cd vercel-example && npm install && cd ..
+          fi
+          if [ "${{ github.event.inputs.example }}" = "all" ] || [ "${{ github.event.inputs.example }}" = "cloudflare" ]; then
+            cd cloudflare-example && npm install && cd ..
+          fi
+          if [ "${{ github.event.inputs.example }}" = "all" ] || [ "${{ github.event.inputs.example }}" = "netlify" ]; then
+            cd netlify-example && npm install && cd ..
+          fi
+          if [ "${{ github.event.inputs.example }}" = "all" ] || [ "${{ github.event.inputs.example }}" = "aws" ]; then
+            cd aws-example && npm install && cd ..
+          fi
+
+      - name: Build Examples
+        run: |
+          cd examples
+          if [ "${{ github.event.inputs.example }}" = "all" ] || [ "${{ github.event.inputs.example }}" = "base-app" ]; then
+            cd base-app && npm run build && cd ..
+          fi
+          if [ "${{ github.event.inputs.example }}" = "all" ] || [ "${{ github.event.inputs.example }}" = "vercel" ]; then
+            cd vercel-example && npm run build && cd ..
+          fi
+          if [ "${{ github.event.inputs.example }}" = "all" ] || [ "${{ github.event.inputs.example }}" = "cloudflare" ]; then
+            cd cloudflare-example && npm run build && cd ..
+          fi
+          if [ "${{ github.event.inputs.example }}" = "all" ] || [ "${{ github.event.inputs.example }}" = "netlify" ]; then
+            cd netlify-example && npm run build && cd ..
+          fi
+          if [ "${{ github.event.inputs.example }}" = "all" ] || [ "${{ github.event.inputs.example }}" = "aws" ]; then
+            cd aws-example && npm run build && cd ..
+          fi
+
+      # Note: Actual deployment steps would be added here for each platform
+      # These would use platform-specific GitHub Actions or CLI commands
