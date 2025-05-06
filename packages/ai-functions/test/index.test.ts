@@ -1,13 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { ai, AI, list } from '../src'
-import { setupTestEnvironment, hasRequiredEnvVars } from './utils/setupTests'
+import { setupTestEnvironment } from './utils/setupTests'
 
 describe('ai-functions', () => {
   beforeEach(() => {
     setupTestEnvironment()
   })
 
-  const itWithEnv = hasRequiredEnvVars() ? it : it.skip
+
 
   it('should export the ai function', () => {
     expect(ai).toBeDefined()
@@ -21,7 +21,7 @@ describe('ai-functions', () => {
     expect(list).toBeDefined()
   })
 
-  itWithEnv('should generate text content with proper structure', async () => {
+  it('should generate text content with proper structure', async () => {
     const result = await ai`Generate a short description of artificial intelligence`
     
     expect(result).toBeDefined()
@@ -29,7 +29,7 @@ describe('ai-functions', () => {
     expect(result.length).toBeGreaterThan(10)
   })
 
-  itWithEnv('should generate an array of items', async () => {
+  it('should generate an array of items', async () => {
     const result = await list`List 5 programming languages`
 
     expect(Array.isArray(result)).toBe(true)
