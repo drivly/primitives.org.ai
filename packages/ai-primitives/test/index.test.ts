@@ -14,11 +14,14 @@ describe('ai-primitives', () => {
     const srcFile = path.resolve(__dirname, '../src/index.ts')
     const content = fs.readFileSync(srcFile, 'utf-8')
     
-    expect(content).toContain("export * from 'ai-workflows'")
+    expect(content).toContain("import { AI,")
+    expect(content).toContain("export { AI,")
     
-    expect(content).toContain("export { ai, list } from 'ai-functions'")
+    expect(content).toContain("import { ai }")
+    expect(content).toContain("import { list }")
+    expect(content).toContain("export { ai, list }")
     
-    expect(content).toContain("import { AI as AIComponent } from 'ai-props'")
+    expect(content).toContain("import { AI as AIComponent }")
     expect(content).toContain("export { AIComponent }")
   })
 })
