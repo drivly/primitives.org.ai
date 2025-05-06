@@ -21,6 +21,8 @@ import { assemblyai } from '@ai-sdk/assemblyai'
 import { deepgram } from '@ai-sdk/deepgram'
 import { gladia } from '@ai-sdk/gladia'
 import { lmnt } from '@ai-sdk/lmnt'
+import { hume } from '@ai-sdk/hume'
+import { revai } from '@ai-sdk/revai'
 import { createProviderRegistry } from 'ai'
 
 export const registry = createProviderRegistry(
@@ -47,7 +49,9 @@ export const registry = createProviderRegistry(
     assemblyai,
     deepgram,
     gladia,
-    lmnt
+    lmnt,
+    hume,
+    revai
   },
   { separator: '/' },
 )

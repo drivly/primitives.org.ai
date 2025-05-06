@@ -39,3 +39,5 @@ const response = await model.generate({
 - Deepgram (`deepgram/...`)
 - Gladia (`gladia/...`)
 - LMNT (`lmnt/...`)
+- Hume (`hume/...`)
+- Rev.ai (`revai/...`)
