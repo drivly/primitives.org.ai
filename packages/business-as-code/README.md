@@ -24,10 +24,10 @@ pnpm add business-as-code
 ### Creating a Business with Human-AI Collaboration
 
 ```typescript
-import { Business } from 'business-as-code';
-import { Human } from 'humans.do';
-import { Agent } from 'agents.do';
-import { Workflow } from 'workflows.do';
+import { Business } from 'business-as-code'
+import { Human } from 'humans.do'
+import { Agent } from 'agents.do'
+import { Workflow } from 'workflows.do'
 
 // Create human roles
 class CEO extends Human {}
@@ -50,11 +50,7 @@ const myCompany = Business({
   goals: [
     {
       objective: 'Increase market share by 20%',
-      keyResults: [
-        'Launch 3 new products',
-        'Expand to 2 new geographical markets',
-        'Increase customer retention by 15%'
-      ],
+      keyResults: ['Launch 3 new products', 'Expand to 2 new geographical markets', 'Increase customer retention by 15%'],
     },
   ],
   // Human roles
@@ -86,41 +82,41 @@ const myCompany = Business({
     customerOnboarding: CustomerOnboarding,
     productDevelopment: ProductDevelopment,
   },
-});
+})
 
 // Event handling
 myCompany.on('new_customer', (data) => {
   // Trigger customer onboarding workflow
-  console.log(`New customer: ${data.name}`);
-});
+  console.log(`New customer: ${data.name}`)
+})
 
 // Scheduled operations
 myCompany.every('day', () => {
   // Daily operations
-  console.log('Performing daily operations');
-});
+  console.log('Performing daily operations')
+})
 
 // Task assignment
-myCompany.assign('Analyze quarterly sales data', myCompany.agents.dataAnalyst);
-myCompany.assign('Review marketing strategy', myCompany.roles.marketingManager);
+myCompany.assign('Analyze quarterly sales data', myCompany.agents.dataAnalyst)
+myCompany.assign('Review marketing strategy', myCompany.roles.marketingManager)
 
 // Track business metrics
-myCompany.track('customer_satisfaction', 4.8);
-myCompany.track('monthly_revenue', 125000);
+myCompany.track('customer_satisfaction', 4.8)
+myCompany.track('monthly_revenue', 125000)
 ```
 
 ## Differences from `ai-business`
 
 While `ai-business` focuses on AI-driven business functions, `business-as-code` is designed specifically for representing existing organizations with both human employees and AI agents:
 
-| Feature               | business-as-code                      | ai-business                       |
-|-----------------------|---------------------------------------|-----------------------------------|
-| Primary focus         | Human-AI collaboration                | AI-driven business functions      |
-| Organizational model  | Comprehensive (roles, departments)    | Limited (focused on functions)    |
-| Human roles           | Explicit role definitions             | Not specifically modeled          |
-| Decision approval     | Built-in approval workflows           | Automated decision making         |
-| Task assignment       | Supports both humans and AI           | Primarily AI-focused              |
-| Integration           | Designed for existing org systems     | Standalone AI capabilities        |
+| Feature              | business-as-code                   | ai-business                    |
+| -------------------- | ---------------------------------- | ------------------------------ |
+| Primary focus        | Human-AI collaboration             | AI-driven business functions   |
+| Organizational model | Comprehensive (roles, departments) | Limited (focused on functions) |
+| Human roles          | Explicit role definitions          | Not specifically modeled       |
+| Decision approval    | Built-in approval workflows        | Automated decision making      |
+| Task assignment      | Supports both humans and AI        | Primarily AI-focused           |
+| Integration          | Designed for existing org systems  | Standalone AI capabilities     |
 
 ## Key Design Considerations
 
@@ -135,8 +131,8 @@ const company = Business({
       lead: CTO,
       members: [SeniorEngineer, JuniorEngineer, AICodeReviewer],
     },
-  }
-});
+  },
+})
 ```
 
 ### 2. Human-AI collaboration points
@@ -145,8 +141,8 @@ const company = Business({
 // AI can suggest changes that require human approval
 company.on('content_suggestion', (suggestion, approver) => {
   // Request approval from human
-  approver.requestApproval(suggestion);
-});
+  approver.requestApproval(suggestion)
+})
 ```
 
 ### 3. Task assignment
@@ -155,9 +151,9 @@ company.on('content_suggestion', (suggestion, approver) => {
 // Assign tasks based on nature and complexity
 function assignTask(task) {
   if (task.requiresCreativity) {
-    company.assign(task, company.roles.humanCreative);
+    company.assign(task, company.roles.humanCreative)
   } else if (task.isRepetitive) {
-    company.assign(task, company.agents.automationAgent);
+    company.assign(task, company.agents.automationAgent)
   }
 }
 ```
@@ -168,20 +164,20 @@ function assignTask(task) {
 // Human events may require notifications
 company.on('urgent_issue', (issue) => {
   if (issue.assignee instanceof Human) {
-    sendNotification(issue.assignee);
+    sendNotification(issue.assignee)
   } else {
     // AI can handle immediately
-    issue.assignee.handle(issue);
+    issue.assignee.handle(issue)
   }
-});
+})
 ```
 
 ### 5. Permission workflows
 
 ```typescript
 // AI can draft but needs human approval for publishing
-company.agents.contentWriter.setPermission('content.publish', 'suggest');
-company.roles.contentManager.setPermission('content.publish', 'approve');
+company.agents.contentWriter.setPermission('content.publish', 'suggest')
+company.roles.contentManager.setPermission('content.publish', 'approve')
 ```
 
 ### 6. System integration
@@ -193,8 +189,8 @@ company.integrate('crm', {
   handlers: {
     // Map events between systems
     'crm:new_customer': (data) => company.trigger('new_customer', data),
-  }
-});
+  },
+})
 ```
 
 ### 7. Role guidelines
@@ -202,12 +198,12 @@ company.integrate('crm', {
 ```typescript
 // Define when to use humans vs AI
 const roleGuidelines = {
-  'customer_complaints': {
+  customer_complaints: {
     simple: company.agents.customerSupport,
     complex: company.roles.customerSuccessManager,
-    criteria: (complaint) => complaint.sentiment < -0.8 ? 'complex' : 'simple',
-  }
-};
+    criteria: (complaint) => (complaint.sentiment < -0.8 ? 'complex' : 'simple'),
+  },
+}
 ```
 
 ## API Reference
