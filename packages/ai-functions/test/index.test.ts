@@ -38,4 +38,18 @@ describe('ai-functions', () => {
       expect(typeof item).toBe('string')
     })
   })
+
+  itWithEnv('should have proper types when using list function', async () => {
+    const result = await list`List 3 programming languages`
+    
+    expect(Array.isArray(result)).toBe(true)
+    
+    result.forEach((item: string) => {
+      expect(typeof item).toBe('string')
+      expect(item.length).toBeGreaterThan(0)
+    })
+    
+    const firstItem = result[0]
+    expect(typeof firstItem.toUpperCase()).toBe('string')
+  })
 })
