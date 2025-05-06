@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { loadDirectoryConfig } from '../src/config-loader'
 import fs from 'fs'
 import path from 'path'
@@ -8,17 +8,31 @@ vi.mock('fs')
 vi.mock('path')
 vi.mock('url')
 
+const createUrlMock = (url: string) => ({
+  href: `file://${url}`,
+  toString: () => `file://${url}`,
+  toJSON: () => `file://${url}`,
+  hash: '',
+  host: '',
+  hostname: '',
+  origin: 'file://',
+  pathname: url,
+  protocol: 'file:',
+  search: '',
+  searchParams: new URLSearchParams()
+} as URL)
+
 describe('config-loader', () => {
   beforeEach(() => {
     vi.resetAllMocks()
-    
     vi.spyOn(process, 'cwd').mockReturnValue('/test')
-    
     vi.mocked(path.join).mockImplementation((...args) => args.join('/'))
-    
     vi.mocked(path.resolve).mockImplementation((...args) => args.join('/'))
-    
-    vi.mocked(pathToFileURL).mockImplementation((url) => ({ href: `file://${url}` }))
+    vi.mocked(pathToFileURL).mockImplementation(createUrlMock)
+  })
+
+  afterEach(() => {
+    vi.resetModules()
   })
 
   it('should return default config when no config file exists', async () => {
@@ -49,7 +63,7 @@ describe('config-loader', () => {
       return file === '/test/site.config.ts'
     })
     
-    const mockConfig = {
+    const mockModule = {
       default: {
         name: 'Test Directory',
         description: 'Test Description',
@@ -59,9 +73,12 @@ describe('config-loader', () => {
       }
     }
     
-    vi.mock('file:///test/site.config.ts', () => mockConfig, { virtual: true })
+    vi.doMock('file:///test/site.config.ts', () => mockModule)
     
-    const config = await loadDirectoryConfig()
+    vi.resetModules()
+    
+    const { loadDirectoryConfig: freshLoadConfig } = await import('../src/config-loader')
+    const config = await freshLoadConfig()
     
     expect(config).toMatchObject({
       name: 'Test Directory',
@@ -77,7 +94,7 @@ describe('config-loader', () => {
       return file === '/test/site.config.js'
     })
     
-    const mockConfig = {
+    const mockModule = {
       default: {
         name: 'JS Directory',
         description: 'JS Description',
@@ -89,9 +106,12 @@ describe('config-loader', () => {
       }
     }
     
-    vi.mock('file:///test/site.config.js', () => mockConfig, { virtual: true })
+    vi.doMock('file:///test/site.config.js', () => mockModule)
     
-    const config = await loadDirectoryConfig()
+    vi.resetModules()
+    
+    const { loadDirectoryConfig: freshLoadConfig } = await import('../src/config-loader')
+    const config = await freshLoadConfig()
     
     expect(config).toMatchObject({
       name: 'JS Directory',
@@ -109,7 +129,7 @@ describe('config-loader', () => {
       return file === '/test/site.config.ts'
     })
     
-    const mockConfig = {
+    const mockModule = {
       default: {
         name: 'Custom Directory',
         dataSource: {
@@ -120,16 +140,16 @@ describe('config-loader', () => {
       }
     }
     
-    vi.mock('file:///test/site.config.ts', () => mockConfig, { virtual: true })
+    vi.doMock('file:///test/site.config.ts', () => mockModule)
     
-    const config = await loadDirectoryConfig()
+    vi.resetModules()
+    
+    const { loadDirectoryConfig: freshLoadConfig } = await import('../src/config-loader')
+    const config = await freshLoadConfig()
     
     expect(config.name).toBe('Custom Directory')
-    
     expect(config.dataSource.database?.uri).toBe('mongodb://localhost:27017')
-    
     expect(config.description).toBe('Generated with ai-directory')
-    
     expect(config.searchFields).toEqual(['name', 'description'])
   })
 })
