@@ -62,22 +62,22 @@ export default function DirectoryPage() {
     fetchData()
   }, [currentPage, itemsPerPage, searchQuery, selectedCategory])
 
-  const handleSearch = (query) => {
+  const handleSearch = (query: string) => {
     setSearchQuery(query)
     setCurrentPage(1) // Reset to first page on new search
   }
 
-  const handleCategoryChange = (category) => {
+  const handleCategoryChange = (category: string) => {
     setSelectedCategory(category)
     setCurrentPage(1) // Reset to first page on category change
   }
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const handleViewModeChange = (mode) => {
+  const handleViewModeChange = (mode: 'grid' | 'list') => {
     setViewMode(mode)
   }
 
