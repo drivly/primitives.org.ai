@@ -1,6 +1,6 @@
 {
   "name": "digital-workers",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Enhanced autonomous digital workers with event loop, KPI tracking, and communication capabilities",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
