@@ -6,5 +6,5 @@ export default defineConfig({
     globals: true,
     exclude: ['**/node_modules/**', '**/dist/**'],
     css: false, // Disable CSS processing completely
-  },
+  }
 })
