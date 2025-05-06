@@ -1,5 +1,5 @@
 {
-  "name": "@ai-primitives/experiments",
+  "name": "ai-experiments",
   "version": "0.1.0",
   "description": "A minimalistic experiment runner for AI tasks",
   "main": "./dist/index.js",

@@ -1,15 +1,15 @@
-# @ai-primitives/experiments
+# ai-experiments
 
 A minimalistic experiment runner for AI tasks.
 
 ## Installation
 
 ```bash
-npm install @ai-primitives/experiments
+npm install ai-experiments
 # or
-yarn add @ai-primitives/experiments
+yarn add ai-experiments
 # or
-pnpm add @ai-primitives/experiments
+pnpm add ai-experiments
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ pnpm add @ai-primitives/experiments
 ### Basic Example
 
 ```typescript
-import { Experiment } from '@ai-primitives/experiments';
+import { Experiment } from 'ai-experiments';
 
 const result = await Experiment('simple-test', {
   models: ['gpt-4o'],
@@ -31,7 +31,7 @@ console.log(result);
 ### Using Parameter Combinations
 
 ```typescript
-import { Experiment } from '@ai-primitives/experiments';
+import { Experiment } from 'ai-experiments';
 
 const result = await Experiment('temperature-comparison', {
   models: ['gpt-4o', 'gpt-4o-mini'],
@@ -46,7 +46,7 @@ console.log(result);
 ### Using the Cartesian Function Directly
 
 ```typescript
-import { cartesian } from '@ai-primitives/experiments';
+import { cartesian } from 'ai-experiments';
 
 const combinations = cartesian({
   model: ['gpt-4o', 'gpt-4o-mini'],
@@ -72,7 +72,7 @@ const combinations = cartesian({
 ```typescript
 // vitest.config.ts
 import { defineConfig } from 'vitest/config';
-import { createRunner } from '@ai-primitives/experiments';
+import { createRunner } from 'ai-experiments';
 
 export default createRunner({
   outputDir: '.ai/experiments',
