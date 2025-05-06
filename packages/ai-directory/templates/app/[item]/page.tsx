@@ -100,7 +100,7 @@ export default function ItemDetailPage() {
             
             return (
               <div key={key} className='item-property'>
-                <strong>{key}:</strong> {value}
+                <strong>{key}:</strong> {String(value)}
               </div>
             )
           })}
