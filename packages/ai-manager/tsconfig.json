@@ -10,7 +10,9 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "autonomous-agents": ["../autonomous-agents/src"],
+      "ai-business": ["../ai-business/src"]
     }
   },
   "include": ["src/**/*", "test/**/*"],
