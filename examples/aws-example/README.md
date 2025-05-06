@@ -1,52 +1,55 @@
-# Next.js Platform Example - AWS Deployment (via OpenNext)
+# Next.js Platform Example - AWS Deployment (via SST)
 
-This example demonstrates deploying a Next.js application to AWS using OpenNext.
+This example demonstrates deploying a Next.js application to AWS using SST with OpenNext.
 
 ## Features
 
 - Deploy Next.js to AWS Lambda, CloudFront, and S3
 - Serverless architecture
-- Infrastructure as Code using AWS CDK
+- Zero-configuration deployment with SST
 
 ## Prerequisites
 
 - AWS account and configured AWS CLI
 - Node.js 18 or later
 
-## Deployment Options
+## Deployment
 
-### Option 1: Using SST (Recommended)
+Follow these steps to deploy your Next.js application to AWS:
 
-The easiest way to deploy to AWS is using SST:
-
-1. Set up SST in your project:
+1. Initialize SST in your Next.js app:
 ```bash
 npx sst@latest init
-npm install
 ```
 
-2. Deploy to AWS:
+2. Install dependencies:
+```bash
+pnpm install
+```
+
+3. Deploy to AWS:
 ```bash
 npx sst deploy
 ```
 
-### Option 2: Using OpenNext directly
-
-1. Build your Next.js app with OpenNext:
-```bash
-npx @opennextjs/aws@latest build
-```
-
-2. Deploy using the CDK:
-```bash
-cd cdk
-npm install
-npm run build
-npm run deploy
-```
-
 ## Configuration
 
-This example includes a basic CDK stack in the `cdk` directory that can be extended to customize your AWS deployment. The CDK stack is a starting point and should be customized based on your specific requirements.
+This example includes an SST configuration file (`sst.config.ts`) that defines how your Next.js application will be deployed to AWS. SST automatically configures your application for deployment using OpenNext.
 
-For more information, see the [OpenNext documentation for AWS](https://opennext.js.org/aws/get_started).
+```typescript
+export default $config({
+  app(input) {
+    return {
+      name: "aws-example",
+      removal: input?.stage === "production" ? "retain" : "remove",
+      protect: ["production"].includes(input?.stage),
+      home: "aws",
+    };
+  },
+  async run() {
+    new sst.aws.Nextjs("MyWeb");
+  },
+});
+```
+
+For more information, see the [SST documentation for Next.js](https://docs.sst.dev/constructs/NextjsSite).
