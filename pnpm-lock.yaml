@@ -176,7 +176,7 @@ importers:
     dependencies:
       next:
         specifier: ^14.0.0
-        version: 14.2.28(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.69.4)
+        version: 14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@18.3.1))(react@18.3.1)(sass@1.69.4)
       payload:
         specifier: ^2.0.0
         version: 2.32.2(@swc/helpers@0.5.15)(@types/react@19.1.2)(typescript@5.8.3)(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.15)))
@@ -453,6 +453,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
+      zod:
+        specifier: ^3.24.4
+        version: 3.24.4
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -19071,7 +19074,7 @@ snapshots:
 
   next-tick@1.1.0: {}
 
-  next@14.2.28(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.69.4):
+  next@14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@18.3.1))(react@18.3.1)(sass@1.69.4):
     dependencies:
       '@next/env': 14.2.28
       '@swc/helpers': 0.5.5
@@ -19080,7 +19083,7 @@ snapshots:
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react-dom: 19.1.0(react@18.3.1)
       styled-jsx: 5.1.1(react@18.3.1)
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.2.28
@@ -20154,6 +20157,11 @@ snapshots:
       loose-envify: 1.4.0
       react: 18.3.1
       scheduler: 0.23.2
+
+  react-dom@19.1.0(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      scheduler: 0.26.0
 
   react-dom@19.1.0(react@19.1.0):
     dependencies:
