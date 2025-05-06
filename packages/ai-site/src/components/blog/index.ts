@@ -6,9 +6,9 @@ export { BlogContent } from './blog-content'
 export { 
   getBlogPosts, 
   getBlogPostContent, 
-  slugify,
-  BlogPostData 
+  slugify
 } from './utils/blog-data'
+export type { BlogPostData } from './utils/blog-data'
 export { generateBlogPostTitles, generateBlogPostContent } from './utils/ai-integration'
 
 export type { BlogCardProps } from './blog-card'
