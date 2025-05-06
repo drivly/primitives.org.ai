@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, expectTypeOf, vi, beforeEach } from 'vitest'
 import { ai, AI, list } from '../src'
 import { setupTestEnvironment, hasRequiredEnvVars } from './utils/setupTests'
 
@@ -37,5 +37,21 @@ describe('ai-functions', () => {
     result.forEach((item) => {
       expect(typeof item).toBe('string')
     })
+  })
+
+  itWithEnv('should have proper types when using list function', async () => {
+    const result = await list`List 3 programming languages`
+    
+    expect(Array.isArray(result)).toBe(true)
+    
+    expectTypeOf(result).toEqualTypeOf<string[]>()
+    
+    result.forEach((item: string) => {
+      expect(typeof item).toBe('string')
+      expect(item.length).toBeGreaterThan(0)
+    })
+    
+    const firstItem = result[0]
+    expect(typeof firstItem.toUpperCase()).toBe('string')
   })
 })

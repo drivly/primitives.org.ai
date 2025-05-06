@@ -2,6 +2,14 @@ import { model } from 'ai-providers'
 import { z } from 'zod'
 import type { AIFunctionOptions, AIFunctionConfig } from './types'
 
+/**
+ * Type definition for the list function that captures its dual nature
+ * as both a Promise<string[]> and an AsyncIterable<string>
+ */
+type ListFunction = {
+  (strings: TemplateStringsArray, ...values: any[]): Promise<string[]> & AsyncIterable<string>;
+}
+
 const defaultConfig: AIFunctionConfig = {
   model: 'gpt-4o',
 }
@@ -159,4 +167,4 @@ export const list = new Proxy(function () {}, {
 
     throw new Error('list function must be used as a template literal tag')
   },
-}) as any
+}) as ListFunction
