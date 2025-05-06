@@ -3,11 +3,11 @@ import { z } from 'zod'
 import type { AIFunctionOptions, AIFunctionConfig } from './types'
 
 const defaultConfig: AIFunctionConfig = {
-  model: 'gpt-4o',
+  model: 'gpt-4.1',
 }
 
 const getAIProvider = (modelName: string | undefined) => {
-  return model(modelName || 'gpt-4o')
+  return model(modelName || 'gpt-4.1')
 }
 
 /**
