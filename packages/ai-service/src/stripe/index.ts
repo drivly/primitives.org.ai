@@ -70,8 +70,7 @@ export async function createOrGetPrice<T>(config: ServiceConfig<T>, productId: s
         priceData = {
           ...priceData,
           unit_amount: Math.round(pricing.pricePerUse * 100), // Convert to cents
-          currency: 'usd',
-          recurring: null
+          currency: 'usd'
         }
         break
       }
