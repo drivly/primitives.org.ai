@@ -2,6 +2,8 @@ export default {
   entry: {
     'index': 'src/index.ts',
     'api': 'api/index.ts',
+    'bin': 'src/bin.ts',
+    'cli': 'src/cli.ts',
   },
   format: ['esm', 'cjs'],
   dts: {
