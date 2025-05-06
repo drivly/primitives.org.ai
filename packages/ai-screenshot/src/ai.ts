@@ -1,4 +1,4 @@
-import { ai } from 'ai-functions'
+import { ai } from '../../../packages/ai-functions/src/ai'
 import { z } from 'zod'
 import { contentConfigSchema, ContentConfig } from './types'
 
