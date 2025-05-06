@@ -1,4 +1,28 @@
-import { AutonomousAgent } from 'autonomous-agents'
+/**
+ * Agent configuration interface copied from autonomous-agents
+ */
+export interface AgentConfig {
+  name: string
+  url: string
+  role: string
+  objective: string
+  keyResults: string[]
+  integrations: string[]
+  triggers: string[]
+  searches: string[]
+  actions: string[]
+  [key: string]: any
+}
+
+/**
+ * Autonomous agent interface copied from autonomous-agents
+ */
+export interface AutonomousAgent {
+  config: AgentConfig
+  execute: (input: Record<string, any>, options?: any) => Promise<any>
+  do: any // Proxy for dynamic method invocation
+  [key: string]: any // Allow dynamic properties for event handlers
+}
 
 /**
  * Plan structure for worker tasks

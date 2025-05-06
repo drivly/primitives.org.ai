@@ -1,4 +1,4 @@
-import { Agent } from 'autonomous-agents'
+import { Agent } from './agent'
 import { WorkerConfig, WorkerInstance } from './types'
 import { setupEventLoop } from './scheduling'
 import { setupCommunication } from './communication'
@@ -10,7 +10,7 @@ import crypto from 'crypto'
  * @returns A digital worker instance
  */
 export function Worker(config: WorkerConfig): WorkerInstance {
-  const agent = new Agent({
+  const agent = Agent({
     name: config.name,
     url: config.url || `https://${config.name.toLowerCase().replace(/\s+/g, '-')}.worker.ai`,
     role: config.role || 'Digital Worker',
