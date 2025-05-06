@@ -15,6 +15,8 @@ const response = await model.generate({
 
 ## Available Providers
 
+### Language Models
+
 - OpenAI (`openai/...`)
 - Anthropic (`anthropic/...`)
 - Google (`google/...`)
@@ -23,4 +25,27 @@ const response = await model.generate({
 - Groq (`groq/...`)
 - Amazon Bedrock (`bedrock/...`)
 - Perplexity (`perplexity/...`)
+- Azure OpenAI (`azure/...`)
+- Fal (`fal/...`)
+- DeepInfra (`deepinfra/...`)
+- Mistral AI (`mistral/...`)
+- Cohere (`cohere/...`)
+- Fireworks (`fireworks/...`)
+- DeepSeek (`deepseek/...`)
+- Cerebras (`cerebras/...`)
+- Replicate (`replicate/...`)
+- Luma (`luma/...`)
+
+### Speech and Audio Models
+
 - ElevenLabs (`elevenlabs/...`)
+- AssemblyAI (`assemblyai/...`)
+- Deepgram (`deepgram/...`)
+- Gladia (`gladia/...`)
+- LMNT (`lmnt/...`)
+- Hume (`hume/...`)
+- Rev.ai (`revai/...`)
+
+### Planned Providers
+
+- Together.ai (`together/...`) - Not yet available in npm registry
