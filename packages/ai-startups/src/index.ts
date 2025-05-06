@@ -1,4 +1,4 @@
-import { Service } from 'services.do'
+import { Service } from 'ai-service'
 import { Business, storyBrand, leanCanvas } from 'ai-business'
 import { StartupConfig, StartupInstance, ServiceDefinition } from './types'
 import { generateSite } from './site-generator'

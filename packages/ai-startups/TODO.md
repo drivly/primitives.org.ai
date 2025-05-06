@@ -10,6 +10,13 @@
   - [x] Configure linting and formatting
   - [x] Set up semantic versioning
 
+## Blockers
+
+- [x] Package dependency issues
+  - [x] Updated dependency from 'services.do' to 'ai-service' in package.json
+  - [x] Updated import from 'services.do' to 'ai-service' in index.ts
+  - [ ] Verify ai-business and ai-service packages are properly linked
+
 - [ ] Implement core functionality
   - [x] Create types.ts with type definitions
   - [x] Implement Startup function in index.ts
