@@ -1,8 +1,11 @@
-# Primitives.org.ai
+# [AI Primitives](https://primitives.org.ai)
 
 A collection of primitives for simplifying AI development. These primitives provide building blocks for creating AI-powered applications with minimal configuration.
 
-## Primitives
+## Core
+
+### [Functions](https://primitives.org.ai/functions)
+
 
 | Name                | Description                                                                                                                                                         | Links                                                                                                                                                                                                   |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

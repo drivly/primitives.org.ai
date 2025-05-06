@@ -2,8 +2,17 @@
 title: Overview
 ---
 
+import { Cards } from 'nextra/components'
+
 # AI Primitives
 
-Hello, world!
+## AI
 
-This is a test.
+[Functions](/docs/functions) can also execute code, use AI to generate structured data, or assign tasks to be performed by humans workers or autonomous [Agents](/docs/agents). [Services](/docs/services) enable Workflows and Functions to be delivered for payment
+
+<Cards num={4} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(15ch,100%),1fr))' }}>
+  <Cards.Card title='Functions' href='/functions' />
+  <Cards.Card title='Workflows' href='/workflows' />
+  <Cards.Card title='Agents' href='/agents' />
+  <Cards.Card title='Services' href='/services' />
+</Cards>
