@@ -31,8 +31,8 @@ export function slugify(title: string): string {
 export async function getBlogPosts(context: any): Promise<BlogPostData[]> {
   try {
     // Dynamically import the list function
-    const { list } = await import('ai-functions')
-    const titles = await list`Generate blog post titles for ${context}`
+    const aiFunctions = await import('ai-functions') as any
+    const titles = await aiFunctions.list`Generate blog post titles for ${context}`
     
     const posts: BlogPostData[] = []
     
@@ -57,9 +57,9 @@ export async function getBlogPosts(context: any): Promise<BlogPostData[]> {
  * Generate blog post content using the AI function
  */
 export async function getBlogPostContent(post: BlogPostData): Promise<string> {
-  const { ai } = await import('ai-functions')
+  const aiFunctions = await import('ai-functions') as any
   
-  return ai`Write a blog post about ${post.title}. 
+  return aiFunctions.ai`Write a blog post about ${post.title}. 
   Description: ${post.description}
   Category: ${post.category}`
 }
