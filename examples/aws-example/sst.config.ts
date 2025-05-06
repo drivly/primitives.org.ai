@@ -4,7 +4,7 @@ export default {
     return {
       name: "aws-example",
       removal: input?.stage === "production" ? "retain" : "remove",
-      protect: ["production"].includes(input?.stage),
+      protect: input?.stage ? ["production"].includes(input.stage) : false,
     };
   },
   stacks(app: any) {
