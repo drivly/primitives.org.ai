@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { Manager } from '../src'
 import { ManagerConfig } from '../src/types'
 
-vi.mock('autonomous-agents', () => ({
+vi.mock('../../../packages/autonomous-agents/src', () => ({
   Agent: vi.fn((config) => ({
     config,
     execute: vi.fn(async (input) => ({ result: 'executed', input })),

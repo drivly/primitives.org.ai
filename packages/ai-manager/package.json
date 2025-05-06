@@ -48,6 +48,10 @@
     "autonomous-agents": "workspace:*",
     "ai-business": "workspace:*"
   },
+  "peerDependencies": {
+    "autonomous-agents": "*",
+    "ai-business": "*"
+  },
   "devDependencies": {
     "tsup": "^8.0.2",
     "typescript": "^5.3.3",

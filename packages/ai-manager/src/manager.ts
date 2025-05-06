@@ -1,5 +1,5 @@
-import { Agent } from 'autonomous-agents'
-import { Objective, Plan } from 'ai-business'
+import { Agent } from '../../../packages/autonomous-agents/src'
+import { Objective, Plan } from '../../../packages/ai-business/src'
 import { ManagerConfig, ManagerInstance, AutonomousAgent } from './types'
 import crypto from 'crypto'
 

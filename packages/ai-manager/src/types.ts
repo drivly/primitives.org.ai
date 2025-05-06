@@ -1,5 +1,5 @@
-import { Agent, AgentConfig } from 'autonomous-agents';
-import { Objective, Plan } from 'ai-business';
+import { Agent, AgentConfig } from '../../../packages/autonomous-agents/src';
+import { Objective, Plan } from '../../../packages/ai-business/src';
 
 /**
  * Configuration for the Manager
