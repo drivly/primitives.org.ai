@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 
 /**
@@ -9,21 +11,23 @@ export interface BlogContentProps {
 
 /**
  * Blog content component that renders markdown content
- * Simple implementation that uses dangerouslySetInnerHTML for markdown rendering
+ * Uses a simple approach with dangerouslySetInnerHTML for compatibility
  */
 export function BlogContent({ markdown }: BlogContentProps) {
-  const htmlContent = markdown
-    .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-    .replace(/\*\*(.*)\*\*/gm, '<strong>$1</strong>')
-    .replace(/\*(.*)\*/gm, '<em>$1</em>')
-    .replace(/\n/gm, '<br />')
+  const htmlContent = React.useMemo(() => {
+    return markdown
+      .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+      .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+      .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+      .replace(/\*\*(.*)\*\*/gm, '<strong>$1</strong>')
+      .replace(/\*(.*)\*/gm, '<em>$1</em>')
+      .replace(/\n\n/gm, '<br /><br />')
+  }, [markdown]);
 
   return (
     <div 
       className="blog-content"
-      dangerouslySetInnerHTML={{ __html: htmlContent }}
+      dangerouslySetInnerHTML={{ __html: htmlContent || '' }}
     />
   )
 }
