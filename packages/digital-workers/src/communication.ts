@@ -180,6 +180,11 @@ function setupTeamsCommunication(worker: WorkerInstance, config: TeamsConfig): v
     return
   }
   
+  if (!config.webhookUrl) {
+    console.error('Teams webhook URL is required for Teams communication')
+    return
+  }
+  
   const secureToken = {
     value: config.token,
     created: new Date().toISOString(),
@@ -187,48 +192,72 @@ function setupTeamsCommunication(worker: WorkerInstance, config: TeamsConfig): v
   
   worker.teams = {
     sendToChannel: async (channel: string, message: string | object): Promise<any> => {
-      return worker.agent.execute({
-        action: 'teams.sendMessage',
-        token: secureToken.value,
-        channel,
-        message: typeof message === 'string' ? { text: message } : message,
-        botName: config.botName,
-      })
+      try {
+        return worker.agent.execute({
+          action: 'teams.sendMessage',
+          token: secureToken.value,
+          channel,
+          message: typeof message === 'string' ? { text: message } : message,
+          botName: config.botName,
+          webhookUrl: config.webhookUrl,
+          useAdaptiveCards: config.useAdaptiveCards || false
+        })
+      } catch (error) {
+        console.error('Error sending Teams message:', error)
+        throw new Error(`Failed to send Teams message: ${error instanceof Error ? error.message : String(error)}`)
+      }
     },
     
     sendDirectMessage: async (userId: string, message: string | object): Promise<any> => {
-      return worker.agent.execute({
-        action: 'teams.sendDirectMessage',
-        token: secureToken.value,
-        userId,
-        message: typeof message === 'string' ? { text: message } : message,
-        botName: config.botName,
-      })
+      try {
+        return worker.agent.execute({
+          action: 'teams.sendDirectMessage',
+          token: secureToken.value,
+          userId,
+          message: typeof message === 'string' ? { text: message } : message,
+          botName: config.botName,
+          webhookUrl: config.webhookUrl,
+          useAdaptiveCards: config.useAdaptiveCards || false
+        })
+      } catch (error) {
+        console.error('Error sending Teams direct message:', error)
+        throw new Error(`Failed to send Teams direct message: ${error instanceof Error ? error.message : String(error)}`)
+      }
     },
     
     getChannels: async (): Promise<any> => {
-      return worker.agent.execute({
-        action: 'teams.getChannels',
-        token: secureToken.value,
-      })
+      try {
+        return worker.agent.execute({
+          action: 'teams.getChannels',
+          token: secureToken.value,
+        })
+      } catch (error) {
+        console.error('Error getting Teams channels:', error)
+        throw new Error(`Failed to get Teams channels: ${error instanceof Error ? error.message : String(error)}`)
+      }
     },
   }
   
   worker.agent.onTeamsMessage = async (event: any) => {
-    await worker.updateContext({
-      lastTeamsMessage: {
-        timestamp: new Date().toISOString(),
-        channel: event.channel,
-        user: event.user,
-        text: event.text,
-      },
-    })
-    
-    return worker.execute({
-      action: 'processMessage',
-      platform: 'teams',
-      message: event,
-    })
+    try {
+      await worker.updateContext({
+        lastTeamsMessage: {
+          timestamp: new Date().toISOString(),
+          channel: event.channel,
+          user: event.user,
+          text: event.text,
+        },
+      })
+      
+      return worker.execute({
+        action: 'processMessage',
+        platform: 'teams',
+        message: event,
+      })
+    } catch (error) {
+      console.error('Error processing Teams message:', error)
+      throw new Error(`Failed to process Teams message: ${error instanceof Error ? error.message : String(error)}`)
+    }
   }
   
   console.log(`Microsoft Teams communication set up for worker ${worker.id}`)

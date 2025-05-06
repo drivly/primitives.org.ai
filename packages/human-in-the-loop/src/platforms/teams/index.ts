@@ -1,4 +1,5 @@
 import type { HumanFunction, HumanTaskRequest, TeamsConfig } from '../../core/types'
+import { TeamsApiClient, createAdaptiveCard } from './client'
 
 /**
  * Teams-specific response option
@@ -21,21 +22,65 @@ export async function createTeamsMessage<TInput, TOutput>(
     freeText?: boolean
   }
 ): Promise<{ messageId: string }> {
-  console.log(`Creating Teams message for task ${taskId}`)
-  console.log(`Title: ${config.title}`)
-  console.log(`Description: ${config.description}`)
-  
-  
-  return { messageId: `teams-${taskId}-${Date.now()}` }
+  if (!config.webhookUrl) {
+    throw new Error('Teams webhook URL is required')
+  }
+
+  try {
+    const client = new TeamsApiClient(config.webhookUrl)
+    
+    const card = createAdaptiveCard({
+      title: config.title,
+      description: config.description,
+      options: config.options,
+      freeText: config.freeText,
+      taskId
+    })
+    
+    const response = await client.sendCard(card)
+    return { messageId: response.id }
+  } catch (error) {
+    console.error('Error creating Teams message:', error)
+    throw new Error(`Failed to create Teams message: ${error instanceof Error ? error.message : String(error)}`)
+  }
 }
+
+const responseStore = new Map<string, any>()
 
 /**
  * Get the response for a Teams task
  */
 export async function getTeamsResponse<TOutput>(taskId: string): Promise<TOutput | null> {
-  console.log(`Getting response for Teams task ${taskId}`)
+  const response = responseStore.get(taskId)
+  if (!response) {
+    return null
+  }
   
-  return null
+  return response as TOutput
+}
+
+/**
+ * Store a response from Teams
+ */
+export function storeTeamsResponse(taskId: string, response: any): void {
+  responseStore.set(taskId, response)
+}
+
+/**
+ * Register a webhook handler for Teams responses
+ */
+export function registerTeamsWebhook(config: TeamsConfig): void {
+  if (!config.webhookUrl || !config.callbackUrl) {
+    console.warn('Both webhookUrl and callbackUrl are required to register a Teams webhook')
+    return
+  }
+  
+  try {
+    const client = new TeamsApiClient(config.webhookUrl)
+    client.registerWebhook(config.callbackUrl)
+  } catch (error) {
+    console.error('Error registering Teams webhook:', error)
+  }
 }
 
 /**

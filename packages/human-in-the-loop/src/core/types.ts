@@ -128,6 +128,26 @@ export interface TeamsConfig {
    * Whether to use adaptive cards
    */
   useAdaptiveCards?: boolean
+
+  /**
+   * Authentication token for Teams API
+   */
+  token?: string
+
+  /**
+   * Callback URL for Teams webhook responses
+   */
+  callbackUrl?: string
+
+  /**
+   * Team/channel ID to send messages to
+   */
+  channelId?: string
+
+  /**
+   * Bot name to use for messages
+   */
+  botName?: string
 }
 
 /**

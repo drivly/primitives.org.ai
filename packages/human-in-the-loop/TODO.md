@@ -14,7 +14,7 @@
 - [x] Microsoft Teams implementation
   - [x] Create TeamsHumanFunction class
   - [x] Implement request and getResponse methods
-  - [ ] Implement real Teams Adaptive Cards integration
+  - [x] Implement real Teams Adaptive Cards integration
 - [x] React/ShadCN implementation
   - [x] Create ReactHumanFunction class
   - [x] Implement HumanFeedback component
