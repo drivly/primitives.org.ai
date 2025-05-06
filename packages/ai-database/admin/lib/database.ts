@@ -1,6 +1,7 @@
-import { CollectionConfig } from 'payload/types'
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { MongoMemoryServer } from 'mongodb-memory-server'
+/**
+ * This file is a placeholder for database functionality.
+ * The Payload CMS integration has been removed for a simplified admin app.
+ */
 
 export type DatabaseType = 'mongodb' | 'memory'
 
@@ -19,64 +20,55 @@ export const detectDatabaseType = (uri?: string): DatabaseType => {
   return 'mongodb'
 }
 
-let memoryServer: MongoMemoryServer | null = null
 let memoryServerUri: string | null = null
 
 /**
- * Initializes the in-memory MongoDB server
- * @returns The URI of the in-memory MongoDB server
+ * Placeholder for initializing a database connection
+ * @returns A connection string
  */
 export const initMemoryServer = async (): Promise<string> => {
-  if (!memoryServer) {
-    memoryServer = await MongoMemoryServer.create()
-    memoryServerUri = memoryServer.getUri()
-    console.log(`Using in-memory MongoDB server at ${memoryServerUri}`)
-  }
-  
-  return memoryServerUri as string
+  memoryServerUri = 'mongodb://localhost:27017/test'
+  console.log(`Using database at ${memoryServerUri}`)
+  return memoryServerUri
 }
 
 /**
- * Gets a MongoDB adapter using an in-memory MongoDB server
- * @returns MongoDB adapter configured with the memory server
+ * Placeholder for getting a database adapter
+ * @returns A mock database adapter
  */
 export const getMemoryAdapter = () => {
   if (!memoryServerUri) {
-    throw new Error('Memory server not initialized. Call initMemoryServer first.')
+    throw new Error('Database not initialized. Call initMemoryServer first.')
   }
   
-  return mongooseAdapter({
+  return {
     url: memoryServerUri,
-  })
+  }
 }
 
 /**
- * Gets the appropriate database adapter based on the connection URI
+ * Placeholder for getting a database adapter
  * @param uri - Database connection URI
- * @returns Database adapter for Payload CMS
+ * @returns A mock database adapter
  */
 export const getDatabaseAdapter = (uri?: string) => {
   const type = detectDatabaseType(uri)
   
   if (type === 'memory') {
     if (!memoryServerUri) {
-      throw new Error('Memory server not initialized. Call initMemoryServer first.')
+      throw new Error('Database not initialized. Call initMemoryServer first.')
     }
     return getMemoryAdapter()
   }
   
-  return mongooseAdapter({
+  return {
     url: uri || '',
-  })
+  }
 }
 
 /**
- * Stops the in-memory MongoDB server
+ * Placeholder for stopping a database connection
  */
 export const stopMemoryServer = async () => {
-  if (memoryServer) {
-    await memoryServer.stop()
-    memoryServer = null
-    memoryServerUri = null
-  }
+  memoryServerUri = null
 }
