@@ -10,16 +10,17 @@ export function createRunner(config: RunnerConfig = {}): VitestConfig {
   const outputDir = config.outputDir || '.ai/experiments'
   const testMatch = config.testMatch || ['**/*experiment*.(js|ts|mjs|cjs)']
   const watch = config.watch || false
-  
-  return () => defineConfig({
-    test: {
-      include: testMatch,
-      exclude: ['node_modules', 'dist'],
-      globals: true,
-      watch: watch,
-      reporters: ['default', createMarkdownReporter(outputDir)],
-    },
-  })
+
+  return () =>
+    defineConfig({
+      test: {
+        include: testMatch,
+        exclude: ['node_modules', 'dist'],
+        globals: true,
+        watch: watch,
+        reporters: ['default', createMarkdownReporter(outputDir)],
+      },
+    })
 }
 
 /**
@@ -28,14 +29,13 @@ export function createRunner(config: RunnerConfig = {}): VitestConfig {
 function createMarkdownReporter(outputDir: string) {
   return {
     onFinished(_files: any, _errors: any) {
-      
       if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir, { recursive: true })
       }
-      
+
       const placeholderContent = `# Experiment Results\n\nResults will be available here after running experiments.\n`
       const outputPath = path.join(outputDir, 'README.md')
-      
+
       if (!fs.existsSync(outputPath)) {
         fs.writeFileSync(outputPath, placeholderContent)
       }

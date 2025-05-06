@@ -20,6 +20,6 @@ export function cartesian<T extends Record<string, readonly any[]>>(spec: T): Ar
       const values = spec[key]
       return acc.flatMap((combo) => values.map((value) => ({ ...combo, [key]: value })))
     },
-    [{}],
+    [{}]
   ) as Array<{ [K in keyof T]: T[K][number] }>
 }

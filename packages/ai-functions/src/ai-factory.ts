@@ -16,7 +16,7 @@ export const AI = <T extends Record<string, FunctionDefinition>>(functions: T) =
 
       Object.entries(schema).forEach(([key, value]) => {
         if (Array.isArray(value)) {
-          mockResult[key] = value.map(item => typeof item === 'string' ? item : 'value')
+          mockResult[key] = value.map((item) => (typeof item === 'string' ? item : 'value'))
         } else if (typeof value === 'object') {
           mockResult[key] = value
         } else {

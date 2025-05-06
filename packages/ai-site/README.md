@@ -58,24 +58,24 @@ export default {
   // Basic site information
   name: 'My AI-Powered Site',
   description: 'Generated with ai-site',
-  
+
   // Custom Next.js configuration (optional)
   nextConfig: {
     // Your custom Next.js configuration
   },
-  
+
   // Custom app directory path (optional)
   appDir: './custom-app',
-  
+
   // AI functions configuration (optional)
   aiFunctions: {
     // AI functions configuration
   },
-  
+
   // AI props configuration (optional)
   aiProps: {
     // AI props configuration
-  }
+  },
 }
 ```
 

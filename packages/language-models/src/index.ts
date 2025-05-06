@@ -1,2 +1,2 @@
-export * from './types.js';
-export const models = [];
+export * from './types.js'
+export const models = []
