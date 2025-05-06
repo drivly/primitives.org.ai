@@ -17,21 +17,54 @@ export function setupCommunication(
   config: WorkerCommunicationConfig
 ): void {
   worker.communicationConfig = config
+  worker.communicationChannels = Object.keys(config)
   
   if (config.slack) {
     setupSlackCommunication(worker, config.slack)
+    worker.sendSlackMessage = async (channel: string, message: any): Promise<any> => {
+      return worker.agent.execute({
+        action: 'sendMessage',
+        channel: 'slack',
+        target: channel,
+        message,
+      })
+    }
   }
   
   if (config.teams) {
     setupTeamsCommunication(worker, config.teams)
+    worker.sendTeamsMessage = async (channel: string, message: any): Promise<any> => {
+      return worker.agent.execute({
+        action: 'sendMessage',
+        channel: 'teams',
+        target: channel,
+        message,
+      })
+    }
   }
   
   if (config.email) {
     setupEmailCommunication(worker, config.email)
+    worker.sendEmail = async (to: string, subject: string, body: string): Promise<any> => {
+      return worker.agent.execute({
+        action: 'sendMessage',
+        channel: 'email',
+        target: to,
+        message: { subject, body },
+      })
+    }
   }
   
   if (config.phone) {
     setupPhoneCommunication(worker, config.phone)
+    worker.sendSms = async (to: string, message: string): Promise<any> => {
+      return worker.agent.execute({
+        action: 'sendMessage',
+        channel: 'phone',
+        target: to,
+        message,
+      })
+    }
   }
   
   worker.send = async (message: any, options: { 
@@ -52,7 +85,11 @@ export function setupCommunication(
   
   worker.defaultCommunicationChannel = Object.keys(config)[0] || 'slack'
   
-  console.log(`Communication channels set up for worker ${worker.id}: ${Object.keys(config).join(', ')}`)
+  if (worker.communicationChannels.length === 0) {
+    console.warn(`No communication channels configured for worker ${worker.id}`)
+  } else {
+    console.log(`Communication channels set up for worker ${worker.id}: ${worker.communicationChannels.join(', ')}`)
+  }
 }
 
 /**
