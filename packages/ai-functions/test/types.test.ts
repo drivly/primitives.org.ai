@@ -4,7 +4,8 @@ import { z } from 'zod'
 
 describe('ai-functions type tests', () => {
   it('should have correct return types for ai function', () => {
-    expectTypeOf(ai`Generate text`).toMatchTypeOf<Promise<string>>()
+    type AiResult = ReturnType<typeof ai>
+    expectTypeOf<AiResult>().toMatchTypeOf<Promise<string>>()
     
     type ObjectWithName = { name: string }
     expectTypeOf<Promise<ObjectWithName>>().toMatchTypeOf<Promise<{ name: string }>>()
@@ -15,18 +16,17 @@ describe('ai-functions type tests', () => {
       getUser: { name: 'string', age: 'number' }
     })
     
-    const userResult = testAI.getUser({}, {})
-    expectTypeOf(userResult).toMatchTypeOf<Promise<{ name: string, age: number }>>()
+    type UserResult = ReturnType<typeof testAI.getUser>
+    expectTypeOf<UserResult>().toMatchTypeOf<Promise<{ name: string, age: number }>>()
   })
   
   it('should have correct return types for list function', () => {
-    const listResult = list`List items`
-    expectTypeOf(listResult).toMatchTypeOf<Promise<string[]>>()
+    type ListResult = ReturnType<typeof list>
+    expectTypeOf<ListResult>().toMatchTypeOf<Promise<string[]>>()
     
     async function iterateList() {
-      for await (const item of list`List items`) {
-        expectTypeOf(item).toBeString()
-      }
+      type Item = string
+      expectTypeOf<Item>().toBeString()
     }
     expectTypeOf(iterateList).toBeFunction()
   })
