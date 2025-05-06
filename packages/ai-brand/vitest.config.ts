@@ -5,10 +5,9 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     exclude: ['**/node_modules/**', '**/dist/**'],
-    css: {
-      modules: {
-        classNameStrategy: 'stable',
-      },
-    },
+  },
+  plugins: [],
+  optimizeDeps: {
+    exclude: ['postcss', 'tailwindcss'],
   },
 })
