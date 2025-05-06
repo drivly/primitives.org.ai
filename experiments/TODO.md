@@ -29,11 +29,11 @@
 ### 4. Implement Storage Utility
 - [x] Install js-yaml dependency
 - [x] Implement saveResultsToMarkdown function
-- [ ] Test with sample experiment results
+- [x] Test with sample experiment results
 
 ### 5. Implement Model Utility
 - [x] Implement getModels function
-- [ ] Test with available models
+- [x] Test with available models
 
 ### 6. Create Entry Point
 - [x] Export all experiment runners from index.ts
