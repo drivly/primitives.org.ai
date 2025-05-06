@@ -94,15 +94,41 @@ export function createAdaptiveCard({
       }
     })
 
-    card.body.push(choiceSet)
+    card.body.push({
+      type: 'TextBlock',
+      text: 'Please select an option:',
+      wrap: true
+    })
+    
+    card.actions.unshift({
+      type: 'Action.ShowCard',
+      title: 'Select Options',
+      card: {
+        type: 'AdaptiveCard',
+        body: [choiceSet]
+      }
+    })
   }
 
   if (freeText) {
     card.body.push({
-      type: 'Input.Text',
-      id: 'userComment',
-      placeholder: 'Enter your comments here...',
-      isMultiline: true
+      type: 'TextBlock',
+      text: 'Additional comments:',
+      wrap: true
+    })
+    
+    card.actions.unshift({
+      type: 'Action.ShowCard',
+      title: 'Add Comments',
+      card: {
+        type: 'AdaptiveCard',
+        body: [{
+          type: 'Input.Text',
+          id: 'userComment',
+          placeholder: 'Enter your comments here...',
+          isMultiline: true
+        }]
+      }
     })
   }
 
