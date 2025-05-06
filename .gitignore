@@ -46,3 +46,4 @@ packages/*/node_modules
 
 # turbo
 .turbo
+packages/ai-primitives/dist
