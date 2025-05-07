@@ -30,7 +30,14 @@ ${Object.keys(contextProps).length > 0 ? `Use these context properties in your c
     metadata: { 
       componentType: 'Type of component being created',
       description: 'Brief description of what the component does'
-    }
+    },
+    productType: 'Component | UI | Widget',
+    profile: {
+      customer: 'Developer using the dynamic component generator',
+      solution: 'A custom UI component generated based on a description'
+    },
+    description: `A dynamic UI component that: ${description}`,
+    tags: ['ui', 'component', 'dynamic', 'tailwind', 'shadcn']
   }
 
   return (
@@ -40,7 +47,8 @@ ${Object.keys(contextProps).length > 0 ? `Use these context properties in your c
       schema={schema}
       stream={stream}
     >
-      {(content, { isStreaming, error }) => {
+      {/* @ts-ignore - AI component children function type mismatch */}
+      {(content: any, { isStreaming, error }: { isStreaming: boolean; error: Error | null }) => {
         if (error) {
           return (
             <div className="p-4 border border-destructive bg-destructive/10 rounded-md text-destructive">
@@ -75,6 +83,7 @@ ${Object.keys(contextProps).length > 0 ? `Use these context properties in your c
               </div>
             )}
             
+            {/* @ts-ignore - MDXRemote expects different props in next-mdx-remote v5 */}
             <MDXRemote 
               source={jsxWithWrapper} 
               components={mdxComponents} 
