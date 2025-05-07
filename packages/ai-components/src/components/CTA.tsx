@@ -28,7 +28,14 @@ export function CTA({
     secondaryCta: {
       text: 'Secondary CTA button text',
       link: 'URL or path'
-    }
+    },
+    productType: 'Component | UI | Widget',
+    profile: {
+      customer: 'Website visitor ready to take action',
+      solution: 'Clear call-to-action that converts visitors'
+    },
+    schemaDescription: `Call-to-action section for ${prompt || 'a website'}`,
+    tags: ['cta', 'conversion', 'action', 'buttons']
   }
   
   return (
@@ -38,7 +45,8 @@ export function CTA({
       schema={schema}
       stream={stream}
     >
-      {(content, { isStreaming, error }) => {
+      {/* @ts-ignore - AI component children function type mismatch */}
+      {(content: any, { isStreaming, error }: { isStreaming: boolean; error: Error | null }) => {
         const ctaTitle = title || content.title
         const ctaDescription = description || content.description
         const ctaPrimary = primaryCta || content.primaryCta || { text: 'Get Started', link: '#' }

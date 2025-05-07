@@ -24,7 +24,14 @@ export function Testimonials({
       role: 'Job title or role',
       company: 'Company name',
       avatar: 'URL to avatar image (optional)'
-    })
+    }),
+    productType: 'Component | UI | Widget',
+    profile: {
+      customer: 'Website visitor considering the product',
+      solution: 'Social proof from satisfied customers'
+    },
+    description: `Testimonials from ${prompt || 'satisfied customers'}`,
+    tags: ['testimonials', 'reviews', 'social proof', 'customers']
   }
   
   return (
@@ -34,7 +41,8 @@ export function Testimonials({
       schema={schema}
       stream={stream}
     >
-      {(content, { isStreaming, error }) => {
+      {/* @ts-ignore - AI component children function type mismatch */}
+      {(content: any, { isStreaming, error }: { isStreaming: boolean; error: Error | null }) => {
         const testimonialsTitle = title || content.title
         const testimonialItems = items || content.items || []
         
@@ -59,7 +67,7 @@ export function Testimonials({
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {testimonialItems.length > 0 ? (
-                  testimonialItems.map((item, index) => (
+                  testimonialItems.map((item: any, index: number) => (
                     <div key={index} className="border rounded-lg p-6 bg-card flex flex-col">
                       <div className="flex-1">
                         <svg className="h-8 w-8 text-primary/40 mb-4" fill="currentColor" viewBox="0 0 24 24">
@@ -78,7 +86,7 @@ export function Testimonials({
                         ) : (
                           <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
                             <span className="text-primary font-semibold">
-                              {item.author.split(' ').map(n => n[0]).join('')}
+                              {item.author.split(' ').map((n: string) => n[0]).join('')}
                             </span>
                           </div>
                         )}

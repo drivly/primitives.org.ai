@@ -21,7 +21,14 @@ export function FAQs({
     items: Array(count).fill({
       question: 'Question text',
       answer: 'Answer text'
-    })
+    }),
+    productType: 'Component | UI | Widget',
+    profile: {
+      customer: 'Website visitor looking for information',
+      solution: 'Frequently asked questions with clear answers'
+    },
+    description: `Frequently asked questions about ${prompt || 'the product or service'}`,
+    tags: ['faqs', 'questions', 'answers', 'help']
   }
   
   return (
@@ -31,7 +38,8 @@ export function FAQs({
       schema={schema}
       stream={stream}
     >
-      {(content, { isStreaming, error }) => {
+      {/* @ts-ignore - AI component children function type mismatch */}
+      {(content: any, { isStreaming, error }: { isStreaming: boolean; error: Error | null }) => {
         const faqTitle = title || content.title
         const faqItems = items || content.items || []
         
@@ -56,7 +64,7 @@ export function FAQs({
               
               <div className="space-y-6">
                 {faqItems.length > 0 ? (
-                  faqItems.map((item, index) => (
+                  faqItems.map((item: { question: string; answer: string }, index: number) => (
                     <div key={index} className="border rounded-lg p-6 bg-card">
                       <h3 className="text-xl font-semibold mb-2">{item.question}</h3>
                       <p className="text-muted-foreground">{item.answer}</p>

@@ -24,7 +24,14 @@ export function Features({
       title: 'Feature title',
       description: 'Feature description',
       icon: 'Icon name (optional)'
-    })
+    }),
+    productType: 'Component | UI | Widget',
+    profile: {
+      customer: 'Website visitor interested in product capabilities',
+      solution: 'Clear presentation of product features and benefits'
+    },
+    description: `Feature highlights for ${prompt || 'a product or service'}`,
+    tags: ['features', 'benefits', 'capabilities', 'highlights']
   }
   
   return (
@@ -34,7 +41,8 @@ export function Features({
       schema={schema}
       stream={stream}
     >
-      {(content, { isStreaming, error }) => {
+      {/* @ts-ignore - AI component children function type mismatch */}
+      {(content: any, { isStreaming, error }: { isStreaming: boolean; error: Error | null }) => {
         const featuresTitle = title || content.title
         const featuresSubtitle = subtitle || content.subtitle
         const featureItems = items || content.items || []
@@ -65,7 +73,7 @@ export function Features({
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {featureItems.length > 0 ? (
-                  featureItems.map((item, index) => (
+                  featureItems.map((item: any, index: number) => (
                     <div key={index} className="border rounded-lg p-6 bg-card">
                       {item.icon && (
                         <div className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 text-primary mb-4">

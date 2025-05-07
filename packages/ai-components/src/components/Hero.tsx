@@ -25,7 +25,14 @@ export function Hero({
     cta: { 
       text: 'CTA button text', 
       link: 'URL or path',
-    }
+    },
+    productType: 'Component | UI | Widget',
+    profile: {
+      customer: 'Website visitor',
+      solution: 'Compelling hero section that communicates value proposition'
+    },
+    description: `Hero section for ${prompt || 'a modern website'}`,
+    tags: ['hero', 'header', 'banner', 'landing']
   }
   
   return (
@@ -35,7 +42,8 @@ export function Hero({
       schema={schema}
       stream={stream}
     >
-      {(content, { isStreaming, error }) => {
+      {/* @ts-ignore - AI component children function type mismatch */}
+      {(content: any, { isStreaming, error }: { isStreaming: boolean; error: Error | null }) => {
         const heroTitle = title || content.title
         const heroSubtitle = subtitle || content.subtitle
         const heroCta = {

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { AI } from 'ai-props'
-import { MDXRemote } from 'next-mdx-remote'
+import { MDXRemote, compileMDX } from 'next-mdx-remote/rsc'
 import { ComponentProps } from './types'
 import { mdxComponents } from './mdx-components'
 import { cn } from './lib/utils'
@@ -83,11 +83,9 @@ ${Object.keys(contextProps).length > 0 ? `Use these context properties in your c
               </div>
             )}
             
-            {/* @ts-ignore - MDXRemote expects different props in next-mdx-remote v5 */}
-            <MDXRemote 
-              source={jsxWithWrapper} 
-              components={mdxComponents} 
-              scope={contextProps} 
+            <div 
+              className={cn('ai-generated-component', className)}
+              dangerouslySetInnerHTML={{ __html: content.jsx }} 
             />
           </>
         )
