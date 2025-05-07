@@ -126,6 +126,73 @@ importers:
         specifier: ^5.8.2
         version: 5.8.3
 
+  packages/ai-components:
+    dependencies:
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.1
+      next:
+        specifier: '>=14.0.0'
+        version: 15.3.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.69.4)
+      react:
+        specifier: '>=18.0.0'
+        version: 19.1.0
+      react-dom:
+        specifier: '>=18.0.0'
+        version: 19.1.0(react@19.1.0)
+      zod:
+        specifier: ^3.24.4
+        version: 3.24.4
+    devDependencies:
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.15.12
+      '@types/react':
+        specifier: ^18.3.20
+        version: 18.3.21
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^6.21.0
+        version: 6.21.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3)
+      '@typescript-eslint/parser':
+        specifier: ^6.21.0
+        version: 6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3)
+      ai-props:
+        specifier: workspace:*
+        version: link:../ai-props
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      eslint:
+        specifier: ^9.26.0
+        version: 9.26.0(jiti@2.4.2)
+      eslint-plugin-react:
+        specifier: ^7.37.5
+        version: 7.37.5(eslint@9.26.0(jiti@2.4.2))
+      eslint-plugin-react-hooks:
+        specifier: ^5.2.0
+        version: 5.2.0(eslint@9.26.0(jiti@2.4.2))
+      lucide-react:
+        specifier: ^0.358.0
+        version: 0.358.0(react@19.1.0)
+      next-mdx-remote:
+        specifier: ^5.0.0
+        version: 5.0.0(@types/react@18.3.21)(acorn@8.14.1)(react@19.1.0)
+      prettier:
+        specifier: ^3.4.2
+        version: 3.5.3
+      tailwind-merge:
+        specifier: ^2.6.0
+        version: 2.6.0
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(@swc/core@1.6.1(@swc/helpers@0.5.17))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.7.1)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.3
+      vitest:
+        specifier: ^3.0.9
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.69.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+
   packages/ai-database:
     dependencies:
       next:
@@ -133,7 +200,7 @@ importers:
         version: 14.2.28(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.69.4)
       payload:
         specifier: ^2.0.0
-        version: 2.32.2(@swc/helpers@0.5.17)(@types/react@19.1.3)(esbuild@0.25.4)(typescript@5.8.3)(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))(esbuild@0.25.4))
+        version: 2.32.2(@swc/helpers@0.5.17)(@types/react@19.1.3)(typescript@5.8.3)(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17)))
       react:
         specifier: ^18.0.0
         version: 18.3.1
@@ -4613,6 +4680,9 @@ packages:
   citty@0.1.6:
     resolution: {integrity: sha512-tskPPKEs8D2KPafUypv2gxwJP8h/OaJmC82QQGGDQcHvXX43xF2VDACcJVmZ0EuSxkpO9Kc4MlrA3q0+FG58AQ==}
 
+  class-variance-authority@0.7.1:
+    resolution: {integrity: sha512-Ka+9Trutv7G8M6WT6SeiRWz792K5qEqIGEGzXKhAE6xOWAY6pPH8U+9IY3oCMv6kqTmLsv7Xh/2w2RigkePMsg==}
+
   classnames@2.5.1:
     resolution: {integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==}
 
@@ -7278,6 +7348,11 @@ packages:
 
   lru-queue@0.1.0:
     resolution: {integrity: sha512-BpdYkt9EvGl8OfWHDQPISVpcl5xZthb+XPsbELj5AQXxIC8IriDZIQYjBJPEm5rS420sjZ0TLEzRcq5KdBhYrQ==}
+
+  lucide-react@0.358.0:
+    resolution: {integrity: sha512-rBSptRjZTMBm24zsFhR6pK/NgbT18JegZGKcH4+1H3+UigMSRpeoWLtR/fAwMYwYnlJOZB+y8WpeHne9D6X6Kg==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
 
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
@@ -12478,6 +12553,12 @@ snapshots:
       '@types/react': 18.3.21
       react: 18.3.1
 
+  '@mdx-js/react@3.1.0(@types/react@18.3.21)(react@19.1.0)':
+    dependencies:
+      '@types/mdx': 2.0.13
+      '@types/react': 18.3.21
+      react: 19.1.0
+
   '@mermaid-js/parser@0.4.0':
     dependencies:
       langium: 3.3.1
@@ -14950,6 +15031,10 @@ snapshots:
     dependencies:
       consola: 3.4.2
 
+  class-variance-authority@0.7.1:
+    dependencies:
+      clsx: 2.1.1
+
   classnames@2.5.1: {}
 
   clean-css@5.3.3:
@@ -17255,6 +17340,15 @@ snapshots:
       tapable: 2.2.1
       webpack: 5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))(esbuild@0.25.4)
 
+  html-webpack-plugin@5.5.3(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))):
+    dependencies:
+      '@types/html-minifier-terser': 6.1.0
+      html-minifier-terser: 6.1.0
+      lodash: 4.17.21
+      pretty-error: 4.0.0
+      tapable: 2.2.1
+      webpack: 5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))
+
   htmlparser2@6.1.0:
     dependencies:
       domelementtype: 2.3.0
@@ -18105,6 +18199,10 @@ snapshots:
     dependencies:
       es5-ext: 0.10.64
 
+  lucide-react@0.358.0(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+
   lz-string@1.5.0: {}
 
   macos-release@3.3.0: {}
@@ -18833,6 +18931,20 @@ snapshots:
       '@mdx-js/mdx': 3.1.0(acorn@8.14.1)
       '@mdx-js/react': 3.1.0(@types/react@18.3.21)(react@18.3.1)
       react: 18.3.1
+      unist-util-remove: 3.1.1
+      vfile: 6.0.3
+      vfile-matter: 5.0.1
+    transitivePeerDependencies:
+      - '@types/react'
+      - acorn
+      - supports-color
+
+  next-mdx-remote@5.0.0(@types/react@18.3.21)(acorn@8.14.1)(react@19.1.0):
+    dependencies:
+      '@babel/code-frame': 7.27.1
+      '@mdx-js/mdx': 3.1.0(acorn@8.14.1)
+      '@mdx-js/react': 3.1.0(@types/react@18.3.21)(react@19.1.0)
+      react: 19.1.0
       unist-util-remove: 3.1.1
       vfile: 6.0.3
       vfile-matter: 5.0.1
@@ -19602,6 +19714,107 @@ snapshots:
       sharp: 0.32.6
       swc-loader: 0.2.6(@swc/core@1.6.1(@swc/helpers@0.5.17))(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))(esbuild@0.25.4))
       terser-webpack-plugin: 5.3.10(@swc/core@1.6.1(@swc/helpers@0.5.17))(esbuild@0.25.4)(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))(esbuild@0.25.4))
+      ts-essentials: 7.0.3(typescript@5.8.3)
+      use-context-selector: 1.4.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2)
+      uuid: 9.0.1
+    transitivePeerDependencies:
+      - '@swc/helpers'
+      - '@types/react'
+      - bare-buffer
+      - encoding
+      - esbuild
+      - react-native
+      - supports-color
+      - typescript
+      - uglify-js
+      - webpack
+
+  payload@2.32.2(@swc/helpers@0.5.17)(@types/react@19.1.3)(typescript@5.8.3)(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))):
+    dependencies:
+      '@date-io/date-fns': 2.16.0(date-fns@2.30.0)
+      '@dnd-kit/core': 6.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@dnd-kit/sortable': 7.0.2(@dnd-kit/core@6.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+      '@faceless-ui/modal': 2.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@faceless-ui/scroll-info': 1.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@faceless-ui/window-info': 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@monaco-editor/react': 4.5.1(monaco-editor@0.38.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@swc/core': 1.6.1(@swc/helpers@0.5.17)
+      '@swc/register': 0.1.10(@swc/core@1.6.1(@swc/helpers@0.5.17))
+      body-parser: 1.20.3
+      body-scroll-lock: 4.0.0-beta.0
+      bson-objectid: 2.0.4
+      compression: 1.7.4
+      conf: 10.2.0
+      connect-history-api-fallback: 1.6.0
+      console-table-printer: 2.11.2
+      dataloader: 2.2.2
+      date-fns: 2.30.0
+      deep-equal: 2.2.3
+      deepmerge: 4.3.1
+      dotenv: 8.6.0
+      express: 4.21.2
+      express-fileupload: 1.4.0
+      express-rate-limit: 5.5.1
+      file-type: 16.5.4
+      find-up: 4.1.0
+      fs-extra: 10.1.0
+      get-tsconfig: 4.6.2
+      graphql: 16.8.1
+      graphql-http: 1.21.0(graphql@16.8.1)
+      graphql-playground-middleware-express: 1.7.23(express@4.21.2)
+      graphql-query-complexity: 0.12.0(graphql@16.8.1)
+      graphql-scalars: 1.22.2(graphql@16.8.1)
+      graphql-type-json: 0.3.2(graphql@16.8.1)
+      html-webpack-plugin: 5.5.3(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17)))
+      http-status: 1.6.2
+      i18next: 22.5.1
+      i18next-browser-languagedetector: 6.1.8
+      i18next-http-middleware: 3.3.2
+      is-buffer: 2.0.5
+      is-hotkey: 0.2.0
+      is-plain-object: 5.0.0
+      isomorphic-fetch: 3.0.0
+      joi: 17.9.2
+      json-schema-to-typescript: 14.0.5
+      jsonwebtoken: 9.0.2
+      jwt-decode: 3.1.2
+      md5: 2.3.0
+      method-override: 3.0.0
+      minimist: 1.2.8
+      mkdirp: 1.0.4
+      monaco-editor: 0.38.0
+      nodemailer: 6.9.15
+      object-to-formdata: 4.5.1
+      passport: 0.6.0
+      passport-anonymous: 1.0.1
+      passport-headerapikey: 1.2.2
+      passport-jwt: 4.0.1
+      passport-local: 1.0.0
+      pino: 8.15.0
+      pino-pretty: 10.3.1
+      pluralize: 8.0.0
+      probe-image-size: 6.0.0
+      process: 0.11.10
+      qs: 6.11.2
+      react: 18.3.1
+      react-animate-height: 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-datepicker: 4.16.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-diff-viewer-continued: 3.2.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-dom: 18.3.1(react@18.3.1)
+      react-helmet: 6.1.0(react@18.3.1)
+      react-i18next: 11.18.6(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-image-crop: 10.1.8(react@18.3.1)
+      react-router-dom: 5.3.4(react@18.3.1)
+      react-router-navigation-prompt: 1.9.6(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1)
+      react-select: 5.7.4(@types/react@19.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-toastify: 10.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      sanitize-filename: 1.6.3
+      sass: 1.69.4
+      scheduler: 0.23.2
+      scmp: 2.1.0
+      sharp: 0.32.6
+      swc-loader: 0.2.6(@swc/core@1.6.1(@swc/helpers@0.5.17))(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17)))
+      terser-webpack-plugin: 5.3.10(@swc/core@1.6.1(@swc/helpers@0.5.17))(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17)))
       ts-essentials: 7.0.3(typescript@5.8.3)
       use-context-selector: 1.4.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2)
       uuid: 9.0.1
@@ -21225,6 +21438,12 @@ snapshots:
       '@swc/counter': 0.1.3
       webpack: 5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))(esbuild@0.25.4)
 
+  swc-loader@0.2.6(@swc/core@1.6.1(@swc/helpers@0.5.17))(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))):
+    dependencies:
+      '@swc/core': 1.6.1(@swc/helpers@0.5.17)
+      '@swc/counter': 0.1.3
+      webpack: 5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))
+
   swr-store@0.10.6:
     dependencies:
       dequal: 2.0.3
@@ -21320,6 +21539,17 @@ snapshots:
       '@swc/core': 1.6.1(@swc/helpers@0.5.17)
       esbuild: 0.25.4
 
+  terser-webpack-plugin@5.3.10(@swc/core@1.6.1(@swc/helpers@0.5.17))(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))):
+    dependencies:
+      '@jridgewell/trace-mapping': 0.3.25
+      jest-worker: 27.5.1
+      schema-utils: 3.3.0
+      serialize-javascript: 6.0.2
+      terser: 5.39.0
+      webpack: 5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))
+    optionalDependencies:
+      '@swc/core': 1.6.1(@swc/helpers@0.5.17)
+
   terser-webpack-plugin@5.3.14(@swc/core@1.6.1(@swc/helpers@0.5.17))(esbuild@0.25.4)(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))(esbuild@0.25.4)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
@@ -21331,6 +21561,17 @@ snapshots:
     optionalDependencies:
       '@swc/core': 1.6.1(@swc/helpers@0.5.17)
       esbuild: 0.25.4
+
+  terser-webpack-plugin@5.3.14(@swc/core@1.6.1(@swc/helpers@0.5.17))(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))):
+    dependencies:
+      '@jridgewell/trace-mapping': 0.3.25
+      jest-worker: 27.5.1
+      schema-utils: 4.3.2
+      serialize-javascript: 6.0.2
+      terser: 5.39.0
+      webpack: 5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))
+    optionalDependencies:
+      '@swc/core': 1.6.1(@swc/helpers@0.5.17)
 
   terser@5.39.0:
     dependencies:
@@ -22180,6 +22421,37 @@ snapshots:
   webidl-conversions@7.0.0: {}
 
   webpack-sources@3.2.3: {}
+
+  webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17)):
+    dependencies:
+      '@types/eslint-scope': 3.7.7
+      '@types/estree': 1.0.7
+      '@types/json-schema': 7.0.15
+      '@webassemblyjs/ast': 1.14.1
+      '@webassemblyjs/wasm-edit': 1.14.1
+      '@webassemblyjs/wasm-parser': 1.14.1
+      acorn: 8.14.1
+      browserslist: 4.24.5
+      chrome-trace-event: 1.0.4
+      enhanced-resolve: 5.18.1
+      es-module-lexer: 1.7.0
+      eslint-scope: 5.1.1
+      events: 3.3.0
+      glob-to-regexp: 0.4.1
+      graceful-fs: 4.2.11
+      json-parse-even-better-errors: 2.3.1
+      loader-runner: 4.3.0
+      mime-types: 2.1.35
+      neo-async: 2.6.2
+      schema-utils: 4.3.2
+      tapable: 2.2.1
+      terser-webpack-plugin: 5.3.14(@swc/core@1.6.1(@swc/helpers@0.5.17))(webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17)))
+      watchpack: 2.4.2
+      webpack-sources: 3.2.3
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
 
   webpack@5.99.7(@swc/core@1.6.1(@swc/helpers@0.5.17))(esbuild@0.25.4):
     dependencies:
