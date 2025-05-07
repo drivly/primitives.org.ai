@@ -4,7 +4,7 @@
 
 import { writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
-import * as yaml from 'js-yaml'
+import * as yaml from 'yaml'
 
 /**
  * Save experiment results to markdown files with YAML frontmatter
@@ -16,7 +16,7 @@ export async function saveResultsToMarkdown(result: any, outputDir: string): Pro
     await mkdir(outputDir, { recursive: true })
     
     for (const item of result.results) {
-      const frontmatter = yaml.dump({
+      const frontmatter = yaml.stringify({
         model: item.params.model,
         temperature: item.params.temperature,
         timestamp: result.timestamp,
