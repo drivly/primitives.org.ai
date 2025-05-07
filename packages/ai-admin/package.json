@@ -1,0 +1,62 @@
+{
+  "name": "ai-admin",
+  "version": "0.1.0",
+  "description": "Pre-configured Payload CMS instance for managing AI primitives",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "ai-admin": "./dist/bin.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./api": {
+      "types": "./dist/api.d.ts",
+      "import": "./dist/api.mjs",
+      "require": "./dist/api.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@payloadcms/db-mongodb": "^3.37.0",
+    "next": "^14.0.0",
+    "payload": "^3.37.0"
+  },
+  "peerDependencies": {
+    "next": "^14.0.0",
+    "payload": "^3.0.0",
+    "react": "^18.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drivly/primitives.org.ai"
+  },
+  "homepage": "https://mdx.org.ai",
+  "bugs": {
+    "url": "https://github.com/drivly/primitives.org.ai/issues"
+  },
+  "keywords": [
+    "payload",
+    "cms",
+    "admin",
+    "ai",
+    "functions",
+    "workflows"
+  ],
+  "license": "MIT"
+}

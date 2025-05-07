@@ -50,3 +50,6 @@ export { aiSite }
 
 import * as aiStartups from '../../../packages/ai-startups/src'
 export { aiStartups }
+
+import * as aiAdmin from '../../../packages/ai-admin/src'
+export { aiAdmin }
