@@ -1,4 +1,5 @@
 export * from './lib/index.js'
-export * from './components/LandingPage.js'
-export * from './components/Onboarding.js'
-export * from './components/Auth.js'
+
+export { LandingPage } from './components/LandingPage.js'
+export { Onboarding } from './components/Onboarding.js'
+export { Auth } from './components/Auth.js'
