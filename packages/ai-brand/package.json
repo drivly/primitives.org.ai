@@ -16,7 +16,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup src/index.ts",
     "dev": "tsup --watch",
     "lint": "eslint src/**/*.ts",
     "clean": "rm -rf dist",

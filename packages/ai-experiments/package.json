@@ -22,7 +22,7 @@
     "vitest"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup src/index.ts",
     "dev": "tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
