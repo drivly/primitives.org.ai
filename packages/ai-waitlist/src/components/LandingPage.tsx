@@ -2,7 +2,7 @@ import React from 'react'
 import { AI } from 'ai-props'
 
 interface LandingPageProps {
-  projectContext: {
+  projectContext?: {
     projectName: string
     projectDescription: string
     features: string[]
@@ -14,9 +14,26 @@ interface LandingPageProps {
     rawReadme: string
     rawAiContent: Record<string, any>
   }
+  aiContext?: {
+    title: string
+    description: string
+    features: string[]
+    benefits: string[]
+    cta: {
+      text: string
+      link: string
+    }
+    theme?: 'light' | 'dark'
+    primaryColor?: string
+    secondaryColor?: string
+    rawReadme?: string
+  }
   theme?: 'light' | 'dark'
   primaryColor?: string
   secondaryColor?: string
+  showAuthButton?: boolean
+  authButtonText?: string
+  authButtonLink?: string
 }
 
 interface AIContent {
@@ -52,11 +69,35 @@ interface AIContent {
 
 export function LandingPage({
   projectContext,
+  aiContext,
   theme = 'light',
   primaryColor = '#0070f3',
-  secondaryColor = '#6366f1'
+  secondaryColor = '#6366f1',
+  showAuthButton = false,
+  authButtonText = 'Join Waitlist',
+  authButtonLink = '/auth'
 }: LandingPageProps) {
-  const { projectName, projectDescription, features, benefits, callToAction, rawReadme } = projectContext
+  // Use aiContext if provided, otherwise use projectContext
+  let projectName = '';
+  let projectDescription = '';
+  let features: string[] = [];
+  let benefits: string[] = [];
+  let callToAction = { text: '', link: '' };
+  let rawReadme = '';
+  
+  if (aiContext) {
+    projectName = aiContext.title;
+    projectDescription = aiContext.description;
+    features = aiContext.features;
+    benefits = aiContext.benefits;
+    callToAction = aiContext.cta;
+    rawReadme = aiContext.rawReadme || '';
+    theme = aiContext.theme || theme;
+    primaryColor = aiContext.primaryColor || primaryColor;
+    secondaryColor = aiContext.secondaryColor || secondaryColor;
+  } else if (projectContext) {
+    ({ projectName, projectDescription, features, benefits, callToAction, rawReadme } = projectContext);
+  }
   
   return (
     <div className={`landing-page ${theme}`}>
@@ -122,8 +163,8 @@ Use a ${theme} theme with ${primaryColor} as the primary color and ${secondaryCo
                   <h1>{content.hero.title}</h1>
                   <h2>{content.hero.subtitle}</h2>
                   <p>{content.hero.description}</p>
-                  <a href={callToAction.link} className="cta-button">
-                    {callToAction.text}
+                  <a href={showAuthButton ? authButtonLink : callToAction.link} className="cta-button">
+                    {showAuthButton ? authButtonText : callToAction.text}
                   </a>
                 </section>
                 
