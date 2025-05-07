@@ -7,12 +7,12 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo dev",
+    "dev": "turbo dev --concurrency=25",
     "build": "next build",
     "start": "next start",
-    "lint": "turbo lint",
-    "test": "turbo test",
-    "clean": "turbo clean",
+    "lint": "turbo lint --concurrency=25",
+    "test": "turbo test --concurrency=25",
+    "clean": "turbo clean --concurrency=25",
     "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx}\"",
     "version": "changeset version",
