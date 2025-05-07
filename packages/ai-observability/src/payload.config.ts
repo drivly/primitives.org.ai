@@ -1,4 +1,4 @@
-import { buildConfig } from 'payload/config'
+import { buildConfig } from 'payload'
 import { getDatabaseAdapter } from './lib/database'
 import { slateEditor } from '@payloadcms/richtext-slate'
 
@@ -28,12 +28,10 @@ export default buildConfig({
     user: 'users',
     meta: {
       titleSuffix: '- AI Observability',
-      favicon: '/favicon.ico',
-      ogImage: '/og-image.jpg',
     },
   },
-  editor: slateEditor({}),
   typescript: {
     outputFile: 'types.ts',
   },
+  secret: process.env.PAYLOAD_SECRET || 'your-secret-key',
 })
