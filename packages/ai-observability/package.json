@@ -22,9 +22,9 @@
   "dependencies": {
     "next": "^14.0.0",
     "payload": "^2.0.0",
-    "@payloadcms/db-mongodb": "^1.0.0",
-    "@payloadcms/db-postgres": "^1.0.0", 
-    "@payloadcms/db-sqlite": "^1.0.0"
+    "@payloadcms/db-mongodb": "^3.0.0",
+    "@payloadcms/db-postgres": "^3.0.0", 
+    "@payloadcms/db-sqlite": "^3.0.0"
   },
   "peerDependencies": {
     "next": "^14.0.0",
