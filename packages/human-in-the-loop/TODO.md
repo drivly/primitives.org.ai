@@ -10,7 +10,7 @@
 - [x] Slack implementation
   - [x] Create SlackHumanFunction class
   - [x] Implement request and getResponse methods
-  - [ ] Implement real Slack Block Kit integration
+  - [x] Implement real Slack Block Kit integration
 - [x] Microsoft Teams implementation
   - [x] Create TeamsHumanFunction class
   - [x] Implement request and getResponse methods
