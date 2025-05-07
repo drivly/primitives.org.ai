@@ -26,3 +26,21 @@ The ai-providers package is currently returning mock responses instead of making
 - Update the ai-providers package to use real API calls through the AI gateway
 - Ensure the AI gateway URL is correctly configured
 - Implement proper error handling for cases where the AI gateway is unavailable
+
+#### Issue with Vercel deployment failure
+
+The Vercel deployment is failing due to a build error in the ai-brand package, which is unrelated to our test changes.
+
+**Error description:**
+- TypeScript error in the ai-brand package: `error TS5074: Option '--incremental' can only be specified using tsconfig, emitting to single file or when option '--tsBuildInfoFile' is specified.`
+- The same error occurs in both our PR branch and the main branch
+- Recent PRs have been focused on fixing build configurations for various packages
+
+**Verification:**
+1. Checked the build logs for our PR and found the error in the ai-brand package
+2. Verified the same error occurs when building the ai-brand package on the main branch
+3. Observed that recent PRs have been focused on fixing build configurations for other packages
+
+**Note:**
+- This is a pre-existing issue in the repository and not related to our test changes
+- Our PR can be merged despite the Vercel deployment failure since it doesn't affect the functionality of our tests
