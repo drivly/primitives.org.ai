@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { parseProjectContext } from '../../utils/content-parser'
+import { parseProjectContext, ProjectContext } from '../../utils/content-parser'
 import { buildAIContext } from '../../utils/context-builder'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -8,27 +8,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const projectContext = {
+    const projectContext: ProjectContext = {
+      readme: '# AI Waitlist\n\nA powerful waitlist system with AI-generated landing pages.',
+      aiContent: {
+        features: '- AI-powered landing page generation\n- Authentication via oauth.do\n- Multi-step onboarding flow\n- Product-solution fit assessment',
+        benefits: '- Save time creating landing pages\n- Collect valuable user feedback\n- Identify ideal customers\n- Streamline your waitlist process',
+        cta: 'Join Waitlist'
+      },
       projectName: 'AI Waitlist',
       projectDescription: 'A powerful waitlist system with AI-generated landing pages',
-      features: [
-        'AI-powered landing page generation',
-        'Authentication via oauth.do',
-        'Multi-step onboarding flow',
-        'Product-solution fit assessment'
-      ],
-      benefits: [
-        'Save time creating landing pages',
-        'Collect valuable user feedback',
-        'Identify ideal customers',
-        'Streamline your waitlist process'
-      ],
-      callToAction: {
-        text: 'Join Waitlist',
-        link: '/auth'
-      },
-      rawReadme: '# AI Waitlist\n\nA powerful waitlist system with AI-generated landing pages.',
-      rawAiContent: {}
+      aiConfig: {
+        theme: 'light',
+        primaryColor: '#0070f3',
+        secondaryColor: '#6366f1',
+        prioritizeAiContent: true
+      }
     }
 
     return res.status(200).json({
