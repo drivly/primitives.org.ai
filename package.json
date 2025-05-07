@@ -13,7 +13,7 @@
     "lint": "turbo lint --concurrency=25",
     "test": "turbo test --concurrency=25",
     "clean": "turbo clean --concurrency=25",
-    "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind",
+    "postbuild": "mkdir -p public/_pagefind && [ -d .next/server/app ] && pagefind --site .next/server/app --output-path public/_pagefind || echo 'Skipping pagefind: .next/server/app directory not found'",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx}\"",
     "version": "changeset version",
     "release": "changeset publish"
