@@ -54,6 +54,10 @@ export interface TeamsConfig {
   token: string
   channels?: string[]
   botName?: string
+  webhookUrl?: string
+  useAdaptiveCards?: boolean
+  callbackUrl?: string
+  channelId?: string
 }
 
 /**
