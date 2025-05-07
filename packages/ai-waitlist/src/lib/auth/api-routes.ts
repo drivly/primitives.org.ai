@@ -10,7 +10,7 @@ interface Session {
   }
 }
 
-interface AuthApiRequest extends NextApiRequest {
+export interface AuthApiRequest extends NextApiRequest {
   session?: Session
 }
 
@@ -84,7 +84,7 @@ export const withSession = (handler: (req: AuthApiRequest, res: NextApiResponse)
   }
 }
 
-export const withAuth = (handler: (req: AuthApiRequest, res: NextApiResponse) => Promise<void>) => {
+export const withAuth = (handler: (req: AuthApiRequest, res: NextApiResponse) => Promise<void | any>) => {
   return async (req: AuthApiRequest, res: NextApiResponse) => {
     if (!req.session?.user) {
       return res.redirect(`/auth?redirect=${encodeURIComponent(req.url || '/')}`)

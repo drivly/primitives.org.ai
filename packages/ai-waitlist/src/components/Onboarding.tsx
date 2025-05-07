@@ -56,12 +56,34 @@ export function Onboarding({ user, onComplete }: OnboardingProps) {
   
   const currentQuestion = questions[step]
   
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step < questions.length - 1) {
       setStep(step + 1)
     } else {
-      if (onComplete) {
-        onComplete(answers)
+      try {
+        const response = await fetch('/api/onboarding/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ answers })
+        })
+        
+        const data = await response.json()
+        
+        if (response.ok) {
+          if (onComplete) {
+            onComplete(answers)
+          } else {
+            window.location.href = data.links?.dashboard || '/'
+          }
+        } else {
+          console.error('Error submitting onboarding:', data.error)
+          alert('There was an error submitting your responses. Please try again.')
+        }
+      } catch (error) {
+        console.error('Error submitting onboarding:', error)
+        alert('There was an error submitting your responses. Please try again.')
       }
     }
   }
