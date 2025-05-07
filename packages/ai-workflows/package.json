@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup src/index.ts",
     "dev": "tsup src/index.ts --watch",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
