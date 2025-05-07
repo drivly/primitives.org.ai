@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "turbo dev --concurrency=25",
     "build": "turbo build",
+    "build:next": "next build",
     "start": "next start",
     "lint": "turbo lint --concurrency=25",
     "test": "turbo test --concurrency=25",
