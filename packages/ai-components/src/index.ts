@@ -5,4 +5,4 @@ export { Component } from './Component'
 export * from './types'
 
 export { cn } from './lib/utils'
-export { mdxComponents } from './mdx-components'
+export { mdxComponents } from './mdx-components.tsx'
