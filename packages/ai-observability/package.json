@@ -2,8 +2,9 @@
   "name": "ai-observability",
   "version": "0.1.0",
   "description": "Payload CMS instance for observability of AI operations with multiple database support",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -19,14 +20,17 @@
     "dev": "tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
-    "format": "prettier --write ."
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx}'"
   },
   "dependencies": {
     "next": "^14.0.0",
     "payload": "^2.0.0",
     "@payloadcms/db-mongodb": "^3.0.0",
     "@payloadcms/db-postgres": "^3.0.0", 
-    "@payloadcms/db-sqlite": "^3.0.0"
+    "@payloadcms/db-sqlite": "^3.0.0",
+    "@payloadcms/richtext-slate": "^1.0.0",
+    "vitest": "^1.1.0"
   },
   "peerDependencies": {
     "next": "^14.0.0",
@@ -37,13 +41,13 @@
     "prettier": "^3.0.0",
     "tsup": "^8.4.0",
     "typescript": "^5.0.0",
-    "vitest": "^1.1.0"
+    "@types/node": "^20.17.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/drivly/primitives.org.ai"
+    "url": "https://github.com/drivly/primitives.org.ai.git"
   },
-  "homepage": "https://mdx.org.ai",
+  "homepage": "https://primitives.org.ai",
   "bugs": {
     "url": "https://github.com/drivly/primitives.org.ai/issues"
   },

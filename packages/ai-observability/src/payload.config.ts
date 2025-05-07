@@ -1,5 +1,6 @@
 import { buildConfig } from 'payload/config'
 import { getDatabaseAdapter } from './lib/database'
+import { slateEditor } from '@payloadcms/richtext-slate'
 
 import {
   Completions,
@@ -31,6 +32,7 @@ export default buildConfig({
       ogImage: '/og-image.jpg',
     },
   },
+  editor: slateEditor({}),
   typescript: {
     outputFile: 'types.ts',
   },
