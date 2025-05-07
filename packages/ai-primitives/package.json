@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --format=cjs --external:* && esbuild src/index.ts --bundle --platform=node --outfile=dist/index.mjs --format=esm --external:*",
-    "dev": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --format=cjs --watch",
+    "dev": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --format=cjs --watch --external:*",
     "test": "npm run build && vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",

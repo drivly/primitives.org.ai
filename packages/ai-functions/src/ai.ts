@@ -13,7 +13,7 @@ const getAIProvider = (modelName: string | undefined) => {
 /**
  * Generate an object using the AI model
  */
-const generateObject = async (options: {
+export const generateObject = async (options: {
   model: any
   prompt: string
   schema?: z.ZodType<any>
