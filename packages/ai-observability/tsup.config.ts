@@ -1,12 +1,10 @@
-export default {
-  entry: {
-    index: 'src/index.ts',
-  },
-  format: ['esm', 'cjs'],
+import { defineConfig } from 'tsup'
+
+export default defineConfig({
+  entry: ['src/index.ts'],
+  format: ['cjs', 'esm'],
   dts: true,
+  splitting: false,
+  sourcemap: true,
   clean: true,
-  outExtension: ({ format }: { format: string }) => ({
-    js: format === 'cjs' ? '.js' : '.mjs',
-  }),
-  tsconfig: './tsconfig.json',
-}
+})
