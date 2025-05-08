@@ -41,13 +41,13 @@ export const Screenshot: React.FC<ScreenshotOptions> = ({
       const exportImage = async () => {
         try {
           let dataUrl = ''
-          
+
           if (exportFormat === 'png') {
             dataUrl = await toPng(containerRef.current as HTMLElement)
           } else if (exportFormat === 'svg') {
             dataUrl = await toSvg(containerRef.current as HTMLElement)
           }
-          
+
           if (onExport && dataUrl) {
             onExport(dataUrl)
           }
@@ -55,7 +55,7 @@ export const Screenshot: React.FC<ScreenshotOptions> = ({
           console.error(`Error exporting as ${exportFormat}:`, error)
         }
       }
-      
+
       exportImage()
     }
   }, [exportFormat, isLoading, onExport, completeContent])
@@ -65,7 +65,7 @@ export const Screenshot: React.FC<ScreenshotOptions> = ({
   }
 
   return (
-    <div 
+    <div
       ref={containerRef}
       style={{
         fontFamily: theme.fontFamily || 'system-ui, sans-serif',
@@ -79,11 +79,7 @@ export const Screenshot: React.FC<ScreenshotOptions> = ({
         margin: '0 auto',
       }}
     >
-      {layout === 'sidebar' ? (
-        <SidebarLayout content={completeContent} theme={theme} />
-      ) : (
-        <StackedLayout content={completeContent} theme={theme} />
-      )}
+      {layout === 'sidebar' ? <SidebarLayout content={completeContent} theme={theme} /> : <StackedLayout content={completeContent} theme={theme} />}
     </div>
   )
 }

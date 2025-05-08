@@ -22,7 +22,7 @@ export function setupEventLoop(worker: WorkerInstance, config: WorkerEventLoopCo
       await evaluateKpisAgainstOkrs(worker, config)
     } catch (error) {
       console.error('Error in worker event loop:', error)
-      
+
       await worker.updateContext({
         lastEventLoopError: {
           timestamp: new Date().toISOString(),
@@ -33,11 +33,11 @@ export function setupEventLoop(worker: WorkerInstance, config: WorkerEventLoopCo
   })
 
   worker.eventLoopJob = job
-  
+
   worker.evaluateKpis = async () => {
     return evaluateKpisAgainstOkrs(worker, config)
   }
-  
+
   worker.stopEventLoop = () => {
     if (worker.eventLoopJob) {
       worker.eventLoopJob.stop()
@@ -45,7 +45,7 @@ export function setupEventLoop(worker: WorkerInstance, config: WorkerEventLoopCo
     }
     return { status: 'not_running' }
   }
-  
+
   worker.restartEventLoop = () => {
     if (worker.eventLoopJob) {
       worker.eventLoopJob.start()
@@ -53,7 +53,7 @@ export function setupEventLoop(worker: WorkerInstance, config: WorkerEventLoopCo
     }
     return { status: 'not_configured' }
   }
-  
+
   console.log(`Event loop set up for worker ${worker.id} with frequency ${config.frequency}`)
 }
 
@@ -63,18 +63,15 @@ export function setupEventLoop(worker: WorkerInstance, config: WorkerEventLoopCo
  * @param config The event loop configuration
  * @returns Evaluation results
  */
-async function evaluateKpisAgainstOkrs(
-  worker: WorkerInstance, 
-  config: WorkerEventLoopConfig
-): Promise<any> {
+async function evaluateKpisAgainstOkrs(worker: WorkerInstance, config: WorkerEventLoopConfig): Promise<any> {
   const kpiValues = await fetchCurrentKpiValues(worker, config.kpis)
-  
+
   if (config.evaluationStrategy === 'custom' && config.customEvaluator) {
     return config.customEvaluator(kpiValues, config.okrs)
   }
-  
+
   const evaluationResults = evaluateKpis(kpiValues, config.okrs, config.evaluationStrategy)
-  
+
   await worker.updateContext({
     lastKpiEvaluation: {
       timestamp: new Date().toISOString(),
@@ -82,14 +79,14 @@ async function evaluateKpisAgainstOkrs(
       evaluationResults,
     },
   })
-  
+
   if (typeof worker.agent.onKpiUpdate === 'function') {
     await worker.agent.onKpiUpdate({
       kpiValues,
       evaluationResults,
     })
   }
-  
+
   return {
     status: 'completed',
     timestamp: new Date().toISOString(),
@@ -104,17 +101,13 @@ async function evaluateKpisAgainstOkrs(
  * @param kpis The KPIs to fetch
  * @returns Current KPI values
  */
-async function fetchCurrentKpiValues(
-  worker: WorkerInstance, 
-  kpis: string[]
-): Promise<Record<string, any>> {
-  
+async function fetchCurrentKpiValues(worker: WorkerInstance, kpis: string[]): Promise<Record<string, any>> {
   try {
     const result = await worker.agent.execute({
       action: 'getKpiValues',
       kpis,
     })
-    
+
     return result.kpiValues || {}
   } catch (error) {
     console.error('Error fetching KPI values:', error)
@@ -129,21 +122,17 @@ async function fetchCurrentKpiValues(
  * @param strategy Evaluation strategy
  * @returns Evaluation results
  */
-function evaluateKpis(
-  kpiValues: Record<string, any>,
-  okrs: Record<string, OkrTarget>,
-  strategy: string = 'simple'
-): any {
+function evaluateKpis(kpiValues: Record<string, any>, okrs: Record<string, OkrTarget>, strategy: string = 'simple'): any {
   const results: Record<string, any> = {
     kpis: {},
     overallScore: 0,
     totalWeight: 0,
     recommendations: [],
   }
-  
+
   for (const [kpiName, target] of Object.entries(okrs)) {
     const currentValue = kpiValues[kpiName]
-    
+
     if (currentValue === undefined) {
       results.kpis[kpiName] = {
         status: 'unknown',
@@ -151,12 +140,12 @@ function evaluateKpis(
       }
       continue
     }
-    
+
     target.currentValue = currentValue
     target.lastUpdated = new Date().toISOString()
-    
+
     const evaluation = evaluateTarget(currentValue, target.target)
-    
+
     results.kpis[kpiName] = {
       target: target.target,
       current: currentValue,
@@ -165,12 +154,12 @@ function evaluateKpis(
       message: evaluation.message,
       weight: target.weight,
     }
-    
+
     if (strategy === 'weighted') {
       results.overallScore += evaluation.score * target.weight
       results.totalWeight += target.weight
     }
-    
+
     if (evaluation.status === 'below_target') {
       results.recommendations.push({
         kpi: kpiName,
@@ -179,19 +168,18 @@ function evaluateKpis(
       })
     }
   }
-  
+
   if (strategy === 'simple') {
     const kpiCount = Object.keys(results.kpis).length
     if (kpiCount > 0) {
-      results.overallScore = Object.values(results.kpis)
-        .reduce((sum: number, kpi: any) => sum + (kpi.score || 0), 0) / kpiCount
+      results.overallScore = Object.values(results.kpis).reduce((sum: number, kpi: any) => sum + (kpi.score || 0), 0) / kpiCount
     }
   } else if (strategy === 'weighted' && results.totalWeight > 0) {
     results.overallScore = results.overallScore / results.totalWeight
   }
-  
+
   results.recommendations.sort((a: any, b: any) => b.priority - a.priority)
-  
+
   return results
 }
 
@@ -201,9 +189,12 @@ function evaluateKpis(
  * @param targetStr The target string (e.g., "> 85%", "< 30 minutes")
  * @returns Evaluation result
  */
-function evaluateTarget(currentValue: any, targetStr: string): { 
-  status: 'above_target' | 'at_target' | 'below_target' | 'unknown',
-  score: number,
+function evaluateTarget(
+  currentValue: any,
+  targetStr: string
+): {
+  status: 'above_target' | 'at_target' | 'below_target' | 'unknown'
+  score: number
   message: string
 } {
   const result = {
@@ -211,72 +202,77 @@ function evaluateTarget(currentValue: any, targetStr: string): {
     score: 0,
     message: 'Unable to evaluate target',
   }
-  
+
   try {
     const match = targetStr.trim().match(/^([<>=]+)\s*(.+)$/)
-    
+
     if (!match) {
       return result
     }
-    
+
     const [, operator, valueStr] = match
-    
+
     let targetValue = parseFloat(valueStr)
     const isPercentage = valueStr.includes('%')
-    
+
     if (isPercentage) {
       targetValue /= 100
       currentValue = parseFloat(currentValue) / 100
     }
-    
+
     switch (operator) {
       case '>':
         result.status = currentValue > targetValue ? 'above_target' : 'below_target'
         result.score = currentValue > targetValue ? 1 : Math.max(0, currentValue / targetValue)
-        result.message = currentValue > targetValue 
-          ? `Current value ${currentValue} exceeds target ${targetValue}`
-          : `Current value ${currentValue} is below target ${targetValue}`
+        result.message =
+          currentValue > targetValue
+            ? `Current value ${currentValue} exceeds target ${targetValue}`
+            : `Current value ${currentValue} is below target ${targetValue}`
         break
-        
+
       case '>=':
         result.status = currentValue >= targetValue ? 'at_target' : 'below_target'
         result.score = currentValue >= targetValue ? 1 : Math.max(0, currentValue / targetValue)
-        result.message = currentValue >= targetValue 
-          ? `Current value ${currentValue} meets or exceeds target ${targetValue}`
-          : `Current value ${currentValue} is below target ${targetValue}`
+        result.message =
+          currentValue >= targetValue
+            ? `Current value ${currentValue} meets or exceeds target ${targetValue}`
+            : `Current value ${currentValue} is below target ${targetValue}`
         break
-        
+
       case '<':
         result.status = currentValue < targetValue ? 'above_target' : 'below_target'
         result.score = currentValue < targetValue ? 1 : Math.max(0, targetValue / currentValue)
-        result.message = currentValue < targetValue 
-          ? `Current value ${currentValue} is better than target ${targetValue}`
-          : `Current value ${currentValue} exceeds target ${targetValue}`
+        result.message =
+          currentValue < targetValue
+            ? `Current value ${currentValue} is better than target ${targetValue}`
+            : `Current value ${currentValue} exceeds target ${targetValue}`
         break
-        
+
       case '<=':
         result.status = currentValue <= targetValue ? 'at_target' : 'below_target'
         result.score = currentValue <= targetValue ? 1 : Math.max(0, targetValue / currentValue)
-        result.message = currentValue <= targetValue 
-          ? `Current value ${currentValue} meets or is better than target ${targetValue}`
-          : `Current value ${currentValue} exceeds target ${targetValue}`
+        result.message =
+          currentValue <= targetValue
+            ? `Current value ${currentValue} meets or is better than target ${targetValue}`
+            : `Current value ${currentValue} exceeds target ${targetValue}`
         break
-        
+
       case '=':
       case '==': {
         result.status = currentValue === targetValue ? 'at_target' : 'below_target'
         const diff = Math.abs(currentValue - targetValue)
-        result.score = diff < 0.1 * targetValue ? 1 - (diff / targetValue) : 0
-        result.message = currentValue === targetValue 
-          ? `Current value ${currentValue} exactly matches target ${targetValue}`
-          : `Current value ${currentValue} does not match target ${targetValue}`
+        result.score = diff < 0.1 * targetValue ? 1 - diff / targetValue : 0
+        result.message =
+          currentValue === targetValue
+            ? `Current value ${currentValue} exactly matches target ${targetValue}`
+            : `Current value ${currentValue} does not match target ${targetValue}`
         break
       }
-        
+
       default:
         return result
     }
-    
+
     return result
   } catch (error) {
     console.error('Error evaluating target:', error)

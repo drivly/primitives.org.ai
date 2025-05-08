@@ -27,19 +27,19 @@ export interface AIContext {
  */
 export const buildAIContext = (projectContext: ProjectContext): AIContext => {
   const { readme, aiContent, aiConfig } = projectContext
-  
+
   const projectName = extractProjectName(readme, aiContent)
   const projectDescription = extractProjectDescription(readme, aiContent)
-  
+
   const features = extractFeatures(readme, aiContent)
   const benefits = extractBenefits(readme, aiContent)
   const callToAction = extractCallToAction(readme, aiContent)
   const questions = extractQuestions(readme, aiContent)
-  
+
   const theme = aiConfig?.theme || 'light'
   const primaryColor = aiConfig?.primaryColor || '#0070f3'
   const secondaryColor = aiConfig?.secondaryColor || '#6366f1'
-  
+
   return {
     projectName,
     projectDescription,
@@ -51,7 +51,7 @@ export const buildAIContext = (projectContext: ProjectContext): AIContext => {
     primaryColor,
     secondaryColor,
     rawReadme: readme,
-    rawAiContent: aiContent
+    rawAiContent: aiContent,
   }
 }
 
@@ -68,12 +68,12 @@ const extractProjectName = (readme: string, aiContent: Record<string, any>): str
       return name
     }
   }
-  
+
   const headingMatch = readme.match(/^#\s+(.+)$/m)
   if (headingMatch && headingMatch[1]) {
     return headingMatch[1].trim()
   }
-  
+
   return 'My Project'
 }
 
@@ -90,12 +90,12 @@ const extractProjectDescription = (readme: string, aiContent: Record<string, any
       return description
     }
   }
-  
+
   const paragraphMatch = readme.match(/^#\s+.+\n+(.+?)(\n\n|$)/m)
   if (paragraphMatch && paragraphMatch[1]) {
     return paragraphMatch[1].trim()
   }
-  
+
   return 'A description of my project'
 }
 
@@ -112,7 +112,7 @@ const extractFeatures = (readme: string, aiContent: Record<string, any>): string
       return features
     }
   }
-  
+
   // Try to extract from README
   const featuresSection = readme.match(/##\s+Features\s+(.+?)(?=##|$)/s)
   if (featuresSection && featuresSection[1]) {
@@ -121,7 +121,7 @@ const extractFeatures = (readme: string, aiContent: Record<string, any>): string
       return features
     }
   }
-  
+
   return ['Feature 1', 'Feature 2', 'Feature 3']
 }
 
@@ -138,7 +138,7 @@ const extractBenefits = (readme: string, aiContent: Record<string, any>): string
       return benefits
     }
   }
-  
+
   // Try to extract from README
   const benefitsSection = readme.match(/##\s+Benefits\s+(.+?)(?=##|$)/s)
   if (benefitsSection && benefitsSection[1]) {
@@ -147,7 +147,7 @@ const extractBenefits = (readme: string, aiContent: Record<string, any>): string
       return benefits
     }
   }
-  
+
   return ['Benefit 1', 'Benefit 2', 'Benefit 3']
 }
 
@@ -160,37 +160,36 @@ const extractBenefits = (readme: string, aiContent: Record<string, any>): string
 const extractCallToAction = (readme: string, aiContent: Record<string, any>): { text: string; link: string } => {
   if (aiContent.cta) {
     const ctaText = aiContent.cta.trim()
-    
+
     try {
       const ctaJson = JSON.parse(ctaText)
       if (ctaJson.text && ctaJson.link) {
         return {
           text: ctaJson.text,
-          link: ctaJson.link
+          link: ctaJson.link,
         }
       }
-    } catch (e) {
-    }
-    
+    } catch (e) {}
+
     return {
       text: ctaText || 'Join the Waitlist',
-      link: '/waitlist'
+      link: '/waitlist',
     }
   }
-  
+
   // Try to extract from README
   const ctaSection = readme.match(/##\s+Call\s+to\s+Action\s+(.+?)(?=##|$)/s)
   if (ctaSection && ctaSection[1]) {
     const ctaText = ctaSection[1].trim()
     return {
       text: ctaText || 'Join the Waitlist',
-      link: '/waitlist'
+      link: '/waitlist',
     }
   }
-  
+
   return {
     text: 'Join the Waitlist',
-    link: '/waitlist'
+    link: '/waitlist',
   }
 }
 
@@ -207,7 +206,7 @@ const extractQuestions = (readme: string, aiContent: Record<string, any>): strin
       return questions
     }
   }
-  
+
   // Try to extract from README
   const questionsSection = readme.match(/##\s+Questions\s+(.+?)(?=##|$)/s)
   if (questionsSection && questionsSection[1]) {
@@ -216,13 +215,13 @@ const extractQuestions = (readme: string, aiContent: Record<string, any>): strin
       return questions
     }
   }
-  
+
   return [
     'What is your primary use case?',
     'What problems are you trying to solve?',
     'How are you currently solving this problem?',
     'How large is your team?',
-    'What is your timeline for implementing a solution?'
+    'What is your timeline for implementing a solution?',
   ]
 }
 
@@ -234,7 +233,7 @@ const extractQuestions = (readme: string, aiContent: Record<string, any>): strin
 const extractListItems = (content: string): string[] => {
   return content
     .split('\n')
-    .filter(line => line.trim().startsWith('-') || line.trim().startsWith('*'))
-    .map(line => line.trim().replace(/^[-*]\s+/, ''))
+    .filter((line) => line.trim().startsWith('-') || line.trim().startsWith('*'))
+    .map((line) => line.trim().replace(/^[-*]\s+/, ''))
     .filter(Boolean)
 }

@@ -14,7 +14,7 @@ interface SidebarLayoutProps {
 
 export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ content, theme }) => {
   const { menus, forms, tables, charts, dashboards, grids } = content
-  
+
   return (
     <div
       style={{
@@ -34,9 +34,7 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ content, theme }) 
           flexDirection: 'column',
         }}
       >
-        {menus && menus.length > 0 && (
-          <MenuComponent menu={menus[0]} theme={theme} />
-        )}
+        {menus && menus.length > 0 && <MenuComponent menu={menus[0]} theme={theme} />}
       </div>
 
       {/* Main content */}
@@ -48,27 +46,17 @@ export const SidebarLayout: React.FC<SidebarLayoutProps> = ({ content, theme }) 
         }}
       >
         {/* Render dashboards first if available */}
-        {dashboards && dashboards.map((dashboard, index) => (
-          <DashboardComponent key={`dashboard-${index}`} dashboard={dashboard} theme={theme} />
-        ))}
+        {dashboards && dashboards.map((dashboard, index) => <DashboardComponent key={`dashboard-${index}`} dashboard={dashboard} theme={theme} />)}
 
         {/* Render other content types */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          {forms && forms.map((form, index) => (
-            <FormComponent key={`form-${index}`} form={form} theme={theme} />
-          ))}
+          {forms && forms.map((form, index) => <FormComponent key={`form-${index}`} form={form} theme={theme} />)}
 
-          {tables && tables.map((table, index) => (
-            <TableComponent key={`table-${index}`} table={table} theme={theme} />
-          ))}
+          {tables && tables.map((table, index) => <TableComponent key={`table-${index}`} table={table} theme={theme} />)}
 
-          {charts && charts.map((chart, index) => (
-            <ChartComponent key={`chart-${index}`} chart={chart} theme={theme} />
-          ))}
+          {charts && charts.map((chart, index) => <ChartComponent key={`chart-${index}`} chart={chart} theme={theme} />)}
 
-          {grids && grids.map((grid, index) => (
-            <GridComponent key={`grid-${index}`} grid={grid} theme={theme} />
-          ))}
+          {grids && grids.map((grid, index) => <GridComponent key={`grid-${index}`} grid={grid} theme={theme} />)}
         </div>
       </div>
     </div>

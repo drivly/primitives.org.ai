@@ -18,16 +18,19 @@ This example demonstrates deploying a Next.js application to AWS using SST with 
 Follow these steps to deploy your Next.js application to AWS:
 
 1. Initialize SST in your Next.js app:
+
 ```bash
 npx sst@latest init
 ```
 
 2. Install dependencies:
+
 ```bash
 pnpm install
 ```
 
 3. Deploy to AWS:
+
 ```bash
 npx sst deploy
 ```
@@ -40,16 +43,16 @@ This example includes an SST configuration file (`sst.config.ts`) that defines h
 export default $config({
   app(input) {
     return {
-      name: "aws-example",
-      removal: input?.stage === "production" ? "retain" : "remove",
-      protect: ["production"].includes(input?.stage),
-      home: "aws",
-    };
+      name: 'aws-example',
+      removal: input?.stage === 'production' ? 'retain' : 'remove',
+      protect: ['production'].includes(input?.stage),
+      home: 'aws',
+    }
   },
   async run() {
-    new sst.aws.Nextjs("MyWeb");
+    new sst.aws.Nextjs('MyWeb')
   },
-});
+})
 ```
 
 For more information, see the [SST documentation for Next.js](https://docs.sst.dev/constructs/NextjsSite).

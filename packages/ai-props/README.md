@@ -76,7 +76,6 @@ const customModel = model('claude-3.7-sonnet')
 
 ```tsx
 import { AI } from 'ai-props'
-
 ;<AI
   model='gpt-4.1'
   stream={true}
@@ -100,7 +99,6 @@ import { AI } from 'ai-props'
 
 ```tsx
 import { AI } from 'ai-props'
-
 ;<AI
   model='gpt-4.1'
   schema={{
@@ -128,7 +126,6 @@ import { AI } from 'ai-props'
 
 ```tsx
 import { AI } from 'ai-props'
-
 ;<AI
   model='gpt-4.1'
   output='array'

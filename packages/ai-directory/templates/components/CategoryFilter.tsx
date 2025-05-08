@@ -6,20 +6,12 @@ export interface CategoryFilterProps {
   onCategoryChange: (category: string) => void
 }
 
-export function CategoryFilter({ 
-  categories, 
-  selectedCategory, 
-  onCategoryChange 
-}: CategoryFilterProps) {
+export function CategoryFilter({ categories, selectedCategory, onCategoryChange }: CategoryFilterProps) {
   return (
     <div className='category-filter'>
-      <select
-        className='category-select'
-        value={selectedCategory}
-        onChange={(e) => onCategoryChange(e.target.value)}
-      >
+      <select className='category-select' value={selectedCategory} onChange={(e) => onCategoryChange(e.target.value)}>
         <option value=''>All Categories</option>
-        {categories.map(category => (
+        {categories.map((category) => (
           <option key={category.id} value={category.id}>
             {category.name} {category.count ? `(${category.count})` : ''}
           </option>

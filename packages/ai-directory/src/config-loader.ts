@@ -42,14 +42,14 @@ export interface DirectoryConfig {
   appDir?: string
   aiFunctions?: Record<string, any>
   aiProps?: Record<string, any>
-  
+
   dataSource: DirectoryDataSource
-  
+
   searchFields?: string[]
   defaultSortField?: string
   defaultSortOrder?: 'asc' | 'desc'
   itemsPerPage?: number
-  
+
   layoutOptions?: {
     showSearch?: boolean
     showCategories?: boolean
@@ -57,7 +57,7 @@ export interface DirectoryConfig {
     gridColumns?: number
     listView?: boolean
   }
-  
+
   [key: string]: any
 }
 
@@ -75,7 +75,7 @@ const DEFAULT_CONFIG: DirectoryConfig = {
     showFilters: true,
     gridColumns: 3,
     listView: false,
-  }
+  },
 }
 
 /**

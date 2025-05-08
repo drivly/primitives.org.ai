@@ -3,24 +3,21 @@ import { lightenColor, darkenColor } from '../visual'
 
 /**
  * Tailwind CSS integration for brand colors
- * 
+ *
  * This module provides utilities to connect brand colors to Tailwind color palette
  * and generate Tailwind-compatible color configurations.
  */
 
 /**
  * Generate Tailwind CSS config from color palette
- * 
+ *
  * @param colors - Brand color palette
  * @param options - Configuration options
  * @returns Tailwind CSS config object
  */
-export function generateTailwindConfig(
-  colors: ColorPalette,
-  options: BrandOptions = {}
-): Record<string, unknown> {
+export function generateTailwindConfig(colors: ColorPalette, options: BrandOptions = {}): Record<string, unknown> {
   const colorConfig = generateTailwindColors(colors)
-  
+
   return {
     theme: {
       extend: {
@@ -32,13 +29,11 @@ export function generateTailwindConfig(
 
 /**
  * Generate Tailwind CSS colors from brand color palette
- * 
+ *
  * @param colors - Brand color palette
  * @returns Tailwind CSS colors object
  */
-export function generateTailwindColors(
-  colors: ColorPalette
-): Record<string, Record<string, string>> {
+export function generateTailwindColors(colors: ColorPalette): Record<string, Record<string, string>> {
   return {
     primary: generateColorScale(colors.primary),
     secondary: generateColorScale(colors.secondary),
@@ -53,7 +48,7 @@ export function generateTailwindColors(
 
 /**
  * Generate a color scale for Tailwind CSS
- * 
+ *
  * @param baseColor - Base color in hex format
  * @returns Color scale object with 50-900 values
  */
@@ -75,15 +70,13 @@ export function generateColorScale(baseColor: string): Record<string, string> {
 
 /**
  * Generate CSS variables from Tailwind colors
- * 
+ *
  * @param colors - Tailwind colors object
  * @returns CSS variables string
  */
-export function generateCssVariables(
-  colors: Record<string, Record<string, string>>
-): string {
+export function generateCssVariables(colors: Record<string, Record<string, string>>): string {
   let css = ':root {\n'
-  
+
   Object.entries(colors).forEach(([colorName, colorScale]) => {
     Object.entries(colorScale).forEach(([shade, value]) => {
       if (shade === 'DEFAULT') {
@@ -93,15 +86,15 @@ export function generateCssVariables(
       }
     })
   })
-  
+
   css += '}\n'
-  
+
   return css
 }
 
 /**
  * Extend Tailwind config with custom colors
- * 
+ *
  * @param baseConfig - Base Tailwind config
  * @param customColors - Custom colors to add
  * @returns Extended Tailwind config
@@ -110,12 +103,12 @@ export function extendTailwindConfig(
   baseConfig: Record<string, unknown>,
   customColors: Record<string, string | Record<string, string>>
 ): Record<string, unknown> {
-  const baseTheme = baseConfig.theme as Record<string, unknown> || {}
-  const baseExtend = baseTheme.extend as Record<string, unknown> || {}
-  const baseColors = baseExtend.colors as Record<string, unknown> || {}
-  
+  const baseTheme = (baseConfig.theme as Record<string, unknown>) || {}
+  const baseExtend = (baseTheme.extend as Record<string, unknown>) || {}
+  const baseColors = (baseExtend.colors as Record<string, unknown>) || {}
+
   const processedColors: Record<string, unknown> = {}
-  
+
   Object.entries(customColors).forEach(([colorName, colorValue]) => {
     if (typeof colorValue === 'string') {
       processedColors[colorName] = generateColorScale(colorValue)
@@ -123,7 +116,7 @@ export function extendTailwindConfig(
       processedColors[colorName] = colorValue
     }
   })
-  
+
   return {
     ...baseConfig,
     theme: {
@@ -141,13 +134,13 @@ export function extendTailwindConfig(
 
 /**
  * Generate a Tailwind plugin for brand colors
- * 
+ *
  * @param colors - Brand color palette
  * @returns Tailwind plugin function string
  */
 export function generateTailwindPlugin(colors: ColorPalette): string {
   const colorConfig = JSON.stringify(generateTailwindColors(colors), null, 2)
-  
+
   return `
 const plugin = require('tailwindcss/plugin')
 
@@ -171,13 +164,11 @@ module.exports = plugin(function({ addBase }) {
 
 /**
  * Convert brand colors to Tailwind CSS utility classes
- * 
+ *
  * @param colors - Brand color palette
  * @returns Object mapping semantic color names to Tailwind utility classes
  */
-export function brandColorsToTailwindClasses(
-  colors: ColorPalette
-): Record<string, string> {
+export function brandColorsToTailwindClasses(colors: ColorPalette): Record<string, string> {
   return {
     primary: `bg-primary text-white`,
     secondary: `bg-secondary text-white`,

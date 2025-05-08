@@ -2,16 +2,13 @@ import { StartupInstance, SiteGenerationResult } from './types'
 
 /**
  * Generate a website based on the startup configuration
- * 
+ *
  * @param config Configuration for site generation
  * @returns Generated site structure
  */
-export const generateSite = (config: {
-  business: any
-  services: any[]
-}): SiteGenerationResult => {
+export const generateSite = (config: { business: any; services: any[] }): SiteGenerationResult => {
   const { business, services } = config
-  
+
   const homePage = `
 <!DOCTYPE html>
 <html lang="en">
@@ -44,13 +41,17 @@ export const generateSite = (config: {
     <section class="services-preview">
       <h2>Our Services</h2>
       <div class="services-grid">
-        ${services.map((service: any) => `
+        ${services
+          .map(
+            (service: any) => `
           <div class="service-card">
             <h3>${service.name}</h3>
             <p>${service.objective}</p>
             <a href="/services#${service.name.toLowerCase().replace(/\s+/g, '-')}">Learn more</a>
           </div>
-        `).join('')}
+        `
+          )
+          .join('')}
       </div>
     </section>
   </main>
@@ -61,7 +62,7 @@ export const generateSite = (config: {
 </body>
 </html>
   `.trim()
-  
+
   const servicesPage = `
 <!DOCTYPE html>
 <html lang="en">
@@ -91,7 +92,9 @@ export const generateSite = (config: {
     </section>
     
     <section class="services-list">
-      ${services.map((service: any) => `
+      ${services
+        .map(
+          (service: any) => `
         <div class="service-detail" id="${service.name.toLowerCase().replace(/\s+/g, '-')}">
           <h2>${service.name}</h2>
           <p class="service-objective">${service.objective}</p>
@@ -100,7 +103,9 @@ export const generateSite = (config: {
           </div>
           <a href="/pricing#${service.name.toLowerCase().replace(/\s+/g, '-')}" class="cta-button">View Pricing</a>
         </div>
-      `).join('')}
+      `
+        )
+        .join('')}
     </section>
   </main>
   
@@ -110,7 +115,7 @@ export const generateSite = (config: {
 </body>
 </html>
   `.trim()
-  
+
   const pricingPage = `
 <!DOCTYPE html>
 <html lang="en">
@@ -140,42 +145,70 @@ export const generateSite = (config: {
     </section>
     
     <section class="pricing-plans">
-      ${services.map((service: any) => `
+      ${services
+        .map(
+          (service: any) => `
         <div class="pricing-card" id="${service.name.toLowerCase().replace(/\s+/g, '-')}">
           <h2>${service.name}</h2>
           <div class="pricing-model">
             <h3>Pricing Model: ${service.pricing.model}</h3>
-            ${service.pricing.model === 'subscription' ? `
+            ${
+              service.pricing.model === 'subscription'
+                ? `
               <div class="subscription-pricing">
                 <p class="price">$${service.pricing.subscription?.price || 0} / ${service.pricing.subscription?.interval || 'month'}</p>
               </div>
-            ` : ''}
+            `
+                : ''
+            }
             
-            ${service.pricing.model === 'activity-based' ? `
+            ${
+              service.pricing.model === 'activity-based'
+                ? `
               <div class="activity-pricing">
                 <h4>Activities:</h4>
                 <ul>
-                  ${service.pricing.activities?.map((activity: any) => `
+                  ${
+                    service.pricing.activities
+                      ?.map(
+                        (activity: any) => `
                     <li>${activity.name}: $${activity.rate} per use</li>
-                  `).join('') || ''}
+                  `
+                      )
+                      .join('') || ''
+                  }
                 </ul>
               </div>
-            ` : ''}
+            `
+                : ''
+            }
             
-            ${service.pricing.model === 'tiered' ? `
+            ${
+              service.pricing.model === 'tiered'
+                ? `
               <div class="tiered-pricing">
                 <h4>Tiers:</h4>
                 <ul>
-                  ${service.pricing.tiers?.map((tier: any) => `
+                  ${
+                    service.pricing.tiers
+                      ?.map(
+                        (tier: any) => `
                     <li>${tier.name}: $${tier.price}${tier.limit ? ` (up to ${tier.limit} units)` : ''}</li>
-                  `).join('') || ''}
+                  `
+                      )
+                      .join('') || ''
+                  }
                 </ul>
               </div>
-            ` : ''}
+            `
+                : ''
+            }
           </div>
           <a href="/contact" class="cta-button">Get Started</a>
         </div>
-      `).join('')}
+      `
+        )
+        .join('')}
     </section>
   </main>
   
@@ -185,7 +218,7 @@ export const generateSite = (config: {
 </body>
 </html>
   `.trim()
-  
+
   const aboutPage = `
 <!DOCTYPE html>
 <html lang="en">
@@ -217,14 +250,18 @@ export const generateSite = (config: {
     <section class="goals">
       <h2>Our Goals</h2>
       <div class="goals-list">
-        ${business.goals.map((goal: any) => `
+        ${business.goals
+          .map(
+            (goal: any) => `
           <div class="goal-card">
             <h3>${goal.objective}</h3>
             <ul>
               ${goal.keyResults.map((kr: string) => `<li>${kr}</li>`).join('')}
             </ul>
           </div>
-        `).join('')}
+        `
+          )
+          .join('')}
       </div>
     </section>
   </main>
@@ -235,7 +272,7 @@ export const generateSite = (config: {
 </body>
 </html>
   `.trim()
-  
+
   const styles = `
 :root {
   --primary-color: #4a6cf7;
@@ -505,16 +542,16 @@ footer {
   }
 }
   `.trim()
-  
+
   return {
     pages: {
       home: homePage,
       services: servicesPage,
       pricing: pricingPage,
-      about: aboutPage
+      about: aboutPage,
     },
     assets: {
-      'styles.css': styles
+      'styles.css': styles,
     },
     config: {
       theme: 'light',
@@ -522,8 +559,8 @@ footer {
         { label: 'Home', path: '/' },
         { label: 'Services', path: '/services' },
         { label: 'Pricing', path: '/pricing' },
-        { label: 'About', path: '/about' }
-      ]
-    }
+        { label: 'About', path: '/about' },
+      ],
+    },
   }
 }

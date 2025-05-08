@@ -26,27 +26,27 @@ export function HumanFeedback<TInput, TOutput>({
   options,
   freeText,
   onSubmit,
-  config
+  config,
 }: HumanFeedbackProps<TInput, TOutput>) {
   const [response, setResponse] = useState<string>('')
   const [selectedOption, setSelectedOption] = useState<string>('')
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     const responseObj: Record<string, any> = {}
-    
+
     if (selectedOption) {
       responseObj.selectedOption = selectedOption
     }
-    
+
     if (response) {
       responseObj.freeText = response
     }
-    
+
     onSubmit(responseObj as Partial<TOutput>)
   }
-  
+
   const styles = {
     container: {
       maxWidth: '500px',
@@ -56,26 +56,26 @@ export function HumanFeedback<TInput, TOutput>({
       boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
       backgroundColor: config?.theme === 'dark' ? '#1a1a1a' : '#fff',
       color: config?.theme === 'dark' ? '#fff' : '#333',
-      ...config?.styles?.container
+      ...config?.styles?.container,
     },
     title: {
       fontSize: '20px',
       fontWeight: 'bold',
       marginBottom: '10px',
-      ...config?.styles?.title
+      ...config?.styles?.title,
     },
     description: {
       marginBottom: '20px',
-      ...config?.styles?.description
+      ...config?.styles?.description,
     },
     optionsContainer: {
       marginBottom: '20px',
-      ...config?.styles?.optionsContainer
+      ...config?.styles?.optionsContainer,
     },
     option: {
       display: 'block',
       margin: '8px 0',
-      ...config?.styles?.option
+      ...config?.styles?.option,
     },
     textarea: {
       width: '100%',
@@ -86,7 +86,7 @@ export function HumanFeedback<TInput, TOutput>({
       marginBottom: '20px',
       backgroundColor: config?.theme === 'dark' ? '#333' : '#fff',
       color: config?.theme === 'dark' ? '#fff' : '#333',
-      ...config?.styles?.textarea
+      ...config?.styles?.textarea,
     },
     button: {
       padding: '10px 20px',
@@ -95,48 +95,36 @@ export function HumanFeedback<TInput, TOutput>({
       border: 'none',
       borderRadius: '4px',
       cursor: 'pointer',
-      ...config?.styles?.button
-    }
+      ...config?.styles?.button,
+    },
   }
-  
+
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>{title}</h2>
       <p style={styles.description}>{description}</p>
-      
+
       <form onSubmit={handleSubmit}>
         {options && options.length > 0 && (
           <div style={styles.optionsContainer}>
             {options.map((option, index) => {
               const value = typeof option === 'string' ? option : option.value
               const label = typeof option === 'string' ? option : option.label
-              
+
               return (
                 <label key={index} style={styles.option}>
-                  <input
-                    type="radio"
-                    name="option"
-                    value={value}
-                    checked={selectedOption === value}
-                    onChange={() => setSelectedOption(value)}
-                  />
-                  {' '}{label}
+                  <input type='radio' name='option' value={value} checked={selectedOption === value} onChange={() => setSelectedOption(value)} /> {label}
                 </label>
               )
             })}
           </div>
         )}
-        
-        {freeText && (
-          <textarea
-            style={styles.textarea}
-            value={response}
-            onChange={(e) => setResponse(e.target.value)}
-            placeholder="Enter your response..."
-          />
-        )}
-        
-        <button type="submit" style={styles.button}>Submit</button>
+
+        {freeText && <textarea style={styles.textarea} value={response} onChange={(e) => setResponse(e.target.value)} placeholder='Enter your response...' />}
+
+        <button type='submit' style={styles.button}>
+          Submit
+        </button>
       </form>
     </div>
   )
@@ -152,27 +140,29 @@ const tasks = new Map<string, { status: 'pending' | 'completed' | 'timeout' }>()
  * Implementation of HumanFunction for React
  */
 export class ReactHumanFunction<TInput, TOutput> implements HumanFunction<TInput, TOutput> {
-  private config: ReactConfig & { 
-    title: string, 
-    description: string, 
-    options?: string[] | Array<{ value: string; label: string }>,
+  private config: ReactConfig & {
+    title: string
+    description: string
+    options?: string[] | Array<{ value: string; label: string }>
     freeText?: boolean
   }
-  
-  constructor(config: ReactConfig & { 
-    title: string, 
-    description: string, 
-    options?: string[] | Array<{ value: string; label: string }>,
-    freeText?: boolean
-  }) {
+
+  constructor(
+    config: ReactConfig & {
+      title: string
+      description: string
+      options?: string[] | Array<{ value: string; label: string }>
+      freeText?: boolean
+    }
+  ) {
     this.config = config
   }
-  
+
   async request(input: TInput): Promise<HumanTaskRequest> {
     const taskId = `task-${Date.now()}`
-    
+
     tasks.set(taskId, { status: 'pending' })
-    
+
     return {
       taskId,
       status: 'pending',
@@ -180,16 +170,16 @@ export class ReactHumanFunction<TInput, TOutput> implements HumanFunction<TInput
         slack: '',
         teams: '',
         react: taskId,
-        email: ''
-      }
+        email: '',
+      },
     }
   }
-  
+
   async getResponse(taskId: string): Promise<TOutput | null> {
     const response = responses.get(taskId)
     return response || null
   }
-  
+
   /**
    * Handle a response submission
    */
@@ -197,7 +187,7 @@ export class ReactHumanFunction<TInput, TOutput> implements HumanFunction<TInput
     responses.set(taskId, response)
     tasks.set(taskId, { status: 'completed' })
   }
-  
+
   /**
    * Get a React component for this human function
    */

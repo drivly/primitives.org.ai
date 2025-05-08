@@ -62,7 +62,7 @@ export function Manager(config: ManagerConfig): ManagerInstance {
       }
 
       const objective = manager.objectives[key]
-      
+
       if (!objective.keyResults || objective.keyResults.length === 0) {
         return 0
       }
@@ -83,7 +83,7 @@ export function Manager(config: ManagerConfig): ManagerInstance {
 
     async getOverallProgress() {
       const objectiveKeys = Object.keys(manager.objectives)
-      
+
       if (objectiveKeys.length === 0) {
         return 0
       }
@@ -103,13 +103,13 @@ export function Manager(config: ManagerConfig): ManagerInstance {
       }
 
       const objective = manager.objectives[objectiveKey]
-      
+
       if (!objective.keyResults || keyResultIndex >= objective.keyResults.length) {
         throw new Error(`Key result at index ${keyResultIndex} not found for objective "${objectiveKey}"`)
       }
 
       const keyResult = objective.keyResults[keyResultIndex]
-      
+
       if (typeof keyResult === 'string') {
         objective.keyResults[keyResultIndex] = {
           description: keyResult,

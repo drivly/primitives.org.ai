@@ -12,7 +12,7 @@ export const MenuComponent: React.FC<MenuComponentProps> = ({ menu, theme, horiz
 
   const renderMenuItem = (item: MenuItem, index: number) => {
     const isActive = item.active || false
-    
+
     return (
       <div
         key={`menu-item-${index}`}
@@ -20,12 +20,12 @@ export const MenuComponent: React.FC<MenuComponentProps> = ({ menu, theme, horiz
           padding: '10px 16px',
           margin: horizontal ? '0 8px' : '4px 0',
           borderRadius: theme?.borderRadius || 4,
-          backgroundColor: isActive 
-            ? (theme?.colorScheme === 'dark' ? '#333333' : '#e6e6e6') 
-            : 'transparent',
-          color: isActive 
-            ? (theme?.primaryColor || (theme?.colorScheme === 'dark' ? '#ffffff' : '#000000')) 
-            : (theme?.colorScheme === 'dark' ? '#cccccc' : '#333333'),
+          backgroundColor: isActive ? (theme?.colorScheme === 'dark' ? '#333333' : '#e6e6e6') : 'transparent',
+          color: isActive
+            ? theme?.primaryColor || (theme?.colorScheme === 'dark' ? '#ffffff' : '#000000')
+            : theme?.colorScheme === 'dark'
+              ? '#cccccc'
+              : '#333333',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
@@ -47,9 +47,11 @@ export const MenuComponent: React.FC<MenuComponentProps> = ({ menu, theme, horiz
               style={{
                 width: '16px',
                 height: '16px',
-                backgroundColor: isActive 
-                  ? (theme?.primaryColor || (theme?.colorScheme === 'dark' ? '#ffffff' : '#000000')) 
-                  : (theme?.colorScheme === 'dark' ? '#cccccc' : '#333333'),
+                backgroundColor: isActive
+                  ? theme?.primaryColor || (theme?.colorScheme === 'dark' ? '#ffffff' : '#000000')
+                  : theme?.colorScheme === 'dark'
+                    ? '#cccccc'
+                    : '#333333',
                 opacity: 0.7,
                 borderRadius: '2px',
               }}

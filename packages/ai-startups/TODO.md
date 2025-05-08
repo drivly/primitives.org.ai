@@ -13,6 +13,7 @@
 ## Blockers
 
 - [x] Package dependency issues
+
   - [x] Updated dependency from 'services.do' to 'ai-service' in package.json
   - [x] Updated import from 'services.do' to 'ai-service' in index.ts
   - [ ] Verify ai-business and ai-service packages are properly linked
@@ -28,6 +29,7 @@
 ## Integration Testing
 
 - [ ] Test integration with ai-business package
+
   - [ ] Verify Business foundation creation
   - [ ] Test StoryBrand generation
   - [ ] Test Lean Canvas generation
@@ -44,7 +46,6 @@
   - [x] Create services page template
   - [x] Create pricing page template
   - [x] Create about page template
-  
 - [ ] Enhance site generation
   - [ ] Add customization options
   - [ ] Support theming
@@ -59,7 +60,6 @@
   - [x] Define customers collection
   - [x] Define subscriptions collection
   - [x] Define usage collection
-  
 - [ ] Enhance database schema
   - [ ] Add migration support
   - [ ] Support different database providers
@@ -71,7 +71,6 @@
   - [x] Document installation
   - [x] Document usage
   - [x] Document API
-  
 - [ ] Create examples
   - [ ] Basic startup example
   - [ ] Custom service example

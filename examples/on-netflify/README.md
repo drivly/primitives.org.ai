@@ -17,12 +17,14 @@ This example demonstrates deploying a Next.js application to Netlify using the N
 ## Deployment
 
 1. Link your local repository to a Netlify site:
+
 ```bash
 netlify login
 netlify link
 ```
 
 2. Deploy to Netlify:
+
 ```bash
 netlify deploy --prod
 ```

@@ -11,7 +11,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({ form, theme }) => 
 
   const renderField = (field: FormField, index: number) => {
     const { label, type, placeholder, required, options, value } = field
-    
+
     const inputStyles = {
       width: '100%',
       padding: '8px 12px',
@@ -21,7 +21,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({ form, theme }) => 
       color: theme?.colorScheme === 'dark' ? '#ffffff' : '#000000',
       marginTop: '4px',
     }
-    
+
     return (
       <div
         key={`form-field-${index}`}
@@ -40,25 +40,13 @@ export const FormComponent: React.FC<FormComponentProps> = ({ form, theme }) => 
           {label}
           {required && <span style={{ color: '#ff4d4f', marginLeft: '4px' }}>*</span>}
         </label>
-        
+
         {type === 'text' || type === 'email' || type === 'password' || type === 'number' || type === 'date' ? (
-          <input
-            type={type}
-            placeholder={placeholder}
-            defaultValue={value as string | number | undefined}
-            style={inputStyles}
-          />
+          <input type={type} placeholder={placeholder} defaultValue={value as string | number | undefined} style={inputStyles} />
         ) : type === 'textarea' ? (
-          <textarea
-            placeholder={placeholder}
-            defaultValue={value as string | undefined}
-            style={{ ...inputStyles, minHeight: '80px', resize: 'vertical' }}
-          />
+          <textarea placeholder={placeholder} defaultValue={value as string | undefined} style={{ ...inputStyles, minHeight: '80px', resize: 'vertical' }} />
         ) : type === 'select' ? (
-          <select
-            defaultValue={value as string | number | undefined}
-            style={inputStyles}
-          >
+          <select defaultValue={value as string | number | undefined} style={inputStyles}>
             {options?.map((option, optionIndex) => (
               <option key={`option-${optionIndex}`} value={option}>
                 {option}
@@ -69,12 +57,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({ form, theme }) => 
           <div style={{ marginTop: '8px' }}>
             {options?.map((option, optionIndex) => (
               <div key={`checkbox-${optionIndex}`} style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}>
-                <input
-                  type="checkbox"
-                  id={`checkbox-${index}-${optionIndex}`}
-                  defaultChecked={value === option}
-                  style={{ marginRight: '8px' }}
-                />
+                <input type='checkbox' id={`checkbox-${index}-${optionIndex}`} defaultChecked={value === option} style={{ marginRight: '8px' }} />
                 <label htmlFor={`checkbox-${index}-${optionIndex}`}>{option}</label>
               </div>
             ))}
@@ -84,7 +67,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({ form, theme }) => 
             {options?.map((option, optionIndex) => (
               <div key={`radio-${optionIndex}`} style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}>
                 <input
-                  type="radio"
+                  type='radio'
                   id={`radio-${index}-${optionIndex}`}
                   name={`radio-group-${index}`}
                   defaultChecked={value === option}
@@ -121,10 +104,10 @@ export const FormComponent: React.FC<FormComponentProps> = ({ form, theme }) => 
           {title}
         </h3>
       )}
-      
+
       <form>
         {fields.map(renderField)}
-        
+
         <div
           style={{
             display: 'flex',
@@ -134,7 +117,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({ form, theme }) => 
           }}
         >
           <button
-            type="button"
+            type='button'
             style={{
               padding: '8px 16px',
               borderRadius: theme?.borderRadius || 4,
@@ -147,7 +130,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({ form, theme }) => 
             {cancelLabel}
           </button>
           <button
-            type="submit"
+            type='submit'
             style={{
               padding: '8px 16px',
               borderRadius: theme?.borderRadius || 4,

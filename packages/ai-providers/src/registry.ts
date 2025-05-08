@@ -44,7 +44,7 @@ export const registry: ReturnType<typeof createProviderRegistry> = createProvide
     deepseek,
     cerebras,
     replicate,
-    luma
+    luma,
   },
   { separator: '/' }
 )

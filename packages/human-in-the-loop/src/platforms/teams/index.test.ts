@@ -7,15 +7,15 @@ vi.mock('./client', () => {
     TeamsApiClient: vi.fn().mockImplementation(() => {
       return {
         sendCard: vi.fn().mockResolvedValue({ id: 'mock-teams-message-id' }),
-        registerWebhook: vi.fn().mockResolvedValue(undefined)
+        registerWebhook: vi.fn().mockResolvedValue(undefined),
       }
     }),
     createAdaptiveCard: vi.fn().mockReturnValue({
       type: 'AdaptiveCard',
       version: '1.2',
       body: [],
-      actions: []
-    })
+      actions: [],
+    }),
   }
 })
 
@@ -26,18 +26,28 @@ describe('Teams Platform', () => {
 
   describe('createTeamsMessage', () => {
     it('should throw an error if webhookUrl is not provided', async () => {
-      await expect(createTeamsMessage('task-123', {}, {
-        title: 'Test Title',
-        description: 'Test Description'
-      })).rejects.toThrow('Teams webhook URL is required')
+      await expect(
+        createTeamsMessage(
+          'task-123',
+          {},
+          {
+            title: 'Test Title',
+            description: 'Test Description',
+          }
+        )
+      ).rejects.toThrow('Teams webhook URL is required')
     })
 
     it('should create a Teams message with the provided options', async () => {
-      const result = await createTeamsMessage('task-123', {}, {
-        title: 'Test Title',
-        description: 'Test Description',
-        webhookUrl: 'https://example.com/webhook'
-      })
+      const result = await createTeamsMessage(
+        'task-123',
+        {},
+        {
+          title: 'Test Title',
+          description: 'Test Description',
+          webhookUrl: 'https://example.com/webhook',
+        }
+      )
 
       expect(result).toHaveProperty('messageId')
       expect(TeamsApiClient).toHaveBeenCalledWith('https://example.com/webhook')
@@ -53,7 +63,7 @@ describe('Teams Platform', () => {
     it('should store and retrieve a response', async () => {
       const mockResponse = { approved: true, comments: 'Looks good!' }
       storeTeamsResponse('task-123', mockResponse)
-      
+
       const response = await getTeamsResponse('task-123')
       expect(response).toEqual(mockResponse)
     })
@@ -62,10 +72,9 @@ describe('Teams Platform', () => {
   describe('TeamsHumanFunction', () => {
     it('should create a request with the correct format', async () => {
       const teamsFunction = new TeamsHumanFunction({
-
         title: 'Test Title',
         description: 'Test Description',
-        webhookUrl: 'https://example.com/webhook'
+        webhookUrl: 'https://example.com/webhook',
       })
 
       const request = await teamsFunction.request({})
@@ -77,15 +86,14 @@ describe('Teams Platform', () => {
 
     it('should get a response for a task', async () => {
       const teamsFunction = new TeamsHumanFunction({
-
         title: 'Test Title',
         description: 'Test Description',
-        webhookUrl: 'https://example.com/webhook'
+        webhookUrl: 'https://example.com/webhook',
       })
 
       const mockResponse = { approved: true, comments: 'Approved!' }
       storeTeamsResponse('task-123', mockResponse)
-      
+
       const response = await teamsFunction.getResponse('task-123')
       expect(response).toEqual(mockResponse)
     })

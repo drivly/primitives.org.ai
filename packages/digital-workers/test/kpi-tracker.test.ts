@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { WorkerInstance, WorkerEventLoopConfig, OkrTarget } from '../src/types'
 
-
 describe('KPI Tracker', () => {
   it('should evaluate KPIs against OKRs', async () => {
     const worker = {
@@ -12,7 +11,7 @@ describe('KPI Tracker', () => {
             'conversion-rate': 0.12,
             'response-time': 250,
             'customer-satisfaction': 4.8,
-          }
+          },
         }),
         onKpiUpdate: vi.fn(),
       },
@@ -67,36 +66,38 @@ describe('KPI Tracker', () => {
 
     const result = await worker.evaluateKpis()
 
-    expect(result).toEqual(expect.objectContaining({
-      status: 'completed',
-      timestamp: expect.any(String),
-      kpiValues: expect.objectContaining({
-        'conversion-rate': 0.12,
-        'response-time': 250,
-        'customer-satisfaction': 4.8,
-      }),
-      evaluationResults: expect.objectContaining({
-        kpis: expect.objectContaining({
-          'conversion-rate': expect.objectContaining({
-            target: '> 0.1',
-            current: 0.12,
-            status: 'above_target',
-          }),
-          'response-time': expect.objectContaining({
-            target: '< 300',
-            current: 250,
-            status: 'above_target',
-          }),
-          'customer-satisfaction': expect.objectContaining({
-            target: '> 4.5',
-            current: 4.8,
-            status: 'above_target',
-          }),
+    expect(result).toEqual(
+      expect.objectContaining({
+        status: 'completed',
+        timestamp: expect.any(String),
+        kpiValues: expect.objectContaining({
+          'conversion-rate': 0.12,
+          'response-time': 250,
+          'customer-satisfaction': 4.8,
         }),
-        overallScore: 1,
-        recommendations: expect.any(Array),
-      }),
-    }))
+        evaluationResults: expect.objectContaining({
+          kpis: expect.objectContaining({
+            'conversion-rate': expect.objectContaining({
+              target: '> 0.1',
+              current: 0.12,
+              status: 'above_target',
+            }),
+            'response-time': expect.objectContaining({
+              target: '< 300',
+              current: 250,
+              status: 'above_target',
+            }),
+            'customer-satisfaction': expect.objectContaining({
+              target: '> 4.5',
+              current: 4.8,
+              status: 'above_target',
+            }),
+          }),
+          overallScore: 1,
+          recommendations: expect.any(Array),
+        }),
+      })
+    )
   })
 
   it('should handle KPIs below target', async () => {
@@ -107,7 +108,7 @@ describe('KPI Tracker', () => {
           kpiValues: {
             'conversion-rate': 0.05,
             'response-time': 350,
-          }
+          },
         }),
         onKpiUpdate: vi.fn(),
       },
@@ -164,29 +165,31 @@ describe('KPI Tracker', () => {
 
     const result = await worker.evaluateKpis()
 
-    expect(result).toEqual(expect.objectContaining({
-      status: 'completed',
-      kpiValues: expect.objectContaining({
-        'conversion-rate': 0.05,
-        'response-time': 350,
-      }),
-      evaluationResults: expect.objectContaining({
-        kpis: expect.objectContaining({
-          'conversion-rate': expect.objectContaining({
-            status: 'below_target',
-          }),
-          'response-time': expect.objectContaining({
-            status: 'below_target',
-          }),
+    expect(result).toEqual(
+      expect.objectContaining({
+        status: 'completed',
+        kpiValues: expect.objectContaining({
+          'conversion-rate': 0.05,
+          'response-time': 350,
         }),
-        recommendations: expect.arrayContaining([
-          expect.objectContaining({
-            kpi: 'conversion-rate',
-            message: expect.stringContaining('Improve conversion-rate'),
+        evaluationResults: expect.objectContaining({
+          kpis: expect.objectContaining({
+            'conversion-rate': expect.objectContaining({
+              status: 'below_target',
+            }),
+            'response-time': expect.objectContaining({
+              status: 'below_target',
+            }),
           }),
-        ]),
-      }),
-    }))
+          recommendations: expect.arrayContaining([
+            expect.objectContaining({
+              kpi: 'conversion-rate',
+              message: expect.stringContaining('Improve conversion-rate'),
+            }),
+          ]),
+        }),
+      })
+    )
 
     const recommendations = result.evaluationResults.recommendations
     expect(recommendations[0].priority).toBeGreaterThanOrEqual(recommendations[1].priority)

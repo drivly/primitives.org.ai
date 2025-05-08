@@ -3,11 +3,7 @@ export { BlogCard } from './blog-card'
 export { BlogPost } from './blog-post'
 export { BlogContent } from './blog-content'
 
-export { 
-  getBlogPosts, 
-  getBlogPostContent, 
-  slugify
-} from './utils/blog-data'
+export { getBlogPosts, getBlogPostContent, slugify } from './utils/blog-data'
 export type { BlogPostData } from './utils/blog-data'
 export { generateBlogPostTitles, generateBlogPostContent } from './utils/ai-integration'
 

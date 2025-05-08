@@ -63,20 +63,23 @@ export function Agent(config: AgentConfig): AutonomousAgent {
  * Creates a proxy for dynamic method invocation
  */
 function createAgentProxy(config: AgentConfig, state: Record<string, any>): any {
-  return new Proxy({}, {
-    get: (_target, prop) => {
-      if (typeof prop !== 'string') return undefined
-      
-      return async (input: any) => {
-        return {
-          action: prop,
-          input,
-          agent: config.name,
-          timestamp: new Date().toISOString(),
+  return new Proxy(
+    {},
+    {
+      get: (_target, prop) => {
+        if (typeof prop !== 'string') return undefined
+
+        return async (input: any) => {
+          return {
+            action: prop,
+            input,
+            agent: config.name,
+            timestamp: new Date().toISOString(),
+          }
         }
-      }
+      },
     }
-  })
+  )
 }
 
 /**
