@@ -160,31 +160,31 @@ Creates a new manager with the provided configuration.
 
 The configuration object for creating a manager.
 
-| Property     | Type                          | Description                                    |
-| ------------ | ----------------------------- | ---------------------------------------------- |
-| name         | string                        | The name of the manager                        |
-| description  | string (optional)             | The description of the manager                 |
-| objectives   | Record<string, Objective>     | The objectives to be managed                   |
-| initialPlans | Plan[] (optional)             | Initial plans to be managed                    |
-| agents       | Record<string, AgentConfig>   | Agent configurations for delegation            |
+| Property     | Type                        | Description                         |
+| ------------ | --------------------------- | ----------------------------------- |
+| name         | string                      | The name of the manager             |
+| description  | string (optional)           | The description of the manager      |
+| objectives   | Record<string, Objective>   | The objectives to be managed        |
+| initialPlans | Plan[] (optional)           | Initial plans to be managed         |
+| agents       | Record<string, AgentConfig> | Agent configurations for delegation |
 
 ### ManagerInstance
 
 The manager instance returned by the Manager function.
 
-| Property/Method        | Type                                                                | Description                                                |
-| ---------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------- |
-| id                     | string                                                              | Unique identifier for the manager                          |
-| objectives             | Record<string, Objective>                                           | Objectives being managed                                   |
-| plans                  | Plan[]                                                              | Plans created by the manager                               |
-| agents                 | Record<string, AutonomousAgent>                                     | Agents managed by the manager                              |
-| updateObjective        | (key: string, objective: Objective) => Promise<void>                | Updates an objective                                       |
-| createPlan             | (plan: Omit<Plan, 'id'>) => Promise<Plan>                           | Creates a new plan                                         |
-| assignTask             | (agentId: string, task: any) => Promise<any>                        | Assigns a task to an agent                                 |
-| getObjectiveProgress   | (key: string) => Promise<number>                                    | Gets the progress of an objective                          |
-| getOverallProgress     | () => Promise<number>                                               | Gets the overall progress of all objectives                |
-| updateKeyResultProgress| (objectiveKey: string, keyResultIndex: number, progress: number) => Promise<void> | Updates the progress of a key result |
-| getAgentsForObjective  | (objectiveKey: string) => Record<string, AutonomousAgent>           | Gets agents assigned to a specific objective               |
+| Property/Method         | Type                                                                              | Description                                  |
+| ----------------------- | --------------------------------------------------------------------------------- | -------------------------------------------- |
+| id                      | string                                                                            | Unique identifier for the manager            |
+| objectives              | Record<string, Objective>                                                         | Objectives being managed                     |
+| plans                   | Plan[]                                                                            | Plans created by the manager                 |
+| agents                  | Record<string, AutonomousAgent>                                                   | Agents managed by the manager                |
+| updateObjective         | (key: string, objective: Objective) => Promise<void>                              | Updates an objective                         |
+| createPlan              | (plan: Omit<Plan, 'id'>) => Promise<Plan>                                         | Creates a new plan                           |
+| assignTask              | (agentId: string, task: any) => Promise<any>                                      | Assigns a task to an agent                   |
+| getObjectiveProgress    | (key: string) => Promise<number>                                                  | Gets the progress of an objective            |
+| getOverallProgress      | () => Promise<number>                                                             | Gets the overall progress of all objectives  |
+| updateKeyResultProgress | (objectiveKey: string, keyResultIndex: number, progress: number) => Promise<void> | Updates the progress of a key result         |
+| getAgentsForObjective   | (objectiveKey: string) => Record<string, AutonomousAgent>                         | Gets agents assigned to a specific objective |
 
 ## Dependencies
 

@@ -8,16 +8,16 @@ interface OnboardingPageProps {
 
 const OnboardingPage = withAuth((props: OnboardingPageProps) => {
   const { user } = props
-  
+
   return (
-    <div className="onboarding-page">
+    <div className='onboarding-page'>
       <h1>Onboarding</h1>
-      <Onboarding 
-        user={user} 
+      <Onboarding
+        user={user}
         onComplete={(answers) => {
           console.log('Onboarding complete:', answers)
           window.location.href = '/'
-        }} 
+        }}
       />
     </div>
   )

@@ -44,7 +44,7 @@ npm install ai-directory next react react-dom
 export default {
   name: 'My Directory',
   description: 'A collection of items',
-  
+
   // Data source configuration
   dataSource: {
     // Example with local items
@@ -53,16 +53,16 @@ export default {
         id: '1',
         name: 'Item 1',
         description: 'Description for item 1',
-        category: 'Category A'
+        category: 'Category A',
       },
       {
         id: '2',
         name: 'Item 2',
         description: 'Description for item 2',
-        category: 'Category B'
-      }
-    ]
-  }
+        category: 'Category B',
+      },
+    ],
+  },
 }
 ```
 
@@ -91,7 +91,7 @@ The `site.config.js` file supports the following options:
   // Basic site information
   name: string;
   description: string;
-  
+
   // Data source (one required)
   dataSource: {
     // Database connection
@@ -100,7 +100,7 @@ The `site.config.js` file supports the following options:
       instance?: any;
       collection?: string;
     };
-    
+
     // API endpoints
     api?: {
       endpoint?: string;
@@ -108,7 +108,7 @@ The `site.config.js` file supports the following options:
       detailEndpoint?: string;
       searchEndpoint?: string;
     };
-    
+
     // Local data
     items?: Array<{
       id: string;
@@ -119,7 +119,7 @@ The `site.config.js` file supports the following options:
       tags?: string[];
       [key: string]: any;
     }>;
-    
+
     categories?: Array<{
       id: string;
       name: string;
@@ -127,13 +127,13 @@ The `site.config.js` file supports the following options:
       count?: number;
     }>;
   };
-  
+
   // Directory display options
   searchFields?: string[];
   defaultSortField?: string;
   defaultSortOrder?: 'asc' | 'desc';
   itemsPerPage?: number;
-  
+
   // UI Customization
   layoutOptions?: {
     showSearch?: boolean;
@@ -142,7 +142,7 @@ The `site.config.js` file supports the following options:
     gridColumns?: number;
     listView?: boolean;
   };
-  
+
   // Next.js configuration (optional)
   nextConfig?: Record<string, any>;
 }
@@ -176,9 +176,9 @@ export default {
   dataSource: {
     database: {
       uri: process.env.DATABASE_URI,
-      collection: 'items'
-    }
-  }
+      collection: 'items',
+    },
+  },
   // ...
 }
 ```
@@ -198,9 +198,9 @@ export default {
       // Or use specific endpoints
       listEndpoint: 'https://api.example.com/items',
       detailEndpoint: 'https://api.example.com/items/:id',
-      searchEndpoint: 'https://api.example.com/items/search'
-    }
-  }
+      searchEndpoint: 'https://api.example.com/items/search',
+    },
+  },
   // ...
 }
 ```

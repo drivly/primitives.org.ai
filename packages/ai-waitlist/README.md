@@ -28,6 +28,7 @@ npx ai-waitlist
 ```
 
 This will:
+
 1. Parse your project's README.md and .ai folder
 2. Generate an AI-powered landing page
 3. Set up authentication using oauth.do
@@ -44,26 +45,26 @@ const landingPage = await generateLandingPage({
   options: {
     theme: 'light',
     primaryColor: '#0070f3',
-    secondaryColor: '#6366f1'
-  }
+    secondaryColor: '#6366f1',
+  },
 })
 
 // Set up authentication
 const authConfig = setupAuth({
   providers: ['github', 'google'],
-  callbackUrl: '/onboarding'
+  callbackUrl: '/onboarding',
 })
 
 // Create onboarding flow
 const onboardingFlow = createOnboardingFlow({
   questions: [
     { id: 'useCase', question: 'What is your primary use case?' },
-    { id: 'painPoints', question: 'What problems are you trying to solve?' }
+    { id: 'painPoints', question: 'What problems are you trying to solve?' },
   ],
   onComplete: (answers) => {
     // Process answers
     console.log('Onboarding completed:', answers)
-  }
+  },
 })
 ```
 
@@ -76,24 +77,16 @@ import { useAuth } from 'ai-waitlist/auth'
 // In your React component
 function MyWaitlistPage() {
   const { user, isAuthenticated, signIn } = useAuth()
-  
+
   return (
     <div>
       {!isAuthenticated ? (
         <>
-          <LandingPage 
-            aiContext={myContext}
-            showAuthButton={true}
-            authButtonText='Join Waitlist'
-            authButtonLink='/auth'
-          />
+          <LandingPage aiContext={myContext} showAuthButton={true} authButtonText='Join Waitlist' authButtonLink='/auth' />
           <Auth providers={['github', 'google']} />
         </>
       ) : (
-        <Onboarding 
-          user={user}
-          onComplete={(answers) => console.log(answers)}
-        />
+        <Onboarding user={user} onComplete={(answers) => console.log(answers)} />
       )}
     </div>
   )
@@ -106,13 +99,14 @@ function MyWaitlistPage() {
 
 You can customize the landing page by creating a `.ai` folder in your project root with the following files:
 
-- `features.md` - List of features (one per line, starting with - or *)
-- `benefits.md` - List of benefits (one per line, starting with - or *)
+- `features.md` - List of features (one per line, starting with - or \*)
+- `benefits.md` - List of benefits (one per line, starting with - or \*)
 - `cta.md` - Call to action text or JSON with `{ "text": "Join Waitlist", "link": "/auth" }`
-- `questions.md` - Onboarding questions (one per line, starting with - or *)
+- `questions.md` - Onboarding questions (one per line, starting with - or \*)
 - `config.json` - Configuration options for theme, colors, and content priority
 
 Example `config.json`:
+
 ```json
 {
   "theme": "light",
@@ -134,8 +128,8 @@ const landingPage = await generateLandingPage({
   options: {
     theme: 'dark',
     primaryColor: '#6366f1',
-    secondaryColor: '#8b5cf6'
-  }
+    secondaryColor: '#8b5cf6',
+  },
 })
 ```
 
@@ -147,25 +141,25 @@ You can customize the onboarding questions by creating a `.ai/questions.md` file
 
 ```typescript
 const customQuestions = [
-  { 
-    id: 'useCase', 
+  {
+    id: 'useCase',
     question: 'What is your primary use case?',
     type: 'text',
-    required: true
+    required: true,
   },
-  { 
-    id: 'painPoints', 
+  {
+    id: 'painPoints',
     question: 'What problems are you trying to solve?',
     type: 'text',
-    required: true
+    required: true,
   },
-  { 
-    id: 'teamSize', 
+  {
+    id: 'teamSize',
     question: 'How large is your team?',
     type: 'select',
     options: ['1-5', '6-20', '21-100', '100+'],
-    required: true
-  }
+    required: true,
+  },
 ]
 
 const onboardingFlow = createOnboardingFlow({ questions: customQuestions })
@@ -203,13 +197,8 @@ import { useProjectContext } from 'ai-waitlist/context'
 
 export default function Home() {
   const { aiContext } = useProjectContext()
-  
-  return (
-    <LandingPage 
-      aiContext={aiContext}
-      showAuthButton={true}
-    />
-  )
+
+  return <LandingPage aiContext={aiContext} showAuthButton={true} />
 }
 ```
 

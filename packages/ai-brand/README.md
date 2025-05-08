@@ -48,6 +48,7 @@ The main function that generates a complete brand identity.
 #### Parameters
 
 - `input`: Brand input data
+
   - `name`: Brand name
   - `description`: Brief description of the brand
   - `industry`: (optional) Industry category
@@ -67,11 +68,13 @@ The main function that generates a complete brand identity.
 #### Returns
 
 - `positioning`: Brand positioning information
+
   - `story`: Brand story elements
   - `voice`: Brand voice characteristics
   - `messaging`: Key messages and taglines
 
 - `visual`: Visual identity elements
+
   - `colors`: Color palette
   - `typography`: Font recommendations
   - `themes`: Light and dark mode themes
@@ -143,11 +146,7 @@ const brand = await Brand({
 })
 
 // Get recommended icons for the brand
-const icons = getBrandIconSet(
-  brand.input,
-  brand.positioning,
-  { iconStyle: 'lucide' }
-)
+const icons = getBrandIconSet(brand.input, brand.positioning, { iconStyle: 'lucide' })
 
 // Use icons in your application
 console.log(icons)

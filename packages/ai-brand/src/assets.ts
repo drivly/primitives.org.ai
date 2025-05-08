@@ -3,7 +3,7 @@ import { BrandInput, BrandOptions, BrandPositioning, VisualIdentity, BrandAssets
 
 /**
  * Generate brand assets including logo and images
- * 
+ *
  * @param input - Brand input data
  * @param positioning - Brand positioning information
  * @param visual - Visual identity information
@@ -17,24 +17,24 @@ export async function generateBrandAssets(
   options: BrandOptions = {}
 ): Promise<BrandAssets> {
   const logo = await generateLogo(input, positioning, visual, options)
-  
+
   const openGraphImage = await generateOpenGraphImage(input, positioning, visual, options)
-  
+
   const bannerImage = options.imageModel ? await generateBannerImage(input, positioning, visual, options) : undefined
   const faviconImage = options.imageModel ? await generateFaviconImage(input, positioning, visual, options) : undefined
-  
+
   return {
     logo: {
       url: logo,
       alt: `${input.name} logo`,
       variants: {
         light: logo, // In a real implementation, we would generate light/dark variants
-        dark: logo,  // For now, we're using the same image for both
+        dark: logo, // For now, we're using the same image for both
       },
     },
     icons: {
       primary: [], // This would be populated by the iconify integration
-      custom: {},  // Custom icons would be added here
+      custom: {}, // Custom icons would be added here
     },
     images: {
       openGraph: openGraphImage,
@@ -47,33 +47,28 @@ export async function generateBrandAssets(
 
 /**
  * Generate a logo for the brand
- * 
+ *
  * @param input - Brand input data
  * @param positioning - Brand positioning information
  * @param visual - Visual identity information
  * @param options - Configuration options
  * @returns URL to the generated logo
  */
-async function generateLogo(
-  input: BrandInput,
-  positioning: BrandPositioning,
-  visual: VisualIdentity,
-  options: BrandOptions = {}
-): Promise<string> {
+async function generateLogo(input: BrandInput, positioning: BrandPositioning, visual: VisualIdentity, options: BrandOptions = {}): Promise<string> {
   try {
     // const { image } = await generateImage({
     //   model: openai.image(options.imageModel || 'dall-e-3'),
     //   prompt: createLogoPrompt(input, positioning, visual),
     //   providerOptions: {
-    //     openai: { 
-    //       style: options.imageStyle || 'vivid', 
+    //     openai: {
+    //       style: options.imageStyle || 'vivid',
     //       quality: options.imageQuality || 'hd',
     //       size: '1024x1024',
     //       response_format: 'url',
     //     },
     //   },
     // })
-    
+
     console.error('Image generation not implemented yet - using placeholder')
     return 'https://placehold.co/400x400/png?text=Logo'
   } catch (error) {
@@ -84,33 +79,28 @@ async function generateLogo(
 
 /**
  * Generate an open graph image for the brand
- * 
+ *
  * @param input - Brand input data
  * @param positioning - Brand positioning information
  * @param visual - Visual identity information
  * @param options - Configuration options
  * @returns URL to the generated open graph image
  */
-async function generateOpenGraphImage(
-  input: BrandInput,
-  positioning: BrandPositioning,
-  visual: VisualIdentity,
-  options: BrandOptions = {}
-): Promise<string> {
+async function generateOpenGraphImage(input: BrandInput, positioning: BrandPositioning, visual: VisualIdentity, options: BrandOptions = {}): Promise<string> {
   try {
     // const { image } = await generateImage({
     //   model: openai.image(options.imageModel || 'dall-e-3'),
     //   prompt: createOpenGraphPrompt(input, positioning, visual),
     //   providerOptions: {
-    //     openai: { 
-    //       style: options.imageStyle || 'vivid', 
+    //     openai: {
+    //       style: options.imageStyle || 'vivid',
     //       quality: options.imageQuality || 'hd',
     //       size: '1792x1024',
     //       response_format: 'url',
     //     },
     //   },
     // })
-    
+
     console.error('Image generation not implemented yet - using placeholder')
     return 'https://placehold.co/1200x630/png?text=OpenGraph'
   } catch (error) {
@@ -121,33 +111,28 @@ async function generateOpenGraphImage(
 
 /**
  * Generate a banner image for the brand
- * 
+ *
  * @param input - Brand input data
  * @param positioning - Brand positioning information
  * @param visual - Visual identity information
  * @param options - Configuration options
  * @returns URL to the generated banner image
  */
-async function generateBannerImage(
-  input: BrandInput,
-  positioning: BrandPositioning,
-  visual: VisualIdentity,
-  options: BrandOptions = {}
-): Promise<string> {
+async function generateBannerImage(input: BrandInput, positioning: BrandPositioning, visual: VisualIdentity, options: BrandOptions = {}): Promise<string> {
   try {
     // const { image } = await generateImage({
     //   model: openai.image(options.imageModel || 'dall-e-3'),
     //   prompt: createBannerPrompt(input, positioning, visual),
     //   providerOptions: {
-    //     openai: { 
-    //       style: options.imageStyle || 'vivid', 
+    //     openai: {
+    //       style: options.imageStyle || 'vivid',
     //       quality: options.imageQuality || 'hd',
     //       size: '1792x1024',
     //       response_format: 'url',
     //     },
     //   },
     // })
-    
+
     console.error('Image generation not implemented yet - using placeholder')
     return 'https://placehold.co/1200x400/png?text=Banner'
   } catch (error) {
@@ -158,33 +143,28 @@ async function generateBannerImage(
 
 /**
  * Generate a favicon for the brand
- * 
+ *
  * @param input - Brand input data
  * @param positioning - Brand positioning information
  * @param visual - Visual identity information
  * @param options - Configuration options
  * @returns URL to the generated favicon
  */
-async function generateFaviconImage(
-  input: BrandInput,
-  positioning: BrandPositioning,
-  visual: VisualIdentity,
-  options: BrandOptions = {}
-): Promise<string> {
+async function generateFaviconImage(input: BrandInput, positioning: BrandPositioning, visual: VisualIdentity, options: BrandOptions = {}): Promise<string> {
   try {
     // const { image } = await generateImage({
     //   model: openai.image(options.imageModel || 'dall-e-3'),
     //   prompt: createFaviconPrompt(input, positioning, visual),
     //   providerOptions: {
-    //     openai: { 
-    //       style: options.imageStyle || 'vivid', 
+    //     openai: {
+    //       style: options.imageStyle || 'vivid',
     //       quality: options.imageQuality || 'hd',
     //       size: '1024x1024',
     //       response_format: 'url',
     //     },
     //   },
     // })
-    
+
     console.error('Image generation not implemented yet - using placeholder')
     return 'https://placehold.co/64x64/png?text=Favicon'
   } catch (error) {
@@ -195,17 +175,13 @@ async function generateFaviconImage(
 
 /**
  * Create a prompt for logo generation
- * 
+ *
  * @param input - Brand input data
  * @param positioning - Brand positioning information
  * @param visual - Visual identity information
  * @returns Prompt for logo generation
  */
-function createLogoPrompt(
-  input: BrandInput,
-  positioning: BrandPositioning,
-  visual: VisualIdentity
-): string {
+function createLogoPrompt(input: BrandInput, positioning: BrandPositioning, visual: VisualIdentity): string {
   return `Create a professional logo for ${input.name}, which is ${input.description}.
   
   Brand personality: ${positioning.voice.personality.join(', ')}
@@ -228,17 +204,13 @@ function createLogoPrompt(
 
 /**
  * Create a prompt for open graph image generation
- * 
+ *
  * @param input - Brand input data
  * @param positioning - Brand positioning information
  * @param visual - Visual identity information
  * @returns Prompt for open graph image generation
  */
-function createOpenGraphPrompt(
-  input: BrandInput,
-  positioning: BrandPositioning,
-  visual: VisualIdentity
-): string {
+function createOpenGraphPrompt(input: BrandInput, positioning: BrandPositioning, visual: VisualIdentity): string {
   return `Create an open graph image for ${input.name}, which is ${input.description}.
   
   Brand personality: ${positioning.voice.personality.join(', ')}
@@ -260,17 +232,13 @@ function createOpenGraphPrompt(
 
 /**
  * Create a prompt for banner image generation
- * 
+ *
  * @param input - Brand input data
  * @param positioning - Brand positioning information
  * @param visual - Visual identity information
  * @returns Prompt for banner image generation
  */
-function createBannerPrompt(
-  input: BrandInput,
-  positioning: BrandPositioning,
-  visual: VisualIdentity
-): string {
+function createBannerPrompt(input: BrandInput, positioning: BrandPositioning, visual: VisualIdentity): string {
   return `Create a banner image for ${input.name}, which is ${input.description}.
   
   Brand personality: ${positioning.voice.personality.join(', ')}
@@ -291,17 +259,13 @@ function createBannerPrompt(
 
 /**
  * Create a prompt for favicon generation
- * 
+ *
  * @param input - Brand input data
  * @param positioning - Brand positioning information
  * @param visual - Visual identity information
  * @returns Prompt for favicon generation
  */
-function createFaviconPrompt(
-  input: BrandInput,
-  positioning: BrandPositioning,
-  visual: VisualIdentity
-): string {
+function createFaviconPrompt(input: BrandInput, positioning: BrandPositioning, visual: VisualIdentity): string {
   return `Create a favicon for ${input.name}, which is ${input.description}.
   
   Primary color: ${visual.colors.primary}

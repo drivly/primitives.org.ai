@@ -75,34 +75,34 @@ export function LandingPage({
   secondaryColor = '#6366f1',
   showAuthButton = false,
   authButtonText = 'Join Waitlist',
-  authButtonLink = '/auth'
+  authButtonLink = '/auth',
 }: LandingPageProps) {
   // Use aiContext if provided, otherwise use projectContext
-  let projectName = '';
-  let projectDescription = '';
-  let features: string[] = [];
-  let benefits: string[] = [];
-  let callToAction = { text: '', link: '' };
-  let rawReadme = '';
-  
+  let projectName = ''
+  let projectDescription = ''
+  let features: string[] = []
+  let benefits: string[] = []
+  let callToAction = { text: '', link: '' }
+  let rawReadme = ''
+
   if (aiContext) {
-    projectName = aiContext.title;
-    projectDescription = aiContext.description;
-    features = aiContext.features;
-    benefits = aiContext.benefits;
-    callToAction = aiContext.cta;
-    rawReadme = aiContext.rawReadme || '';
-    theme = aiContext.theme || theme;
-    primaryColor = aiContext.primaryColor || primaryColor;
-    secondaryColor = aiContext.secondaryColor || secondaryColor;
+    projectName = aiContext.title
+    projectDescription = aiContext.description
+    features = aiContext.features
+    benefits = aiContext.benefits
+    callToAction = aiContext.cta
+    rawReadme = aiContext.rawReadme || ''
+    theme = aiContext.theme || theme
+    primaryColor = aiContext.primaryColor || primaryColor
+    secondaryColor = aiContext.secondaryColor || secondaryColor
   } else if (projectContext) {
-    ({ projectName, projectDescription, features, benefits, callToAction, rawReadme } = projectContext);
+    ;({ projectName, projectDescription, features, benefits, callToAction, rawReadme } = projectContext)
   }
-  
+
   return (
     <div className={`landing-page ${theme}`}>
       <AI
-        model="gpt-4o"
+        model='gpt-4o'
         prompt={`Generate a landing page for a project with the following details:
         
 Project Name: ${projectName}
@@ -120,7 +120,7 @@ Use a ${theme} theme with ${primaryColor} as the primary color and ${secondaryCo
           hero: {
             title: 'Main heading for the landing page',
             subtitle: 'Compelling subtitle',
-            description: 'Brief description of the project'
+            description: 'Brief description of the project',
           },
           features: {
             title: 'Section title for features',
@@ -128,77 +128,77 @@ Use a ${theme} theme with ${primaryColor} as the primary color and ${secondaryCo
               {
                 title: 'Feature title',
                 description: 'Feature description',
-                icon: 'Icon name (optional)'
-              }
-            ]
+                icon: 'Icon name (optional)',
+              },
+            ],
           },
           benefits: {
             title: 'Section title for benefits',
             items: [
               {
                 title: 'Benefit title',
-                description: 'Benefit description'
-              }
-            ]
+                description: 'Benefit description',
+              },
+            ],
           },
           cta: {
             title: 'Call to action heading',
             description: 'Call to action description',
             button: {
               text: 'Button text',
-              link: 'Button link'
-            }
-          }
+              link: 'Button link',
+            },
+          },
         }}
         stream={true}
       >
         {(content: AIContent, { isStreaming }: { isStreaming: boolean }) => (
-          <div className="ai-landing-page">
+          <div className='ai-landing-page'>
             {isStreaming ? (
-              <div className="loading">Generating your landing page...</div>
+              <div className='loading'>Generating your landing page...</div>
             ) : (
               <>
                 {/* Hero Section */}
-                <section className="hero">
+                <section className='hero'>
                   <h1>{content.hero.title}</h1>
                   <h2>{content.hero.subtitle}</h2>
                   <p>{content.hero.description}</p>
-                  <a href={showAuthButton ? authButtonLink : callToAction.link} className="cta-button">
+                  <a href={showAuthButton ? authButtonLink : callToAction.link} className='cta-button'>
                     {showAuthButton ? authButtonText : callToAction.text}
                   </a>
                 </section>
-                
+
                 {/* Features Section */}
-                <section className="features">
+                <section className='features'>
                   <h2>{content.features.title}</h2>
-                  <div className="features-grid">
+                  <div className='features-grid'>
                     {content.features.items.map((feature, index: number) => (
-                      <div key={index} className="feature-card">
+                      <div key={index} className='feature-card'>
                         <h3>{feature.title}</h3>
                         <p>{feature.description}</p>
                       </div>
                     ))}
                   </div>
                 </section>
-                
+
                 {/* Benefits Section */}
-                <section className="benefits">
+                <section className='benefits'>
                   <h2>{content.benefits.title}</h2>
-                  <div className="benefits-grid">
+                  <div className='benefits-grid'>
                     {content.benefits.items.map((benefit, index: number) => (
-                      <div key={index} className="benefit-card">
+                      <div key={index} className='benefit-card'>
                         <h3>{benefit.title}</h3>
                         <p>{benefit.description}</p>
                       </div>
                     ))}
                   </div>
                 </section>
-                
+
                 {/* Call to Action Section */}
-                <section className="cta-section">
+                <section className='cta-section'>
                   <h2>{content.cta.title}</h2>
                   <p>{content.cta.description}</p>
-                  <a href={content.cta.button.link || callToAction.link} className="cta-button">
+                  <a href={content.cta.button.link || callToAction.link} className='cta-button'>
                     {content.cta.button.text || callToAction.text}
                   </a>
                 </section>

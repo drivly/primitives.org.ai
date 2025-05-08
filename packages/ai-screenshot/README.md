@@ -38,15 +38,15 @@ function App() {
         menus: [
           { title: 'Dashboard', icon: 'home' },
           { title: 'Analytics', icon: 'chart' },
-          { title: 'Settings', icon: 'gear' }
+          { title: 'Settings', icon: 'gear' },
         ],
         tables: [
           {
             title: 'Recent Orders',
             columns: ['Order ID', 'Customer', 'Status', 'Amount'],
             // Rows will be AI-generated if not provided
-          }
-        ]
+          },
+        ],
       }}
     />
   )
@@ -68,10 +68,10 @@ function App() {
             title: 'User Registration',
             fields: [
               { label: 'Name', type: 'text' },
-              { label: 'Email', type: 'email' }
-            ]
-          }
-        ]
+              { label: 'Email', type: 'email' },
+            ],
+          },
+        ],
       }}
       exportFormat='png'
       onExport={(dataUrl) => {
@@ -91,13 +91,13 @@ The main component for generating screenshots.
 
 #### Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `layout` | `'sidebar' \| 'stacked'` | Layout type for the screenshot |
-| `content` | `ContentConfig` | Configuration for the content to display |
-| `theme` | `ThemeConfig` | Optional theme configuration |
-| `exportFormat` | `'react' \| 'png' \| 'svg'` | Format to export the screenshot |
-| `onExport` | `(data: string) => void` | Callback when export is complete |
+| Prop           | Type                        | Description                              |
+| -------------- | --------------------------- | ---------------------------------------- |
+| `layout`       | `'sidebar' \| 'stacked'`    | Layout type for the screenshot           |
+| `content`      | `ContentConfig`             | Configuration for the content to display |
+| `theme`        | `ThemeConfig`               | Optional theme configuration             |
+| `exportFormat` | `'react' \| 'png' \| 'svg'` | Format to export the screenshot          |
+| `onExport`     | `(data: string) => void`    | Callback when export is complete         |
 
 ### Types
 

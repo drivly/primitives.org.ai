@@ -34,7 +34,7 @@ const handler = async (req: AuthApiRequest, res: NextApiResponse) => {
     const submission: OnboardingSubmission = {
       userId: user.id,
       answers,
-      submittedAt: new Date().toISOString()
+      submittedAt: new Date().toISOString(),
     }
 
     submissions.push(submission)
@@ -45,8 +45,8 @@ const handler = async (req: AuthApiRequest, res: NextApiResponse) => {
       links: {
         dashboard: '/dashboard',
         profile: '/profile',
-        home: '/'
-      }
+        home: '/',
+      },
     })
   } catch (error) {
     console.error('Error submitting onboarding:', error)

@@ -6,7 +6,7 @@
  * Generate blog post titles using the AI list function
  */
 export async function generateBlogPostTitles(context: any, count: number = 10) {
-  const aiFunctions = await import('ai-functions') as any
+  const aiFunctions = (await import('ai-functions')) as any
   return aiFunctions.list`Generate ${count} blog post titles for the following context: ${context}`
 }
 
@@ -14,8 +14,8 @@ export async function generateBlogPostTitles(context: any, count: number = 10) {
  * Generate blog post content using the AI function
  */
 export async function generateBlogPostContent(title: string, description: string, category: string) {
-  const aiFunctions = await import('ai-functions') as any
-  
+  const aiFunctions = (await import('ai-functions')) as any
+
   return aiFunctions.ai`Write a comprehensive blog post with the following details:
   Title: ${title}
   Description: ${description}

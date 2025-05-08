@@ -8,19 +8,20 @@ vi.mock('fs')
 vi.mock('path')
 vi.mock('url')
 
-const createUrlMock = (url: string) => ({
-  href: `file://${url}`,
-  toString: () => `file://${url}`,
-  toJSON: () => `file://${url}`,
-  hash: '',
-  host: '',
-  hostname: '',
-  origin: 'file://',
-  pathname: url,
-  protocol: 'file:',
-  search: '',
-  searchParams: new URLSearchParams()
-} as URL)
+const createUrlMock = (url: string) =>
+  ({
+    href: `file://${url}`,
+    toString: () => `file://${url}`,
+    toJSON: () => `file://${url}`,
+    hash: '',
+    host: '',
+    hostname: '',
+    origin: 'file://',
+    pathname: url,
+    protocol: 'file:',
+    search: '',
+    searchParams: new URLSearchParams(),
+  }) as URL
 
 describe('config-loader', () => {
   beforeEach(() => {
@@ -37,9 +38,9 @@ describe('config-loader', () => {
 
   it('should return default config when no config file exists', async () => {
     vi.mocked(fs.existsSync).mockReturnValue(false)
-    
+
     const config = await loadDirectoryConfig()
-    
+
     expect(config).toMatchObject({
       name: 'AI-Powered Directory',
       description: 'Generated with ai-directory',
@@ -54,7 +55,7 @@ describe('config-loader', () => {
         showFilters: true,
         gridColumns: 3,
         listView: false,
-      }
+      },
     })
   })
 
@@ -62,30 +63,30 @@ describe('config-loader', () => {
     vi.mocked(fs.existsSync).mockImplementation((file) => {
       return file === '/test/site.config.ts'
     })
-    
+
     const mockModule = {
       default: {
         name: 'Test Directory',
         description: 'Test Description',
         dataSource: {
-          items: [{ id: '1', name: 'Test Item' }]
-        }
-      }
+          items: [{ id: '1', name: 'Test Item' }],
+        },
+      },
     }
-    
+
     vi.doMock('file:///test/site.config.ts', () => mockModule)
-    
+
     vi.resetModules()
-    
+
     const { loadDirectoryConfig: freshLoadConfig } = await import('../src/config-loader')
     const config = await freshLoadConfig()
-    
+
     expect(config).toMatchObject({
       name: 'Test Directory',
       description: 'Test Description',
       dataSource: {
-        items: [{ id: '1', name: 'Test Item' }]
-      }
+        items: [{ id: '1', name: 'Test Item' }],
+      },
     })
   })
 
@@ -93,34 +94,34 @@ describe('config-loader', () => {
     vi.mocked(fs.existsSync).mockImplementation((file) => {
       return file === '/test/site.config.js'
     })
-    
+
     const mockModule = {
       default: {
         name: 'JS Directory',
         description: 'JS Description',
         dataSource: {
           api: {
-            endpoint: 'https://api.example.com'
-          }
-        }
-      }
+            endpoint: 'https://api.example.com',
+          },
+        },
+      },
     }
-    
+
     vi.doMock('file:///test/site.config.js', () => mockModule)
-    
+
     vi.resetModules()
-    
+
     const { loadDirectoryConfig: freshLoadConfig } = await import('../src/config-loader')
     const config = await freshLoadConfig()
-    
+
     expect(config).toMatchObject({
       name: 'JS Directory',
       description: 'JS Description',
       dataSource: {
         api: {
-          endpoint: 'https://api.example.com'
-        }
-      }
+          endpoint: 'https://api.example.com',
+        },
+      },
     })
   })
 
@@ -128,25 +129,25 @@ describe('config-loader', () => {
     vi.mocked(fs.existsSync).mockImplementation((file) => {
       return file === '/test/site.config.ts'
     })
-    
+
     const mockModule = {
       default: {
         name: 'Custom Directory',
         dataSource: {
           database: {
-            uri: 'mongodb://localhost:27017'
-          }
-        }
-      }
+            uri: 'mongodb://localhost:27017',
+          },
+        },
+      },
     }
-    
+
     vi.doMock('file:///test/site.config.ts', () => mockModule)
-    
+
     vi.resetModules()
-    
+
     const { loadDirectoryConfig: freshLoadConfig } = await import('../src/config-loader')
     const config = await freshLoadConfig()
-    
+
     expect(config.name).toBe('Custom Directory')
     expect(config.dataSource.database?.uri).toBe('mongodb://localhost:27017')
     expect(config.description).toBe('Generated with ai-directory')

@@ -16,11 +16,13 @@ This example demonstrates deploying a Next.js application to Cloudflare Pages us
 ## Deployment
 
 1. Log in to Cloudflare:
+
 ```bash
 wrangler login
 ```
 
 2. Deploy your application:
+
 ```bash
 npm run deploy
 ```

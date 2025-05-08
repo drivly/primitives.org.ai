@@ -15,10 +15,10 @@ export interface TeamsResponseOption {
 export async function createTeamsMessage<TInput, TOutput>(
   taskId: string,
   input: TInput,
-  config: TeamsConfig & { 
-    title: string, 
-    description: string, 
-    options?: string[] | TeamsResponseOption[],
+  config: TeamsConfig & {
+    title: string
+    description: string
+    options?: string[] | TeamsResponseOption[]
     freeText?: boolean
   }
 ): Promise<{ messageId: string }> {
@@ -28,15 +28,15 @@ export async function createTeamsMessage<TInput, TOutput>(
 
   try {
     const client = new TeamsApiClient(config.webhookUrl)
-    
+
     const card = createAdaptiveCard({
       title: config.title,
       description: config.description,
       options: config.options,
       freeText: config.freeText,
-      taskId
+      taskId,
     })
-    
+
     const response = await client.sendCard(card)
     return { messageId: response.id }
   } catch (error) {
@@ -55,7 +55,7 @@ export async function getTeamsResponse<TOutput>(taskId: string): Promise<TOutput
   if (!response) {
     return null
   }
-  
+
   return response as TOutput
 }
 
@@ -74,7 +74,7 @@ export function registerTeamsWebhook(config: TeamsConfig): void {
     console.warn('Both webhookUrl and callbackUrl are required to register a Teams webhook')
     return
   }
-  
+
   try {
     const client = new TeamsApiClient(config.webhookUrl)
     client.registerWebhook(config.callbackUrl)
@@ -87,30 +87,28 @@ export function registerTeamsWebhook(config: TeamsConfig): void {
  * Implementation of HumanFunction for Microsoft Teams
  */
 export class TeamsHumanFunction<TInput, TOutput> implements HumanFunction<TInput, TOutput> {
-  private config: TeamsConfig & { 
-    title: string, 
-    description: string, 
-    options?: string[] | TeamsResponseOption[],
+  private config: TeamsConfig & {
+    title: string
+    description: string
+    options?: string[] | TeamsResponseOption[]
     freeText?: boolean
   }
-  
-  constructor(config: TeamsConfig & { 
-    title: string, 
-    description: string, 
-    options?: string[] | TeamsResponseOption[],
-    freeText?: boolean
-  }) {
+
+  constructor(
+    config: TeamsConfig & {
+      title: string
+      description: string
+      options?: string[] | TeamsResponseOption[]
+      freeText?: boolean
+    }
+  ) {
     this.config = config
   }
-  
+
   async request(input: TInput): Promise<HumanTaskRequest> {
     const taskId = `task-${Date.now()}`
-    const { messageId } = await createTeamsMessage<TInput, TOutput>(
-      taskId,
-      input,
-      this.config
-    )
-    
+    const { messageId } = await createTeamsMessage<TInput, TOutput>(taskId, input, this.config)
+
     return {
       taskId,
       status: 'pending',
@@ -118,11 +116,11 @@ export class TeamsHumanFunction<TInput, TOutput> implements HumanFunction<TInput
         slack: '',
         teams: messageId,
         react: '',
-        email: ''
-      }
+        email: '',
+      },
     }
   }
-  
+
   async getResponse(taskId: string): Promise<TOutput | null> {
     return getTeamsResponse<TOutput>(taskId)
   }

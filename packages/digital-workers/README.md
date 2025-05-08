@@ -52,23 +52,23 @@ const supportWorker = Worker({
   id: 'support-worker-1',
   initialContext: {
     department: 'Customer Support',
-    specialization: 'Technical Issues'
+    specialization: 'Technical Issues',
   },
   initialPlans: [
     {
       name: 'Handle New Tickets',
-      steps: ['Review ticket', 'Categorize issue', 'Respond with solution or escalate']
-    }
+      steps: ['Review ticket', 'Categorize issue', 'Respond with solution or escalate'],
+    },
   ],
   communication: {
     slack: {
       token: process.env.SLACK_TOKEN,
-      channels: ['support', 'escalations']
+      channels: ['support', 'escalations'],
     },
     email: {
       smtp: process.env.SMTP_CONFIG,
-      address: 'support@example.com'
-    }
+      address: 'support@example.com',
+    },
   },
   eventLoop: {
     frequency: '*/15 * * * *', // Cron expression for every 15 minutes
@@ -76,28 +76,28 @@ const supportWorker = Worker({
     okrs: {
       responseTime: { target: '< 30 minutes', weight: 0.3 },
       resolutionRate: { target: '> 85%', weight: 0.4 },
-      customerSatisfaction: { target: '> 4.5/5', weight: 0.3 }
-    }
-  }
+      customerSatisfaction: { target: '> 4.5/5', weight: 0.3 },
+    },
+  },
 })
 
 // Execute a task
 const result = await supportWorker.execute({
   action: 'respondToTicket',
   ticketId: '12345',
-  message: 'Thank you for your inquiry. Here is the solution...'
+  message: 'Thank you for your inquiry. Here is the solution...',
 })
 
 // Update worker context
 await supportWorker.updateContext({
   currentLoad: 'high',
-  priorityIssues: ['server-outage', 'payment-processing']
+  priorityIssues: ['server-outage', 'payment-processing'],
 })
 
 // Send a message via configured channels
 await supportWorker.sendMessage('slack', {
   channel: 'support',
-  message: 'New high-priority issue detected: server outage'
+  message: 'New high-priority issue detected: server outage',
 })
 ```
 
@@ -119,29 +119,29 @@ Creates a new digital worker with the provided configuration.
 
 The configuration object for creating a worker.
 
-| Property       | Type                    | Description                                       |
-| -------------- | ----------------------- | ------------------------------------------------- |
-| name           | string                  | The name of the worker                            |
-| description    | string                  | Description of the worker's purpose               |
-| id             | string (optional)       | Unique identifier for the worker                  |
-| initialContext | object (optional)       | Initial context data for the worker               |
-| initialPlans   | Plan[] (optional)       | Initial plans for the worker to execute           |
-| communication  | CommunicationConfig     | Configuration for communication channels          |
-| eventLoop      | EventLoopConfig         | Configuration for the event loop and KPI tracking |
+| Property       | Type                | Description                                       |
+| -------------- | ------------------- | ------------------------------------------------- |
+| name           | string              | The name of the worker                            |
+| description    | string              | Description of the worker's purpose               |
+| id             | string (optional)   | Unique identifier for the worker                  |
+| initialContext | object (optional)   | Initial context data for the worker               |
+| initialPlans   | Plan[] (optional)   | Initial plans for the worker to execute           |
+| communication  | CommunicationConfig | Configuration for communication channels          |
+| eventLoop      | EventLoopConfig     | Configuration for the event loop and KPI tracking |
 
 ### WorkerInstance
 
 The worker instance returned by the Worker function.
 
-| Property/Method | Type                                                | Description                                           |
-| --------------- | --------------------------------------------------- | ----------------------------------------------------- |
-| id              | string                                              | Unique identifier for the worker                      |
-| agent           | AutonomousAgent                                     | The underlying autonomous agent                       |
-| context         | object                                              | Current context data for the worker                   |
-| plans           | Plan[]                                              | Current plans for the worker                          |
-| execute         | (input: any) => Promise<any>                        | Executes an action using the underlying agent         |
-| updateContext   | (newContext: any) => Promise<void>                  | Updates the worker's context                          |
-| sendMessage     | (channel: string, message: any) => Promise<void>    | Sends a message via the specified communication channel |
+| Property/Method | Type                                             | Description                                             |
+| --------------- | ------------------------------------------------ | ------------------------------------------------------- |
+| id              | string                                           | Unique identifier for the worker                        |
+| agent           | AutonomousAgent                                  | The underlying autonomous agent                         |
+| context         | object                                           | Current context data for the worker                     |
+| plans           | Plan[]                                           | Current plans for the worker                            |
+| execute         | (input: any) => Promise<any>                     | Executes an action using the underlying agent           |
+| updateContext   | (newContext: any) => Promise<void>               | Updates the worker's context                            |
+| sendMessage     | (channel: string, message: any) => Promise<void> | Sends a message via the specified communication channel |
 
 ## Dependencies
 

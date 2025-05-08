@@ -12,23 +12,18 @@ interface LandingPageOptions {
 }
 
 export const generateLandingPage = async (options: LandingPageOptions = {}) => {
-  const { 
-    projectDir = process.cwd(), 
-    theme = 'light', 
-    primaryColor = '#0070f3', 
-    secondaryColor = '#6366f1' 
-  } = options
-  
+  const { projectDir = process.cwd(), theme = 'light', primaryColor = '#0070f3', secondaryColor = '#6366f1' } = options
+
   console.log('Parsing project context...')
   const projectContext = parseProjectContext(projectDir)
-  
+
   console.log('Building AI context...')
   const aiContext = buildAIContext(projectContext)
-  
+
   aiContext.theme = theme
   aiContext.primaryColor = primaryColor
   aiContext.secondaryColor = secondaryColor
-  
+
   return { projectContext, aiContext }
 }
 
@@ -38,11 +33,8 @@ interface AuthOptions {
 }
 
 export const setupAuth = (options: AuthOptions = {}) => {
-  const { 
-    providers = ['github', 'google'], 
-    callbackUrl = '/onboarding' 
-  } = options
-  
+  const { providers = ['github', 'google'], callbackUrl = '/onboarding' } = options
+
   return {
     providers,
     callbackUrl,
@@ -50,8 +42,8 @@ export const setupAuth = (options: AuthOptions = {}) => {
       signIn: '/auth',
       signOut: '/auth/signout',
       callback: '/api/auth/callback',
-      error: '/auth/error'
-    }
+      error: '/auth/error',
+    },
   }
 }
 
@@ -70,32 +62,32 @@ interface OnboardingOptions {
 
 export const createOnboardingFlow = (options: OnboardingOptions = {}) => {
   const { questions = [], onComplete } = options
-  
+
   const defaultQuestions: Question[] = [
-    { 
-      id: 'useCase', 
-      question: 'What is your primary use case?', 
+    {
+      id: 'useCase',
+      question: 'What is your primary use case?',
       type: 'text',
-      required: true
+      required: true,
     },
-    { 
-      id: 'painPoints', 
-      question: 'What problems are you trying to solve?', 
+    {
+      id: 'painPoints',
+      question: 'What problems are you trying to solve?',
       type: 'text',
-      required: true
+      required: true,
     },
-    { 
-      id: 'teamSize', 
-      question: 'How large is your team?', 
+    {
+      id: 'teamSize',
+      question: 'How large is your team?',
       type: 'select',
       options: ['1-5', '6-20', '21-100', '100+'],
-      required: true
-    }
+      required: true,
+    },
   ]
-  
+
   return {
     questions: questions.length > 0 ? questions : defaultQuestions,
-    onComplete
+    onComplete,
   }
 }
 
@@ -109,44 +101,36 @@ interface AiWaitlistAppOptions {
 }
 
 export const createAiWaitlistApp = async (options: AiWaitlistAppOptions = {}) => {
-  const { 
-    outputDir = './ai-waitlist-app', 
-    theme = 'light', 
-    primaryColor = '#0070f3', 
-    secondaryColor = '#6366f1' 
-  } = options
-  
+  const { outputDir = './ai-waitlist-app', theme = 'light', primaryColor = '#0070f3', secondaryColor = '#6366f1' } = options
+
   console.log('Creating AI Waitlist app...')
-  
+
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true })
   }
-  
+
   const { projectContext, aiContext } = await generateLandingPage({
     projectDir: process.cwd(),
     theme,
     primaryColor,
-    secondaryColor
+    secondaryColor,
   })
-  
+
   const authConfig = setupAuth(options.auth || {})
-  
+
   const onboardingFlow = createOnboardingFlow(options.onboarding || {})
-  
-  fs.writeFileSync(
-    path.join(outputDir, 'ai-waitlist-config.json'),
-    JSON.stringify({ aiContext, authConfig, onboardingFlow }, null, 2)
-  )
-  
+
+  fs.writeFileSync(path.join(outputDir, 'ai-waitlist-config.json'), JSON.stringify({ aiContext, authConfig, onboardingFlow }, null, 2))
+
   console.log('AI Waitlist app created successfully!')
   console.log(`Configuration saved to ${path.join(outputDir, 'ai-waitlist-config.json')}`)
-  
+
   return { outputDir, aiContext, authConfig, onboardingFlow }
 }
 
 export async function cli() {
   console.log('AI Waitlist - Generate AI-powered landing pages with authentication and onboarding')
-  
+
   try {
     const result = await createAiWaitlistApp()
     console.log('AI Waitlist landing page generated successfully!')

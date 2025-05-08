@@ -44,13 +44,15 @@ describe('Agent', () => {
 
     const result = await agent.execute(input, options)
 
-    expect(result).toEqual(expect.objectContaining({
-      data: 'executed',
-      input,
-      options,
-      agent: 'TestAgent',
-      timestamp: expect.any(String),
-    }))
+    expect(result).toEqual(
+      expect.objectContaining({
+        data: 'executed',
+        input,
+        options,
+        agent: 'TestAgent',
+        timestamp: expect.any(String),
+      })
+    )
   })
 
   it('should create a proxy for dynamic method invocation', async () => {
@@ -69,12 +71,14 @@ describe('Agent', () => {
     const agent = Agent(config)
     const result = await agent.do.customAction({ param: 'value' })
 
-    expect(result).toEqual(expect.objectContaining({
-      action: 'customAction',
-      input: { param: 'value' },
-      agent: 'TestAgent',
-      timestamp: expect.any(String),
-    }))
+    expect(result).toEqual(
+      expect.objectContaining({
+        action: 'customAction',
+        input: { param: 'value' },
+        agent: 'TestAgent',
+        timestamp: expect.any(String),
+      })
+    )
   })
 
   it('should handle event triggers', async () => {
@@ -95,12 +99,14 @@ describe('Agent', () => {
 
     const result = await agent.onEvent(eventData)
 
-    expect(result).toEqual(expect.objectContaining({
-      event: 'onEvent',
-      data: eventData,
-      handled: true,
-      agent: 'TestAgent',
-      timestamp: expect.any(String),
-    }))
+    expect(result).toEqual(
+      expect.objectContaining({
+        event: 'onEvent',
+        data: eventData,
+        handled: true,
+        agent: 'TestAgent',
+        timestamp: expect.any(String),
+      })
+    )
   })
 })
