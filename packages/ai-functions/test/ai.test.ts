@@ -16,6 +16,8 @@ describe('ai template literal function', () => {
         const result = await ai`${getTestPrompt('simple')}`
 
         expect(result).toBeDefined()
+        expect(typeof result).toBe('string')
+        expect(result.length).toBeGreaterThan(10)
       },
       AI_TEST_TIMEOUT
     )
@@ -27,6 +29,9 @@ describe('ai template literal function', () => {
         const result = await ai`Generate a short description of ${topic}`
 
         expect(result).toBeDefined()
+        expect(typeof result).toBe('string')
+        expect(result.length).toBeGreaterThan(10)
+        expect(result).toMatch(/\w+/) // Contains at least one word character
       },
       AI_TEST_TIMEOUT
     )
@@ -38,6 +43,8 @@ describe('ai template literal function', () => {
         const result = await ai`${prompt}`({ temperature: 0.1 })
 
         expect(result).toBeDefined()
+        expect(typeof result).toBe('string')
+        expect(result.length).toBeGreaterThan(10)
       },
       AI_TEST_TIMEOUT
     )
@@ -49,6 +56,9 @@ describe('ai template literal function', () => {
         const result = await ai`${longPrompt}`({ maxTokens: 200 })
 
         expect(result).toBeDefined()
+        expect(typeof result).toBe('string')
+        expect(result.length).toBeGreaterThan(0)
+        expect(result.length).toBeLessThanOrEqual(1000) // Reasonable upper bound for maxTokens: 200
       },
       AI_TEST_TIMEOUT
     )
@@ -62,6 +72,10 @@ describe('ai template literal function', () => {
 
         expect(result).toBeDefined()
         expect(typeof result).toBe('object')
+        expect(result).toHaveProperty('name')
+        expect(typeof result.name).toBe('string')
+        expect(result).toHaveProperty('age')
+        expect(typeof result.age).toBe('number')
       },
       AI_TEST_TIMEOUT
     )
@@ -73,6 +87,12 @@ describe('ai template literal function', () => {
 
         expect(result).toBeDefined()
         expect(typeof result).toBe('object')
+        expect(result).toHaveProperty('user')
+        expect(typeof result.user).toBe('object')
+        expect(result.user).toHaveProperty('name')
+        expect(typeof result.user.name).toBe('string')
+        expect(result.user).toHaveProperty('profile')
+        expect(typeof result.user.profile).toBe('object')
       },
       AI_TEST_TIMEOUT
     )
@@ -84,6 +104,11 @@ describe('ai template literal function', () => {
         const result = await ai`List 5 programming languages`({ schema: arraySchema })
 
         expect(Array.isArray(result)).toBe(true)
+        expect(result.length).toBeGreaterThan(0)
+        result.forEach((item: string) => {
+          expect(typeof item).toBe('string')
+          expect(item.length).toBeGreaterThan(0)
+        })
       },
       AI_TEST_TIMEOUT
     )
@@ -101,6 +126,13 @@ describe('ai template literal function', () => {
 
         expect(result).toBeDefined()
         expect(typeof result).toBe('object')
+        expect(result).toHaveProperty('name')
+        expect(typeof result.name).toBe('string')
+        expect(result).toHaveProperty('age')
+        expect(typeof result.age).toBe('number')
+        expect(result).toHaveProperty('email')
+        expect(typeof result.email).toBe('string')
+        expect(result.email).toMatch(/@/) // Basic email format check
       },
       AI_TEST_TIMEOUT
     )
@@ -113,6 +145,8 @@ describe('ai template literal function', () => {
         const result = await ai``
 
         expect(result).toBeDefined()
+        expect(typeof result).toBe('string')
+        expect(result.length).toBeGreaterThan(0)
       },
       AI_TEST_TIMEOUT
     )
@@ -124,6 +158,8 @@ describe('ai template literal function', () => {
         const result = await ai`${longPrompt}`
 
         expect(result).toBeDefined()
+        expect(typeof result).toBe('string')
+        expect(result.length).toBeGreaterThan(50)
       },
       AI_TEST_TIMEOUT
     )
@@ -135,6 +171,8 @@ describe('ai template literal function', () => {
         const result = await ai`${prompt}`
 
         expect(result).toBeDefined()
+        expect(typeof result).toBe('string')
+        expect(result.length).toBeGreaterThan(0)
       },
       AI_TEST_TIMEOUT
     )
@@ -146,6 +184,8 @@ describe('ai template literal function', () => {
         const result = await ai`${prompt}`
 
         expect(result).toBeDefined()
+        expect(typeof result).toBe('string')
+        expect(result.length).toBeGreaterThan(0)
       },
       AI_TEST_TIMEOUT
     )

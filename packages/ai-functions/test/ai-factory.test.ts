@@ -40,6 +40,12 @@ describe('AI factory function', () => {
 
       expect(content).toBeDefined()
       expect(typeof content).toBe('object')
+      expect(content).toHaveProperty('title')
+      expect(typeof content.title).toBe('string')
+      expect(content).toHaveProperty('content')
+      expect(typeof content.content).toBe('string')
+      expect(content).toHaveProperty('wordCount')
+      expect(typeof content.wordCount).toBe('number')
     },
     AI_TEST_TIMEOUT
   )
@@ -73,6 +79,26 @@ describe('AI factory function', () => {
 
       expect(productDetails).toBeDefined()
       expect(typeof productDetails).toBe('object')
+      
+      expect(productDetails).toHaveProperty('product')
+      expect(typeof productDetails.product).toBe('object')
+      expect(productDetails.product).toHaveProperty('id')
+      expect(typeof productDetails.product.id).toBe('string')
+      expect(productDetails.product).toHaveProperty('name')
+      expect(typeof productDetails.product.name).toBe('string')
+      expect(productDetails.product).toHaveProperty('price')
+      expect(typeof productDetails.product.price).toBe('number')
+      
+      expect(productDetails.product).toHaveProperty('specifications')
+      expect(typeof productDetails.product.specifications).toBe('object')
+      
+      expect(productDetails).toHaveProperty('inventory')
+      expect(typeof productDetails.inventory).toBe('object')
+      expect(productDetails.inventory).toHaveProperty('inStock')
+      expect(typeof productDetails.inventory.inStock).toBe('boolean')
+      
+      expect(productDetails).toHaveProperty('reviews')
+      expect(Array.isArray(productDetails.reviews)).toBe(true)
     },
     AI_TEST_TIMEOUT
   )
