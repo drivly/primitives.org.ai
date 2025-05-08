@@ -1,13 +1,13 @@
-# ai-manager
+# ai-management
 
-[![npm version](https://img.shields.io/npm/v/ai-manager.svg)](https://www.npmjs.com/package/ai-manager)
+[![npm version](https://img.shields.io/npm/v/ai-management.svg)](https://www.npmjs.com/package/ai-management)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 A function-based Manager API for defining Objectives and Key Results, creating Plans, and delegating tasks to Agent instances. This package provides a simple, elegant way to create and manage OKRs, plans, and delegate tasks to autonomous agents.
 
 ## Purpose
 
-The `ai-manager` package enables the management of objectives and key results (OKRs) by providing a function-based API that:
+The `ai-management` package enables the management of objectives and key results (OKRs) by providing a function-based API that:
 
 - Simplifies OKR creation and tracking
 - Enables plan creation and iteration
@@ -19,13 +19,13 @@ The `ai-manager` package enables the management of objectives and key results (O
 
 ```bash
 # Using npm
-npm install ai-manager
+npm install ai-management
 
 # Using yarn
-yarn add ai-manager
+yarn add ai-management
 
 # Using pnpm
-pnpm add ai-manager
+pnpm add ai-management
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ pnpm add ai-manager
 ### Basic Usage
 
 ```typescript
-import { Manager } from 'ai-manager'
+import { Manager } from 'ai-management'
 import { Agent } from 'autonomous-agents'
 
 // Create a product manager

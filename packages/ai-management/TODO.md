@@ -1,4 +1,4 @@
-# TODO for ai-manager Package
+# TODO for ai-management Package
 
 ## Implementation Tasks
 
