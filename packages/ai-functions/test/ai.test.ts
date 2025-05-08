@@ -31,7 +31,7 @@ describe('ai template literal function', () => {
       AI_TEST_TIMEOUT
     )
 
-    it.skip(
+    it(
       'should accept temperature settings',
       async () => {
         const prompt = getTestPrompt('simple')
@@ -42,7 +42,7 @@ describe('ai template literal function', () => {
       AI_TEST_TIMEOUT
     )
 
-    it.skip(
+    it(
       'should accept max token limit',
       async () => {
         const longPrompt = getTestPrompt('complex')
@@ -55,7 +55,7 @@ describe('ai template literal function', () => {
   })
 
   describe('structured data generation', () => {
-    it.skip(
+    it(
       'should handle simple schemas',
       async () => {
         const result = await ai`${getTestPrompt('user-data')}`({ schema: testSchema })
@@ -66,7 +66,7 @@ describe('ai template literal function', () => {
       AI_TEST_TIMEOUT
     )
 
-    it.skip(
+    it(
       'should handle complex schemas',
       async () => {
         const result = await ai`${getTestPrompt('nested-data')}`({ schema: testNestedSchema })
@@ -77,7 +77,7 @@ describe('ai template literal function', () => {
       AI_TEST_TIMEOUT
     )
 
-    it.skip(
+    it(
       'should handle array schemas',
       async () => {
         const arraySchema = z.array(z.string())
@@ -88,7 +88,7 @@ describe('ai template literal function', () => {
       AI_TEST_TIMEOUT
     )
 
-    it.skip(
+    it(
       'should validate output against schemas',
       async () => {
         const strictSchema = z.object({

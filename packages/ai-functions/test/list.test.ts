@@ -33,7 +33,7 @@ describe('list function', () => {
   })
 
   describe('AsyncIterable interface', () => {
-    it.skip(
+    it(
       'should support for-await-of iteration',
       async () => {
         const languages = list`List 5 programming languages`

@@ -21,7 +21,7 @@ describe('AI factory function', () => {
     AI_TEST_TIMEOUT
   )
 
-  it.skip(
+  it(
     'should execute functions with various inputs',
     async () => {
       const testAI = AI({
@@ -44,7 +44,7 @@ describe('AI factory function', () => {
     AI_TEST_TIMEOUT
   )
 
-  it.skip(
+  it(
     'should handle complex nested schema',
     async () => {
       const testAI = AI({
