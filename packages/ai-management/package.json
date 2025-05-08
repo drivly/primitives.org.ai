@@ -1,5 +1,5 @@
 {
-  "name": "ai-manager",
+  "name": "ai-management",
   "version": "0.1.0",
   "description": "A function-based Manager API for defining Objectives and Key Results, creating Plans, and delegating tasks to Agents",
   "main": "dist/index.js",
