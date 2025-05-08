@@ -10,4 +10,22 @@ export default defineConfig({
   resolve: {
     conditions: ['node'],
   },
+  css: {
+    modules: {
+      generateScopedName: '[local]',
+    },
+  },
+  plugins: [
+    {
+      name: 'mock-css',
+      transform(code, id) {
+        if (id.match(/\.(css|less|sass|scss|styl|stylus|pcss|postcss)($|\?)/)) {
+          return {
+            code: 'export default {}',
+            map: null
+          }
+        }
+      }
+    }
+  ]
 })
