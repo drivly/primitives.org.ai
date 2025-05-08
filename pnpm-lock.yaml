@@ -314,6 +314,28 @@ importers:
         specifier: ^3.0.9
         version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.69.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
+  packages/ai-manager:
+    dependencies:
+      ai-business:
+        specifier: workspace:*
+        version: link:../ai-business
+      autonomous-agents:
+        specifier: workspace:*
+        version: link:../autonomous-agents
+    devDependencies:
+      eslint:
+        specifier: ^8.56.0
+        version: 8.57.1
+      tsup:
+        specifier: ^8.0.2
+        version: 8.4.0(@swc/core@1.6.1(@swc/helpers@0.5.17))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.7.1)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.8.3
+      vitest:
+        specifier: ^1.2.1
+        version: 1.6.1(@types/node@22.15.12)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.69.4)(terser@5.39.0)
+
   packages/ai-plans:
     devDependencies:
       '@types/node':
