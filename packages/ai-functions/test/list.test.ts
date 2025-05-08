@@ -16,6 +16,11 @@ describe('list function', () => {
 
         expect(result).toBeDefined()
         expect(Array.isArray(result)).toBe(true)
+        expect(result.length).toBeGreaterThan(0)
+        result.forEach((item: string) => {
+          expect(typeof item).toBe('string')
+          expect(item.length).toBeGreaterThan(0)
+        })
       },
       AI_TEST_TIMEOUT
     )
@@ -27,13 +32,18 @@ describe('list function', () => {
 
         expect(result).toBeDefined()
         expect(Array.isArray(result)).toBe(true)
+        expect(result.length).toBeGreaterThan(0)
+        result.forEach((item: string) => {
+          expect(typeof item).toBe('string')
+          expect(item.length).toBeGreaterThan(0)
+        })
       },
       AI_TEST_TIMEOUT
     )
   })
 
   describe('AsyncIterable interface', () => {
-    it.skip(
+    it(
       'should support for-await-of iteration',
       async () => {
         const languages = list`List 5 programming languages`
@@ -44,6 +54,12 @@ describe('list function', () => {
         }
 
         expect(items.length).toBeGreaterThanOrEqual(0)
+        if (items.length > 0) {
+          items.forEach((item: string) => {
+            expect(typeof item).toBe('string')
+            expect(item.length).toBeGreaterThan(0)
+          })
+        }
       },
       AI_TEST_TIMEOUT
     )
@@ -57,6 +73,12 @@ describe('list function', () => {
 
         expect(result).toBeDefined()
         expect(Array.isArray(result)).toBe(true)
+        if (result.length > 0) {
+          result.forEach((item: string) => {
+            expect(typeof item).toBe('string')
+            expect(item.length).toBeGreaterThan(0)
+          })
+        }
       },
       AI_TEST_TIMEOUT
     )
@@ -75,6 +97,11 @@ describe('list function', () => {
 
         expect(result).toBeDefined()
         expect(Array.isArray(result)).toBe(true)
+        expect(result.length).toBeGreaterThan(0)
+        result.forEach((item: string) => {
+          expect(typeof item).toBe('string')
+          expect(item.length).toBeGreaterThan(0)
+        })
       },
       AI_TEST_TIMEOUT
     )
@@ -87,6 +114,11 @@ describe('list function', () => {
 
         expect(result).toBeDefined()
         expect(Array.isArray(result)).toBe(true)
+        expect(result.length).toBeGreaterThan(0)
+        result.forEach((item: string) => {
+          expect(typeof item).toBe('string')
+          expect(item.length).toBeGreaterThan(0)
+        })
       },
       AI_TEST_TIMEOUT
     )
