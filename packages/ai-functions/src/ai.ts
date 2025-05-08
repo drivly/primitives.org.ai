@@ -86,7 +86,7 @@ const generateText = async (options: { model: any; prompt: string; temperature?:
 }
 
 const aiHandler = {
-  apply: async (target: any, thisArg: any, args: any[]) => {
+  apply: (target: any, thisArg: any, args: any[]) => {
     if (args[0] && Array.isArray(args[0]) && 'raw' in args[0]) {
       const [template, ...expressions] = args
       const prompt = String.raw({ raw: template }, ...expressions)
@@ -117,11 +117,15 @@ const aiHandler = {
         }
       }
 
-      if (args.length === 1) {
-        return templateResult()
-      }
-
-      return templateResult
+      const defaultPromise = templateResult()
+      
+      const aiFunction: any = (config: any = {}) => templateResult(config)
+      
+      aiFunction.then = (resolve: any, reject: any) => defaultPromise.then(resolve, reject)
+      aiFunction.catch = (reject: any) => defaultPromise.catch(reject)
+      aiFunction.finally = (callback: any) => defaultPromise.finally(callback)
+      
+      return aiFunction
     }
 
     throw new Error('Not implemented yet')
