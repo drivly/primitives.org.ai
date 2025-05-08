@@ -96,7 +96,19 @@ export const AI = <T extends Record<string, FunctionDefinition>>(functions: T) =
           } else if (typeof value === 'object') {
             const nestedDefault: Record<string, any> = {}
             Object.entries(value).forEach(([nestedKey, nestedValue]) => {
-              if (nestedValue === 'number') {
+              if (typeof nestedValue === 'object' && !Array.isArray(nestedValue)) {
+                const deepNestedDefault: Record<string, any> = {}
+                Object.entries(nestedValue).forEach(([deepKey, deepValue]) => {
+                  if (deepValue === 'number') {
+                    deepNestedDefault[deepKey] = 0
+                  } else if (deepValue === 'boolean') {
+                    deepNestedDefault[deepKey] = false
+                  } else {
+                    deepNestedDefault[deepKey] = `Example ${deepValue}`
+                  }
+                })
+                nestedDefault[nestedKey] = deepNestedDefault
+              } else if (nestedValue === 'number') {
                 nestedDefault[nestedKey] = 0
               } else if (nestedValue === 'boolean') {
                 nestedDefault[nestedKey] = false
