@@ -1,134 +1,67 @@
-# ai-database
+# Payload Blank Template
 
-[![npm version](https://img.shields.io/npm/v/ai-database.svg)](https://www.npmjs.com/package/ai-database)
-[![License](https://img.shields.io/npm/l/ai-database.svg)](https://github.com/drivly/primitives.org.ai/blob/main/packages/ai-database/LICENSE)
+This template comes configured with the bare minimum to get started on anything you need.
 
-Minimalistic package that exports Payload CMS collection configurations and Next.js API route handlers to simplify database operations in AI applications.
+## Quick start
 
-## Features
+This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
 
-- Pre-configured Payload CMS collections for Nouns, Verbs, Resources, and Relationships
-- Ready-to-use Next.js API route handlers for all HTTP methods
-- Support for List/Search + CRUD operations in the format of `/api/[type]/[id]`
-- Simple integration with just one import statement
+## Quick Start - local setup
 
-## Installation
+To spin up this template locally, follow these steps:
 
-```bash
-npm install ai-database
-# or
-yarn add ai-database
-# or
-pnpm add ai-database
-```
+### Clone
 
-## Usage
+After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
 
-### Quick Start
+### Development
 
-The simplest way to use this package is to export the API route handlers in your Next.js API route file:
+1. First [clone the repo](#clone) if you have not done so already
+2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URI` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
 
-```typescript
-// app/api/[[...path]]/route.ts
-export * from 'ai-database/api'
-```
+3. `pnpm install && pnpm dev` to install dependencies and start the dev server
+4. open `http://localhost:3000` to open the app in your browser
 
-This single line gives you working API endpoints for all your collections with full CRUD support.
+That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
 
-### Collection Access
+#### Docker (Optional)
 
-Access your collections through the API endpoints:
+If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
 
-- `GET /api/nouns` - List all nouns
-- `GET /api/nouns/123` - Get a specific noun
-- `POST /api/nouns` - Create a new noun
-- `PATCH /api/nouns/123` - Update a noun
-- `DELETE /api/nouns/123` - Delete a noun
+To do so, follow these steps:
 
-The same pattern works for all collections: `verbs`, `resources`, and `relationships`.
+- Modify the `MONGODB_URI` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
+- Modify the `docker-compose.yml` file's `MONGODB_URI` to match the above `<dbname>`
+- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
 
-### Filtering and Pagination
+## How it works
 
-The API supports filtering and pagination through query parameters:
-
-```
-GET /api/nouns?limit=20&page=2&name=User
-```
-
-### Custom Implementation
-
-If you need more control, you can import and use the individual components:
-
-```typescript
-// Import collections
-import { Nouns, Verbs, Resources, Relationships } from 'ai-database'
-
-// Import database client
-import { createPayloadDB, initializePayloadDB } from 'ai-database'
-
-// Import API wrapper
-import { API } from 'ai-database'
-
-// Create a custom API handler
-export const GET = API(async (request, { db }) => {
-  // Your custom implementation
-})
-```
-
-## Configuration
-
-### Payload CMS Configuration
-
-To initialize the database client with your Payload config:
-
-```typescript
-import { initializePayloadDB } from 'ai-database'
-import config from '../payload.config'
-
-const db = await initializePayloadDB(config)
-```
-
-### Collection Customization
-
-You can extend or modify the default collections:
-
-```typescript
-import { Nouns } from 'ai-database'
-import type { CollectionConfig } from 'payload'
-
-// Extend the Nouns collection
-const CustomNouns: CollectionConfig = {
-  ...Nouns,
-  fields: [...Nouns.fields, { name: 'customField', type: 'text' }],
-}
-```
-
-## API Reference
+The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
 
 ### Collections
 
-- `Nouns` - Collection for noun entities
-- `Verbs` - Collection for verb actions
-- `Resources` - Collection for structured data resources
-- `Relationships` - Collection for semantic relationships
+See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
 
-### Database Client
+- #### Users (Authentication)
 
-- `createPayloadDB(payload)` - Creates a database client from a Payload instance
-- `initializePayloadDB(config)` - Initializes a Payload client from a config
+  Users are auth-enabled collections that have access to the admin panel.
 
-### API Wrapper
+  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
 
-- `API(handler)` - Creates an API handler with enhanced context
+- #### Media
 
-### Route Handlers
+  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
 
-- `GET` - Handler for retrieving resources
-- `POST` - Handler for creating resources
-- `PATCH` - Handler for updating resources
-- `DELETE` - Handler for deleting resources
+### Docker
 
-## Dependencies
+Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
 
-- [Payload CMS](https://payloadcms.com/) - Headless CMS
-- [Next.js](https://nextjs.org/) - React framework
+1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
+1. Next run `docker-compose up`
+1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+
+That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+
+## Questions
+
+If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
