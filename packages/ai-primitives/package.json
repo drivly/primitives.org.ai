@@ -41,6 +41,7 @@
     "ai-props": "workspace:*",
     "ai-providers": "workspace:*",
     "ai-database": "workspace:*",
+    "ai-admin": "workspace:*",
     "ai-brand": "workspace:*",
     "ai-business": "workspace:*",
     "ai-directory": "workspace:*",
