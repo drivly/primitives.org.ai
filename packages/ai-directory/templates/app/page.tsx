@@ -23,25 +23,25 @@ export default function DirectoryPage() {
     const fetchData = async () => {
       try {
         setLoading(true)
-        
+
         const params = new URLSearchParams()
         params.append('page', currentPage.toString())
         params.append('limit', itemsPerPage.toString())
-        
+
         if (searchQuery) {
           params.append('search', searchQuery)
         }
-        
+
         if (selectedCategory) {
           params.append('category', selectedCategory)
         }
-        
+
         const response = await fetch(`/api/directory?${params.toString()}`)
         const data = await response.json()
-        
+
         setItems(data.items || [])
         setTotalItems(data.total || 0)
-        
+
         if (!data.categories) {
           const categoriesResponse = await fetch('/api/directory/categories')
           const categoriesData = await categoriesResponse.json()
@@ -49,7 +49,7 @@ export default function DirectoryPage() {
         } else {
           setCategories(data.categories)
         }
-        
+
         setError(null)
       } catch (err) {
         setError('Failed to load directory data')
@@ -58,7 +58,7 @@ export default function DirectoryPage() {
         setLoading(false)
       }
     }
-    
+
     fetchData()
   }, [currentPage, itemsPerPage, searchQuery, selectedCategory])
 
@@ -85,17 +85,13 @@ export default function DirectoryPage() {
     <div className='container'>
       <h1 className='title'>Directory</h1>
       <p className='description'>Browse our collection of items</p>
-      
+
       <div className='directory-controls'>
         <SearchBar onSearch={handleSearch} />
-        <CategoryFilter 
-          categories={categories} 
-          selectedCategory={selectedCategory} 
-          onCategoryChange={handleCategoryChange} 
-        />
+        <CategoryFilter categories={categories} selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} />
         <ViewToggle viewMode={viewMode} onViewModeChange={handleViewModeChange} />
       </div>
-      
+
       {loading ? (
         <p>Loading directory items...</p>
       ) : error ? (
@@ -105,13 +101,8 @@ export default function DirectoryPage() {
       ) : (
         <>
           <DirectoryList items={items} viewMode={viewMode} />
-          
-          <Pagination 
-            currentPage={currentPage}
-            totalItems={totalItems}
-            itemsPerPage={itemsPerPage}
-            onPageChange={handlePageChange}
-          />
+
+          <Pagination currentPage={currentPage} totalItems={totalItems} itemsPerPage={itemsPerPage} onPageChange={handlePageChange} />
         </>
       )}
     </div>

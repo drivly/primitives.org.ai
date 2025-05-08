@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       aiContent: {
         features: '- AI-powered landing page generation\n- Authentication via oauth.do\n- Multi-step onboarding flow\n- Product-solution fit assessment',
         benefits: '- Save time creating landing pages\n- Collect valuable user feedback\n- Identify ideal customers\n- Streamline your waitlist process',
-        cta: 'Join Waitlist'
+        cta: 'Join Waitlist',
       },
       projectName: 'AI Waitlist',
       projectDescription: 'A powerful waitlist system with AI-generated landing pages',
@@ -21,13 +21,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         theme: 'light',
         primaryColor: '#0070f3',
         secondaryColor: '#6366f1',
-        prioritizeAiContent: true
-      }
+        prioritizeAiContent: true,
+      },
     }
 
     return res.status(200).json({
       projectContext,
-      aiContext: buildAIContext(projectContext)
+      aiContext: buildAIContext(projectContext),
     })
   } catch (error) {
     console.error('Error generating project context:', error)

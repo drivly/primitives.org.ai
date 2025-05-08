@@ -2,7 +2,7 @@ import { BrandInput, BrandOptions, BrandPositioning, VisualIdentity } from '../t
 
 /**
  * Iconify integration for brand icons
- * 
+ *
  * This module provides utilities to access common icon libraries through Iconify
  * and map brand attributes to appropriate icon styles.
  */
@@ -77,26 +77,26 @@ export const commonIcons = {
   refresh: 'refresh',
   logout: 'logout',
   login: 'login',
-  
+
   code: 'code',
   server: 'server',
   database: 'database',
   cloud: 'cloud',
-  
+
   activity: 'activity',
   stethoscope: 'stethoscope',
   hospital: 'hospital',
-  
+
   dollarSign: 'dollar-sign',
   creditCard: 'credit-card',
   pieChart: 'pie-chart',
   trendingUp: 'trending-up',
-  
+
   book: 'book',
   graduationCap: 'graduation-cap',
   school: 'school',
   pencil: 'pencil',
-  
+
   coffee: 'coffee',
   utensils: 'utensils',
   shoppingCart: 'shopping-cart',
@@ -105,123 +105,85 @@ export const commonIcons = {
 
 /**
  * Map brand attributes to appropriate icon style
- * 
+ *
  * @param positioning - Brand positioning information
  * @param options - Configuration options
  * @returns Recommended icon collection
  */
-export function getIconCollectionForBrand(
-  positioning: BrandPositioning,
-  options: BrandOptions = {}
-): string {
+export function getIconCollectionForBrand(positioning: BrandPositioning, options: BrandOptions = {}): string {
   if (options.iconStyle && options.iconStyle in iconCollections) {
     return iconCollections[options.iconStyle as IconCollection]
   }
-  
-  const personality = positioning.voice.personality.map(p => p.toLowerCase())
-  
-  if (personality.some(p => ['modern', 'clean', 'sleek', 'minimalist'].includes(p))) {
+
+  const personality = positioning.voice.personality.map((p) => p.toLowerCase())
+
+  if (personality.some((p) => ['modern', 'clean', 'sleek', 'minimalist'].includes(p))) {
     return iconCollections.lucide
   }
-  
-  if (personality.some(p => ['professional', 'corporate', 'business'].includes(p))) {
+
+  if (personality.some((p) => ['professional', 'corporate', 'business'].includes(p))) {
     return iconCollections.material
   }
-  
-  if (personality.some(p => ['playful', 'friendly', 'approachable'].includes(p))) {
+
+  if (personality.some((p) => ['playful', 'friendly', 'approachable'].includes(p))) {
     return iconCollections.phosphor
   }
-  
-  if (personality.some(p => ['traditional', 'classic', 'established'].includes(p))) {
+
+  if (personality.some((p) => ['traditional', 'classic', 'established'].includes(p))) {
     return iconCollections.fontAwesome
   }
-  
-  if (personality.some(p => ['technical', 'detailed', 'precise'].includes(p))) {
+
+  if (personality.some((p) => ['technical', 'detailed', 'precise'].includes(p))) {
     return iconCollections.tabler
   }
-  
+
   return iconCollections.lucide
 }
 
 /**
  * Get icon set for a brand
- * 
+ *
  * @param input - Brand input data
  * @param positioning - Brand positioning information
  * @param options - Configuration options
  * @returns Array of icon names with their collection prefix
  */
-export function getBrandIconSet(
-  input: BrandInput,
-  positioning: BrandPositioning,
-  options: BrandOptions = {}
-): string[] {
+export function getBrandIconSet(input: BrandInput, positioning: BrandPositioning, options: BrandOptions = {}): string[] {
   const collection = getIconCollectionForBrand(positioning, options)
-  
+
   const industry = (input.industry || '').toLowerCase()
   const description = input.description.toLowerCase()
-  
-  const baseIcons = [
-    commonIcons.home,
-    commonIcons.search,
-    commonIcons.menu,
-    commonIcons.user,
-    commonIcons.settings,
-  ]
-  
+
+  const baseIcons = [commonIcons.home, commonIcons.search, commonIcons.menu, commonIcons.user, commonIcons.settings]
+
   const industryIcons: string[] = []
-  
+
   if (industry.includes('tech') || description.includes('tech')) {
-    industryIcons.push(
-      commonIcons.code,
-      commonIcons.server,
-      commonIcons.database,
-      commonIcons.cloud
-    )
+    industryIcons.push(commonIcons.code, commonIcons.server, commonIcons.database, commonIcons.cloud)
   }
-  
+
   if (industry.includes('health') || description.includes('health')) {
-    industryIcons.push(
-      commonIcons.heart,
-      commonIcons.activity,
-      commonIcons.stethoscope,
-      commonIcons.hospital
-    )
+    industryIcons.push(commonIcons.heart, commonIcons.activity, commonIcons.stethoscope, commonIcons.hospital)
   }
-  
+
   if (industry.includes('finance') || description.includes('finance')) {
-    industryIcons.push(
-      commonIcons.dollarSign,
-      commonIcons.creditCard,
-      commonIcons.pieChart,
-      commonIcons.trendingUp
-    )
+    industryIcons.push(commonIcons.dollarSign, commonIcons.creditCard, commonIcons.pieChart, commonIcons.trendingUp)
   }
-  
+
   if (industry.includes('education') || description.includes('education')) {
-    industryIcons.push(
-      commonIcons.book,
-      commonIcons.graduationCap,
-      commonIcons.school,
-      commonIcons.pencil
-    )
+    industryIcons.push(commonIcons.book, commonIcons.graduationCap, commonIcons.school, commonIcons.pencil)
   }
-  
+
   if (industry.includes('food') || description.includes('food')) {
-    industryIcons.push(
-      commonIcons.coffee,
-      commonIcons.utensils,
-      commonIcons.shoppingCart,
-      commonIcons.truck
-    )
+    industryIcons.push(commonIcons.coffee, commonIcons.utensils, commonIcons.shoppingCart, commonIcons.truck)
   }
-  
-  return [...baseIcons, ...industryIcons].map(icon => `${collection}:${icon}`)
+
+  return [...baseIcons, ...industryIcons].map((icon) => `${collection}:${icon}`)
 }
 
 /**
  * Generate Iconify icon HTML
- * 
+ *
  * @param icon - Icon name with collection prefix
  * @param size - Icon size in pixels
  * @param color - Icon color
@@ -233,7 +195,7 @@ export function generateIconHtml(icon: string, size = 24, color = 'currentColor'
 
 /**
  * Generate Iconify icon React component
- * 
+ *
  * @param icon - Icon name with collection prefix
  * @param size - Icon size in pixels
  * @param color - Icon color

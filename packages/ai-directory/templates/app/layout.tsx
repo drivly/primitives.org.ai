@@ -20,9 +20,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
           </div>
         </header>
-        
+
         <main>{children}</main>
-        
+
         <footer className='footer'>
           <div className='container'>
             <p>© {new Date().getFullYear()}</p>

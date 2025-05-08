@@ -9,9 +9,12 @@ interface TableComponentProps {
 export const TableComponent: React.FC<TableComponentProps> = ({ table, theme }) => {
   const { title, columns, rows = [], pagination = true, search = true } = table
 
-  const displayRows = rows.length > 0 ? rows : Array(5).fill(0).map(() => 
-    columns.map((col, i) => i === 0 ? `Sample ${Math.floor(Math.random() * 1000)}` : `Value ${Math.floor(Math.random() * 100)}`)
-  )
+  const displayRows =
+    rows.length > 0
+      ? rows
+      : Array(5)
+          .fill(0)
+          .map(() => columns.map((col, i) => (i === 0 ? `Sample ${Math.floor(Math.random() * 1000)}` : `Value ${Math.floor(Math.random() * 100)}`)))
 
   return (
     <div
@@ -52,8 +55,8 @@ export const TableComponent: React.FC<TableComponentProps> = ({ table, theme }) 
             }}
           >
             <input
-              type="text"
-              placeholder="Search..."
+              type='text'
+              placeholder='Search...'
               style={{
                 padding: '8px 12px',
                 borderRadius: theme?.borderRadius || 4,
@@ -100,9 +103,8 @@ export const TableComponent: React.FC<TableComponentProps> = ({ table, theme }) 
               <tr
                 key={`row-${rowIndex}`}
                 style={{
-                  backgroundColor: rowIndex % 2 === 0 
-                    ? (theme?.colorScheme === 'dark' ? '#2a2a2a' : '#f9f9f9') 
-                    : (theme?.colorScheme === 'dark' ? '#222222' : '#ffffff'),
+                  backgroundColor:
+                    rowIndex % 2 === 0 ? (theme?.colorScheme === 'dark' ? '#2a2a2a' : '#f9f9f9') : theme?.colorScheme === 'dark' ? '#222222' : '#ffffff',
                 }}
               >
                 {row.map((cell, cellIndex) => (
@@ -154,12 +156,8 @@ export const TableComponent: React.FC<TableComponentProps> = ({ table, theme }) 
                   padding: '6px 12px',
                   borderRadius: theme?.borderRadius || 4,
                   border: `1px solid ${theme?.colorScheme === 'dark' ? '#444444' : '#dddddd'}`,
-                  backgroundColor: index === 1 
-                    ? (theme?.primaryColor || '#1677ff') 
-                    : (theme?.colorScheme === 'dark' ? '#333333' : '#ffffff'),
-                  color: index === 1 
-                    ? '#ffffff' 
-                    : (theme?.colorScheme === 'dark' ? '#cccccc' : '#333333'),
+                  backgroundColor: index === 1 ? theme?.primaryColor || '#1677ff' : theme?.colorScheme === 'dark' ? '#333333' : '#ffffff',
+                  color: index === 1 ? '#ffffff' : theme?.colorScheme === 'dark' ? '#cccccc' : '#333333',
                   cursor: 'pointer',
                 }}
               >

@@ -21,7 +21,7 @@ const AuthContext = createContext<AuthContextType>({
   isLoading: true,
   isAuthenticated: false,
   signIn: async () => {},
-  signOut: async () => {}
+  signOut: async () => {},
 })
 
 interface AuthProviderProps {
@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signOut = async () => {
     try {
       const response = await fetch('/api/auth/signout', {
-        method: 'POST'
+        method: 'POST',
       })
 
       if (response.ok) {
@@ -84,7 +84,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         isLoading,
         isAuthenticated: !!user,
         signIn,
-        signOut
+        signOut,
       }}
     >
       {children}
@@ -96,9 +96,7 @@ export function useAuth() {
   return useContext(AuthContext)
 }
 
-export function withAuth<P extends object>(
-  Component: React.ComponentType<P>
-): React.FC<P> {
+export function withAuth<P extends object>(Component: React.ComponentType<P>): React.FC<P> {
   const WithAuth: React.FC<P> = (props) => {
     const { user, isLoading, isAuthenticated } = useAuth()
 

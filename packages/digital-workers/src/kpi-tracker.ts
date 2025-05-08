@@ -15,10 +15,7 @@ export interface KpiSource {
 export interface KpiEvaluator {
   name: string
   description?: string
-  evaluateKpis: (
-    kpiValues: Record<string, any>,
-    okrs: Record<string, OkrTarget>
-  ) => Promise<KpiEvaluationResult>
+  evaluateKpis: (kpiValues: Record<string, any>, okrs: Record<string, OkrTarget>) => Promise<KpiEvaluationResult>
 }
 
 /**
@@ -67,7 +64,7 @@ export const defaultKpiSources: Record<string, KpiSource> = {
           action: 'getKpiValues',
           kpis,
         })
-        
+
         return result.kpiValues || {}
       } catch (error) {
         console.error('Error fetching KPI values from agent:', error)
@@ -75,13 +72,13 @@ export const defaultKpiSources: Record<string, KpiSource> = {
       }
     },
   },
-  
+
   context: {
     name: 'Context KPI Source',
     description: 'Retrieves KPI values from the worker context',
     getKpiValues: async (worker: WorkerInstance, kpis: string[]): Promise<Record<string, any>> => {
       const kpiValues: Record<string, any> = {}
-      
+
       if (worker.context.kpiValues) {
         for (const kpi of kpis) {
           if (worker.context.kpiValues[kpi] !== undefined) {
@@ -89,11 +86,11 @@ export const defaultKpiSources: Record<string, KpiSource> = {
           }
         }
       }
-      
+
       return kpiValues
     },
   },
-  
+
   api: {
     name: 'API KPI Source',
     description: 'Retrieves KPI values from an external API',
@@ -101,10 +98,10 @@ export const defaultKpiSources: Record<string, KpiSource> = {
       if (!worker.context.kpiApi) {
         return {}
       }
-      
+
       try {
         const { url, headers, method = 'GET' } = worker.context.kpiApi
-        
+
         const response = await fetch(url, {
           method,
           headers: {
@@ -113,11 +110,11 @@ export const defaultKpiSources: Record<string, KpiSource> = {
           },
           body: method !== 'GET' ? JSON.stringify({ kpis }) : undefined,
         })
-        
+
         if (!response.ok) {
           throw new Error(`API returned ${response.status}: ${response.statusText}`)
         }
-        
+
         const data = await response.json()
         return data.kpiValues || data
       } catch (error) {
@@ -135,23 +132,20 @@ export const defaultKpiEvaluators: Record<string, KpiEvaluator> = {
   simple: {
     name: 'Simple KPI Evaluator',
     description: 'Evaluates KPIs using a simple average score',
-    evaluateKpis: async (
-      kpiValues: Record<string, any>,
-      okrs: Record<string, OkrTarget>
-    ): Promise<KpiEvaluationResult> => {
+    evaluateKpis: async (kpiValues: Record<string, any>, okrs: Record<string, OkrTarget>): Promise<KpiEvaluationResult> => {
       const result: KpiEvaluationResult = {
         kpis: {},
         overallScore: 0,
         recommendations: [],
         timestamp: new Date().toISOString(),
       }
-      
+
       let totalScore = 0
       let kpiCount = 0
-      
+
       for (const [kpiName, target] of Object.entries(okrs)) {
         const currentValue = kpiValues[kpiName]
-        
+
         if (currentValue === undefined) {
           result.kpis[kpiName] = {
             target: target.target,
@@ -163,9 +157,9 @@ export const defaultKpiEvaluators: Record<string, KpiEvaluator> = {
           }
           continue
         }
-        
+
         const evaluation = evaluateTarget(currentValue, target.target)
-        
+
         result.kpis[kpiName] = {
           target: target.target,
           current: currentValue,
@@ -174,10 +168,10 @@ export const defaultKpiEvaluators: Record<string, KpiEvaluator> = {
           message: evaluation.message,
           weight: target.weight,
         }
-        
+
         totalScore += evaluation.score
         kpiCount++
-        
+
         if (evaluation.status === 'below_target') {
           result.recommendations.push({
             kpi: kpiName,
@@ -187,37 +181,34 @@ export const defaultKpiEvaluators: Record<string, KpiEvaluator> = {
           })
         }
       }
-      
+
       if (kpiCount > 0) {
         result.overallScore = totalScore / kpiCount
       }
-      
+
       result.recommendations.sort((a, b) => b.priority - a.priority)
-      
+
       return result
     },
   },
-  
+
   weighted: {
     name: 'Weighted KPI Evaluator',
     description: 'Evaluates KPIs using weights for each KPI',
-    evaluateKpis: async (
-      kpiValues: Record<string, any>,
-      okrs: Record<string, OkrTarget>
-    ): Promise<KpiEvaluationResult> => {
+    evaluateKpis: async (kpiValues: Record<string, any>, okrs: Record<string, OkrTarget>): Promise<KpiEvaluationResult> => {
       const result: KpiEvaluationResult = {
         kpis: {},
         overallScore: 0,
         recommendations: [],
         timestamp: new Date().toISOString(),
       }
-      
+
       let weightedScore = 0
       let totalWeight = 0
-      
+
       for (const [kpiName, target] of Object.entries(okrs)) {
         const currentValue = kpiValues[kpiName]
-        
+
         if (currentValue === undefined) {
           result.kpis[kpiName] = {
             target: target.target,
@@ -229,9 +220,9 @@ export const defaultKpiEvaluators: Record<string, KpiEvaluator> = {
           }
           continue
         }
-        
+
         const evaluation = evaluateTarget(currentValue, target.target)
-        
+
         result.kpis[kpiName] = {
           target: target.target,
           current: currentValue,
@@ -240,10 +231,10 @@ export const defaultKpiEvaluators: Record<string, KpiEvaluator> = {
           message: evaluation.message,
           weight: target.weight,
         }
-        
+
         weightedScore += evaluation.score * target.weight
         totalWeight += target.weight
-        
+
         if (evaluation.status === 'below_target') {
           result.recommendations.push({
             kpi: kpiName,
@@ -253,13 +244,13 @@ export const defaultKpiEvaluators: Record<string, KpiEvaluator> = {
           })
         }
       }
-      
+
       if (totalWeight > 0) {
         result.overallScore = weightedScore / totalWeight
       }
-      
+
       result.recommendations.sort((a, b) => b.priority - a.priority)
-      
+
       return result
     },
   },
@@ -272,11 +263,11 @@ export class KpiTracker {
   private sources: Record<string, KpiSource> = { ...defaultKpiSources }
   private evaluators: Record<string, KpiEvaluator> = { ...defaultKpiEvaluators }
   private worker: WorkerInstance
-  
+
   constructor(worker: WorkerInstance) {
     this.worker = worker
   }
-  
+
   /**
    * Registers a new KPI source
    * @param name Source name
@@ -285,7 +276,7 @@ export class KpiTracker {
   registerSource(name: string, source: KpiSource): void {
     this.sources[name] = source
   }
-  
+
   /**
    * Registers a new KPI evaluator
    * @param name Evaluator name
@@ -294,7 +285,7 @@ export class KpiTracker {
   registerEvaluator(name: string, evaluator: KpiEvaluator): void {
     this.evaluators[name] = evaluator
   }
-  
+
   /**
    * Gets KPI values from all registered sources
    * @param kpis KPIs to retrieve
@@ -302,11 +293,11 @@ export class KpiTracker {
    */
   async getKpiValues(kpis: string[]): Promise<Record<string, any>> {
     const kpiValues: Record<string, any> = {}
-    
+
     for (const source of Object.values(this.sources)) {
       try {
         const values = await source.getKpiValues(this.worker, kpis)
-        
+
         for (const [kpi, value] of Object.entries(values)) {
           if (kpiValues[kpi] === undefined && kpis.includes(kpi)) {
             kpiValues[kpi] = value
@@ -316,10 +307,10 @@ export class KpiTracker {
         console.error(`Error getting KPI values from source ${source.name}:`, error)
       }
     }
-    
+
     return kpiValues
   }
-  
+
   /**
    * Evaluates KPIs against OKRs
    * @param kpiValues KPI values
@@ -327,22 +318,18 @@ export class KpiTracker {
    * @param strategy Evaluation strategy
    * @returns Evaluation result
    */
-  async evaluateKpis(
-    kpiValues: Record<string, any>,
-    okrs: Record<string, OkrTarget>,
-    strategy: string = 'simple'
-  ): Promise<KpiEvaluationResult> {
+  async evaluateKpis(kpiValues: Record<string, any>, okrs: Record<string, OkrTarget>, strategy: string = 'simple'): Promise<KpiEvaluationResult> {
     const evaluator = this.evaluators[strategy] || this.evaluators.simple
-    
+
     try {
       return await evaluator.evaluateKpis(kpiValues, okrs)
     } catch (error) {
       console.error(`Error evaluating KPIs with strategy ${strategy}:`, error)
-      
+
       if (strategy !== 'simple' && this.evaluators.simple) {
         return this.evaluators.simple.evaluateKpis(kpiValues, okrs)
       }
-      
+
       return {
         kpis: {},
         overallScore: 0,
@@ -352,7 +339,7 @@ export class KpiTracker {
       }
     }
   }
-  
+
   /**
    * Tracks KPIs for a worker
    * @param kpis KPIs to track
@@ -360,15 +347,11 @@ export class KpiTracker {
    * @param strategy Evaluation strategy
    * @returns Tracking result
    */
-  async trackKpis(
-    kpis: string[],
-    okrs: Record<string, OkrTarget>,
-    strategy: string = 'simple'
-  ): Promise<KpiEvaluationResult> {
+  async trackKpis(kpis: string[], okrs: Record<string, OkrTarget>, strategy: string = 'simple'): Promise<KpiEvaluationResult> {
     const kpiValues = await this.getKpiValues(kpis)
-    
+
     const result = await this.evaluateKpis(kpiValues, okrs, strategy)
-    
+
     await this.worker.updateContext({
       lastKpiTracking: {
         timestamp: result.timestamp,
@@ -376,7 +359,7 @@ export class KpiTracker {
         result,
       },
     })
-    
+
     return result
   }
 }
@@ -396,9 +379,12 @@ export function createKpiTracker(worker: WorkerInstance): KpiTracker {
  * @param targetStr The target string (e.g., "> 85%", "< 30 minutes")
  * @returns Evaluation result
  */
-function evaluateTarget(currentValue: any, targetStr: string): { 
-  status: 'above_target' | 'at_target' | 'below_target' | 'unknown',
-  score: number,
+function evaluateTarget(
+  currentValue: any,
+  targetStr: string
+): {
+  status: 'above_target' | 'at_target' | 'below_target' | 'unknown'
+  score: number
   message: string
 } {
   const result = {
@@ -406,72 +392,77 @@ function evaluateTarget(currentValue: any, targetStr: string): {
     score: 0,
     message: 'Unable to evaluate target',
   }
-  
+
   try {
     const match = targetStr.trim().match(/^([<>=]+)\s*(.+)$/)
-    
+
     if (!match) {
       return result
     }
-    
+
     const [, operator, valueStr] = match
-    
+
     let targetValue = parseFloat(valueStr)
     const isPercentage = valueStr.includes('%')
-    
+
     if (isPercentage) {
       targetValue /= 100
       currentValue = parseFloat(currentValue) / 100
     }
-    
+
     switch (operator) {
       case '>':
         result.status = currentValue > targetValue ? 'above_target' : 'below_target'
         result.score = currentValue > targetValue ? 1 : Math.max(0, currentValue / targetValue)
-        result.message = currentValue > targetValue 
-          ? `Current value ${currentValue} exceeds target ${targetValue}`
-          : `Current value ${currentValue} is below target ${targetValue}`
+        result.message =
+          currentValue > targetValue
+            ? `Current value ${currentValue} exceeds target ${targetValue}`
+            : `Current value ${currentValue} is below target ${targetValue}`
         break
-        
+
       case '>=':
         result.status = currentValue >= targetValue ? 'at_target' : 'below_target'
         result.score = currentValue >= targetValue ? 1 : Math.max(0, currentValue / targetValue)
-        result.message = currentValue >= targetValue 
-          ? `Current value ${currentValue} meets or exceeds target ${targetValue}`
-          : `Current value ${currentValue} is below target ${targetValue}`
+        result.message =
+          currentValue >= targetValue
+            ? `Current value ${currentValue} meets or exceeds target ${targetValue}`
+            : `Current value ${currentValue} is below target ${targetValue}`
         break
-        
+
       case '<':
         result.status = currentValue < targetValue ? 'above_target' : 'below_target'
         result.score = currentValue < targetValue ? 1 : Math.max(0, targetValue / currentValue)
-        result.message = currentValue < targetValue 
-          ? `Current value ${currentValue} is better than target ${targetValue}`
-          : `Current value ${currentValue} exceeds target ${targetValue}`
+        result.message =
+          currentValue < targetValue
+            ? `Current value ${currentValue} is better than target ${targetValue}`
+            : `Current value ${currentValue} exceeds target ${targetValue}`
         break
-        
+
       case '<=':
         result.status = currentValue <= targetValue ? 'at_target' : 'below_target'
         result.score = currentValue <= targetValue ? 1 : Math.max(0, targetValue / currentValue)
-        result.message = currentValue <= targetValue 
-          ? `Current value ${currentValue} meets or is better than target ${targetValue}`
-          : `Current value ${currentValue} exceeds target ${targetValue}`
+        result.message =
+          currentValue <= targetValue
+            ? `Current value ${currentValue} meets or is better than target ${targetValue}`
+            : `Current value ${currentValue} exceeds target ${targetValue}`
         break
-        
+
       case '=':
       case '==': {
         result.status = currentValue === targetValue ? 'at_target' : 'below_target'
         const diff = Math.abs(currentValue - targetValue)
-        result.score = diff < 0.1 * targetValue ? 1 - (diff / targetValue) : 0
-        result.message = currentValue === targetValue 
-          ? `Current value ${currentValue} exactly matches target ${targetValue}`
-          : `Current value ${currentValue} does not match target ${targetValue}`
+        result.score = diff < 0.1 * targetValue ? 1 - diff / targetValue : 0
+        result.message =
+          currentValue === targetValue
+            ? `Current value ${currentValue} exactly matches target ${targetValue}`
+            : `Current value ${currentValue} does not match target ${targetValue}`
         break
       }
-        
+
       default:
         return result
     }
-    
+
     return result
   } catch (error) {
     console.error('Error evaluating target:', error)
@@ -488,12 +479,12 @@ function evaluateTarget(currentValue: any, targetStr: string): {
  */
 function generateRecommendedActions(kpiName: string, currentValue: any, targetStr: string): string[] {
   const actions: string[] = []
-  
+
   const match = targetStr.trim().match(/^([<>=]+)\s*(.+)$/)
   if (!match) return actions
-  
-  const [, ] = match
-  
+
+  const [,] = match
+
   switch (kpiName.toLowerCase()) {
     case 'responsetime':
     case 'response_time':
@@ -502,7 +493,7 @@ function generateRecommendedActions(kpiName: string, currentValue: any, targetSt
       actions.push('Increase resources allocated to response handling')
       actions.push('Implement automated response templates for common inquiries')
       break
-      
+
     case 'resolutionrate':
     case 'resolution_rate':
     case 'resolution-rate':
@@ -510,7 +501,7 @@ function generateRecommendedActions(kpiName: string, currentValue: any, targetSt
       actions.push('Enhance knowledge base with more detailed solutions')
       actions.push('Implement better issue categorization for faster routing')
       break
-      
+
     case 'customersatisfaction':
     case 'customer_satisfaction':
     case 'customer-satisfaction':
@@ -518,26 +509,26 @@ function generateRecommendedActions(kpiName: string, currentValue: any, targetSt
       actions.push('Improve follow-up processes after issue resolution')
       actions.push('Enhance communication clarity and frequency')
       break
-      
+
     case 'revenue':
     case 'sales':
       actions.push('Review pricing strategy')
       actions.push('Identify new market opportunities')
       actions.push('Optimize sales funnel conversion rates')
       break
-      
+
     case 'costs':
     case 'expenses':
       actions.push('Identify cost-saving opportunities')
       actions.push('Optimize resource allocation')
       actions.push('Review vendor contracts for better terms')
       break
-      
+
     default:
       actions.push(`Analyze factors affecting ${kpiName}`)
       actions.push(`Develop specific strategies to improve ${kpiName}`)
       actions.push(`Set up regular monitoring for ${kpiName}`)
   }
-  
+
   return actions
 }

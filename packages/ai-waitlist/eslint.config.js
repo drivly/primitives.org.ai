@@ -2,16 +2,16 @@ export default {
   extends: ['eslint:recommended'],
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
   },
   env: {
     node: true,
     browser: true,
-    es2022: true
+    es2022: true,
   },
   rules: {
-    'semi': ['error', 'never'],
-    'quotes': ['error', 'single'],
-    'max-len': ['error', { 'code': 160 }]
-  }
+    semi: ['error', 'never'],
+    quotes: ['error', 'single'],
+    'max-len': ['error', { code: 160 }],
+  },
 }

@@ -7,15 +7,5 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
-  external: [
-    'react',
-    'react-dom',
-    'next',
-    'ai-props',
-    'next-mdx-remote',
-    'class-variance-authority',
-    'clsx',
-    'tailwind-merge',
-    'lucide-react',
-  ],
+  external: ['react', 'react-dom', 'next', 'ai-props', 'next-mdx-remote', 'class-variance-authority', 'clsx', 'tailwind-merge', 'lucide-react'],
 })

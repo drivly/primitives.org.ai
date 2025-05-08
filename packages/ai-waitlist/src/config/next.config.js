@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-  
+
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.mdx?$/,
@@ -19,7 +19,7 @@ const nextConfig = {
 
     return config
   },
-  
+
   async redirects() {
     return [
       {
@@ -29,7 +29,7 @@ const nextConfig = {
       },
     ]
   },
-  
+
   async headers() {
     return [
       {

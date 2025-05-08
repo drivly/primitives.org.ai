@@ -44,7 +44,7 @@ export function createAdaptiveCard({
   description,
   options,
   freeText,
-  taskId
+  taskId,
 }: {
   title: string
   description: string
@@ -60,15 +60,15 @@ export function createAdaptiveCard({
         type: 'TextBlock',
         size: 'Medium',
         weight: 'Bolder',
-        text: title
+        text: title,
       },
       {
         type: 'TextBlock',
         text: description,
-        wrap: true
-      }
+        wrap: true,
+      },
     ],
-    actions: [] as any[]
+    actions: [] as any[],
   }
 
   if (options && options.length > 0) {
@@ -77,19 +77,19 @@ export function createAdaptiveCard({
       id: 'userChoice',
       style: 'expanded',
       isMultiSelect: false,
-      choices: [] as any[]
+      choices: [] as any[],
     }
 
     options.forEach((option) => {
       if (typeof option === 'string') {
         choiceSet.choices.push({
           title: option,
-          value: option
+          value: option,
         })
       } else {
         choiceSet.choices.push({
           title: option.label,
-          value: option.value
+          value: option.value,
         })
       }
     })
@@ -97,16 +97,16 @@ export function createAdaptiveCard({
     card.body.push({
       type: 'TextBlock',
       text: 'Please select an option:',
-      wrap: true
+      wrap: true,
     })
-    
+
     card.actions.unshift({
       type: 'Action.ShowCard',
       title: 'Select Options',
       card: {
         type: 'AdaptiveCard',
-        body: [choiceSet]
-      }
+        body: [choiceSet],
+      },
     })
   }
 
@@ -114,21 +114,23 @@ export function createAdaptiveCard({
     card.body.push({
       type: 'TextBlock',
       text: 'Additional comments:',
-      wrap: true
+      wrap: true,
     })
-    
+
     card.actions.unshift({
       type: 'Action.ShowCard',
       title: 'Add Comments',
       card: {
         type: 'AdaptiveCard',
-        body: [{
-          type: 'Input.Text',
-          id: 'userComment',
-          placeholder: 'Enter your comments here...',
-          isMultiline: true
-        }]
-      }
+        body: [
+          {
+            type: 'Input.Text',
+            id: 'userComment',
+            placeholder: 'Enter your comments here...',
+            isMultiline: true,
+          },
+        ],
+      },
     })
   }
 
@@ -136,8 +138,8 @@ export function createAdaptiveCard({
     type: 'Action.Submit',
     title: 'Submit',
     data: {
-      taskId: taskId
-    }
+      taskId: taskId,
+    },
   })
 
   return card

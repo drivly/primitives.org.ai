@@ -25,25 +25,21 @@ import { Startup } from 'ai-startups'
 const myStartup = Startup({
   name: 'AI Solutions',
   vision: 'Make AI accessible to everyone',
-  goals: [
-    { objective: 'Market Growth', keyResults: ['100K users by Q4', '20% MoM growth'] }
-  ],
+  goals: [{ objective: 'Market Growth', keyResults: ['100K users by Q4', '20% MoM growth'] }],
   services: [
     {
       name: 'Text Analysis API',
       objective: 'Provide advanced text analysis',
       pricing: {
         model: 'activity-based',
-        activities: [
-          { name: 'analysis', rate: 0.01 }
-        ]
+        activities: [{ name: 'analysis', rate: 0.01 }],
       },
       implementation: {
         type: 'function',
-        id: 'text-analyzer'
-      }
-    }
-  ]
+        id: 'text-analyzer',
+      },
+    },
+  ],
 })
 
 // Generate site and DB
