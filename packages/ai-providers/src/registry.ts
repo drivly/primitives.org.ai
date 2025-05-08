@@ -76,6 +76,23 @@ export const languageModel = (modelId: string) => {
           ...options
         })
         return stream
+      },
+      
+      generate: async (options: any) => {
+        const result = await provider.chat({
+          messages: [{ role: 'user', content: options.prompt }],
+          model: modelName,
+          ...options
+        })
+        return { text: result.text }
+      },
+      stream: async (options: any) => {
+        const stream = await provider.chatStream({
+          messages: [{ role: 'user', content: options.prompt }],
+          model: modelName,
+          ...options
+        })
+        return stream
       }
     }
   } catch (error) {
