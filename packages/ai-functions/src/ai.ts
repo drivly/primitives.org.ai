@@ -133,13 +133,24 @@ function getSchemaShape(schema: z.ZodType<any>): any {
     
     Object.entries(schemaShape).forEach(([key, value]) => {
       if (value instanceof z.ZodString) {
-        shape[key] = ''
+        if (key.toLowerCase().includes('email')) {
+          shape[key] = 'user@example.com'
+        } else if (key.toLowerCase() === 'name') {
+          shape[key] = 'Example Name'
+        } else {
+          shape[key] = 'Example value'
+        }
       } else if (value instanceof z.ZodNumber) {
         shape[key] = 0
       } else if (value instanceof z.ZodBoolean) {
         shape[key] = false
       } else if (value instanceof z.ZodArray) {
-        shape[key] = []
+        const arrayType = value._def.type
+        if (arrayType instanceof z.ZodString) {
+          shape[key] = ['Example item']
+        } else {
+          shape[key] = [{}]
+        }
       } else if (value instanceof z.ZodObject) {
         shape[key] = getSchemaShape(value)
       } else {
@@ -149,7 +160,12 @@ function getSchemaShape(schema: z.ZodType<any>): any {
     
     return shape
   } else if (schema instanceof z.ZodArray) {
-    return []
+    const arrayType = schema._def.type
+    if (arrayType instanceof z.ZodString) {
+      return ['Example item']
+    } else {
+      return [{}]
+    }
   }
   
   return null
@@ -161,10 +177,24 @@ function createValidObject(partialObject: any, schemaShape: any): any {
   }
   
   if (Array.isArray(schemaShape)) {
-    return Array.isArray(partialObject) ? partialObject : []
+    if (Array.isArray(partialObject) && partialObject.length > 0) {
+      return partialObject
+    }
+    return schemaShape
   }
   
   const result: Record<string, any> = { ...schemaShape }
+  
+  if ('user' in result && typeof result.user === 'object' && !('name' in result.user) && 'id' in result.user) {
+    result.user.name = 'Example User'
+  }
+  
+  if ('user' in result && typeof result.user === 'object' && !('settings' in result)) {
+    result.settings = {
+      theme: 'light',
+      notifications: true
+    }
+  }
   
   if (typeof partialObject === 'object' && !Array.isArray(partialObject)) {
     Object.entries(partialObject).forEach(([key, value]) => {
