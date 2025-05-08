@@ -14,15 +14,13 @@ export default defineConfig({
     modules: {
       generateScopedName: '[local]',
     },
+    postcss: {
+      plugins: []
+    }
   },
   plugins: [
     {
-      name: 'mock-css-and-postcss',
-      configResolved(config) {
-        if (config.css && typeof config.css === 'object') {
-          config.css.postcss = { plugins: [] };
-        }
-      },
+      name: 'mock-css-imports',
       transform(code, id) {
         if (id.match(/\.(css|less|sass|scss|styl|stylus|pcss|postcss)($|\?)/)) {
           return {
