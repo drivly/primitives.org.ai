@@ -41,6 +41,11 @@
     "turbo": "^2.5.3",
     "typescript": "^5"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
+  },
   "prettier": {
     "semi": false,
     "singleQuote": true,
