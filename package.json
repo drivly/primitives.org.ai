@@ -7,9 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo dev --concurrency=25",
-    "build": "turbo build",
-    "start": "next start",
+    "dev": "next dev",
+    "build": "next build",
+    "build:packages": "turbo build --concurrency=25",
     "lint": "turbo lint --concurrency=25",
     "test": "turbo test --concurrency=25",
     "clean": "turbo clean --concurrency=25",
