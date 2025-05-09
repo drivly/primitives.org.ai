@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { editorOptions } from '@/lib/collections'
 
 export const Generations: CollectionConfig = {
   slug: 'generations',
@@ -10,7 +11,7 @@ export const Generations: CollectionConfig = {
       { name: 'provider', type: 'text' },
       { name: 'batch', type: 'text' },
     ]},
-    { name: 'request', type: 'json', admin: { editorOptions: { padding: { top: 20, bottom: 20 } } } },
-    { name: 'response', type: 'json', admin: { editorOptions: { padding: { top: 20, bottom: 20 } } } },
+    { name: 'request', type: 'json', admin: { editorOptions } },
+    { name: 'response', type: 'json', admin: { editorOptions } },
   ],
 }

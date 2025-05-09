@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { editorOptions } from '@/lib/collections'
 
 export const Things: CollectionConfig = {
   slug: 'things',
@@ -12,8 +13,8 @@ export const Things: CollectionConfig = {
       { name: 'is', type: 'relationship', relationTo: 'nouns', label: 'is' },
       { name: 'generation', type: 'relationship', relationTo: 'generations', admin: { readOnly: true } },
     ]},
-    { name: 'data', type: 'json', admin: { editorOptions: { padding: { top: 20, bottom: 20 } } } },
-    { name: 'content', type: 'code', admin: { language: 'mdx', editorOptions: { padding: { top: 20, bottom: 20 } } } },
+    { name: 'data', type: 'json', admin: { editorOptions } },
+    { name: 'content', type: 'code', admin: { language: 'mdx', editorOptions } },
     { name: 'relationships', type: 'array', fields: [
       { name: 'verb', type: 'relationship', relationTo: 'verbs' },
       { name: 'thing', type: 'relationship', relationTo: ['nouns', 'things'] },

@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { editorOptions } from '@/lib/collections'
 
 export const Properties: CollectionConfig = {
   slug: 'properties',
@@ -7,6 +8,6 @@ export const Properties: CollectionConfig = {
   },
   fields: [
     { name: 'id', type: 'text', required: true },
-    { name: 'data', type: 'code', admin: { language: 'mdx', editorOptions: { padding: { top: 20, bottom: 20 } } } },
+    { name: 'data', type: 'code', admin: { language: 'mdx', editorOptions } },
   ],
 }

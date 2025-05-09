@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import dedent from 'dedent'
+import { editorOptions } from '@/lib/collections'
 
 const defaultValue = dedent`
 ---
@@ -29,7 +30,7 @@ export const Nouns: CollectionConfig = {
       { name: 'id', type: 'text', required: true, label: 'Noun' },
       { name: 'is', type: 'relationship', relationTo: 'nouns', label: 'is' },
     ]},
-    { name: 'schema', type: 'code', defaultValue, admin: { language: 'mdx', editorOptions: { padding: { top: 20, bottom: 20 } } } },
+    { name: 'schema', type: 'code', defaultValue, admin: { language: 'mdx', editorOptions } },
     { name: 'things', type: 'join', collection: 'things', on: 'is' },
   ],
 }
