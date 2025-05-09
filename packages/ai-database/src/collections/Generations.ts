@@ -6,6 +6,12 @@ export const Generations: CollectionConfig = {
   admin: {
     group: 'Admin'
   },
+  access: {
+    create: () => false,
+    update: () => false,
+    delete: () => false,
+    read: ({ req: { user } }) => user != null,
+  },
   fields: [
     { type: 'row', fields: [
       { name: 'provider', type: 'text' },

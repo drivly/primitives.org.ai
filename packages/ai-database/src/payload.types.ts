@@ -73,7 +73,9 @@ export interface Config {
     types: Type;
     properties: Property;
     actions: Action;
+    models: Model;
     generations: Generation;
+    roles: Role;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -89,6 +91,9 @@ export interface Config {
     types: {
       subClasses: 'types';
     };
+    roles: {
+      users: 'users';
+    };
   };
   collectionsSelect: {
     nouns: NounsSelect<false> | NounsSelect<true>;
@@ -97,7 +102,9 @@ export interface Config {
     types: TypesSelect<false> | TypesSelect<true>;
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
     actions: ActionsSelect<false> | ActionsSelect<true>;
+    models: ModelsSelect<false> | ModelsSelect<true>;
     generations: GenerationsSelect<false> | GenerationsSelect<true>;
+    roles: RolesSelect<false> | RolesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -106,8 +113,12 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    settings: Setting;
+  };
+  globalsSelect: {
+    settings: SettingsSelect<false> | SettingsSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -119,18 +130,20 @@ export interface Config {
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    username: string;
+    email: string;
+    password: string;
   };
   login: {
+    email: string;
     password: string;
-    username: string;
   };
   registerFirstUser: {
+    email: string;
     password: string;
-    username: string;
   };
   unlock: {
-    username: string;
+    email: string;
+    password: string;
   };
 }
 /**
@@ -266,17 +279,41 @@ export interface Action {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "models".
+ */
+export interface Model {
+  id: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "roles".
+ */
+export interface Role {
+  id: string;
+  users?: {
+    docs?: (number | User)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
   id: number;
+  roles?: (string | null) | Role;
   updatedAt: string;
   createdAt: string;
   enableAPIKey?: boolean | null;
   apiKey?: string | null;
   apiKeyIndex?: string | null;
-  email?: string | null;
-  username: string;
+  email: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
   salt?: string | null;
@@ -317,8 +354,16 @@ export interface PayloadLockedDocument {
         value: string | Action;
       } | null)
     | ({
+        relationTo: 'models';
+        value: string | Model;
+      } | null)
+    | ({
         relationTo: 'generations';
         value: number | Generation;
+      } | null)
+    | ({
+        relationTo: 'roles';
+        value: string | Role;
       } | null)
     | ({
         relationTo: 'users';
@@ -442,6 +487,16 @@ export interface ActionsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "models_select".
+ */
+export interface ModelsSelect<T extends boolean = true> {
+  id?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "generations_select".
  */
 export interface GenerationsSelect<T extends boolean = true> {
@@ -454,16 +509,26 @@ export interface GenerationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "roles_select".
+ */
+export interface RolesSelect<T extends boolean = true> {
+  id?: T;
+  users?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  roles?: T;
   updatedAt?: T;
   createdAt?: T;
   enableAPIKey?: T;
   apiKey?: T;
   apiKeyIndex?: T;
   email?: T;
-  username?: T;
   resetPasswordToken?: T;
   resetPasswordExpiration?: T;
   salt?: T;
@@ -502,6 +567,34 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings".
+ */
+export interface Setting {
+  id: number;
+  model?: string | null;
+  provider?: string | null;
+  batch?: string | null;
+  batchSize?: number | null;
+  temperature?: number | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings_select".
+ */
+export interface SettingsSelect<T extends boolean = true> {
+  model?: T;
+  provider?: T;
+  batch?: T;
+  batchSize?: T;
+  temperature?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

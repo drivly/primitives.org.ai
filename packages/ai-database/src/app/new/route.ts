@@ -8,12 +8,10 @@ export const GET = async (request: Request) => {
 
   const payload = await getPayload({ config })
   const { user } = await payload.auth({ headers })
-  const { docs: data, ...meta } = await payload.find({ collection: 'nouns' })
+  const { docs: data, ...meta } = await payload.find({ collection: 'types' })
 
-  const nouns: Record<string, string> = {}
-  data.forEach((noun) => {
-    nouns[noun.id] = origin + '/' + noun.id
-  })
+  const types: Record<string, string> = {}
+  data.forEach((type) => types[type.id] = origin + '/' + type.id)
 
   const latency = Date.now() - start
 
@@ -24,18 +22,14 @@ export const GET = async (request: Request) => {
       admin: origin + '/admin',
       first: origin + '/',
     },
-    actions: {
-      'Create Noun': request.url + '/new',
-      'Toggle Arrays': request.url + '?arrays',
-    },
     latency,
-    nouns,
-    // meta,
+    types,
     'schema.org': {
       things: origin + '/things',
       actions: origin + '/actions',
       properties: origin + '/properties',
     },
+    meta,
     user,
   }
 

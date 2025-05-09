@@ -7,11 +7,12 @@ export const Users: CollectionConfig = {
     useAsTitle: 'email',
   },
   auth: {
-    loginWithUsername: true,
+    // loginWithUsername: true,
     useAPIKey: true,
   },
   fields: [
     // Email added by default
     // Add more fields as needed
+    { name: 'roles', type: 'relationship', relationTo: 'roles' },
   ],
 }

@@ -12,7 +12,10 @@ import { Things } from './collections/Things'
 import { Actions } from './collections/Actions'
 import { Types } from './collections/Types'
 import { Properties } from './collections/Properties'
+import { Settings } from './globals/Settings'
+import { Models } from './collections/Models'
 import { Generations } from './collections/Generations'
+import { Roles } from './collections/Roles'
 import { Users } from './collections/Users'
 
 const filename = fileURLToPath(import.meta.url)
@@ -25,7 +28,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Nouns, Verbs, Things, Types, Properties, Actions, Generations, Users],
+  collections: [Nouns, Verbs, Things, Types, Properties, Actions, Models, Generations, Roles, Users],
+  globals: [Settings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

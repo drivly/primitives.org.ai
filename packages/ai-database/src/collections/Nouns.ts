@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import dedent from 'dedent'
 import { editorOptions } from '@/lib/collections'
+import matter from 'gray-matter'
 
 const defaultValue = dedent`
 ---
@@ -25,6 +26,7 @@ export const Nouns: CollectionConfig = {
   admin: {
     group: 'Data'
   },
+  versions: true,
   fields: [
     { type: 'row', fields: [
       { name: 'id', type: 'text', required: true, label: 'Noun' },
@@ -33,4 +35,13 @@ export const Nouns: CollectionConfig = {
     { name: 'schema', type: 'code', defaultValue, admin: { language: 'mdx', editorOptions } },
     { name: 'things', type: 'join', collection: 'things', on: 'is' },
   ],
+  hooks: {
+    beforeChange: [
+      async ({ data }) => {
+        const { content } = matter(data.schema)
+        data.content = content
+        return data
+      },
+    ],
+  }
 }
