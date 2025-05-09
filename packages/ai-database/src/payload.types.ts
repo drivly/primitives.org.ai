@@ -74,12 +74,14 @@ export interface Config {
     nouns: Noun;
     verbs: Verb;
     things: Thing;
+    events: Event;
     types: Type;
     properties: Property;
     actions: Action;
     roles: Role;
     users: User;
     webhooks: Webhook;
+    'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -103,12 +105,14 @@ export interface Config {
     nouns: NounsSelect<false> | NounsSelect<true>;
     verbs: VerbsSelect<false> | VerbsSelect<true>;
     things: ThingsSelect<false> | ThingsSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
     types: TypesSelect<false> | TypesSelect<true>;
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
     actions: ActionsSelect<false> | ActionsSelect<true>;
     roles: RolesSelect<false> | RolesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     webhooks: WebhooksSelect<false> | WebhooksSelect<true>;
+    'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -127,8 +131,17 @@ export interface Config {
     collection: 'users';
   };
   jobs: {
-    tasks: unknown;
-    workflows: unknown;
+    tasks: {
+      seedModels: TaskSeedModels;
+      seedRoles: TaskSeedRoles;
+      inline: {
+        input: unknown;
+        output: unknown;
+      };
+    };
+    workflows: {
+      seed: WorkflowSeed;
+    };
   };
 }
 export interface UserAuthOperations {
@@ -177,7 +190,15 @@ export interface Workflow {
  */
 export interface Model {
   id: string;
-  description?: string | null;
+  data?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -287,6 +308,54 @@ export interface Verb {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: number;
+  type?: string | null;
+  data?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  webhooks?:
+    | {
+        webhook?: (number | null) | Webhook;
+        timestamp?: string | null;
+        status?: ('Pending' | 'Success' | 'Error') | null;
+        data?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "webhooks".
+ */
+export interface Webhook {
+  id: number;
+  type?: ('Incoming' | 'Outgoing') | null;
+  events?: ('Create' | 'Update' | 'Delete')[] | null;
+  things?: (number | Thing)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "types".
  */
 export interface Type {
@@ -327,7 +396,6 @@ export interface Action {
  */
 export interface Role {
   id: string;
-  defaultAccess?: ('Allow' | 'Deny') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -353,13 +421,94 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "webhooks".
+ * via the `definition` "payload-jobs".
  */
-export interface Webhook {
+export interface PayloadJob {
   id: number;
-  type?: ('Incoming' | 'Outgoing') | null;
-  events?: ('Create' | 'Update' | 'Delete')[] | null;
-  things?: (number | Thing)[] | null;
+  /**
+   * Input data provided to the job
+   */
+  input?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  taskStatus?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  completedAt?: string | null;
+  totalTried?: number | null;
+  /**
+   * If hasError is true this job will not be retried
+   */
+  hasError?: boolean | null;
+  /**
+   * If hasError is true, this is the error that caused it
+   */
+  error?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Task execution log
+   */
+  log?:
+    | {
+        executedAt: string;
+        completedAt: string;
+        taskSlug: 'inline' | 'seedModels' | 'seedRoles';
+        taskID: string;
+        input?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        output?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        state: 'failed' | 'succeeded';
+        error?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  workflowSlug?: 'seed' | null;
+  taskSlug?: ('inline' | 'seedModels' | 'seedRoles') | null;
+  queue?: string | null;
+  waitUntil?: string | null;
+  processing?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -399,6 +548,10 @@ export interface PayloadLockedDocument {
         value: number | Thing;
       } | null)
     | ({
+        relationTo: 'events';
+        value: number | Event;
+      } | null)
+    | ({
         relationTo: 'types';
         value: string | Type;
       } | null)
@@ -421,6 +574,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'webhooks';
         value: number | Webhook;
+      } | null)
+    | ({
+        relationTo: 'payload-jobs';
+        value: number | PayloadJob;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -490,7 +647,7 @@ export interface WorkflowsSelect<T extends boolean = true> {
  */
 export interface ModelsSelect<T extends boolean = true> {
   id?: T;
-  description?: T;
+  data?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -551,6 +708,25 @@ export interface ThingsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  type?: T;
+  data?: T;
+  webhooks?:
+    | T
+    | {
+        webhook?: T;
+        timestamp?: T;
+        status?: T;
+        data?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "types_select".
  */
 export interface TypesSelect<T extends boolean = true> {
@@ -587,7 +763,6 @@ export interface ActionsSelect<T extends boolean = true> {
  */
 export interface RolesSelect<T extends boolean = true> {
   id?: T;
-  defaultAccess?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -617,6 +792,38 @@ export interface WebhooksSelect<T extends boolean = true> {
   type?: T;
   events?: T;
   things?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs_select".
+ */
+export interface PayloadJobsSelect<T extends boolean = true> {
+  input?: T;
+  taskStatus?: T;
+  completedAt?: T;
+  totalTried?: T;
+  hasError?: T;
+  error?: T;
+  log?:
+    | T
+    | {
+        executedAt?: T;
+        completedAt?: T;
+        taskSlug?: T;
+        taskID?: T;
+        input?: T;
+        output?: T;
+        state?: T;
+        error?: T;
+        id?: T;
+      };
+  workflowSlug?: T;
+  taskSlug?: T;
+  queue?: T;
+  waitUntil?: T;
+  processing?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -681,6 +888,29 @@ export interface SettingsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSeedModels".
+ */
+export interface TaskSeedModels {
+  input?: unknown;
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSeedRoles".
+ */
+export interface TaskSeedRoles {
+  input?: unknown;
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WorkflowSeed".
+ */
+export interface WorkflowSeed {
+  input?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

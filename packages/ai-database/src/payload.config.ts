@@ -13,6 +13,7 @@ import { Generations } from './collections/Generations'
 import { Nouns } from './collections/Nouns'
 import { Verbs } from './collections/Verbs'
 import { Things } from './collections/Things'
+import { Events } from './collections/Events'
 import { Actions } from './collections/Actions'
 import { Types } from './collections/Types'
 import { Properties } from './collections/Properties'
@@ -20,6 +21,10 @@ import { Roles } from './collections/Roles'
 import { Webhooks } from './collections/Webhooks'
 import { Users } from './collections/Users'
 import { Settings } from './globals/Settings'
+
+import { seedData } from './workflows/seedData'
+import { seedModels } from './tasks/seedModels'
+import { seedRoles } from './tasks/seedRoles'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -31,8 +36,12 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Functions, Workflows, Models, Generations, Nouns, Verbs, Things, Types, Properties, Actions, Roles, Users, Webhooks],
+  collections: [Functions, Workflows, Models, Generations, Nouns, Verbs, Things, Events, Types, Properties, Actions, Roles, Users, Webhooks],
   globals: [Settings],
+  jobs: {
+    tasks: [seedModels, seedRoles],
+    workflows: [seedData],
+  },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

@@ -1,20 +1,15 @@
 import { WorkflowConfig } from 'payload'
-import { waitUntil } from '@vercel/functions'
 
-export const seedData: WorkflowConfig<any> = {
+export const seedData: WorkflowConfig<'seed'> = {
   slug: 'seed',
+  retries: 5,
   handler: async ({ job, tasks, req }) => {
     const { payload } = req
 
-    waitUntil(
-      payload.create({
-        collection: 'roles',
-        data: {
-          id: 'admin',
-          defaultAccess: 'Allow',
-        },
-      })
-    )
+    const ts = new Date().toISOString()
+
+    await tasks.seedModels(ts, { input: {}})
+
     
   },
 }

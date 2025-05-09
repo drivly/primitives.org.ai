@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { editorOptions } from '@/lib/collections'
 import { loggedIn } from '@/lib/collections'
 
 export const Models: CollectionConfig = {
@@ -13,7 +14,7 @@ export const Models: CollectionConfig = {
     read: loggedIn,
   },
   fields: [
-    { name: 'id', type: 'text', required: true, label: 'Name' },
-    { name: 'description', type: 'code', admin: { language: 'mdx' } },
+    { name: 'id', type: 'text', label: 'ID' },
+    { name: 'data', type: 'json', admin: { editorOptions } },
   ],
 }

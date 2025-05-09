@@ -7,7 +7,7 @@ export const Roles: CollectionConfig = {
   },
   fields: [
     { name: 'id', type: 'text', required: true, label: 'Name' },
-    { name: 'defaultAccess', type: 'select', defaultValue: 'Allow', options: ['Allow', 'Deny'] },
+    // { name: 'defaultAccess', type: 'select', defaultValue: 'Allow', options: ['Allow', 'Deny'] },
     // { name: 'collections', type: 'array', fields: [
     //   { name: 'collection', type: 'select', options: ['users', 'roles', 'generations', 'models', 'things', 'properties', 'actions', 'verbs', 'nouns'] },
     //   { name: 'access', type: 'select', options: ['Allow', 'Deny'] },

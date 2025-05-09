@@ -1,4 +1,5 @@
 import config from '@payload-config'
+import { waitUntil } from '@vercel/functions'
 import { getPayload } from 'payload'
 
 export const GET = async (request: Request) => {
@@ -8,12 +9,25 @@ export const GET = async (request: Request) => {
 
   const payload = await getPayload({ config })
   const { user } = await payload.auth({ headers })
-  const { docs: data, ...meta } = await payload.find({ collection: 'nouns' })
+  const [types, things] = await Promise.all([
+    payload.find({ collection: 'nouns' }),
+    payload.find({ collection: 'things' }),
+  ])
 
   const nouns: Record<string, string> = {}
-  data.forEach((noun) => {
-    nouns[noun.id] = origin + '/' + noun.id
+  types.docs.forEach((type) => {
+    nouns[type.id] = origin + '/' + type.id
   })
+
+  if (things.totalDocs === 0) {
+    const seedStart = Date.now()
+    const job = await payload.jobs.queue({ workflow: 'seed', input: {} })
+  }
+
+
+  waitUntil(
+    payload.jobs.run().then(console.log)
+  )
 
   const latency = Date.now() - start
 
