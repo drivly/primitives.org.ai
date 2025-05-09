@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { editorOptions } from '@/lib/collections'
+import { editorOptions, loggedIn } from '@/lib/collections'
 
 export const Generations: CollectionConfig = {
   slug: 'generations',
@@ -10,13 +10,14 @@ export const Generations: CollectionConfig = {
     create: () => false,
     update: () => false,
     delete: () => false,
-    read: ({ req: { user } }) => user != null,
+    read: loggedIn,
   },
   fields: [
     { type: 'row', fields: [
       { name: 'provider', type: 'text' },
       { name: 'batch', type: 'text' },
     ]},
+    { name: 'metadata', type: 'json', admin: { editorOptions } },
     { name: 'request', type: 'json', admin: { editorOptions } },
     { name: 'response', type: 'json', admin: { editorOptions } },
   ],

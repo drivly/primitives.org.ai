@@ -206,6 +206,15 @@ export interface Generation {
   id: number;
   provider?: string | null;
   batch?: string | null;
+  metadata?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   request?:
     | {
         [k: string]: unknown;
@@ -502,6 +511,7 @@ export interface ModelsSelect<T extends boolean = true> {
 export interface GenerationsSelect<T extends boolean = true> {
   provider?: T;
   batch?: T;
+  metadata?: T;
   request?: T;
   response?: T;
   updatedAt?: T;
@@ -574,6 +584,8 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Setting {
   id: number;
+  domain?: string | null;
+  basePath?: string | null;
   model?: string | null;
   provider?: string | null;
   batch?: string | null;
@@ -587,6 +599,8 @@ export interface Setting {
  * via the `definition` "settings_select".
  */
 export interface SettingsSelect<T extends boolean = true> {
+  domain?: T;
+  basePath?: T;
   model?: T;
   provider?: T;
   batch?: T;

@@ -6,6 +6,7 @@ export const Settings: GlobalConfig = {
     group: 'Admin'
   },
   fields: [
+    { name: 'baseUrl', type: 'text' },
     { name: 'model', type: 'text' },
     { name: 'provider', type: 'text' },
     { name: 'batch', type: 'text' },
