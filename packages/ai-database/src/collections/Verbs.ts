@@ -5,6 +5,7 @@ export const Verbs: CollectionConfig = {
   admin: {
     group: 'Data'
   },
+  versions: true,
   fields: [
     { name: 'id', type: 'text', required: true, label: 'Verb' },
     { name: 'things', type: 'join', collection: 'things', on: 'relationships.verb' },

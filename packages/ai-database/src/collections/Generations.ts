@@ -4,7 +4,7 @@ import { editorOptions, loggedIn } from '@/lib/collections'
 export const Generations: CollectionConfig = {
   slug: 'generations',
   admin: {
-    group: 'Admin'
+    group: 'AI'
   },
   access: {
     create: () => false,

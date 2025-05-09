@@ -6,17 +6,20 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 
+import { Functions } from './collections/Functions'
+import { Workflows } from './collections/Workflows'
+import { Models } from './collections/Models'
+import { Generations } from './collections/Generations'
 import { Nouns } from './collections/Nouns'
 import { Verbs } from './collections/Verbs'
 import { Things } from './collections/Things'
 import { Actions } from './collections/Actions'
 import { Types } from './collections/Types'
 import { Properties } from './collections/Properties'
-import { Settings } from './globals/Settings'
-import { Models } from './collections/Models'
-import { Generations } from './collections/Generations'
 import { Roles } from './collections/Roles'
+import { Webhooks } from './collections/Webhooks'
 import { Users } from './collections/Users'
+import { Settings } from './globals/Settings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -28,7 +31,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Nouns, Verbs, Things, Types, Properties, Actions, Models, Generations, Roles, Users],
+  collections: [Functions, Workflows, Models, Generations, Nouns, Verbs, Things, Types, Properties, Actions, Roles, Users, Webhooks],
   globals: [Settings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

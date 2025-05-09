@@ -20,7 +20,7 @@ export const GET = async (request: Request) => {
   const response = {
     $context: origin,
     links: {
-      home: origin,
+      login: user ? undefined : origin + '/admin/login',
       admin: origin + '/admin',
       first: origin + '/',
     },
