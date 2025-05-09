@@ -6,8 +6,14 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 
+import { Nouns } from './collections/Nouns'
+import { Verbs } from './collections/Verbs'
+import { Things } from './collections/Things'
+import { Actions } from './collections/Actions'
+import { Types } from './collections/Types'
+import { Properties } from './collections/Properties'
+import { Generations } from './collections/Generations'
 import { Users } from './collections/Users'
-import { Media } from './collections/Media'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -19,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Nouns, Verbs, Things, Types, Properties, Actions, Generations, Users],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

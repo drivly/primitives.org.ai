@@ -67,16 +67,38 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    nouns: Noun;
+    verbs: Verb;
+    things: Thing;
+    types: Type;
+    properties: Property;
+    actions: Action;
+    generations: Generation;
     users: User;
-    media: Media;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    nouns: {
+      things: 'things';
+    };
+    verbs: {
+      things: 'things';
+    };
+    types: {
+      subClasses: 'types';
+    };
+  };
   collectionsSelect: {
+    nouns: NounsSelect<false> | NounsSelect<true>;
+    verbs: VerbsSelect<false> | VerbsSelect<true>;
+    things: ThingsSelect<false> | ThingsSelect<true>;
+    types: TypesSelect<false> | TypesSelect<true>;
+    properties: PropertiesSelect<false> | PropertiesSelect<true>;
+    actions: ActionsSelect<false> | ActionsSelect<true>;
+    generations: GenerationsSelect<false> | GenerationsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -97,21 +119,150 @@ export interface Config {
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string;
-    password: string;
+    username: string;
   };
   login: {
-    email: string;
     password: string;
+    username: string;
   };
   registerFirstUser: {
-    email: string;
     password: string;
+    username: string;
   };
   unlock: {
-    email: string;
-    password: string;
+    username: string;
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "nouns".
+ */
+export interface Noun {
+  id: string;
+  is?: (number | null) | Noun;
+  schema?: string | null;
+  things?: {
+    docs?: (number | Thing)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "things".
+ */
+export interface Thing {
+  id: string;
+  is?: (number | null) | Noun;
+  generation?: (number | null) | Generation;
+  data?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  content?: string | null;
+  relationships?:
+    | {
+        verb?: (string | null) | Verb;
+        thing?:
+          | ({
+              relationTo: 'nouns';
+              value: number | Noun;
+            } | null)
+          | ({
+              relationTo: 'things';
+              value: number | Thing;
+            } | null);
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "generations".
+ */
+export interface Generation {
+  id: number;
+  provider?: string | null;
+  batch?: string | null;
+  request?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  response?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "verbs".
+ */
+export interface Verb {
+  id: string;
+  things?: {
+    docs?: (number | Thing)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "types".
+ */
+export interface Type {
+  id: string;
+  data?: string | null;
+  subClassOf?: (string | null) | Type;
+  subClasses?: {
+    docs?: (string | Type)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "properties".
+ */
+export interface Property {
+  id: string;
+  data?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "actions".
+ */
+export interface Action {
+  id: string;
+  data?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -121,7 +272,8 @@ export interface User {
   id: number;
   updatedAt: string;
   createdAt: string;
-  email: string;
+  email?: string | null;
+  username: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
   salt?: string | null;
@@ -132,37 +284,42 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'nouns';
+        value: number | Noun;
       } | null)
     | ({
-        relationTo: 'media';
-        value: number | Media;
+        relationTo: 'verbs';
+        value: string | Verb;
+      } | null)
+    | ({
+        relationTo: 'things';
+        value: number | Thing;
+      } | null)
+    | ({
+        relationTo: 'types';
+        value: string | Type;
+      } | null)
+    | ({
+        relationTo: 'properties';
+        value: string | Property;
+      } | null)
+    | ({
+        relationTo: 'actions';
+        value: string | Action;
+      } | null)
+    | ({
+        relationTo: 'generations';
+        value: number | Generation;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -208,36 +365,105 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "nouns_select".
+ */
+export interface NounsSelect<T extends boolean = true> {
+  id?: T;
+  is?: T;
+  schema?: T;
+  things?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "verbs_select".
+ */
+export interface VerbsSelect<T extends boolean = true> {
+  id?: T;
+  things?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "things_select".
+ */
+export interface ThingsSelect<T extends boolean = true> {
+  id?: T;
+  is?: T;
+  generation?: T;
+  data?: T;
+  content?: T;
+  relationships?:
+    | T
+    | {
+        verb?: T;
+        thing?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "types_select".
+ */
+export interface TypesSelect<T extends boolean = true> {
+  id?: T;
+  data?: T;
+  subClassOf?: T;
+  subClasses?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "properties_select".
+ */
+export interface PropertiesSelect<T extends boolean = true> {
+  id?: T;
+  data?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "actions_select".
+ */
+export interface ActionsSelect<T extends boolean = true> {
+  id?: T;
+  data?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "generations_select".
+ */
+export interface GenerationsSelect<T extends boolean = true> {
+  provider?: T;
+  batch?: T;
+  request?: T;
+  response?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   email?: T;
+  username?: T;
   resetPasswordToken?: T;
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
