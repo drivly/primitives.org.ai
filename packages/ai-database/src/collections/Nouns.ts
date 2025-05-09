@@ -30,7 +30,7 @@ export const Nouns: CollectionConfig = {
   fields: [
     { type: 'row', fields: [
       { name: 'id', type: 'text', required: true, label: 'Noun' },
-      { name: 'is', type: 'relationship', relationTo: 'nouns', label: 'is' },
+      { name: 'is', type: 'relationship', relationTo: ['nouns', 'types'], hasMany: true, label: 'is' },
     ]},
     { name: 'schema', type: 'code', defaultValue, admin: { language: 'mdx', editorOptions } },
     { name: 'things', type: 'join', collection: 'things', on: 'is' },

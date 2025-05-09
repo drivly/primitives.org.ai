@@ -76,8 +76,9 @@ export interface Config {
     things: Thing;
     events: Event;
     types: Type;
-    properties: Property;
     actions: Action;
+    enums: Enum;
+    properties: Property;
     roles: Role;
     users: User;
     webhooks: Webhook;
@@ -107,8 +108,9 @@ export interface Config {
     things: ThingsSelect<false> | ThingsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     types: TypesSelect<false> | TypesSelect<true>;
-    properties: PropertiesSelect<false> | PropertiesSelect<true>;
     actions: ActionsSelect<false> | ActionsSelect<true>;
+    enums: EnumsSelect<false> | EnumsSelect<true>;
+    properties: PropertiesSelect<false> | PropertiesSelect<true>;
     roles: RolesSelect<false> | RolesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     webhooks: WebhooksSelect<false> | WebhooksSelect<true>;
@@ -134,6 +136,7 @@ export interface Config {
     tasks: {
       seedModels: TaskSeedModels;
       seedRoles: TaskSeedRoles;
+      seedSchema: TaskSeedSchema;
       inline: {
         input: unknown;
         output: unknown;
@@ -246,10 +249,37 @@ export interface Generation {
  */
 export interface Noun {
   id: string;
-  is?: (number | null) | Noun;
+  is?:
+    | (
+        | {
+            relationTo: 'nouns';
+            value: number | Noun;
+          }
+        | {
+            relationTo: 'types';
+            value: string | Type;
+          }
+      )[]
+    | null;
   schema?: string | null;
   things?: {
     docs?: (number | Thing)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "types".
+ */
+export interface Type {
+  id: string;
+  data?: string | null;
+  subClassOf?: (string | null) | Type;
+  subClasses?: {
+    docs?: (string | Type)[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
@@ -356,17 +386,22 @@ export interface Webhook {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "types".
+ * via the `definition` "actions".
  */
-export interface Type {
+export interface Action {
   id: string;
   data?: string | null;
-  subClassOf?: (string | null) | Type;
-  subClasses?: {
-    docs?: (string | Type)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "enums".
+ */
+export interface Enum {
+  id: string;
+  type: string | Type;
+  data?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -375,16 +410,6 @@ export interface Type {
  * via the `definition` "properties".
  */
 export interface Property {
-  id: string;
-  data?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "actions".
- */
-export interface Action {
   id: string;
   data?: string | null;
   updatedAt: string;
@@ -471,7 +496,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'seedModels' | 'seedRoles';
+        taskSlug: 'inline' | 'seedModels' | 'seedRoles' | 'seedSchema';
         taskID: string;
         input?:
           | {
@@ -505,7 +530,7 @@ export interface PayloadJob {
       }[]
     | null;
   workflowSlug?: 'seed' | null;
-  taskSlug?: ('inline' | 'seedModels' | 'seedRoles') | null;
+  taskSlug?: ('inline' | 'seedModels' | 'seedRoles' | 'seedSchema') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -556,12 +581,16 @@ export interface PayloadLockedDocument {
         value: string | Type;
       } | null)
     | ({
-        relationTo: 'properties';
-        value: string | Property;
-      } | null)
-    | ({
         relationTo: 'actions';
         value: string | Action;
+      } | null)
+    | ({
+        relationTo: 'enums';
+        value: string | Enum;
+      } | null)
+    | ({
+        relationTo: 'properties';
+        value: string | Property;
       } | null)
     | ({
         relationTo: 'roles';
@@ -739,9 +768,9 @@ export interface TypesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "properties_select".
+ * via the `definition` "actions_select".
  */
-export interface PropertiesSelect<T extends boolean = true> {
+export interface ActionsSelect<T extends boolean = true> {
   id?: T;
   data?: T;
   updatedAt?: T;
@@ -749,9 +778,20 @@ export interface PropertiesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "actions_select".
+ * via the `definition` "enums_select".
  */
-export interface ActionsSelect<T extends boolean = true> {
+export interface EnumsSelect<T extends boolean = true> {
+  id?: T;
+  type?: T;
+  data?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "properties_select".
+ */
+export interface PropertiesSelect<T extends boolean = true> {
   id?: T;
   data?: T;
   updatedAt?: T;
@@ -902,6 +942,14 @@ export interface TaskSeedModels {
  * via the `definition` "TaskSeedRoles".
  */
 export interface TaskSeedRoles {
+  input?: unknown;
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSeedSchema".
+ */
+export interface TaskSeedSchema {
   input?: unknown;
   output?: unknown;
 }

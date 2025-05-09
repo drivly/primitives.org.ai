@@ -1,6 +1,6 @@
 import { WorkflowConfig } from 'payload'
 
-export const seedData: WorkflowConfig<'seed'> = {
+export const seed: WorkflowConfig<'seed'> = {
   slug: 'seed',
   retries: 5,
   handler: async ({ job, tasks, req }) => {
@@ -9,6 +9,8 @@ export const seedData: WorkflowConfig<'seed'> = {
     const ts = new Date().toISOString()
 
     await tasks.seedModels(ts, { input: {}})
+    await tasks.seedRoles(ts, { input: {}})
+    await tasks.seedSchema(ts, { input: {}})
 
     
   },
