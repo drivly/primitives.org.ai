@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { editorOptions } from '@/lib/collections'
+import { onThingCreate } from '@/hooks/onThingCreate'
 
 export const Things: CollectionConfig = {
   slug: 'things',
@@ -10,7 +11,7 @@ export const Things: CollectionConfig = {
   fields: [
     { type: 'row', fields: [
       { name: 'id', type: 'text', required: true, label: 'ID' },
-      { name: 'is', type: 'relationship', relationTo: 'nouns', label: 'is' },
+      { name: 'type', type: 'relationship', relationTo: ['nouns', 'types'], label: 'type' },
       { name: 'generation', type: 'relationship', relationTo: 'generations', admin: { readOnly: true } },
     ]},
     { name: 'data', type: 'json', admin: { editorOptions } },
@@ -20,4 +21,7 @@ export const Things: CollectionConfig = {
       { name: 'thing', type: 'relationship', relationTo: ['nouns', 'things'] },
     ]},
   ],
+  hooks: {
+    afterOperation: [onThingCreate]
+  }
 }

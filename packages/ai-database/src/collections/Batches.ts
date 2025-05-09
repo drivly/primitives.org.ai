@@ -3,7 +3,8 @@ import type { CollectionConfig } from 'payload'
 export const Batches: CollectionConfig = {
   slug: 'batches',
   admin: {
-    group: 'Data'
+    group: 'AI',
+    hidden: true,
   },
   versions: true,
   fields: [

@@ -25,6 +25,7 @@ import { Users } from './collections/Users'
 import { Settings } from './globals/Settings'
 
 import { seed } from './workflows/seed'
+import { generateThing } from './workflows/generateThing'
 import { seedModels } from './tasks/seedModels'
 import { seedRoles } from './tasks/seedRoles'
 import { seedSchema } from './tasks/seedSchema'
@@ -44,7 +45,7 @@ export default buildConfig({
   globals: [Settings],
   jobs: {
     tasks: [seedModels, seedRoles, seedSchema],
-    workflows: [seed],
+    workflows: [seed, generateThing],
   },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

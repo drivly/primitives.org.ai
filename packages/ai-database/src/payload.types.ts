@@ -149,6 +149,7 @@ export interface Config {
     };
     workflows: {
       seed: WorkflowSeed;
+      generateThing: WorkflowGenerateThing;
     };
   };
 }
@@ -176,7 +177,7 @@ export interface UserAuthOperations {
  */
 export interface Noun {
   id: string;
-  is?:
+  type?:
     | (
         | {
             relationTo: 'nouns';
@@ -188,6 +189,7 @@ export interface Noun {
           }
       )[]
     | null;
+  format?: ('Object' | 'Markdown') | null;
   schema?: string | null;
   things?: {
     docs?: (number | Thing)[];
@@ -219,7 +221,15 @@ export interface Type {
  */
 export interface Thing {
   id: string;
-  is?: (number | null) | Noun;
+  type?:
+    | ({
+        relationTo: 'nouns';
+        value: number | Noun;
+      } | null)
+    | ({
+        relationTo: 'types';
+        value: string | Type;
+      } | null);
   generation?: (number | null) | Generation;
   data?:
     | {
@@ -550,7 +560,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  workflowSlug?: 'seed' | null;
+  workflowSlug?: ('seed' | 'generateThing') | null;
   taskSlug?: ('inline' | 'seedModels' | 'seedRoles' | 'seedSchema') | null;
   queue?: string | null;
   waitUntil?: string | null;
@@ -681,7 +691,8 @@ export interface PayloadMigration {
  */
 export interface NounsSelect<T extends boolean = true> {
   id?: T;
-  is?: T;
+  type?: T;
+  format?: T;
   schema?: T;
   things?: T;
   updatedAt?: T;
@@ -703,7 +714,7 @@ export interface VerbsSelect<T extends boolean = true> {
  */
 export interface ThingsSelect<T extends boolean = true> {
   id?: T;
-  is?: T;
+  type?: T;
   generation?: T;
   data?: T;
   content?: T;
@@ -995,6 +1006,52 @@ export interface TaskSeedSchema {
  */
 export interface WorkflowSeed {
   input?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WorkflowGenerateThing".
+ */
+export interface WorkflowGenerateThing {
+  input: {
+    id: string;
+    type?:
+      | ({
+          relationTo: 'nouns';
+          value: number | Noun;
+        } | null)
+      | ({
+          relationTo: 'types';
+          value: string | Type;
+        } | null);
+    generation?: (number | null) | Generation;
+    data?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    content?: string | null;
+    relationships?:
+      | {
+          verb?: (string | null) | Verb;
+          thing?:
+            | ({
+                relationTo: 'nouns';
+                value: number | Noun;
+              } | null)
+            | ({
+                relationTo: 'things';
+                value: number | Thing;
+              } | null);
+          id?: string | null;
+        }[]
+      | null;
+    updatedAt?: string | null;
+    createdAt?: string | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
