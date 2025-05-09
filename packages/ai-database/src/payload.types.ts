@@ -268,15 +268,6 @@ export interface Generation {
   provider?: string | null;
   type?: ('Realtime' | 'Batch') | null;
   batch?: (number | null) | Batch;
-  metadata?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   request?:
     | {
         [k: string]: unknown;
@@ -287,6 +278,15 @@ export interface Generation {
     | boolean
     | null;
   response?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  metadata?:
     | {
         [k: string]: unknown;
       }
@@ -785,9 +785,9 @@ export interface GenerationsSelect<T extends boolean = true> {
   provider?: T;
   type?: T;
   batch?: T;
-  metadata?: T;
   request?: T;
   response?: T;
+  metadata?: T;
   updatedAt?: T;
   createdAt?: T;
 }

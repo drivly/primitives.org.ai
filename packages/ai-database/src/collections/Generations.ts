@@ -18,8 +18,8 @@ export const Generations: CollectionConfig = {
       { name: 'type', type: 'select', options: ['Realtime', 'Batch'] },
       { name: 'batch', type: 'relationship', relationTo: 'batches', admin: { condition: ({ type }) => type === 'Batch' } },
     ]},
-    { name: 'metadata', type: 'json', admin: { editorOptions } },
     { name: 'request', type: 'json', admin: { editorOptions } },
     { name: 'response', type: 'json', admin: { editorOptions } },
+    { name: 'metadata', type: 'json', admin: { editorOptions } },
   ],
 }
