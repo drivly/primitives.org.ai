@@ -33,7 +33,7 @@ import { AI } from 'ai-props'
 ;<AI
   model='gpt-4.1'
   schema={{
-    title: 'string',
+    title: 'SEO-optimized title',
     content: 'string',
   }}
   prompt='Generate content'
@@ -58,7 +58,7 @@ const customModel = model('claude-3.7-sonnet')
 <AI
   model={customModel}
   schema={{
-    title: 'string',
+    title: 'SEO-optimized title',
     content: 'string'
   }}
   prompt='Generate content'
@@ -80,7 +80,7 @@ import { AI } from 'ai-props'
   model='gpt-4.1'
   stream={true}
   schema={{
-    title: 'string',
+    title: 'SEO-optimized title',
     content: 'string',
   }}
   prompt='Generate an article about React'
@@ -131,7 +131,7 @@ import { AI } from 'ai-props'
   output='array'
   cols={3}
   schema={{
-    name: 'string',
+    name: 'SEO-optimized title',
     description: 'string',
   }}
   prompt='Generate 6 product ideas'
