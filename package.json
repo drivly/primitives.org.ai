@@ -10,6 +10,7 @@
     "dev": "next dev",
     "build": "next build",
     "build:packages": "turbo build --concurrency=25",
+    "start": "next start",
     "lint": "turbo lint --concurrency=25",
     "test": "turbo test --concurrency=25",
     "clean": "turbo clean --concurrency=25",
@@ -22,6 +23,7 @@
     "@theguild/remark-mermaid": "^0.3.0",
     "@vercel/analytics": "^1.5.0",
     "ai-providers": "workspace:*",
+    "date-fns": "3.6.0",
     "next": "15.3.1",
     "nextra": "^4.2.17",
     "nextra-theme-docs": "^4.2.17",
@@ -40,6 +42,11 @@
     "turbo": "^2.5.3",
     "typescript": "^5"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
+  },
   "prettier": {
     "semi": false,
     "singleQuote": true,
@@ -47,5 +54,8 @@
     "trailingComma": "es5",
     "printWidth": 160,
     "tabWidth": 2
+  },
+  "resolutions": {
+    "date-fns": "3.6.0"
   }
 }
