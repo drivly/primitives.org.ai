@@ -17,7 +17,6 @@ export { AIComponent }
 import type { AIProps } from '../../../packages/ai-props/src/types'
 export type { AIProps }
 
-
 import * as aiProviders from '../../../packages/ai-providers/src'
 export { aiProviders }
 
@@ -50,3 +49,6 @@ export { aiSite }
 
 import * as aiStartups from '../../../packages/ai-startups/src'
 export { aiStartups }
+
+import * as aiAdmin from '../../../packages/ai-admin/src'
+export { aiAdmin }

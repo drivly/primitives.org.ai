@@ -44,21 +44,59 @@ export const registry: ReturnType<typeof createProviderRegistry> = createProvide
     deepseek,
     cerebras,
     replicate,
-    luma
+    luma,
   },
   { separator: '/' }
 )
 
 export const languageModel = (modelId: string) => {
-  const [provider, model] = modelId.split('/')
-  console.log(`Using provider: ${provider}, model: ${model}`)
-
-  return {
-    generate: async (options: any) => {
-      return { text: `Response from ${modelId}` }
-    },
-    stream: async (options: any) => {
-      return { text: `Streaming response from ${modelId}` }
-    },
+  const [providerName, modelName] = modelId.split('/')
+  console.log(`Using provider: ${providerName}, model: ${modelName}`)
+  
+  try {
+    const provider = (registry as any)[providerName]
+    
+    if (!provider) {
+      throw new Error(`Provider '${providerName}' not found in registry`)
+    }
+    
+    return {
+      complete: async (options: any) => {
+        const result = await provider.chat({
+          messages: [{ role: 'user', content: options.prompt }],
+          model: modelName,
+          ...options
+        })
+        return { text: result.text }
+      },
+      streamComplete: async (options: any) => {
+        const stream = await provider.chatStream({
+          messages: [{ role: 'user', content: options.prompt }],
+          model: modelName,
+          ...options
+        })
+        return stream
+      },
+      
+      generate: async (options: any) => {
+        const result = await provider.chat({
+          messages: [{ role: 'user', content: options.prompt }],
+          model: modelName,
+          ...options
+        })
+        return { text: result.text }
+      },
+      stream: async (options: any) => {
+        const stream = await provider.chatStream({
+          messages: [{ role: 'user', content: options.prompt }],
+          model: modelName,
+          ...options
+        })
+        return stream
+      }
+    }
+  } catch (error) {
+    console.error(`Error getting provider for ${modelId}:`, error)
+    throw new Error(`Failed to initialize provider for ${modelId}`)
   }
 }

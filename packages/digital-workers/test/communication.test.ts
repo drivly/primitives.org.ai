@@ -62,9 +62,7 @@ describe('Communication Setup', () => {
     setupCommunication(worker, config)
 
     expect(worker.communicationChannels).toEqual([])
-    expect(console.warn).toHaveBeenCalledWith(
-      'No communication channels configured for worker worker-123'
-    )
+    expect(console.warn).toHaveBeenCalledWith('No communication channels configured for worker worker-123')
   })
 
   it('should set up message sending methods', () => {
@@ -91,7 +89,7 @@ describe('Communication Setup', () => {
     setupCommunication(worker, config)
 
     expect(typeof worker.sendSlackMessage).toBe('function')
-    
+
     worker.sendSlackMessage('general', 'Hello world')
     expect(worker.agent.execute).toHaveBeenCalledWith({
       action: 'sendMessage',

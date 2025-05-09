@@ -2,16 +2,13 @@ import { StartupInstance, DatabaseGenerationResult } from './types'
 
 /**
  * Generate a database schema based on the startup configuration
- * 
+ *
  * @param config Configuration for database schema generation
  * @returns Generated database schema structure
  */
-export const generateDatabase = (config: {
-  business: any
-  services: any[]
-}): DatabaseGenerationResult => {
+export const generateDatabase = (config: { business: any; services: any[] }): DatabaseGenerationResult => {
   const { business, services } = config
-  
+
   const startupCollection = {
     name: {
       type: 'string',
@@ -60,7 +57,7 @@ export const generateDatabase = (config: {
       defaultValue: () => new Date(),
     },
   }
-  
+
   const servicesCollection = {
     name: {
       type: 'string',
@@ -104,7 +101,7 @@ export const generateDatabase = (config: {
       defaultValue: () => new Date(),
     },
   }
-  
+
   const customersCollection = {
     email: {
       type: 'email',
@@ -157,7 +154,7 @@ export const generateDatabase = (config: {
       defaultValue: () => new Date(),
     },
   }
-  
+
   const subscriptionsCollection = {
     customer: {
       type: 'relationship',
@@ -202,7 +199,7 @@ export const generateDatabase = (config: {
       defaultValue: () => new Date(),
     },
   }
-  
+
   const usageCollection = {
     subscription: {
       type: 'relationship',
@@ -235,7 +232,7 @@ export const generateDatabase = (config: {
       type: 'json',
     },
   }
-  
+
   const relationships: Array<{
     from: string
     to: string
@@ -272,7 +269,7 @@ export const generateDatabase = (config: {
       type: 'one-to-many',
     },
   ]
-  
+
   const indexes = [
     {
       collection: 'customers',
@@ -297,7 +294,7 @@ export const generateDatabase = (config: {
       fields: ['customer', 'timestamp'],
     },
   ]
-  
+
   return {
     collections: {
       startup: startupCollection,

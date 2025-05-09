@@ -5,15 +5,12 @@ import { z } from 'zod'
 
 /**
  * Generate brand positioning using storyBrand framework
- * 
+ *
  * @param input - Brand input data
  * @param options - Configuration options
  * @returns Brand positioning information
  */
-export async function generateBrandPositioning(
-  input: BrandInput,
-  options: BrandOptions = {}
-): Promise<BrandPositioning> {
+export async function generateBrandPositioning(input: BrandInput, options: BrandOptions = {}): Promise<BrandPositioning> {
   const storyBrandResult = await storyBrand(input, {
     modelName: options.modelName,
     system: options.system || 'You are an expert brand strategist specializing in the StoryBrand framework',
@@ -44,19 +41,13 @@ export async function generateBrandPositioning(
 
 /**
  * Generate brand voice characteristics
- * 
+ *
  * @param input - Brand input data
  * @param options - Configuration options
  * @returns Brand voice information
  */
-async function generateBrandVoice(
-  input: BrandInput,
-  options: BrandOptions = {}
-): Promise<BrandVoice> {
-  const {
-    modelName = options.modelName || 'google/gemini-2.5-flash-preview',
-    temperature = options.temperature || 0.7,
-  } = options
+async function generateBrandVoice(input: BrandInput, options: BrandOptions = {}): Promise<BrandVoice> {
+  const { modelName = options.modelName || 'google/gemini-2.5-flash-preview', temperature = options.temperature || 0.7 } = options
 
   const schema = z.object({
     tone: z.string().describe('overall tone of the brand voice'),

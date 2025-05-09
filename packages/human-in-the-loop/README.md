@@ -31,26 +31,23 @@ pnpm add human-in-the-loop
 import { createHumanFunction } from 'human-in-the-loop'
 
 // Define a strongly-typed human function for approval
-const getApproval = createHumanFunction<
-  { documentTitle: string, documentUrl: string },
-  { approved: boolean, comments?: string }
->({
+const getApproval = createHumanFunction<{ documentTitle: string; documentUrl: string }, { approved: boolean; comments?: string }>({
   platform: 'slack',
   title: 'Document Approval Request',
   description: 'Please review and approve the following document:',
   options: [
     { value: 'approve', label: 'Approve' },
-    { value: 'reject', label: 'Reject' }
+    { value: 'reject', label: 'Reject' },
   ],
   freeText: true,
   // Slack-specific options
-  channel: 'approvals'
+  channel: 'approvals',
 })
 
 // Request human input
 const task = await getApproval.request({
   documentTitle: 'Q2 Financial Report',
-  documentUrl: 'https://example.com/docs/q2-finance'
+  documentUrl: 'https://example.com/docs/q2-finance',
 })
 
 console.log(`Task created with ID: ${task.taskId}`)
@@ -74,10 +71,7 @@ if (response?.approved) {
 ```typescript
 import { createHumanFunction } from 'human-in-the-loop'
 
-const slackFeedback = createHumanFunction<
-  { featureDescription: string },
-  { rating: number, feedback?: string }
->({
+const slackFeedback = createHumanFunction<{ featureDescription: string }, { rating: number; feedback?: string }>({
   platform: 'slack',
   title: 'Feature Feedback Request',
   description: 'Please provide feedback on our new feature:',
@@ -86,10 +80,10 @@ const slackFeedback = createHumanFunction<
     { value: '2', label: '⭐⭐ Fair' },
     { value: '3', label: '⭐⭐⭐ Good' },
     { value: '4', label: '⭐⭐⭐⭐ Very Good' },
-    { value: '5', label: '⭐⭐⭐⭐⭐ Excellent' }
+    { value: '5', label: '⭐⭐⭐⭐⭐ Excellent' },
   ],
   freeText: true,
-  channel: 'product-feedback'
+  channel: 'product-feedback',
 })
 ```
 
@@ -98,19 +92,16 @@ const slackFeedback = createHumanFunction<
 ```typescript
 import { createHumanFunction } from 'human-in-the-loop'
 
-const teamsApproval = createHumanFunction<
-  { requestDetails: string },
-  { approved: boolean }
->({
+const teamsApproval = createHumanFunction<{ requestDetails: string }, { approved: boolean }>({
   platform: 'teams',
   title: 'Approval Request',
   description: 'Please review and approve this request:',
   options: [
     { value: 'approve', label: 'Approve' },
-    { value: 'reject', label: 'Reject' }
+    { value: 'reject', label: 'Reject' },
   ],
   webhookUrl: process.env.TEAMS_WEBHOOK_URL,
-  useAdaptiveCards: true
+  useAdaptiveCards: true,
 })
 ```
 
@@ -121,10 +112,7 @@ import { createHumanFunction, ReactHumanFunction } from 'human-in-the-loop'
 import React, { useState } from 'react'
 
 // Create the human function
-const reactFeedback = createHumanFunction<
-  { productName: string },
-  { rating: number, comments?: string }
->({
+const reactFeedback = createHumanFunction<{ productName: string }, { rating: number; comments?: string }>({
   platform: 'react',
   title: 'Product Feedback',
   description: 'Please rate this product and provide any comments:',
@@ -133,25 +121,25 @@ const reactFeedback = createHumanFunction<
     { value: '2', label: '2 - Fair' },
     { value: '3', label: '3 - Good' },
     { value: '4', label: '4 - Very Good' },
-    { value: '5', label: '5 - Excellent' }
+    { value: '5', label: '5 - Excellent' },
   ],
   freeText: true,
-  theme: 'light'
-}) as ReactHumanFunction<{ productName: string }, { rating: number, comments?: string }>
+  theme: 'light',
+}) as ReactHumanFunction<{ productName: string }, { rating: number; comments?: string }>
 
 // In your React component
 function FeedbackComponent() {
   const [taskId, setTaskId] = useState<string | null>(null)
-  
+
   const handleRequestFeedback = async () => {
     const task = await reactFeedback.request({ productName: 'Super Product' })
     setTaskId(task.taskId)
   }
-  
+
   return (
     <div>
       <button onClick={handleRequestFeedback}>Request Feedback</button>
-      
+
       {taskId && reactFeedback.getComponent(taskId, { productName: 'Super Product' })}
     </div>
   )
@@ -166,10 +154,7 @@ import React from 'react'
 import { render } from 'react-email'
 
 // Create the human function
-const emailSurvey = createHumanFunction<
-  { surveyTopic: string },
-  { response: string }
->({
+const emailSurvey = createHumanFunction<{ surveyTopic: string }, { response: string }>({
   platform: 'email',
   title: 'Customer Survey',
   description: 'Please complete our customer satisfaction survey:',
@@ -178,11 +163,11 @@ const emailSurvey = createHumanFunction<
     { value: 'satisfied', label: 'Satisfied' },
     { value: 'neutral', label: 'Neutral' },
     { value: 'dissatisfied', label: 'Dissatisfied' },
-    { value: 'very-dissatisfied', label: 'Very Dissatisfied' }
+    { value: 'very-dissatisfied', label: 'Very Dissatisfied' },
   ],
   to: 'customer@example.com',
   from: 'surveys@company.com',
-  callbackUrl: 'https://example.com/api/survey-response'
+  callbackUrl: 'https://example.com/api/survey-response',
 }) as EmailHumanFunction<{ surveyTopic: string }, { response: string }>
 
 // Get the email template as HTML

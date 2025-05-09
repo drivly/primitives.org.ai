@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import React from 'react'
 
@@ -22,12 +22,7 @@ export function BlogContent({ markdown }: BlogContentProps) {
       .replace(/\*\*(.*)\*\*/gm, '<strong>$1</strong>')
       .replace(/\*(.*)\*/gm, '<em>$1</em>')
       .replace(/\n\n/gm, '<br /><br />')
-  }, [markdown]);
+  }, [markdown])
 
-  return (
-    <div 
-      className="blog-content"
-      dangerouslySetInnerHTML={{ __html: htmlContent || '' }}
-    />
-  )
+  return <div className='blog-content' dangerouslySetInnerHTML={{ __html: htmlContent || '' }} />
 }

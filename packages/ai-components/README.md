@@ -30,7 +30,7 @@ yarn add ai-components
 import { Hero, FAQs, Pricing } from 'ai-components'
 
 // Hero component with AI-generated content
-<Hero 
+<Hero
   model='gpt-4o'
   prompt='Generate a hero section for a SaaS product'
 />
@@ -63,26 +63,26 @@ import { Hero, FAQs, Pricing } from 'ai-components'
 import { Component } from 'ai-components'
 
 // Generate a custom component based on a description
-<Component
+;<Component
   description='Create a notification banner with a dismiss button'
   contextProps={{
     message: 'New feature available!',
-    type: 'info'
+    type: 'info',
   }}
 />
 ```
 
 ## Available Components
 
-| Component | Description |
-| --- | --- |
-| `Hero` | Hero section with title, subtitle, and CTA |
-| `FAQs` | Frequently asked questions with expandable answers |
-| `Pricing` | Pricing tables with multiple tiers |
-| `Features` | Feature list/grid with icons and descriptions |
-| `Testimonials` | Customer testimonials with avatars |
-| `CTA` | Call-to-action section with buttons |
-| `Component` | Dynamic component generator based on descriptions |
+| Component      | Description                                        |
+| -------------- | -------------------------------------------------- |
+| `Hero`         | Hero section with title, subtitle, and CTA         |
+| `FAQs`         | Frequently asked questions with expandable answers |
+| `Pricing`      | Pricing tables with multiple tiers                 |
+| `Features`     | Feature list/grid with icons and descriptions      |
+| `Testimonials` | Customer testimonials with avatars                 |
+| `CTA`          | Call-to-action section with buttons                |
+| `Component`    | Dynamic component generator based on descriptions  |
 
 ## Dependencies
 

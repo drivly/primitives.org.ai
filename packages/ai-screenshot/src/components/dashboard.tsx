@@ -35,7 +35,7 @@ export const DashboardComponent: React.FC<DashboardComponentProps> = ({ dashboar
           {title}
         </h3>
       )}
-      
+
       <div
         style={{
           display: layout === 'grid' ? 'grid' : 'flex',
@@ -54,7 +54,7 @@ export const DashboardComponent: React.FC<DashboardComponentProps> = ({ dashboar
           } else if ('items' in widget) {
             return <GridComponent key={`widget-grid-${index}`} grid={widget} theme={theme} />
           }
-          
+
           return null
         })}
       </div>

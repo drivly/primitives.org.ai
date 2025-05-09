@@ -12,7 +12,7 @@ vi.mock('../../../packages/autonomous-agents/src', () => ({
 
 describe('Manager', () => {
   let managerConfig: ManagerConfig
-  
+
   beforeEach(() => {
     managerConfig = {
       name: 'Test Manager',
@@ -50,7 +50,7 @@ describe('Manager', () => {
 
   it('should create a manager instance with the provided configuration', () => {
     const manager = Manager(managerConfig)
-    
+
     expect(manager).toBeDefined()
     expect(manager.id).toBeDefined()
     expect(manager.objectives).toEqual(managerConfig.objectives)
@@ -60,7 +60,7 @@ describe('Manager', () => {
 
   it('should update an objective', async () => {
     const manager = Manager(managerConfig)
-    
+
     const updatedObjective = {
       description: 'Updated test objective',
       keyResults: [
@@ -74,15 +74,15 @@ describe('Manager', () => {
         },
       ],
     }
-    
+
     await manager.updateObjective('test-objective', updatedObjective)
-    
+
     expect(manager.objectives['test-objective']).toEqual(updatedObjective)
   })
 
   it('should throw an error when updating a non-existent objective', async () => {
     const manager = Manager(managerConfig)
-    
+
     await expect(
       manager.updateObjective('non-existent', {
         description: 'Non-existent objective',
@@ -93,7 +93,7 @@ describe('Manager', () => {
 
   it('should create a plan', async () => {
     const manager = Manager(managerConfig)
-    
+
     const planData = {
       name: 'Test Plan',
       description: 'A test plan',
@@ -110,9 +110,9 @@ describe('Manager', () => {
         },
       ],
     }
-    
+
     const plan = await manager.createPlan(planData)
-    
+
     expect(plan).toBeDefined()
     expect(plan.id).toBeDefined()
     expect(plan.name).toBe(planData.name)
@@ -124,39 +124,37 @@ describe('Manager', () => {
 
   it('should assign a task to an agent', async () => {
     const manager = Manager(managerConfig)
-    
+
     const task = {
       action: 'executeTest',
       testName: 'sample-test',
       params: { value: 42 },
     }
-    
+
     const result = await manager.assignTask('test-agent', task)
-    
+
     expect(result).toEqual({ result: 'executed', input: task })
   })
 
   it('should throw an error when assigning a task to a non-existent agent', async () => {
     const manager = Manager(managerConfig)
-    
-    await expect(
-      manager.assignTask('non-existent', { action: 'test' })
-    ).rejects.toThrow('Agent with ID "non-existent" not found')
+
+    await expect(manager.assignTask('non-existent', { action: 'test' })).rejects.toThrow('Agent with ID "non-existent" not found')
   })
 
   it('should calculate objective progress correctly', async () => {
     const manager = Manager(managerConfig)
-    
+
     let progress = await manager.getObjectiveProgress('test-objective')
     expect(progress).toBe(0)
-    
+
     await manager.updateKeyResultProgress('test-objective', 1, 0.5)
-    
+
     progress = await manager.getObjectiveProgress('test-objective')
     expect(progress).toBe(0.25)
-    
+
     await manager.updateKeyResultProgress('test-objective', 0, 1)
-    
+
     progress = await manager.getObjectiveProgress('test-objective')
     expect(progress).toBe(0.75)
   })
@@ -181,25 +179,25 @@ describe('Manager', () => {
         },
       },
     })
-    
+
     await manager.updateKeyResultProgress('test-objective', 0, 1)
     await manager.updateKeyResultProgress('test-objective', 1, 1)
-    
+
     const firstProgress = await manager.getObjectiveProgress('test-objective')
     expect(firstProgress).toBe(1)
-    
+
     const secondProgress = await manager.getObjectiveProgress('second-objective')
     expect(secondProgress).toBe(0.5)
-    
+
     const overallProgress = await manager.getOverallProgress()
     expect(overallProgress).toBe(0.75)
   })
 
   it('should get agents for an objective', () => {
     const manager = Manager(managerConfig)
-    
+
     const agents = manager.getAgentsForObjective('test-objective')
-    
+
     expect(agents).toEqual(manager.agents)
   })
 })

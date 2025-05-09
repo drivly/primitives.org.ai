@@ -8,16 +8,10 @@ export interface ViewToggleProps {
 export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
   return (
     <div className='view-toggle'>
-      <button
-        className={viewMode === 'grid' ? 'active' : ''}
-        onClick={() => onViewModeChange('grid')}
-      >
+      <button className={viewMode === 'grid' ? 'active' : ''} onClick={() => onViewModeChange('grid')}>
         Grid
       </button>
-      <button
-        className={viewMode === 'list' ? 'active' : ''}
-        onClick={() => onViewModeChange('list')}
-      >
+      <button className={viewMode === 'list' ? 'active' : ''} onClick={() => onViewModeChange('list')}>
         List
       </button>
     </div>

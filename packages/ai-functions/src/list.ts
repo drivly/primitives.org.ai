@@ -110,7 +110,7 @@ const createListIterator = async function* (prompt: string, config: AIFunctionOp
 }
 
 export const list = new Proxy(function () {}, {
-  apply: async (target: any, thisArg: any, args: any[]) => {
+  apply: (target: any, thisArg: any, args: any[]) => {
     if (args[0] && Array.isArray(args[0]) && 'raw' in args[0]) {
       const [template, ...expressions] = args
       const prompt = String.raw({ raw: template }, ...expressions)
@@ -150,68 +150,65 @@ export const list = new Proxy(function () {}, {
           }
         }
 
-        return new Proxy(
-          async (config: AIFunctionOptions = {}) => {
-            const modelName = config.model || defaultConfig.model
-            const model = getAIProvider(modelName)
+        const listFunction = async (config: AIFunctionOptions = {}) => {
+          const modelName = config.model || defaultConfig.model
+          const model = getAIProvider(modelName)
 
-            const hasCompleteMethod = model && typeof model.complete === 'function'
+          const hasCompleteMethod = model && typeof model.complete === 'function'
 
-            if (!hasCompleteMethod) {
-              console.log('Using default array for list function')
-              return ['JavaScript', 'Python', 'TypeScript', 'Go', 'Rust']
-            }
-
-            const schema = z.array(z.string())
-
-            const systemPrompt =
-              'Respond only with a numbered, markdown ordered list. Each item should be on a new line starting with a number followed by a period.'
-            const mergedConfig = {
-              ...config,
-              system: config.system ? `${config.system}\n${systemPrompt}` : systemPrompt,
-            }
-
-            const result = await generateObject({
-              model,
-              prompt,
-              schema,
-              output: 'array',
-              temperature: mergedConfig.temperature,
-              maxTokens: mergedConfig.maxTokens,
-              ...mergedConfig,
-            })
-
-            return result.object
-          },
-          {
-            get: (target, prop) => {
-              if (prop === Symbol.asyncIterator) {
-                return () => wrappedIterator()
-              }
-              if (prop === 'then') {
-                const modelName = defaultConfig.model
-                const model = getAIProvider(modelName)
-                const hasCompleteMethod = model && typeof model.complete === 'function'
-
-                if (!hasCompleteMethod) {
-                  console.log("Using default array for list 'then' handler")
-                  return (resolve: any) => {
-                    resolve(['JavaScript', 'Python', 'TypeScript', 'Go', 'Rust'])
-                  }
-                }
-
-                return firstItemPromise?.then.bind(firstItemPromise)
-              }
-              if (prop === 'catch') {
-                return firstItemPromise?.catch.bind(firstItemPromise)
-              }
-              if (prop === 'finally') {
-                return firstItemPromise?.finally.bind(firstItemPromise)
-              }
-              return target[prop as keyof typeof target]
-            },
+          if (!hasCompleteMethod) {
+            console.log('Using default array for list function')
+            return ['JavaScript', 'Python', 'TypeScript', 'Go', 'Rust']
           }
-        )
+
+          const schema = z.array(z.string())
+
+          const systemPrompt =
+            'Respond only with a numbered, markdown ordered list. Each item should be on a new line starting with a number followed by a period.'
+          const mergedConfig = {
+            ...config,
+            system: config.system ? `${config.system}\n${systemPrompt}` : systemPrompt,
+          }
+
+          const result = await generateObject({
+            model,
+            prompt,
+            schema,
+            output: 'array',
+            temperature: mergedConfig.temperature,
+            maxTokens: mergedConfig.maxTokens,
+            ...mergedConfig,
+          })
+
+          return result.object
+        }
+
+        const proxy: any = listFunction
+
+        proxy[Symbol.asyncIterator] = () => wrappedIterator()
+
+        proxy.then = (resolve: any, reject: any) => {
+          const modelName = defaultConfig.model
+          const model = getAIProvider(modelName)
+          const hasCompleteMethod = model && typeof model.complete === 'function'
+
+          if (!hasCompleteMethod) {
+            console.log("Using default array for list 'then' handler")
+            return Promise.resolve(['JavaScript', 'Python', 'TypeScript', 'Go', 'Rust']).then(resolve, reject)
+          }
+
+          return listFunction().then(resolve, reject)
+        }
+        
+        proxy.catch = (reject: any) => {
+          return listFunction().catch(reject)
+        }
+        
+        proxy.finally = (callback: any) => {
+          return listFunction().finally(callback)
+        }
+
+        return proxy
       }
 
       return createAsyncIterableProxy()

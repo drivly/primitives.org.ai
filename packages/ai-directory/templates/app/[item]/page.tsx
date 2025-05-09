@@ -9,21 +9,21 @@ export default function ItemDetailPage() {
   const [item, setItem] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  
+
   const itemId = params?.item
 
   useEffect(() => {
     const fetchItem = async () => {
       if (!itemId) return
-      
+
       try {
         setLoading(true)
         const response = await fetch(`/api/directory/${itemId}`)
-        
+
         if (!response.ok) {
           throw new Error('Item not found')
         }
-        
+
         const data = await response.json()
         setItem(data)
         setError(null)
@@ -34,7 +34,7 @@ export default function ItemDetailPage() {
         setLoading(false)
       }
     }
-    
+
     fetchItem()
   }, [itemId])
 
@@ -43,14 +43,20 @@ export default function ItemDetailPage() {
   }
 
   if (loading) {
-    return <div className='container'><p>Loading item details...</p></div>
+    return (
+      <div className='container'>
+        <p>Loading item details...</p>
+      </div>
+    )
   }
 
   if (error || !item) {
     return (
       <div className='container'>
         <p className='error'>{error || 'Item not found'}</p>
-        <button onClick={handleBack} className='back-button'>Back to Directory</button>
+        <button onClick={handleBack} className='back-button'>
+          Back to Directory
+        </button>
       </div>
     )
   }
@@ -60,44 +66,33 @@ export default function ItemDetailPage() {
       <button onClick={handleBack} className='back-button'>
         &larr; Back to Directory
       </button>
-      
+
       <div className='item-detail'>
-        {item.image && (
-          <img 
-            src={item.image} 
-            alt={item.name} 
-            className='item-detail-image' 
-          />
-        )}
-        
+        {item.image && <img src={item.image} alt={item.name} className='item-detail-image' />}
+
         <h1 className='item-detail-title'>{item.name}</h1>
-        
-        {item.category && (
-          <div className='item-category'>
-            Category: {item.category}
-          </div>
-        )}
-        
-        {item.description && (
-          <p className='item-description'>{item.description}</p>
-        )}
-        
+
+        {item.category && <div className='item-category'>Category: {item.category}</div>}
+
+        {item.description && <p className='item-description'>{item.description}</p>}
+
         {item.tags && item.tags.length > 0 && (
           <div className='item-tags'>
             {item.tags.map((tag: string) => (
-              <span key={tag} className='item-tag'>{tag}</span>
+              <span key={tag} className='item-tag'>
+                {tag}
+              </span>
             ))}
           </div>
         )}
-        
+
         {/* Render additional item properties */}
         <div className='item-properties'>
           {Object.entries(item).map(([key, value]) => {
-            if (['id', 'name', 'description', 'image', 'category', 'tags'].includes(key) || 
-                typeof value === 'object') {
+            if (['id', 'name', 'description', 'image', 'category', 'tags'].includes(key) || typeof value === 'object') {
               return null
             }
-            
+
             return (
               <div key={key} className='item-property'>
                 <strong>{key}:</strong> {String(value)}

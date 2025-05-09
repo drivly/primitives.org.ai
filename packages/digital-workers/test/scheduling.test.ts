@@ -31,7 +31,7 @@ describe('Event Loop', () => {
       updateContext: vi.fn().mockResolvedValue({}),
       sendMessage: vi.fn(),
       evaluateKpis: vi.fn(),
-    } as unknown as WorkerInstance;
+    } as unknown as WorkerInstance
 
     const config: WorkerEventLoopConfig = {
       frequency: '*/15 * * * *',
@@ -43,10 +43,7 @@ describe('Event Loop', () => {
 
     setupEventLoop(worker, config)
 
-    expect(cron.schedule).toHaveBeenCalledWith(
-      '*/15 * * * *',
-      expect.any(Function)
-    )
+    expect(cron.schedule).toHaveBeenCalledWith('*/15 * * * *', expect.any(Function))
     expect(worker.eventLoopJob).toBeDefined()
     expect(worker.evaluateKpis).toBeDefined()
     expect(worker.stopEventLoop).toBeDefined()
@@ -72,9 +69,7 @@ describe('Event Loop', () => {
     setupEventLoop(worker, config)
 
     expect(cron.schedule).not.toHaveBeenCalled()
-    expect(console.warn).toHaveBeenCalledWith(
-      'Event loop not configured properly, skipping setup'
-    )
+    expect(console.warn).toHaveBeenCalledWith('Event loop not configured properly, skipping setup')
   })
 
   it('should not set up event loop with invalid cron expression', () => {
@@ -87,7 +82,7 @@ describe('Event Loop', () => {
       updateContext: vi.fn(),
       sendMessage: vi.fn(),
       evaluateKpis: vi.fn(),
-    } as unknown as WorkerInstance;
+    } as unknown as WorkerInstance
 
     const config: WorkerEventLoopConfig = {
       frequency: 'invalid-cron',
@@ -99,9 +94,7 @@ describe('Event Loop', () => {
 
     expect(cron.validate).toHaveBeenCalledWith('invalid-cron')
     expect(cron.schedule).not.toHaveBeenCalled()
-    expect(console.error).toHaveBeenCalledWith(
-      'Invalid cron expression: invalid-cron'
-    )
+    expect(console.error).toHaveBeenCalledWith('Invalid cron expression: invalid-cron')
   })
 
   it('should provide methods to control the event loop', () => {

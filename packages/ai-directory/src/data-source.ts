@@ -80,7 +80,7 @@ export class DirectoryDataSource {
     const { dataSource } = this.config
 
     if (dataSource.items && Array.isArray(dataSource.items)) {
-      return dataSource.items.find(item => item.id === id) || null
+      return dataSource.items.find((item) => item.id === id) || null
     }
 
     if (this.dbInstance) {
@@ -138,22 +138,22 @@ export class DirectoryDataSource {
     let filteredItems = [...items]
 
     if (category) {
-      filteredItems = filteredItems.filter(item => item.category === category)
+      filteredItems = filteredItems.filter((item) => item.category === category)
     }
 
     if (tags && tags.length > 0) {
-      filteredItems = filteredItems.filter(item => {
+      filteredItems = filteredItems.filter((item) => {
         if (!item.tags) return false
-        return tags.some(tag => item.tags!.includes(tag))
+        return tags.some((tag) => item.tags!.includes(tag))
       })
     }
 
     if (search && this.config.searchFields) {
       const searchFields = this.config.searchFields
       const searchLower = search.toLowerCase()
-      
-      filteredItems = filteredItems.filter(item => {
-        return searchFields.some(field => {
+
+      filteredItems = filteredItems.filter((item) => {
+        return searchFields.some((field) => {
           const value = item[field]
           if (typeof value === 'string') {
             return value.toLowerCase().includes(searchLower)
@@ -166,9 +166,9 @@ export class DirectoryDataSource {
     filteredItems.sort((a, b) => {
       const aValue = a[sortBy]
       const bValue = b[sortBy]
-      
+
       if (aValue === bValue) return 0
-      
+
       const comparison = aValue < bValue ? -1 : 1
       return sortOrder === 'asc' ? comparison : -comparison
     })
@@ -202,7 +202,7 @@ export class DirectoryDataSource {
   private async getApiItems(query: DirectoryQuery): Promise<DirectoryDataResult> {
     const { dataSource } = this.config
     const endpoint = dataSource.api?.listEndpoint || dataSource.api?.endpoint
-    
+
     if (!endpoint) {
       return {
         items: [],
@@ -214,14 +214,14 @@ export class DirectoryDataSource {
 
     try {
       const queryParams = new URLSearchParams()
-      
+
       if (query.search) queryParams.append('search', query.search)
       if (query.category) queryParams.append('category', query.category)
       if (query.page) queryParams.append('page', String(query.page))
       if (query.limit) queryParams.append('limit', String(query.limit))
       if (query.sortBy) queryParams.append('sortBy', query.sortBy)
       if (query.sortOrder) queryParams.append('sortOrder', query.sortOrder)
-      
+
       if (query.tags && query.tags.length > 0) {
         queryParams.append('tags', query.tags.join(','))
       }
@@ -261,13 +261,13 @@ export class DirectoryDataSource {
   private async getApiItem(id: string): Promise<DirectoryItem | null> {
     const { dataSource } = this.config
     let endpoint = dataSource.api?.detailEndpoint || dataSource.api?.endpoint
-    
+
     if (!endpoint) {
       return null
     }
 
     endpoint = endpoint.replace(':id', id)
-    
+
     if (!endpoint.includes(id)) {
       endpoint = `${endpoint}/${id}`
     }
@@ -297,7 +297,7 @@ export class DirectoryDataSource {
   private async getApiCategories(): Promise<DirectoryCategory[]> {
     const { dataSource } = this.config
     const endpoint = `${dataSource.api?.endpoint}/categories`
-    
+
     try {
       const response = await fetch(endpoint)
       if (!response.ok) {
@@ -316,8 +316,8 @@ export class DirectoryDataSource {
    */
   private getCategoriesFromItems(items: DirectoryItem[]): DirectoryCategory[] {
     const categoryMap = new Map<string, { id: string; name: string; count: number }>()
-    
-    items.forEach(item => {
+
+    items.forEach((item) => {
       if (item.category) {
         if (categoryMap.has(item.category)) {
           const category = categoryMap.get(item.category)!
@@ -331,7 +331,7 @@ export class DirectoryDataSource {
         }
       }
     })
-    
+
     return Array.from(categoryMap.values())
   }
 }

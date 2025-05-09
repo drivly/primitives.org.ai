@@ -6,9 +6,7 @@ describe('Startup', () => {
     const startup = Startup({
       name: 'Test Startup',
       vision: 'Test vision statement',
-      goals: [
-        { objective: 'Test Objective', keyResults: ['KR1', 'KR2'] }
-      ]
+      goals: [{ objective: 'Test Objective', keyResults: ['KR1', 'KR2'] }],
     })
 
     expect(startup).toBeDefined()
@@ -22,9 +20,7 @@ describe('Startup', () => {
     const startup = Startup({
       name: 'Test Startup',
       vision: 'Test vision statement',
-      goals: [
-        { objective: 'Test Objective', keyResults: ['KR1', 'KR2'] }
-      ],
+      goals: [{ objective: 'Test Objective', keyResults: ['KR1', 'KR2'] }],
       services: [
         {
           name: 'Test Service',
@@ -33,15 +29,15 @@ describe('Startup', () => {
             model: 'subscription',
             subscription: {
               price: 9.99,
-              interval: 'month'
-            }
+              interval: 'month',
+            },
           },
           implementation: {
             type: 'function',
-            id: 'test-function'
-          }
-        }
-      ]
+            id: 'test-function',
+          },
+        },
+      ],
     })
 
     expect(startup.services).toBeDefined()
@@ -53,13 +49,11 @@ describe('Startup', () => {
     const startup = Startup({
       name: 'Test Startup',
       vision: 'Test vision statement',
-      goals: [
-        { objective: 'Test Objective', keyResults: ['KR1', 'KR2'] }
-      ]
+      goals: [{ objective: 'Test Objective', keyResults: ['KR1', 'KR2'] }],
     })
 
     const site = startup.generateSite()
-    
+
     expect(site).toBeDefined()
     expect(site.pages).toBeDefined()
     expect(site.pages.home).toContain('Test Startup')
@@ -70,13 +64,11 @@ describe('Startup', () => {
     const startup = Startup({
       name: 'Test Startup',
       vision: 'Test vision statement',
-      goals: [
-        { objective: 'Test Objective', keyResults: ['KR1', 'KR2'] }
-      ]
+      goals: [{ objective: 'Test Objective', keyResults: ['KR1', 'KR2'] }],
     })
 
     const db = startup.generateDatabase()
-    
+
     expect(db).toBeDefined()
     expect(db.collections).toBeDefined()
     expect(db.collections.startup).toBeDefined()
