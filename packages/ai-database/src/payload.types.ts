@@ -230,6 +230,7 @@ export interface Thing {
         relationTo: 'types';
         value: string | Type;
       } | null);
+  format?: ('Object' | 'Markdown') | null;
   generation?: (number | null) | Generation;
   data?:
     | {
@@ -715,6 +716,7 @@ export interface VerbsSelect<T extends boolean = true> {
 export interface ThingsSelect<T extends boolean = true> {
   id?: T;
   type?: T;
+  format?: T;
   generation?: T;
   data?: T;
   content?: T;
@@ -1023,6 +1025,7 @@ export interface WorkflowGenerateThing {
           relationTo: 'types';
           value: string | Type;
         } | null);
+    format?: ('Object' | 'Markdown') | null;
     generation?: (number | null) | Generation;
     data?:
       | {
