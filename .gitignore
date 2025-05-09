@@ -49,3 +49,4 @@ packages/*/node_modules
 
 # turbo
 .turbo
+packages/ai-database/ai.db
