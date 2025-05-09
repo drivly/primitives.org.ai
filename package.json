@@ -53,5 +53,8 @@
     "trailingComma": "es5",
     "printWidth": 160,
     "tabWidth": 2
+  },
+  "resolutions": {
+    "date-fns": "4.1.0"
   }
 }
