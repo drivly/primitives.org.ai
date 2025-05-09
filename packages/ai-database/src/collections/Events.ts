@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { editorOptions } from '@/lib/collections'
+import { loggedIn } from '@/lib/collections'
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -7,6 +8,12 @@ export const Events: CollectionConfig = {
     group: 'Data'
   },
   versions: true,
+  access: {
+    create: () => false,
+    update: () => false,
+    delete: () => false,
+    read: loggedIn,
+  },
   fields: [
     { name: 'type', type: 'text' },
     { name: 'data', type: 'json', admin: { editorOptions } },

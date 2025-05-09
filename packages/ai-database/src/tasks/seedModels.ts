@@ -1,4 +1,5 @@
 import { TaskConfig } from 'payload'
+import camelCaseKeys from 'camelcase-keys'
 
 export const seedModels: TaskConfig<'seedModels'> = {
   slug: 'seedModels',
@@ -14,7 +15,7 @@ export const seedModels: TaskConfig<'seedModels'> = {
       if (id.endsWith(':free')) continue
       await payload.db.upsert({
         collection: 'models',
-        data: { id, data: model },
+        data: { id, data: camelCaseKeys(model, { deep: true }), updatedAt: model.created_at, createdAt: model.created_at },
         where: { id: { equals: id } },
       })
     }

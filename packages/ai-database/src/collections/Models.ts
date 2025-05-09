@@ -7,6 +7,7 @@ export const Models: CollectionConfig = {
   admin: {
     group: 'AI'
   },
+  // timestamps: false,
   access: {
     create: () => false,
     update: () => false,
