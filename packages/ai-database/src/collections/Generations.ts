@@ -15,7 +15,8 @@ export const Generations: CollectionConfig = {
   fields: [
     { type: 'row', fields: [
       { name: 'provider', type: 'text' },
-      { name: 'batch', type: 'text' },
+      { name: 'type', type: 'select', options: ['Realtime', 'Batch'] },
+      { name: 'batch', type: 'relationship', relationTo: 'batches', admin: { condition: ({ type }) => type === 'Batch' } },
     ]},
     { name: 'metadata', type: 'json', admin: { editorOptions } },
     { name: 'request', type: 'json', admin: { editorOptions } },

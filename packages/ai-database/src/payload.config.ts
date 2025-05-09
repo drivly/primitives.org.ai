@@ -10,6 +10,7 @@ import { Functions } from './collections/Functions'
 import { Workflows } from './collections/Workflows'
 import { Models } from './collections/Models'
 import { Generations } from './collections/Generations'
+import { Batches } from './collections/Batches'
 import { Nouns } from './collections/Nouns'
 import { Verbs } from './collections/Verbs'
 import { Things } from './collections/Things'
@@ -39,7 +40,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Functions, Workflows, Models, Generations, Nouns, Verbs, Things, Events, Types, Actions, Enums, Properties, Roles, Users, Webhooks],
+  collections: [Nouns, Verbs, Things, Events, Functions, Workflows, Models, Generations, Batches, Types, Actions, Enums, Properties, Roles, Users, Webhooks],
   globals: [Settings],
   jobs: {
     tasks: [seedModels, seedRoles, seedSchema],

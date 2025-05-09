@@ -67,14 +67,15 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    functions: Function;
-    workflows: Workflow;
-    models: Model;
-    generations: Generation;
     nouns: Noun;
     verbs: Verb;
     things: Thing;
     events: Event;
+    functions: Function;
+    workflows: Workflow;
+    models: Model;
+    generations: Generation;
+    batches: Batch;
     types: Type;
     actions: Action;
     enums: Enum;
@@ -94,19 +95,23 @@ export interface Config {
     verbs: {
       things: 'things';
     };
+    batches: {
+      generations: 'generations';
+    };
     types: {
       subClasses: 'types';
     };
   };
   collectionsSelect: {
-    functions: FunctionsSelect<false> | FunctionsSelect<true>;
-    workflows: WorkflowsSelect<false> | WorkflowsSelect<true>;
-    models: ModelsSelect<false> | ModelsSelect<true>;
-    generations: GenerationsSelect<false> | GenerationsSelect<true>;
     nouns: NounsSelect<false> | NounsSelect<true>;
     verbs: VerbsSelect<false> | VerbsSelect<true>;
     things: ThingsSelect<false> | ThingsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    functions: FunctionsSelect<false> | FunctionsSelect<true>;
+    workflows: WorkflowsSelect<false> | WorkflowsSelect<true>;
+    models: ModelsSelect<false> | ModelsSelect<true>;
+    generations: GenerationsSelect<false> | GenerationsSelect<true>;
+    batches: BatchesSelect<false> | BatchesSelect<true>;
     types: TypesSelect<false> | TypesSelect<true>;
     actions: ActionsSelect<false> | ActionsSelect<true>;
     enums: EnumsSelect<false> | EnumsSelect<true>;
@@ -164,84 +169,6 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "functions".
- */
-export interface Function {
-  id: number;
-  name: string;
-  description?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "workflows".
- */
-export interface Workflow {
-  id: number;
-  name: string;
-  code?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "models".
- */
-export interface Model {
-  id: string;
-  data?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "generations".
- */
-export interface Generation {
-  id: number;
-  provider?: string | null;
-  batch?: string | null;
-  metadata?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  request?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  response?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -324,6 +251,60 @@ export interface Thing {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "generations".
+ */
+export interface Generation {
+  id: number;
+  provider?: string | null;
+  type?: ('Realtime' | 'Batch') | null;
+  batch?: (number | null) | Batch;
+  metadata?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  request?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  response?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "batches".
+ */
+export interface Batch {
+  id: number;
+  status: 'Pending' | 'Generating' | 'Completed' | 'Failed';
+  generations?: {
+    docs?: (number | Generation)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "verbs".
  */
 export interface Verb {
@@ -381,6 +362,46 @@ export interface Webhook {
   type?: ('Incoming' | 'Outgoing') | null;
   events?: ('Create' | 'Update' | 'Delete')[] | null;
   things?: (number | Thing)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "functions".
+ */
+export interface Function {
+  id: number;
+  name: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workflows".
+ */
+export interface Workflow {
+  id: number;
+  name: string;
+  code?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "models".
+ */
+export interface Model {
+  id: string;
+  data?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -545,6 +566,22 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
+        relationTo: 'nouns';
+        value: number | Noun;
+      } | null)
+    | ({
+        relationTo: 'verbs';
+        value: string | Verb;
+      } | null)
+    | ({
+        relationTo: 'things';
+        value: number | Thing;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: number | Event;
+      } | null)
+    | ({
         relationTo: 'functions';
         value: number | Function;
       } | null)
@@ -561,20 +598,8 @@ export interface PayloadLockedDocument {
         value: number | Generation;
       } | null)
     | ({
-        relationTo: 'nouns';
-        value: number | Noun;
-      } | null)
-    | ({
-        relationTo: 'verbs';
-        value: string | Verb;
-      } | null)
-    | ({
-        relationTo: 'things';
-        value: number | Thing;
-      } | null)
-    | ({
-        relationTo: 'events';
-        value: number | Event;
+        relationTo: 'batches';
+        value: number | Batch;
       } | null)
     | ({
         relationTo: 'types';
@@ -652,49 +677,6 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "functions_select".
- */
-export interface FunctionsSelect<T extends boolean = true> {
-  name?: T;
-  description?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "workflows_select".
- */
-export interface WorkflowsSelect<T extends boolean = true> {
-  name?: T;
-  code?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "models_select".
- */
-export interface ModelsSelect<T extends boolean = true> {
-  id?: T;
-  data?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "generations_select".
- */
-export interface GenerationsSelect<T extends boolean = true> {
-  provider?: T;
-  batch?: T;
-  metadata?: T;
-  request?: T;
-  response?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "nouns_select".
  */
 export interface NounsSelect<T extends boolean = true> {
@@ -751,6 +733,60 @@ export interface EventsSelect<T extends boolean = true> {
         data?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "functions_select".
+ */
+export interface FunctionsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workflows_select".
+ */
+export interface WorkflowsSelect<T extends boolean = true> {
+  name?: T;
+  code?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "models_select".
+ */
+export interface ModelsSelect<T extends boolean = true> {
+  id?: T;
+  data?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "generations_select".
+ */
+export interface GenerationsSelect<T extends boolean = true> {
+  provider?: T;
+  type?: T;
+  batch?: T;
+  metadata?: T;
+  request?: T;
+  response?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "batches_select".
+ */
+export interface BatchesSelect<T extends boolean = true> {
+  status?: T;
+  generations?: T;
   updatedAt?: T;
   createdAt?: T;
 }
