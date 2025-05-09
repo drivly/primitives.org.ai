@@ -8,6 +8,7 @@ export const Users: CollectionConfig = {
   },
   auth: {
     loginWithUsername: true,
+    useAPIKey: true,
   },
   fields: [
     // Email added by default

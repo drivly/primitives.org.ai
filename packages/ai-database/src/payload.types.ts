@@ -272,6 +272,9 @@ export interface User {
   id: number;
   updatedAt: string;
   createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
   email?: string | null;
   username: string;
   resetPasswordToken?: string | null;
@@ -456,6 +459,9 @@ export interface GenerationsSelect<T extends boolean = true> {
 export interface UsersSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
   email?: T;
   username?: T;
   resetPasswordToken?: T;
