@@ -1,0 +1,12 @@
+{
+  "name": "db",
+  "private": true,
+  "scripts": {
+    "dev": "ai-database dev",
+    "build": "ai-database build",
+    "start": "ai-database start"
+  },
+  "dependencies": {
+    "ai-database": "workspace:*"
+  }
+}
