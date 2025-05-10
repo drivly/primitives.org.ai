@@ -1,3 +1,7 @@
-export default function Icon() {
-  return <p style={{ fontSize: '6rem' }}>彡</p>
+import { FaDatabase } from 'react-icons/fa'
+
+export default function Logo() {
+  return (
+    <FaDatabase size={96} />
+  )
 }

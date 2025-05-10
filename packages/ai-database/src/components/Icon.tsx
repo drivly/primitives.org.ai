@@ -1,3 +1,7 @@
+import { GoDatabase } from 'react-icons/go'
+
 export default function Icon() {
-  return <p style={{ fontSize: '1.5rem' }}>彡</p>
+  return (
+    <GoDatabase size={16} />
+  )
 }
