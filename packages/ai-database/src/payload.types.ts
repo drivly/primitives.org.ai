@@ -126,7 +126,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: number;
+    defaultIDType: string;
   };
   globals: {
     settings: Setting;
@@ -183,7 +183,7 @@ export interface Noun {
     | (
         | {
             relationTo: 'nouns';
-            value: number | Noun;
+            value: string | Noun;
           }
         | {
             relationTo: 'types';
@@ -196,17 +196,17 @@ export interface Noun {
   relationships?:
     | {
         predicate?: (string | null) | Verb;
-        object?: (number | null) | Noun;
+        object?: (string | null) | Noun;
         id?: string | null;
       }[]
     | null;
   related?: {
-    docs?: (number | Noun)[];
+    docs?: (string | Noun)[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
   things?: {
-    docs?: (number | Thing)[];
+    docs?: (string | Thing)[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
@@ -236,7 +236,7 @@ export interface Type {
 export interface Verb {
   id: string;
   things?: {
-    docs?: (number | Thing)[];
+    docs?: (string | Thing)[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
@@ -249,9 +249,9 @@ export interface Verb {
  */
 export interface Thing {
   id: string;
-  type?: (number | null) | Noun;
+  type?: (string | null) | Noun;
   format?: ('Object' | 'Markdown') | null;
-  generation?: (number | null) | Generation;
+  generation?: (string | null) | Generation;
   data?:
     | {
         [k: string]: unknown;
@@ -265,7 +265,7 @@ export interface Thing {
   relationships?:
     | {
         verb?: (string | null) | Verb;
-        thing?: (number | null) | Thing;
+        thing?: (string | null) | Thing;
         id?: string | null;
       }[]
     | null;
@@ -277,10 +277,10 @@ export interface Thing {
  * via the `definition` "generations".
  */
 export interface Generation {
-  id: number;
+  id: string;
   provider?: string | null;
   type?: ('Realtime' | 'Batch') | null;
-  batch?: (number | null) | Batch;
+  batch?: (string | null) | Batch;
   request?:
     | {
         [k: string]: unknown;
@@ -316,10 +316,10 @@ export interface Generation {
  * via the `definition` "batches".
  */
 export interface Batch {
-  id: number;
+  id: string;
   status: 'Pending' | 'Generating' | 'Completed' | 'Failed';
   generations?: {
-    docs?: (number | Generation)[];
+    docs?: (string | Generation)[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
@@ -331,7 +331,7 @@ export interface Batch {
  * via the `definition` "events".
  */
 export interface Event {
-  id: number;
+  id: string;
   type?: string | null;
   data?:
     | {
@@ -344,7 +344,7 @@ export interface Event {
     | null;
   webhooks?:
     | {
-        webhook?: (number | null) | Webhook;
+        webhook?: (string | null) | Webhook;
         timestamp?: string | null;
         status?: ('Pending' | 'Success' | 'Error') | null;
         data?:
@@ -367,10 +367,10 @@ export interface Event {
  * via the `definition` "webhooks".
  */
 export interface Webhook {
-  id: number;
+  id: string;
   type?: ('Incoming' | 'Outgoing') | null;
   events?: ('Create' | 'Update' | 'Delete')[] | null;
-  things?: (number | Thing)[] | null;
+  things?: (string | Thing)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -379,7 +379,7 @@ export interface Webhook {
  * via the `definition` "functions".
  */
 export interface Function {
-  id: number;
+  id: string;
   name: string;
   output?: ('Object' | 'ObjectArray' | 'Text' | 'TextArray' | 'Code') | null;
   model?: (string | null) | Model;
@@ -422,7 +422,7 @@ export interface Model {
  * via the `definition` "workflows".
  */
 export interface Workflow {
-  id: number;
+  id: string;
   name: string;
   code?: string | null;
   updatedAt: string;
@@ -473,7 +473,7 @@ export interface Role {
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
+  id: string;
   updatedAt: string;
   createdAt: string;
   enableAPIKey?: boolean | null;
@@ -493,7 +493,7 @@ export interface User {
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
-  id: number;
+  id: string;
   /**
    * Input data provided to the job
    */
@@ -586,11 +586,11 @@ export interface PayloadJob {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
+  id: string;
   document?:
     | ({
         relationTo: 'nouns';
-        value: number | Noun;
+        value: string | Noun;
       } | null)
     | ({
         relationTo: 'verbs';
@@ -598,19 +598,19 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'things';
-        value: number | Thing;
+        value: string | Thing;
       } | null)
     | ({
         relationTo: 'events';
-        value: number | Event;
+        value: string | Event;
       } | null)
     | ({
         relationTo: 'functions';
-        value: number | Function;
+        value: string | Function;
       } | null)
     | ({
         relationTo: 'workflows';
-        value: number | Workflow;
+        value: string | Workflow;
       } | null)
     | ({
         relationTo: 'models';
@@ -618,11 +618,11 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'generations';
-        value: number | Generation;
+        value: string | Generation;
       } | null)
     | ({
         relationTo: 'batches';
-        value: number | Batch;
+        value: string | Batch;
       } | null)
     | ({
         relationTo: 'types';
@@ -646,20 +646,20 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'users';
-        value: number | User;
+        value: string | User;
       } | null)
     | ({
         relationTo: 'webhooks';
-        value: number | Webhook;
+        value: string | Webhook;
       } | null)
     | ({
         relationTo: 'payload-jobs';
-        value: number | PayloadJob;
+        value: string | PayloadJob;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -669,10 +669,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: string;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   key?: string | null;
   value?:
@@ -692,7 +692,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
+  id: string;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -979,7 +979,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  * via the `definition` "settings".
  */
 export interface Setting {
-  id: number;
+  id: string;
   baseUrl?: string | null;
   model?: string | null;
   provider?: string | null;
@@ -1050,9 +1050,9 @@ export interface WorkflowSeed {
 export interface WorkflowGenerateThing {
   input: {
     id: string;
-    type?: (number | null) | Noun;
+    type?: (string | null) | Noun;
     format?: ('Object' | 'Markdown') | null;
-    generation?: (number | null) | Generation;
+    generation?: (string | null) | Generation;
     data?:
       | {
           [k: string]: unknown;
@@ -1066,7 +1066,7 @@ export interface WorkflowGenerateThing {
     relationships?:
       | {
           verb?: (string | null) | Verb;
-          thing?: (number | null) | Thing;
+          thing?: (string | null) | Thing;
           id?: string | null;
         }[]
       | null;
