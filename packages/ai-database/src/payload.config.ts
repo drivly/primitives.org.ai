@@ -8,6 +8,7 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 
+import { Database } from './globals/Database'
 import { Functions } from './collections/Functions'
 import { Workflows } from './collections/Workflows'
 import { Models } from './collections/Models'
@@ -53,7 +54,7 @@ export default buildConfig({
     }
   },
   collections: [Nouns, Verbs, Things, Events, Functions, Workflows, Models, Generations, Batches, Types, Actions, Enums, Properties, Roles, Users, Webhooks],
-  globals: [Settings],
+  globals: [Settings],  
   jobs: {
     tasks: [seedFunctions, seedModels, seedRoles, seedSchema],
     workflows: [seed, generateThing],

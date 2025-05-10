@@ -17,7 +17,7 @@ export const generateThing: WorkflowConfig<'generateThing'> = {
 
     const results = job.input.format === 'Object' ? 
       await generateObject({
-        model: model(settings.model || 'google/gemini-2.5-pro-preview', { structuredOutputs: true}),
+        model: model('google/gemini-2.5-pro-preview', { structuredOutputs: true}),
         prompt: `Generate a ${type} with an @id of ${job.input.id} with the appropriate properties and relationships (including content in markdown format if applicable)`,
         output: 'no-schema',
         // mode: 'auto',
@@ -34,7 +34,7 @@ export const generateThing: WorkflowConfig<'generateThing'> = {
       usage: results.usage,
     })) : 
       await generateText({
-        model: model(settings.model || 'google/gemini-2.5-pro-preview', { structuredOutputs: true}),
+        model: model('google/gemini-2.5-pro-preview', { structuredOutputs: true}),
         prompt: `Generate a ${type} with an @id of ${job.input.id}`,
         // mode: 'auto',
         // schema: z.object({

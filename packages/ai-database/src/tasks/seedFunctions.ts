@@ -8,12 +8,16 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
   handler: async ({ req }) => {
     const { payload } = req
 
+    const settings = await payload.findGlobal({ slug: 'settings' })
+    const model = settings.defaultModel || 'gemini-2.5-pro-preview'
+    // const model = 'gemini-2.5-pro-preview'
 
     payload.db.upsert({
       collection: 'functions',
       data: { 
         name: 'generateMarkdown', 
         output: 'Text',
+        model,
         prompt: dedent`
         Generate markdown for the following data:
         {data}
@@ -26,6 +30,7 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
       data: { 
         name: 'generateList', 
         output: 'TextArray',
+        model,
         prompt: dedent`
         Generate a list for the following data:
         {data}
@@ -38,6 +43,7 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
       data: { 
         name: 'generateObject', 
         output: 'Object',
+        model,
         prompt: dedent`
         Generate an object for the following data:
         {data}
@@ -50,6 +56,7 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
       data: { 
         name: 'generateObjectArray', 
         output: 'ObjectArray',
+        model,
         prompt: dedent`
         Generate an object array for the following data:
         {data}
@@ -62,6 +69,7 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
       data: { 
         name: 'generateText', 
         output: 'Text',
+        model,
         prompt: dedent`
         Generate text for the following data:
         {data}
@@ -74,6 +82,7 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
       data: { 
         name: 'generateCode', 
         output: 'Code',
+        model,
         prompt: dedent`
         Generate code for the following data:
         {data}
@@ -86,6 +95,7 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
       data: { 
         name: 'generateComponent', 
         output: 'Code',
+        model,
         prompt: dedent`
         Generate a component for the following data:
         {data}

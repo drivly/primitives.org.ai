@@ -1,10 +1,10 @@
 import type { GlobalConfig } from 'payload'
 import { editorOptions } from '@/lib/collections'
 
-export const Settings: GlobalConfig = {
-  slug: 'settings',
+export const Database: GlobalConfig = {
+  slug: 'database',
   admin: {
-    group: 'Admin'
+    group: 'Data'
   },
   fields: [
     { type: 'row', fields: [

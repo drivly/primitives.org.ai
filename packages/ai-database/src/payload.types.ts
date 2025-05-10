@@ -383,8 +383,8 @@ export interface Function {
   name: string;
   output?: ('Object' | 'ObjectArray' | 'Text' | 'TextArray' | 'Code') | null;
   model?: (string | null) | Model;
-  prompt?: string | null;
   system?: string | null;
+  prompt?: string | null;
   schema?: string | null;
   settings?: string | null;
   data?:
@@ -777,8 +777,8 @@ export interface FunctionsSelect<T extends boolean = true> {
   name?: T;
   output?: T;
   model?: T;
-  prompt?: T;
   system?: T;
+  prompt?: T;
   schema?: T;
   settings?: T;
   data?: T;
@@ -980,12 +980,11 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Setting {
   id: string;
-  baseUrl?: string | null;
-  model?: string | null;
-  provider?: string | null;
-  batch?: string | null;
-  batchSize?: number | null;
-  temperature?: number | null;
+  name?: string | null;
+  domain?: string | null;
+  path?: string | null;
+  defaultModel?: (string | null) | Model;
+  context?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -994,12 +993,11 @@ export interface Setting {
  * via the `definition` "settings_select".
  */
 export interface SettingsSelect<T extends boolean = true> {
-  baseUrl?: T;
-  model?: T;
-  provider?: T;
-  batch?: T;
-  batchSize?: T;
-  temperature?: T;
+  name?: T;
+  domain?: T;
+  path?: T;
+  defaultModel?: T;
+  context?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

@@ -8,9 +8,9 @@ export const seed: WorkflowConfig<'seed'> = {
 
     const ts = new Date().toISOString()
 
-    await tasks.seedFunctions(ts, { input: {}})
-    await tasks.seedModels(ts, { input: {}})
     await tasks.seedRoles(ts, { input: {}})
+    await tasks.seedModels(ts, { input: {}})
+    await tasks.seedFunctions(ts, { input: {}})
     await tasks.seedSchema(ts, { input: {}})
 
     
