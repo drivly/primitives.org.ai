@@ -29,6 +29,7 @@ import { generateThing } from './workflows/generateThing'
 import { seedModels } from './tasks/seedModels'
 import { seedRoles } from './tasks/seedRoles'
 import { seedSchema } from './tasks/seedSchema'
+import { db } from './databases/sqlite'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -58,11 +59,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload.types.ts'),
   },
-  db: sqliteAdapter({
-    client: {
-      url: process.env.DATABASE_URI || 'file:./ai.db',
-    },
-  }),
+  db,
   plugins: [
     payloadCloudPlugin(),
     // storage-adapter-placeholder

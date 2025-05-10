@@ -1,6 +1,6 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { sql } from '@payloadcms/db-sqlite/drizzle'
-import { integer, sqliteTable, customType } from '@payloadcms/db-sqlite/drizzle/sqlite-core'
+import { customType, index, integer, sqliteTable } from '@payloadcms/db-sqlite/drizzle/sqlite-core'
 
 const float32Array = customType<{
   data: number[];
@@ -17,37 +17,36 @@ const float32Array = customType<{
   toDriver(value: number[]) {
     return sql`vector32(${JSON.stringify(value)})`;
   },
-});
-
-export const vectorTable = sqliteTable("vector_table", {
-  id: integer("id").primaryKey(),
-  vector: float32Array("vector", { dimensions: 3 }),
 })
 
 export const db = sqliteAdapter({
   client: {
     url: process.env.DATABASE_URI || 'file:./ai.db',
   },
-  beforeSchemaInit: [
-    // ({ schema, adapter }) => {
-    ({ schema, extendTable }) => {
-      extendTable({ table: ''})
-      return {
-        ...schema,
-        tables: {
-          ...schema.tables,
-          vectorTable: sqliteTable("vector_table", {
-            id: integer("id").primaryKey(),
-            vector: float32Array("vector", { dimensions: 3 }),
-          })
-        },
-      }
-    },
-  ],
   afterSchemaInit: [
-    (args) => {
-      const { schema } = args
-      adapter.db.schema
+    ({ schema, extendTable }) => {
+      extendTable({
+        table: schema.tables.nouns,
+        columns: {
+          embeddings: float32Array('embeddings', { dimensions: 256 }),
+        },
+        extraConfig: (table) => ({
+          embeddings_index: index(
+            'nouns_embeddings_index',
+          ).on(table.embeddings),
+        }),
+      })
+      extendTable({
+        table: schema.tables.things,
+        columns: {
+          embeddings: float32Array('embeddings', { dimensions: 256 }),
+        },
+        extraConfig: (table) => ({
+          embeddings_index: index(
+            'things_embeddings_index',
+          ).on(table.embeddings),
+        }),
+      })
       return schema
     },
   ]
