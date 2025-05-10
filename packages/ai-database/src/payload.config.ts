@@ -1,5 +1,4 @@
-// storage-adapter-import-placeholder
-import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { getDatabaseAdapter } from './lib/database'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
@@ -34,7 +33,6 @@ import { seedFunctions } from './tasks/seedFunctions'
 import { seedModels } from './tasks/seedModels'
 import { seedRoles } from './tasks/seedRoles'
 import { seedSchema } from './tasks/seedSchema'
-import { db } from './databases/sqlite'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -60,11 +58,11 @@ export default buildConfig({
     workflows: [seed, generateThing],
   },
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: process.env.PAYLOAD_SECRET || 'default-generated-secret-' + Math.random().toString(36).substring(2),
   typescript: {
     outputFile: path.resolve(dirname, 'payload.types.ts'),
   },
-  db,
+  db: getDatabaseAdapter(process.env.DATABASE_URI),
   plugins: [
     multiTenantPlugin<Config>({
       debug: true,
