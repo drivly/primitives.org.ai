@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { Project } from '../../src/project'
+// import { Project } from '../../src/project'
 import { ProjectConfig, TaskConfig } from '../../src/types'
 
 describe.skip('Project Management', () => {
