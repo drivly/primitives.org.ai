@@ -1,4 +1,4 @@
-import { createPayloadNextHandler } from '@payloadcms/next'
+const { createPayloadNextHandler } = require('@payloadcms/next')
 import path from 'path'
 import { fileURLToPath } from 'url'
 
