@@ -59,7 +59,7 @@ export const getDatabaseAdapter = (uri?: string) => {
       const { sqliteAdapter } = require('@payloadcms/db-sqlite')
       return sqliteAdapter({
         client: {
-          url: uri || 'file:./payload.db',
+          url: uri || 'file:./ai.db',
         },
       })
     }
@@ -71,10 +71,6 @@ export const getDatabaseAdapter = (uri?: string) => {
  * @param uri - Optional database connection URI
  * @returns The configured database adapter
  */
-export const initializePayloadDB = (uri?: string) => {
-  if (!process.env.PAYLOAD_SECRET) {
-    process.env.PAYLOAD_SECRET = 'default-generated-secret-' + Math.random().toString(36).substring(2)
-  }
-  
+export const initializePayloadDB = (uri?: string) => {  
   return getDatabaseAdapter(uri || process.env.DATABASE_URI)
 }
