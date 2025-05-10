@@ -30,6 +30,7 @@ import { Settings } from './globals/Settings'
 
 import { seed } from './workflows/seed'
 import { generateThing } from './workflows/generateThing'
+import { generateEmbeddings } from './workflows/generateEmbeddings'
 import { seedFunctions } from './tasks/seedFunctions'
 import { seedModels } from './tasks/seedModels'
 import { seedRoles } from './tasks/seedRoles'
@@ -57,7 +58,7 @@ export default buildConfig({
   globals: [Settings],  
   jobs: {
     tasks: [seedFunctions, seedModels, seedRoles, seedSchema],
-    workflows: [seed, generateThing],
+    workflows: [seed, generateThing, generateEmbeddings],
   },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
