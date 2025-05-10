@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { editorOptions } from '@/lib/collections'
-import { loggedIn } from '@/lib/collections'
+import { isLoggedIn } from '@/lib/collections'
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -12,7 +12,7 @@ export const Events: CollectionConfig = {
     create: () => false,
     update: () => false,
     delete: () => false,
-    read: loggedIn,
+    read: isLoggedIn,
   },
   fields: [
     { name: 'type', type: 'text' },

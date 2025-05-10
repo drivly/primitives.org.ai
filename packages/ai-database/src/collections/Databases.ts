@@ -10,5 +10,6 @@ export const Databases: CollectionConfig = {
     { name: 'id', type: 'text', required: true, label: 'Domain' },
     { name: 'name', type: 'text' },
     // { name: 'domain', type: 'text' },
+    { name: 'nouns', type: 'join', collection: 'nouns', on: 'ns' }
   ],
 }

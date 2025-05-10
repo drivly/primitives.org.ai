@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { editorOptions, loggedIn } from '@/lib/collections'
+import { editorOptions, isLoggedIn } from '@/lib/collections'
 
 export const Generations: CollectionConfig = {
   slug: 'generations',
@@ -10,7 +10,7 @@ export const Generations: CollectionConfig = {
     create: () => false,
     update: () => false,
     delete: () => false,
-    read: loggedIn,
+    read: isLoggedIn,
   },
   fields: [
     { type: 'row', fields: [

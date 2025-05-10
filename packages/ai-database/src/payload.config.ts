@@ -29,6 +29,7 @@ import { Settings } from './globals/Settings'
 
 import { seed } from './workflows/seed'
 import { generateThing } from './workflows/generateThing'
+import { seedFunctions } from './tasks/seedFunctions'
 import { seedModels } from './tasks/seedModels'
 import { seedRoles } from './tasks/seedRoles'
 import { seedSchema } from './tasks/seedSchema'
@@ -51,10 +52,10 @@ export default buildConfig({
       },
     }
   },
-  collections: [Nouns, Verbs, Things, Events, Functions, Workflows, Models, Generations, Batches, Types, Actions, Enums, Properties, Roles, Users, Databases, Webhooks],
+  collections: [Nouns, Verbs, Things, Events, Functions, Workflows, Models, Generations, Batches, Types, Actions, Enums, Properties, Roles, Users, Webhooks],
   globals: [Settings],
   jobs: {
-    tasks: [seedModels, seedRoles, seedSchema],
+    tasks: [seedFunctions, seedModels, seedRoles, seedSchema],
     workflows: [seed, generateThing],
   },
   editor: lexicalEditor(),
@@ -65,6 +66,8 @@ export default buildConfig({
   db,
   plugins: [
     multiTenantPlugin<Config>({
+      debug: true,
+      enabled: false,
       userHasAccessToAllTenants: () => true,
       tenantsSlug: 'databases',
       tenantField: { name: 'ns' },

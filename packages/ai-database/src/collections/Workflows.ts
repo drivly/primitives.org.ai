@@ -5,7 +5,17 @@ editorOptions.language = 'ts'
 
 const defaultValue = `
 export default (event, { ai, db }) => {
+
   const { data } = event
+
+  const related = await db.ideas.findSimilar({ data })
+
+  const result = ai.generateIdeas({ data, related })
+
+  await db.ideas.create({ data: result })
+
+  return result
+  
 }
 `.trim()
 

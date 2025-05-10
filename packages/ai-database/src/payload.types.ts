@@ -82,7 +82,6 @@ export interface Config {
     properties: Property;
     roles: Role;
     users: User;
-    databases: Database;
     webhooks: Webhook;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -91,6 +90,7 @@ export interface Config {
   };
   collectionsJoins: {
     nouns: {
+      related: 'nouns';
       things: 'things';
     };
     verbs: {
@@ -119,7 +119,6 @@ export interface Config {
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
     roles: RolesSelect<false> | RolesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    databases: DatabasesSelect<false> | DatabasesSelect<true>;
     webhooks: WebhooksSelect<false> | WebhooksSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -141,6 +140,7 @@ export interface Config {
   };
   jobs: {
     tasks: {
+      seedFunctions: TaskSeedFunctions;
       seedModels: TaskSeedModels;
       seedRoles: TaskSeedRoles;
       seedSchema: TaskSeedSchema;
@@ -178,11 +178,33 @@ export interface UserAuthOperations {
  * via the `definition` "nouns".
  */
 export interface Noun {
-  ns?: (string | null) | Database;
   id: string;
-  type?: (number | Noun)[] | null;
-  format?: ('Object' | 'Markdown') | null;
-  schema?: string | null;
+  typeOf?:
+    | (
+        | {
+            relationTo: 'nouns';
+            value: number | Noun;
+          }
+        | {
+            relationTo: 'types';
+            value: string | Type;
+          }
+      )[]
+    | null;
+  generate?: ('List' | 'Object' | 'Markdown' | 'Code' | 'Nothing') | null;
+  context?: string | null;
+  relationships?:
+    | {
+        predicate?: (string | null) | Verb;
+        object?: (number | null) | Noun;
+        id?: string | null;
+      }[]
+    | null;
+  related?: {
+    docs?: (number | Noun)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   things?: {
     docs?: (number | Thing)[];
     hasNextPage?: boolean;
@@ -193,11 +215,31 @@ export interface Noun {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "databases".
+ * via the `definition` "types".
  */
-export interface Database {
+export interface Type {
   id: string;
-  name?: string | null;
+  data?: string | null;
+  subClassOf?: (string | null) | Type;
+  subClasses?: {
+    docs?: (string | Type)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "verbs".
+ */
+export interface Verb {
+  id: string;
+  things?: {
+    docs?: (number | Thing)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -206,7 +248,6 @@ export interface Database {
  * via the `definition` "things".
  */
 export interface Thing {
-  ns?: (string | null) | Database;
   id: string;
   type?: (number | null) | Noun;
   format?: ('Object' | 'Markdown') | null;
@@ -237,7 +278,6 @@ export interface Thing {
  */
 export interface Generation {
   id: number;
-  ns?: (string | null) | Database;
   provider?: string | null;
   type?: ('Realtime' | 'Batch') | null;
   batch?: (number | null) | Batch;
@@ -288,26 +328,10 @@ export interface Batch {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "verbs".
- */
-export interface Verb {
-  ns?: (string | null) | Database;
-  id: string;
-  things?: {
-    docs?: (number | Thing)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
 export interface Event {
   id: number;
-  ns?: (string | null) | Database;
   type?: string | null;
   data?:
     | {
@@ -356,21 +380,22 @@ export interface Webhook {
  */
 export interface Function {
   id: number;
-  ns?: (string | null) | Database;
   name: string;
-  description?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "workflows".
- */
-export interface Workflow {
-  id: number;
-  ns?: (string | null) | Database;
-  name: string;
-  code?: string | null;
+  output?: ('Object' | 'ObjectArray' | 'Text' | 'TextArray' | 'Code') | null;
+  model?: (string | null) | Model;
+  prompt?: string | null;
+  system?: string | null;
+  schema?: string | null;
+  settings?: string | null;
+  data?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -394,17 +419,12 @@ export interface Model {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "types".
+ * via the `definition` "workflows".
  */
-export interface Type {
-  id: string;
-  data?: string | null;
-  subClassOf?: (string | null) | Type;
-  subClasses?: {
-    docs?: (string | Type)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
+export interface Workflow {
+  id: number;
+  name: string;
+  code?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -424,7 +444,7 @@ export interface Action {
  */
 export interface Enum {
   id: string;
-  type: number | Noun;
+  type: string | Type;
   data?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -454,12 +474,6 @@ export interface Role {
  */
 export interface User {
   id: number;
-  tenants?:
-    | {
-        tenant: string | Database;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
   enableAPIKey?: boolean | null;
@@ -526,7 +540,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'seedModels' | 'seedRoles' | 'seedSchema';
+        taskSlug: 'inline' | 'seedFunctions' | 'seedModels' | 'seedRoles' | 'seedSchema';
         taskID: string;
         input?:
           | {
@@ -560,7 +574,7 @@ export interface PayloadJob {
       }[]
     | null;
   workflowSlug?: ('seed' | 'generateThing') | null;
-  taskSlug?: ('inline' | 'seedModels' | 'seedRoles' | 'seedSchema') | null;
+  taskSlug?: ('inline' | 'seedFunctions' | 'seedModels' | 'seedRoles' | 'seedSchema') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -635,10 +649,6 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
-        relationTo: 'databases';
-        value: string | Database;
-      } | null)
-    | ({
         relationTo: 'webhooks';
         value: number | Webhook;
       } | null)
@@ -693,11 +703,18 @@ export interface PayloadMigration {
  * via the `definition` "nouns_select".
  */
 export interface NounsSelect<T extends boolean = true> {
-  ns?: T;
   id?: T;
-  type?: T;
-  format?: T;
-  schema?: T;
+  typeOf?: T;
+  generate?: T;
+  context?: T;
+  relationships?:
+    | T
+    | {
+        predicate?: T;
+        object?: T;
+        id?: T;
+      };
+  related?: T;
   things?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -707,7 +724,6 @@ export interface NounsSelect<T extends boolean = true> {
  * via the `definition` "verbs_select".
  */
 export interface VerbsSelect<T extends boolean = true> {
-  ns?: T;
   id?: T;
   things?: T;
   updatedAt?: T;
@@ -718,7 +734,6 @@ export interface VerbsSelect<T extends boolean = true> {
  * via the `definition` "things_select".
  */
 export interface ThingsSelect<T extends boolean = true> {
-  ns?: T;
   id?: T;
   type?: T;
   format?: T;
@@ -740,7 +755,6 @@ export interface ThingsSelect<T extends boolean = true> {
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
-  ns?: T;
   type?: T;
   data?: T;
   webhooks?:
@@ -760,9 +774,14 @@ export interface EventsSelect<T extends boolean = true> {
  * via the `definition` "functions_select".
  */
 export interface FunctionsSelect<T extends boolean = true> {
-  ns?: T;
   name?: T;
-  description?: T;
+  output?: T;
+  model?: T;
+  prompt?: T;
+  system?: T;
+  schema?: T;
+  settings?: T;
+  data?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -771,7 +790,6 @@ export interface FunctionsSelect<T extends boolean = true> {
  * via the `definition` "workflows_select".
  */
 export interface WorkflowsSelect<T extends boolean = true> {
-  ns?: T;
   name?: T;
   code?: T;
   updatedAt?: T;
@@ -792,7 +810,6 @@ export interface ModelsSelect<T extends boolean = true> {
  * via the `definition` "generations_select".
  */
 export interface GenerationsSelect<T extends boolean = true> {
-  ns?: T;
   provider?: T;
   type?: T;
   batch?: T;
@@ -869,12 +886,6 @@ export interface RolesSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  tenants?:
-    | T
-    | {
-        tenant?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
   enableAPIKey?: T;
@@ -887,16 +898,6 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "databases_select".
- */
-export interface DatabasesSelect<T extends boolean = true> {
-  id?: T;
-  name?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1005,6 +1006,14 @@ export interface SettingsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSeedFunctions".
+ */
+export interface TaskSeedFunctions {
+  input?: unknown;
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TaskSeedModels".
  */
 export interface TaskSeedModels {
@@ -1040,7 +1049,6 @@ export interface WorkflowSeed {
  */
 export interface WorkflowGenerateThing {
   input: {
-    ns?: (string | null) | Database;
     id: string;
     type?: (number | null) | Noun;
     format?: ('Object' | 'Markdown') | null;
