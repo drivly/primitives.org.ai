@@ -11,7 +11,9 @@ export const generateThing: WorkflowConfig<'generateThing'> = {
     const { payload } = req
     const settings = await payload.findGlobal({ slug: 'settings' })
     
-    const type = job.input.type?.relationTo === 'types' ? `@type: ${job.input.type?.value}` : job.input.type?.value || 'JSON Object'
+    const type = job.input.type || 'JSON Object'
+
+    console.log(`Generating ${type}/${job.input.id}`)
 
     const results = job.input.format === 'Object' ? 
       await generateObject({
@@ -26,7 +28,7 @@ export const generateThing: WorkflowConfig<'generateThing'> = {
       // }),
     }).then((results) => ({
       data: matter.stringify('', { data: results.object }),
-      content: matter.stringify('', { data: { $id: job.input.id, $type: job.input.type?.value, ...results.object as any } }),
+      content: matter.stringify('', { data: { $id: job.input.id, $type: job.input.type, ...results.object as any } }),
       request: results.request,
       response: results.response,
       usage: results.usage,
@@ -42,7 +44,7 @@ export const generateThing: WorkflowConfig<'generateThing'> = {
       // }),
     }).then((results) => ({
       data: undefined,
-      content: matter.stringify(results.text, { data: { $id: job.input.id, $type: job.input.type?.value } }),
+      content: matter.stringify(results.text, { data: { $id: job.input.id, $type: job.input.type } }),
       request: results.request,
       response: results.response,
       usage: results.usage,

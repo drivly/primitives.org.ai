@@ -8,7 +8,7 @@ export const Enums: CollectionConfig = {
   },
   fields: [
     { name: 'id', type: 'text', required: true },
-    { name: 'type', type: 'relationship', relationTo: 'types', required: true },
+    { name: 'type', type: 'relationship', relationTo: 'nouns', required: true },
     { name: 'data', type: 'code', admin: { language: 'mdx', editorOptions } },
   ],
 }

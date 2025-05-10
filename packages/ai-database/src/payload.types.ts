@@ -176,19 +176,9 @@ export interface UserAuthOperations {
  * via the `definition` "nouns".
  */
 export interface Noun {
+  ns?: string | null;
   id: string;
-  type?:
-    | (
-        | {
-            relationTo: 'nouns';
-            value: number | Noun;
-          }
-        | {
-            relationTo: 'types';
-            value: string | Type;
-          }
-      )[]
-    | null;
+  type?: (number | Noun)[] | null;
   format?: ('Object' | 'Markdown') | null;
   schema?: string | null;
   things?: {
@@ -201,35 +191,11 @@ export interface Noun {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "types".
- */
-export interface Type {
-  id: string;
-  data?: string | null;
-  subClassOf?: (string | null) | Type;
-  subClasses?: {
-    docs?: (string | Type)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "things".
  */
 export interface Thing {
   id: string;
-  type?:
-    | ({
-        relationTo: 'nouns';
-        value: number | Noun;
-      } | null)
-    | ({
-        relationTo: 'types';
-        value: string | Type;
-      } | null);
+  type?: (number | null) | Noun;
   format?: ('Object' | 'Markdown') | null;
   generation?: (number | null) | Generation;
   data?:
@@ -245,15 +211,7 @@ export interface Thing {
   relationships?:
     | {
         verb?: (string | null) | Verb;
-        thing?:
-          | ({
-              relationTo: 'nouns';
-              value: number | Noun;
-            } | null)
-          | ({
-              relationTo: 'things';
-              value: number | Thing;
-            } | null);
+        thing?: (number | null) | Thing;
         id?: string | null;
       }[]
     | null;
@@ -319,6 +277,7 @@ export interface Batch {
  * via the `definition` "verbs".
  */
 export interface Verb {
+  ns?: string | null;
   id: string;
   things?: {
     docs?: (number | Thing)[];
@@ -418,6 +377,22 @@ export interface Model {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "types".
+ */
+export interface Type {
+  id: string;
+  data?: string | null;
+  subClassOf?: (string | null) | Type;
+  subClasses?: {
+    docs?: (string | Type)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "actions".
  */
 export interface Action {
@@ -432,7 +407,7 @@ export interface Action {
  */
 export interface Enum {
   id: string;
-  type: string | Type;
+  type: number | Noun;
   data?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -691,6 +666,7 @@ export interface PayloadMigration {
  * via the `definition` "nouns_select".
  */
 export interface NounsSelect<T extends boolean = true> {
+  ns?: T;
   id?: T;
   type?: T;
   format?: T;
@@ -704,6 +680,7 @@ export interface NounsSelect<T extends boolean = true> {
  * via the `definition` "verbs_select".
  */
 export interface VerbsSelect<T extends boolean = true> {
+  ns?: T;
   id?: T;
   things?: T;
   updatedAt?: T;
@@ -1016,15 +993,7 @@ export interface WorkflowSeed {
 export interface WorkflowGenerateThing {
   input: {
     id: string;
-    type?:
-      | ({
-          relationTo: 'nouns';
-          value: number | Noun;
-        } | null)
-      | ({
-          relationTo: 'types';
-          value: string | Type;
-        } | null);
+    type?: (number | null) | Noun;
     format?: ('Object' | 'Markdown') | null;
     generation?: (number | null) | Generation;
     data?:
@@ -1040,15 +1009,7 @@ export interface WorkflowGenerateThing {
     relationships?:
       | {
           verb?: (string | null) | Verb;
-          thing?:
-            | ({
-                relationTo: 'nouns';
-                value: number | Noun;
-              } | null)
-            | ({
-                relationTo: 'things';
-                value: number | Thing;
-              } | null);
+          thing?: (number | null) | Thing;
           id?: string | null;
         }[]
       | null;

@@ -20,8 +20,9 @@ import { Actions } from './collections/Actions'
 import { Enums } from './collections/Enums'
 import { Properties } from './collections/Properties'
 import { Roles } from './collections/Roles'
-import { Webhooks } from './collections/Webhooks'
 import { Users } from './collections/Users'
+import { Databases } from './collections/Databases'
+import { Webhooks } from './collections/Webhooks'
 import { Settings } from './globals/Settings'
 
 import { seed } from './workflows/seed'
@@ -48,7 +49,7 @@ export default buildConfig({
       },
     }
   },
-  collections: [Nouns, Verbs, Things, Events, Functions, Workflows, Models, Generations, Batches, Types, Actions, Enums, Properties, Roles, Users, Webhooks],
+  collections: [Nouns, Verbs, Things, Events, Functions, Workflows, Models, Generations, Batches, Types, Actions, Enums, Properties, Roles, Users, Databases, Webhooks],
   globals: [Settings],
   jobs: {
     tasks: [seedModels, seedRoles, seedSchema],

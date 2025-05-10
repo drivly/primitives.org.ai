@@ -22,6 +22,7 @@ const float32Array = customType<{
 export const db = sqliteAdapter({
   client: {
     url: process.env.DATABASE_URI || 'file:./ai.db',
+    syncUrl: process.env.DATABASE_SYNC_URI,
     authToken: process.env.DATABASE_TOKEN || process.env.TURSO_AUTH_TOKEN,
   },
   afterSchemaInit: [

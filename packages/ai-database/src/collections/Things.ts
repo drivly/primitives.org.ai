@@ -11,7 +11,7 @@ export const Things: CollectionConfig = {
   fields: [
     { type: 'row', fields: [
       { name: 'id', type: 'text', required: true, label: 'ID' },
-      { name: 'type', type: 'relationship', relationTo: ['nouns', 'types'], label: 'type' },
+      { name: 'type', type: 'relationship', relationTo: 'nouns', label: 'type' },
       { name: 'format', type: 'select', defaultValue: 'Object', options: ['Object', 'Markdown'] },
       { name: 'generation', type: 'relationship', relationTo: 'generations', admin: { readOnly: true } },
     ]},
@@ -19,7 +19,7 @@ export const Things: CollectionConfig = {
     { name: 'content', type: 'code', admin: { language: 'mdx', editorOptions } },
     { name: 'relationships', type: 'array', fields: [
       { name: 'verb', type: 'relationship', relationTo: 'verbs' },
-      { name: 'thing', type: 'relationship', relationTo: ['nouns', 'things'] },
+      { name: 'thing', type: 'relationship', relationTo: 'things' },
     ]},
   ],
   hooks: {

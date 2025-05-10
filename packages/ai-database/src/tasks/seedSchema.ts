@@ -24,14 +24,14 @@ export const seedSchema: TaskConfig<'seedSchema'> = {
         if (type === 'Class') {
           if (id.endsWith('Action')) {
             await payload.db.upsert({
-              collection: 'actions',
-              data: { id },
-              where: { id: { equals: id } },
+              collection: 'verbs',
+              data: { id: id.replace('Action', ''), ns: 'https://schema.org' },
+              where: { id: { equals: id.replace('Action', '') } },
             })
           } else {
             await payload.db.upsert({
-              collection: 'types',
-              data: { id },
+              collection: 'nouns',
+              data: { id, ns: 'https://schema.org' },
               where: { id: { equals: id } },
             })
           }

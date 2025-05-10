@@ -29,8 +29,9 @@ export const Nouns: CollectionConfig = {
   versions: true,
   fields: [
     { type: 'row', fields: [
+      { name: 'ns', type: 'text', label: 'Namespace' },
       { name: 'id', type: 'text', required: true, label: 'Noun' },
-      { name: 'type', type: 'relationship', relationTo: ['nouns', 'types'], hasMany: true },
+      { name: 'type', type: 'relationship', relationTo: 'nouns', hasMany: true },
       { name: 'format', type: 'select', defaultValue: 'Object', options: ['Object', 'Markdown'] },
     ]},
     { name: 'schema', type: 'code', defaultValue, admin: { language: 'mdx', editorOptions } },
