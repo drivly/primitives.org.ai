@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { editorOptions } from '@/lib/collections'
 import { onThingCreate } from '@/hooks/onThingCreate'
+import { onThingUpdate } from '@/hooks/onThingUpdate'
 
 export const Things: CollectionConfig = {
   slug: 'things',
@@ -21,8 +22,10 @@ export const Things: CollectionConfig = {
       { name: 'verb', type: 'relationship', relationTo: 'verbs' },
       { name: 'thing', type: 'relationship', relationTo: 'things' },
     ]},
+    { name: 'embeddedAt', type: 'date', admin: { readOnly: true } },
+    { name: 'embeddingHash', type: 'text', admin: { readOnly: true, hidden: true } },
   ],
   hooks: {
-    afterOperation: [onThingCreate]
+    afterOperation: [onThingCreate, onThingUpdate]
   }
 }
