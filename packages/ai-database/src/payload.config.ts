@@ -2,6 +2,8 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
+import type { Config } from './payload.types'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -62,6 +64,24 @@ export default buildConfig({
   },
   db,
   plugins: [
+    multiTenantPlugin<Config>({
+      userHasAccessToAllTenants: () => true,
+      tenantsSlug: 'databases',
+      tenantField: { name: 'ns' },
+      tenantSelectorLabel: 'Database',
+      collections: {
+        nouns: {},
+        verbs: {},
+        things: {},
+        events: {},
+        functions: {},
+        workflows: {},
+        generations: {},
+        // navigation: {
+        //   isGlobal: true,
+        // }
+      },
+    }),
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],

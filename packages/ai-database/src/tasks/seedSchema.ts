@@ -10,6 +10,13 @@ export const seedSchema: TaskConfig<'seedSchema'> = {
 
     const data = await fetch('https://schema.org/version/latest/schemaorg-current-https.jsonld').then(res => res.json())
 
+
+    await payload.db.upsert({
+      collection: 'databases',
+      data: { id: 'schema.org' },
+      where: { id: { equals: 'schema.org' } },
+    })
+
     for (const schema of data['@graph']) {
       if (typeof schema['@type'] !== 'string') {
         if (Array.isArray(schema['@type'])) {
@@ -25,13 +32,13 @@ export const seedSchema: TaskConfig<'seedSchema'> = {
           if (id.endsWith('Action')) {
             await payload.db.upsert({
               collection: 'verbs',
-              data: { id: id.replace('Action', ''), ns: 'https://schema.org' },
+              data: { id: id.replace('Action', ''), ns: 'schema.org' },
               where: { id: { equals: id.replace('Action', '') } },
             })
           } else {
             await payload.db.upsert({
               collection: 'nouns',
-              data: { id, ns: 'https://schema.org' },
+              data: { id, ns: 'schema.org' },
               where: { id: { equals: id } },
             })
           }

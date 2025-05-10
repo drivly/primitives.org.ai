@@ -82,6 +82,7 @@ export interface Config {
     properties: Property;
     roles: Role;
     users: User;
+    databases: Database;
     webhooks: Webhook;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -118,6 +119,7 @@ export interface Config {
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
     roles: RolesSelect<false> | RolesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    databases: DatabasesSelect<false> | DatabasesSelect<true>;
     webhooks: WebhooksSelect<false> | WebhooksSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -176,7 +178,7 @@ export interface UserAuthOperations {
  * via the `definition` "nouns".
  */
 export interface Noun {
-  ns?: string | null;
+  ns?: (string | null) | Database;
   id: string;
   type?: (number | Noun)[] | null;
   format?: ('Object' | 'Markdown') | null;
@@ -191,9 +193,20 @@ export interface Noun {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "databases".
+ */
+export interface Database {
+  id: string;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "things".
  */
 export interface Thing {
+  ns?: (string | null) | Database;
   id: string;
   type?: (number | null) | Noun;
   format?: ('Object' | 'Markdown') | null;
@@ -224,6 +237,7 @@ export interface Thing {
  */
 export interface Generation {
   id: number;
+  ns?: (string | null) | Database;
   provider?: string | null;
   type?: ('Realtime' | 'Batch') | null;
   batch?: (number | null) | Batch;
@@ -277,7 +291,7 @@ export interface Batch {
  * via the `definition` "verbs".
  */
 export interface Verb {
-  ns?: string | null;
+  ns?: (string | null) | Database;
   id: string;
   things?: {
     docs?: (number | Thing)[];
@@ -293,6 +307,7 @@ export interface Verb {
  */
 export interface Event {
   id: number;
+  ns?: (string | null) | Database;
   type?: string | null;
   data?:
     | {
@@ -341,6 +356,7 @@ export interface Webhook {
  */
 export interface Function {
   id: number;
+  ns?: (string | null) | Database;
   name: string;
   description?: string | null;
   updatedAt: string;
@@ -352,6 +368,7 @@ export interface Function {
  */
 export interface Workflow {
   id: number;
+  ns?: (string | null) | Database;
   name: string;
   code?: string | null;
   updatedAt: string;
@@ -437,6 +454,12 @@ export interface Role {
  */
 export interface User {
   id: number;
+  tenants?:
+    | {
+        tenant: string | Database;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   enableAPIKey?: boolean | null;
@@ -612,6 +635,10 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'databases';
+        value: string | Database;
+      } | null)
+    | ({
         relationTo: 'webhooks';
         value: number | Webhook;
       } | null)
@@ -691,6 +718,7 @@ export interface VerbsSelect<T extends boolean = true> {
  * via the `definition` "things_select".
  */
 export interface ThingsSelect<T extends boolean = true> {
+  ns?: T;
   id?: T;
   type?: T;
   format?: T;
@@ -712,6 +740,7 @@ export interface ThingsSelect<T extends boolean = true> {
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
+  ns?: T;
   type?: T;
   data?: T;
   webhooks?:
@@ -731,6 +760,7 @@ export interface EventsSelect<T extends boolean = true> {
  * via the `definition` "functions_select".
  */
 export interface FunctionsSelect<T extends boolean = true> {
+  ns?: T;
   name?: T;
   description?: T;
   updatedAt?: T;
@@ -741,6 +771,7 @@ export interface FunctionsSelect<T extends boolean = true> {
  * via the `definition` "workflows_select".
  */
 export interface WorkflowsSelect<T extends boolean = true> {
+  ns?: T;
   name?: T;
   code?: T;
   updatedAt?: T;
@@ -761,6 +792,7 @@ export interface ModelsSelect<T extends boolean = true> {
  * via the `definition` "generations_select".
  */
 export interface GenerationsSelect<T extends boolean = true> {
+  ns?: T;
   provider?: T;
   type?: T;
   batch?: T;
@@ -837,6 +869,12 @@ export interface RolesSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  tenants?:
+    | T
+    | {
+        tenant?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   enableAPIKey?: T;
@@ -849,6 +887,16 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "databases_select".
+ */
+export interface DatabasesSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -992,6 +1040,7 @@ export interface WorkflowSeed {
  */
 export interface WorkflowGenerateThing {
   input: {
+    ns?: (string | null) | Database;
     id: string;
     type?: (number | null) | Noun;
     format?: ('Object' | 'Markdown') | null;
