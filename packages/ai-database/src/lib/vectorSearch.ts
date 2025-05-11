@@ -29,31 +29,25 @@ export async function vectorSearch(query: string, limit: number = 10): Promise<S
 
     const payload = await getPayload({ config })
 
-    
-    const thingsWithEmbeddings = await payload.find({
-      collection: 'things',
-      where: {
-        embeddings: { exists: true }
-      },
-      limit: 100 // Get a reasonable number of candidates
+    const db = payload.db as any // Cast to any to access raw method
+    const results = await db.raw({
+      query: sql`
+        SELECT t.id, t.data, t.content, t.type, 
+               vector_cosine_similarity(t.embeddings, vector32(${JSON.stringify(truncatedEmbedding)})) as similarity
+        FROM things t
+        WHERE t.embeddings IS NOT NULL
+        ORDER BY similarity DESC
+        LIMIT ${limit}
+      `,
     })
 
-    const resultsWithSimilarity: SearchResult[] = thingsWithEmbeddings.docs
-      .map(thing => {
-        const similarity = 0.5 // Placeholder similarity score
-        
-        return {
-          id: thing.id as string,
-          data: thing.data || {},
-          content: thing.content || '',
-          type: thing.type as string || 'Thing',
-          similarity
-        }
-      })
-      .sort((a, b) => b.similarity - a.similarity) // Sort by similarity descending
-      .slice(0, limit) // Limit results
-    
-    return resultsWithSimilarity
+    return results.map((result: any) => ({
+      id: result.id,
+      data: result.data ? JSON.parse(result.data) : {},
+      content: result.content || '',
+      type: result.type || 'Thing',
+      similarity: result.similarity
+    }))
   } catch (error) {
     console.error('Error performing vector search:', error)
     throw error

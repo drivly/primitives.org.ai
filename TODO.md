@@ -1,5 +1,21 @@
 # TODO
 
+## AI-Database Package
+
+### Embedding and Vector Search (AI-59)
+- [x] Add embedding tracking fields to Things collection
+- [x] Create batch embedding workflow
+- [x] Update hooks to trigger batch embedding
+- [x] Implement vector search functionality
+- [ ] Optimize vector search performance with indices
+- [ ] Add API endpoint for vector search
+- [ ] Create UI for testing vector search
+
+### Future Improvements
+- [ ] Support for different embedding models
+- [ ] Configurable embedding dimensions
+- [ ] Automatic re-embedding on model change
+
 ## Blockers
 
 ### AI-49: Implement comprehensive test suite for ai-functions package

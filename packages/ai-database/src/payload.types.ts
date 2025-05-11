@@ -152,6 +152,8 @@ export interface Config {
     workflows: {
       seed: WorkflowSeed;
       generateThing: WorkflowGenerateThing;
+      generateEmbeddings: WorkflowGenerateEmbeddings;
+      batchEmbeddings: WorkflowBatchEmbeddings;
     };
   };
 }
@@ -269,6 +271,8 @@ export interface Thing {
         id?: string | null;
       }[]
     | null;
+  embeddedAt?: string | null;
+  embeddingHash?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -573,7 +577,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  workflowSlug?: ('seed' | 'generateThing') | null;
+  workflowSlug?: ('seed' | 'generateThing' | 'generateEmbeddings' | 'batchEmbeddings') | null;
   taskSlug?: ('inline' | 'seedFunctions' | 'seedModels' | 'seedRoles' | 'seedSchema') | null;
   queue?: string | null;
   waitUntil?: string | null;
@@ -747,6 +751,8 @@ export interface ThingsSelect<T extends boolean = true> {
         thing?: T;
         id?: T;
       };
+  embeddedAt?: T;
+  embeddingHash?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1068,8 +1074,29 @@ export interface WorkflowGenerateThing {
           id?: string | null;
         }[]
       | null;
+    embeddedAt?: string | null;
+    embeddingHash?: string | null;
     updatedAt?: string | null;
     createdAt?: string | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WorkflowGenerateEmbeddings".
+ */
+export interface WorkflowGenerateEmbeddings {
+  input: {
+    id: string;
+    contentHash: string;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WorkflowBatchEmbeddings".
+ */
+export interface WorkflowBatchEmbeddings {
+  input: {
+    batchSize?: number | null;
   };
 }
 /**

@@ -31,6 +31,7 @@ import { Settings } from './globals/Settings'
 import { seed } from './workflows/seed'
 import { generateThing } from './workflows/generateThing'
 import { generateEmbeddings } from './workflows/generateEmbeddings'
+import { batchEmbeddings } from './workflows/batchEmbeddings'
 import { seedFunctions } from './tasks/seedFunctions'
 import { seedModels } from './tasks/seedModels'
 import { seedRoles } from './tasks/seedRoles'
@@ -58,7 +59,7 @@ export default buildConfig({
   globals: [Settings],  
   jobs: {
     tasks: [seedFunctions, seedModels, seedRoles, seedSchema],
-    workflows: [seed, generateThing, generateEmbeddings],
+    workflows: [seed, generateThing, generateEmbeddings, batchEmbeddings],
   },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
@@ -66,6 +67,15 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload.types.ts'),
   },
   db,
+  onInit: async (payload) => {
+    await payload.jobs.queue({ 
+      workflow: 'batchEmbeddings', 
+      input: { batchSize: 50 } 
+    })
+    
+    const { setupScheduledJobs } = await import('./lib/scheduledJobs')
+    await setupScheduledJobs({ payload } as any)
+  },
   plugins: [
     multiTenantPlugin<Config>({
       debug: true,
