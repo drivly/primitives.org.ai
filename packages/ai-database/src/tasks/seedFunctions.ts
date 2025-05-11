@@ -18,9 +18,10 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
         name: 'generateMarkdown', 
         output: 'Text',
         model,
+        system: 'Respond only in Markdown format.',
         prompt: dedent`
-        Generate markdown for the following data:
-        {data}
+          Generate markdown for the following data:
+          {data}
         `
       },
       where: { name: { equals: 'generateMarkdown' } },
@@ -31,9 +32,10 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
         name: 'generateList', 
         output: 'TextArray',
         model,
+        system: 'Respond only in numbered, Markdown ordered lists.',
         prompt: dedent`
-        Generate a list for the following data:
-        {data}
+          Generate a list for the following data:
+          {data}
         `
       },
       where: { name: { equals: 'generateList' } },
@@ -44,9 +46,10 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
         name: 'generateObject', 
         output: 'Object',
         model,
+        system: 'Respond only in JSON format.',
         prompt: dedent`
-        Generate an object for the following data:
-        {data}
+          Generate an object for the following data:
+          {data}
         `
       },
       where: { name: { equals: 'generateObject' } },
@@ -57,9 +60,10 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
         name: 'generateObjectArray', 
         output: 'ObjectArray',
         model,
+        system: 'Respond only in JSON format.',
         prompt: dedent`
-        Generate an object array for the following data:
-        {data}
+          Generate an object array for the following data:
+          {data}
         `
       },
       where: { name: { equals: 'generateObjectArray' } },
@@ -71,8 +75,8 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
         output: 'Text',
         model,
         prompt: dedent`
-        Generate text for the following data:
-        {data}
+          Generate text for the following data:
+          {data}
         `
       },
       where: { name: { equals: 'generateText' } },
@@ -83,9 +87,10 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
         name: 'generateCode', 
         output: 'Code',
         model,
+        system: 'Respond only with clearly commented TypeScript code as a module, including imports/exports. (single quotes, no semicolons, with trailing commas).',
         prompt: dedent`
-        Generate code for the following data:
-        {data}
+          Generate code for the following data:
+          {data}
         `
       },
       where: { name: { equals: 'generateCode' } },
@@ -93,15 +98,20 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
     payload.db.upsert({
       collection: 'functions',
       data: { 
-        name: 'generateComponent', 
+        name: 'generateUI', 
         output: 'Code',
         model,
+        system: dedent`
+          Respond only with clearly commented TypeScript React Components with TailwindCSS for styling. 
+          You can import any ShadCN UI components from '@/components/ui'. The primary component should be exported as default. 
+          (single quotes including in JSX, no semicolons, with trailing commas).
+        `,
         prompt: dedent`
-        Generate a component for the following data:
-        {data}
+          Generate a component for the following data:
+          {data}
         `
       },
-      where: { name: { equals: 'generateComponent' } },
+      where: { name: { equals: 'generateUI' } },
     })
 
     return {

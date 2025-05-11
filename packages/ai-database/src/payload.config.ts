@@ -29,6 +29,8 @@ import { Webhooks } from './collections/Webhooks'
 import { Settings } from './globals/Settings'
 
 import { seed } from './workflows/seed'
+import { generateDatabase } from './workflows/generateDatabase'
+import { executeFunction } from './workflows/executeFunction'
 import { generateThing } from './workflows/generateThing'
 import { seedFunctions } from './tasks/seedFunctions'
 import { seedModels } from './tasks/seedModels'
@@ -57,7 +59,7 @@ export default buildConfig({
   globals: [Settings],  
   jobs: {
     tasks: [seedFunctions, seedModels, seedRoles, seedSchema],
-    workflows: [seed, generateThing],
+    workflows: [executeFunction, generateThing, generateDatabase, seed],
   },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

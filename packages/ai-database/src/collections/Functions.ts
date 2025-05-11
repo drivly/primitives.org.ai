@@ -1,8 +1,6 @@
 import type { CollectionConfig, Condition } from 'payload'
 import { editorOptions } from '@/lib/collections'
 
-const isObject: Condition = ({ data }) => data.output === 'Object' || data.output === 'ObjectArray'
-
 export const Functions: CollectionConfig = {
   slug: 'functions',
   admin: {
@@ -18,8 +16,9 @@ export const Functions: CollectionConfig = {
     ]},
     { name: 'system', type: 'code', admin: { language: 'mdx', editorOptions } },
     { name: 'prompt', type: 'code', admin: { language: 'mdx', editorOptions } },
-    { name: 'schema', type: 'code', admin: { language: 'yaml', editorOptions } },
+    { name: 'schema', type: 'code', admin: { language: 'yaml', editorOptions, condition: (data) => data.output === 'Object' || data.output === 'ObjectArray' } },
     { name: 'settings', type: 'code', defaultValue: 'temperature: 1.0', admin: { language: 'yaml', editorOptions } },
     { name: 'data', type: 'json', admin: { hidden: true } },
+    { name: 'executions', type: 'join', collection: 'events', on: 'execution', hasMany: true },
   ],
 }

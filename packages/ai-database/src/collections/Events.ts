@@ -17,6 +17,8 @@ export const Events: CollectionConfig = {
   fields: [
     { name: 'type', type: 'text' },
     { name: 'data', type: 'json', admin: { editorOptions } },
+    { name: 'execution', type: 'relationship', relationTo: 'functions' },
+    { name: 'generation', type: 'relationship', relationTo: 'generations' },
     { name: 'webhooks', type: 'array', fields: [
       { name: 'webhook', type: 'relationship', relationTo: 'webhooks' },
       { name: 'timestamp', type: 'date', defaultValue: () => new Date().toISOString() },

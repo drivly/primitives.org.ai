@@ -96,6 +96,9 @@ export interface Config {
     verbs: {
       things: 'things';
     };
+    functions: {
+      executions: 'events';
+    };
     batches: {
       generations: 'generations';
     };
@@ -150,8 +153,10 @@ export interface Config {
       };
     };
     workflows: {
-      seed: WorkflowSeed;
+      executeFunction: WorkflowExecuteFunction;
       generateThing: WorkflowGenerateThing;
+      generateDatabase: WorkflowGenerateDatabase;
+      seed: WorkflowSeed;
     };
   };
 }
@@ -342,6 +347,8 @@ export interface Event {
     | number
     | boolean
     | null;
+  execution?: (string | null) | Function;
+  generation?: (string | null) | Generation;
   webhooks?:
     | {
         webhook?: (string | null) | Webhook;
@@ -359,18 +366,6 @@ export interface Event {
         id?: string | null;
       }[]
     | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "webhooks".
- */
-export interface Webhook {
-  id: string;
-  type?: ('Incoming' | 'Outgoing') | null;
-  events?: ('Create' | 'Update' | 'Delete')[] | null;
-  things?: (string | Thing)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -396,6 +391,11 @@ export interface Function {
     | number
     | boolean
     | null;
+  executions?: {
+    docs?: (string | Event)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -414,6 +414,18 @@ export interface Model {
     | number
     | boolean
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "webhooks".
+ */
+export interface Webhook {
+  id: string;
+  type?: ('Incoming' | 'Outgoing') | null;
+  events?: ('Create' | 'Update' | 'Delete')[] | null;
+  things?: (string | Thing)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -573,7 +585,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  workflowSlug?: ('seed' | 'generateThing') | null;
+  workflowSlug?: ('executeFunction' | 'generateThing' | 'generateDatabase' | 'seed') | null;
   taskSlug?: ('inline' | 'seedFunctions' | 'seedModels' | 'seedRoles' | 'seedSchema') | null;
   queue?: string | null;
   waitUntil?: string | null;
@@ -757,6 +769,8 @@ export interface ThingsSelect<T extends boolean = true> {
 export interface EventsSelect<T extends boolean = true> {
   type?: T;
   data?: T;
+  execution?: T;
+  generation?: T;
   webhooks?:
     | T
     | {
@@ -782,6 +796,7 @@ export interface FunctionsSelect<T extends boolean = true> {
   schema?: T;
   settings?: T;
   data?: T;
+  executions?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1036,9 +1051,9 @@ export interface TaskSeedSchema {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "WorkflowSeed".
+ * via the `definition` "WorkflowExecuteFunction".
  */
-export interface WorkflowSeed {
+export interface WorkflowExecuteFunction {
   input?: unknown;
 }
 /**
@@ -1071,6 +1086,20 @@ export interface WorkflowGenerateThing {
     updatedAt?: string | null;
     createdAt?: string | null;
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WorkflowGenerateDatabase".
+ */
+export interface WorkflowGenerateDatabase {
+  input?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WorkflowSeed".
+ */
+export interface WorkflowSeed {
+  input?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
