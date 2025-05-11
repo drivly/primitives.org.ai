@@ -9,7 +9,7 @@ export const Events: CollectionConfig = {
   },
   versions: true,
   access: {
-    create: () => false,
+    create: isLoggedIn,
     update: () => false,
     delete: () => false,
     read: isLoggedIn,
