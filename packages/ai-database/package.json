@@ -57,8 +57,5 @@
     "onlyBuiltDependencies": [
       "sharp"
     ]
-  },
-  "resolutions": {
-    "date-fns": "3.6.0"
   }
 }
