@@ -31,6 +31,10 @@ npx ai-database
 
 This will start the admin interface at http://localhost:3000/admin.
 
+```ts
+import { db } from 'ai-database'
+```
+
 ### Using Collections in Your Code
 
 ```ts
@@ -51,6 +55,14 @@ const user = await payload.find({
       equals: 'user@example.com',
     },
   },
+})
+```
+
+```ts
+// Legacy API (for backward compatibility)
+const user = await db.users.create({
+  email: 'user@example.com',
+  password: 'password',
 })
 ```
 
