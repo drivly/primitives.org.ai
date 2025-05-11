@@ -10,17 +10,11 @@ npm install ai-database
 
 ```ts
 import { db } from 'ai-database'
-```
-
-```ts
-import { db } from 'ai-database'
 
 const user = await db.users.findOne({ email: 'user@example.com' })
 ```
 
 ```ts
-import { db } from 'ai-database'
-
 const user = await db.users.create({
   email: 'user@example.com',
   password: 'password',
