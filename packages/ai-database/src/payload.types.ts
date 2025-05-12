@@ -337,7 +337,11 @@ export interface Batch {
  */
 export interface Event {
   id: string;
-  type?: string | null;
+  status?: ('Pending' | 'Processing' | 'Success' | 'Error') | null;
+  execution?: (string | null) | Function;
+  generation?: (string | null) | Generation;
+  noun?: (string | null) | Noun;
+  input?: string | null;
   data?:
     | {
         [k: string]: unknown;
@@ -347,8 +351,6 @@ export interface Event {
     | number
     | boolean
     | null;
-  execution?: (string | null) | Function;
-  generation?: (string | null) | Generation;
   webhooks?:
     | {
         webhook?: (string | null) | Webhook;
@@ -767,10 +769,12 @@ export interface ThingsSelect<T extends boolean = true> {
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
-  type?: T;
-  data?: T;
+  status?: T;
   execution?: T;
   generation?: T;
+  noun?: T;
+  input?: T;
+  data?: T;
   webhooks?:
     | T
     | {

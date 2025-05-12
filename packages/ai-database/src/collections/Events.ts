@@ -15,11 +15,15 @@ export const Events: CollectionConfig = {
     read: isLoggedIn,
   },
   fields: [
-    { name: 'type', type: 'text' },
-    { name: 'data', type: 'json', admin: { editorOptions } },
-    { name: 'execution', type: 'relationship', relationTo: 'functions' },
-    { name: 'generation', type: 'relationship', relationTo: 'generations' },
-    { name: 'webhooks', type: 'array', fields: [
+    { type: 'row', fields: [
+      { name: 'status', type: 'select', defaultValue: 'Pending', options: ['Pending', 'Processing', 'Success', 'Error'], admin: { readOnly: true } },
+      { name: 'execution', type: 'relationship', relationTo: 'functions', admin: { readOnly: true, condition: ({ execution }) => !!execution } },
+      { name: 'generation', type: 'relationship', relationTo: 'generations', admin: { readOnly: true, condition: ({ generation }) => !!generation } },
+      { name: 'noun', type: 'relationship', relationTo: 'nouns', admin: { readOnly: true, condition: ({ noun }) => !!noun } },
+    ]},
+    { name: 'input', type: 'code', admin: { editorOptions, language: 'mdx', condition: ({ execution }) => !!execution } },
+    { name: 'data', type: 'json', admin: { editorOptions, readOnly: true, condition: ({ data }) => !!data } },
+    { name: 'webhooks', type: 'array', admin: { readOnly: true, condition: ({ status }) => status !== 'Pending' }, fields: [
       { name: 'webhook', type: 'relationship', relationTo: 'webhooks' },
       { name: 'timestamp', type: 'date', defaultValue: () => new Date().toISOString() },
       { name: 'status', type: 'select', defaultValue: 'Pending', options: ['Pending', 'Success', 'Error'] },
