@@ -5,6 +5,7 @@ import { Things } from '@/collections/Things'
 import { model } from '@/lib/ai'
 import yaml from 'yaml'
 
+// TODO: finish this implementation properly
 export const executeFunction: WorkflowConfig<'executeFunction'> = {
   slug: 'executeFunction',
   inputSchema: Things.fields,
@@ -55,6 +56,7 @@ export const executeFunction: WorkflowConfig<'executeFunction'> = {
           system: fn.system || undefined,
           prompt: `${fn.prompt}\n\n${input.content}`,
           output: 'no-schema',
+          
           temperature,
         })
 
