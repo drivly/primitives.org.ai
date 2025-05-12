@@ -11,9 +11,9 @@ export const Things: CollectionConfig = {
   fields: [
     { type: 'row', fields: [
       { name: 'id', type: 'text', required: true, label: 'ID' },
-      { name: 'type', type: 'relationship', relationTo: 'nouns', label: 'type' },
-      { name: 'format', type: 'select', defaultValue: 'Object', options: ['Object', 'Markdown'] },
-      { name: 'generation', type: 'relationship', relationTo: 'generations', admin: { readOnly: true } },
+      { name: 'type', type: 'relationship', relationTo: 'nouns', required: true },
+      // { name: 'format', type: 'select', defaultValue: 'Object', options: ['Object', 'Markdown'] },
+      { name: 'generation', type: 'relationship', relationTo: 'generations', admin: { readOnly: true, condition: ({ generation }) => !!generation } },
     ]},
     { name: 'data', type: 'json', admin: { editorOptions } },
     { name: 'content', type: 'code', admin: { language: 'mdx', editorOptions } },
@@ -21,6 +21,7 @@ export const Things: CollectionConfig = {
       { name: 'verb', type: 'relationship', relationTo: 'verbs' },
       { name: 'thing', type: 'relationship', relationTo: 'things' },
     ]},
+    { name: 'events', type: 'join', collection: 'events', on: 'thing', admin: { condition: ({ events }) => !!events } },
   ],
   hooks: {
     afterOperation: [onThingCreate]

@@ -42,8 +42,8 @@ export const Nouns: CollectionConfig = {
     { name: 'context', type: 'code', admin: { language: 'mdx', editorOptions } },
     { name: 'relationships', type: 'array', fields: [
       { type: 'row', fields: [
-        { name: 'predicate', type: 'relationship', relationTo: 'verbs' },
-        { name: 'object', type: 'relationship', relationTo: 'nouns' },
+        { name: 'predicate', type: 'relationship', relationTo: ['verbs','properties','actions'] },
+        { name: 'object', type: 'relationship', relationTo: ['nouns','things'] },
       ]},
     ]},
     // { name: 'subClasses', type: 'join', collection: 'nouns', on: 'subClassOf' },

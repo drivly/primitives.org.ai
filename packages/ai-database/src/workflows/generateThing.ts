@@ -15,7 +15,7 @@ export const generateThing: WorkflowConfig<'generateThing'> = {
 
     console.log(`Generating ${type}/${job.input.id}`)
 
-    const results = job.input.format === 'Object' ? 
+    const results = job.input.type === 'Object' ? 
       await generateObject({
         model: model('google/gemini-2.5-pro-preview', { structuredOutputs: true}),
         prompt: `Generate a ${type} with an @id of ${job.input.id} with the appropriate properties and relationships (including content in markdown format if applicable)`,

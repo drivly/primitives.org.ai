@@ -20,6 +20,7 @@ export const Events: CollectionConfig = {
       { name: 'execution', type: 'relationship', relationTo: 'functions', admin: { readOnly: true, condition: ({ execution }) => !!execution } },
       { name: 'generation', type: 'relationship', relationTo: 'generations', admin: { readOnly: true, condition: ({ generation }) => !!generation } },
       { name: 'noun', type: 'relationship', relationTo: 'nouns', admin: { readOnly: true, condition: ({ noun }) => !!noun } },
+      { name: 'thing', type: 'relationship', relationTo: 'things', admin: { readOnly: true, condition: ({ thing }) => !!thing } },
     ]},
     { name: 'input', type: 'code', admin: { editorOptions, language: 'mdx', condition: ({ execution }) => !!execution } },
     { name: 'data', type: 'json', admin: { editorOptions, readOnly: true, condition: ({ data }) => !!data } },

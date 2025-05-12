@@ -6,7 +6,10 @@ export const onThingCreate: CollectionAfterOperationHook<'things'> = async ({ re
 
   if (operation !== 'create') return result
 
-  const job = await payload.jobs.queue({ workflow: 'generateThing', input: result })
+  console.log(result)
+  const job = await payload.jobs.queue({ workflow: 'executeFunction', input: result })
+  console.log(job)
+  // const job = await payload.jobs.queue({ workflow: 'generateThing', input: result })
   waitUntil(payload.jobs.run())
 
   return result
