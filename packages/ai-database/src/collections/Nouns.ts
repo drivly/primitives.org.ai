@@ -36,7 +36,8 @@ export const Nouns: CollectionConfig = {
       // { name: 'name', type: 'text', label: 'Name' },
       { name: 'typeOf', type: 'relationship', relationTo: ['nouns','types'], hasMany: true },
       // { name: 'sameAs', type: 'relationship', relationTo: 'types' },
-      { name: 'generate', type: 'select', defaultValue: 'Object', options: ['List', 'Object', 'Markdown', 'Code', 'Nothing'] },
+      // { name: 'generate', type: 'select', defaultValue: 'Object', options: ['List', 'Object', 'Markdown', 'Code', 'Nothing'] },
+      { name: 'generate', type: 'relationship', relationTo: 'functions' },
     ]},
     { name: 'context', type: 'code', admin: { language: 'mdx', editorOptions } },
     { name: 'relationships', type: 'array', fields: [

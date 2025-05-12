@@ -196,7 +196,7 @@ export interface Noun {
           }
       )[]
     | null;
-  generate?: ('List' | 'Object' | 'Markdown' | 'Code' | 'Nothing') | null;
+  generate?: (string | null) | Function;
   context?: string | null;
   relationships?:
     | {
@@ -236,27 +236,17 @@ export interface Type {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "verbs".
+ * via the `definition` "functions".
  */
-export interface Verb {
+export interface Function {
   id: string;
-  things?: {
-    docs?: (string | Thing)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "things".
- */
-export interface Thing {
-  id: string;
-  type?: (string | null) | Noun;
-  format?: ('Object' | 'Markdown') | null;
-  generation?: (string | null) | Generation;
+  name: string;
+  output?: ('Object' | 'ObjectArray' | 'Text' | 'TextArray' | 'Code') | null;
+  model?: (string | null) | Model;
+  system?: string | null;
+  prompt?: string | null;
+  schema?: string | null;
+  settings?: string | null;
   data?:
     | {
         [k: string]: unknown;
@@ -266,11 +256,66 @@ export interface Thing {
     | number
     | boolean
     | null;
-  content?: string | null;
-  relationships?:
+  executions?: {
+    docs?: (string | Event)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "models".
+ */
+export interface Model {
+  id: string;
+  data?:
     | {
-        verb?: (string | null) | Verb;
-        thing?: (string | null) | Thing;
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: string;
+  status?: ('Pending' | 'Processing' | 'Success' | 'Error') | null;
+  execution?: (string | null) | Function;
+  generation?: (string | null) | Generation;
+  noun?: (string | null) | Noun;
+  input?: string | null;
+  data?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  webhooks?:
+    | {
+        webhook?: (string | null) | Webhook;
+        timestamp?: string | null;
+        status?: ('Pending' | 'Success' | 'Error') | null;
+        data?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -333,15 +378,25 @@ export interface Batch {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "events".
+ * via the `definition` "webhooks".
  */
-export interface Event {
+export interface Webhook {
   id: string;
-  status?: ('Pending' | 'Processing' | 'Success' | 'Error') | null;
-  execution?: (string | null) | Function;
+  type?: ('Incoming' | 'Outgoing') | null;
+  events?: ('Create' | 'Update' | 'Delete')[] | null;
+  things?: (string | Thing)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "things".
+ */
+export interface Thing {
+  id: string;
+  type?: (string | null) | Noun;
+  format?: ('Object' | 'Markdown') | null;
   generation?: (string | null) | Generation;
-  noun?: (string | null) | Noun;
-  input?: string | null;
   data?:
     | {
         [k: string]: unknown;
@@ -351,20 +406,11 @@ export interface Event {
     | number
     | boolean
     | null;
-  webhooks?:
+  content?: string | null;
+  relationships?:
     | {
-        webhook?: (string | null) | Webhook;
-        timestamp?: string | null;
-        status?: ('Pending' | 'Success' | 'Error') | null;
-        data?:
-          | {
-              [k: string]: unknown;
-            }
-          | unknown[]
-          | string
-          | number
-          | boolean
-          | null;
+        verb?: (string | null) | Verb;
+        thing?: (string | null) | Thing;
         id?: string | null;
       }[]
     | null;
@@ -373,61 +419,15 @@ export interface Event {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "functions".
+ * via the `definition` "verbs".
  */
-export interface Function {
+export interface Verb {
   id: string;
-  name: string;
-  output?: ('Object' | 'ObjectArray' | 'Text' | 'TextArray' | 'Code') | null;
-  model?: (string | null) | Model;
-  system?: string | null;
-  prompt?: string | null;
-  schema?: string | null;
-  settings?: string | null;
-  data?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  executions?: {
-    docs?: (string | Event)[];
+  things?: {
+    docs?: (string | Thing)[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "models".
- */
-export interface Model {
-  id: string;
-  data?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "webhooks".
- */
-export interface Webhook {
-  id: string;
-  type?: ('Incoming' | 'Outgoing') | null;
-  events?: ('Create' | 'Update' | 'Delete')[] | null;
-  things?: (string | Thing)[] | null;
   updatedAt: string;
   createdAt: string;
 }
