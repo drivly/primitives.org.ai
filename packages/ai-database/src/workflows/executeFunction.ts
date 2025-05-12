@@ -1,6 +1,6 @@
 import { WorkflowConfig } from 'payload'
 import { waitUntil } from '@vercel/functions'
-import { generateObject, generateText } from 'ai'
+import { ai } from 'ai-functions'
 import { Things } from '@/collections/Things'
 import { model } from '@/lib/ai'
 import yaml from 'yaml'
@@ -27,17 +27,16 @@ export const executeFunction: WorkflowConfig<'executeFunction'> = {
 
       if (fn.output === 'Text' || fn.output === 'TextArray' || fn.output === 'Code') {
 
-        const results = await generateText({
+        const results = await ai`${fn.prompt}\n\n${input.content}`({
           model,
           system: fn.system || undefined,
-          prompt: `${fn.prompt}\n\n${input.content}`,
           temperature,
         })
 
         const generation = await payload.create({ collection: 'generations', data: {
-          request: JSON.parse(results.request.body || '{}'),
-          response: results.response,
-          metadata: results.usage,
+          request: { prompt: `${fn.prompt}\n\n${input.content}` },
+          response: { text: results },
+          metadata: { model },
         } })
       
         const data = await payload.update({ 
@@ -45,25 +44,37 @@ export const executeFunction: WorkflowConfig<'executeFunction'> = {
           id: job.input.id,
           data: {
             generation: generation.id,
-            data: results.text,
-            content: results.text,
+            data: results,
+            content: results,
           },
         })
         
       } else if (fn.output === 'Object' || fn.output === 'ObjectArray') {
-        const results = await generateObject({
+        const resultText = await ai`${fn.prompt}\n\n${input.content}
+        Return a valid JSON object.`({
           model,
-          system: fn.system || undefined,
-          prompt: `${fn.prompt}\n\n${input.content}`,
-          output: 'no-schema',
-          
+          system: fn.system ? `${fn.system}\nRespond with valid JSON that matches the requested structure.` : 'Respond with valid JSON that matches the requested structure.',
           temperature,
         })
+        
+        let resultObject;
+        try {
+          let jsonText = resultText.trim();
+          const codeBlockMatch = jsonText.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+          if (codeBlockMatch && codeBlockMatch[1]) {
+            jsonText = codeBlockMatch[1].trim();
+          }
+          
+          resultObject = JSON.parse(jsonText);
+        } catch (error) {
+          console.error('Failed to parse JSON response:', error);
+          resultObject = { error: 'Failed to parse response as JSON', text: resultText };
+        }
 
         const generation = await payload.create({ collection: 'generations', data: {
-          request: JSON.parse(results.request.body || '{}'),
-          response: results.response,
-          metadata: results.usage,
+          request: { prompt: `${fn.prompt}\n\n${input.content}` },
+          response: { text: resultText },
+          metadata: { model, parsedObject: resultObject },
         } })
       
         const data = await payload.update({ 
@@ -71,8 +82,8 @@ export const executeFunction: WorkflowConfig<'executeFunction'> = {
           id: job.input.id,
           data: {
             generation: generation.id,
-            data: results.object,
-            // content: results.object,
+            data: resultObject,
+            // content: resultObject,
           },
         })
         
