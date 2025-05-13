@@ -295,6 +295,9 @@ importers:
       workflows:
         specifier: ^1.0.1
         version: 1.0.1
+      yaml:
+        specifier: ^2.7.1
+        version: 2.7.1
       zod:
         specifier: ^3.24.4
         version: 3.24.4

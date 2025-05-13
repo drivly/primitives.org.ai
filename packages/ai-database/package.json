@@ -38,6 +38,7 @@
     "react-icons": "^5.5.0",
     "sharp": "0.32.6",
     "workflows": "^1.0.1",
+    "yaml": "^2.7.1",
     "zod": "^3.24.4"
   },
   "devDependencies": {
