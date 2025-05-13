@@ -21,11 +21,6 @@ export const executeWorkflow: WorkflowConfig<any> = {
     { name: 'timeout', type: 'number' },
     { name: 'memoryLimit', type: 'number' },
   ],
-  outputSchema: [
-    { name: 'result', type: 'json' },
-    { name: 'logs', type: 'json' },
-    { name: 'error', type: 'text' },
-  ],
   handler: async function({ job, tasks, req }) {
     const { payload } = req;
     
@@ -39,11 +34,23 @@ export const executeWorkflow: WorkflowConfig<any> = {
       });
       
       if (!workflow) {
-        return { 
+        const output = { 
           result: null,
           error: `Workflow with ID ${workflowId} not found`,
           logs: [] 
         } as WorkflowOutput;
+        
+        await payload.update({
+          collection: 'payload-jobs',
+          id: job.id,
+          data: {
+            taskStatus: output,
+            hasError: !!output.error,
+            error: output.error
+          }
+        });
+        
+        return;
       }
       
       const ivm = await import('isolated-vm');
@@ -127,27 +134,65 @@ export const executeWorkflow: WorkflowConfig<any> = {
       } catch (error: any) {
         const errorMessage = error instanceof Error ? error.message : String(error);
         
-        return {
+        const output = {
           result: null,
           error: errorMessage,
           logs,
         } as WorkflowOutput;
+        
+        await payload.update({
+          collection: 'payload-jobs',
+          id: job.id,
+          data: {
+            taskStatus: output,
+            hasError: !!output.error,
+            error: output.error
+          }
+        });
+        
+        return;
       } finally {
         context.release();
         isolate.dispose();
       }
 
-      return {
+      const output = {
         result,
         error: undefined,
         logs,
       } as WorkflowOutput;
+      
+      await payload.update({
+        collection: 'payload-jobs',
+        id: job.id,
+        data: {
+          taskStatus: output,
+          hasError: !!output.error,
+          error: output.error,
+          completedAt: new Date().toISOString()
+        }
+      });
+      
+      return;
     } catch (error: any) {
-      return {
+      const output = {
         result: null,
         error: error.message || String(error),
         logs: [],
       } as WorkflowOutput;
+      
+      await payload.update({
+        collection: 'payload-jobs',
+        id: job.id,
+        data: {
+          taskStatus: output,
+          hasError: !!output.error,
+          error: output.error,
+          completedAt: new Date().toISOString()
+        }
+      });
+      
+      return;
     }
   },
 }
