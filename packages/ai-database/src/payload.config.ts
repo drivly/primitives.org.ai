@@ -63,7 +63,7 @@ export default buildConfig({
     workflows: [executeFunction, generateThing, generateDatabase, seed, executeWorkflow],
   },
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: process.env.PAYLOAD_SECRET || 'secret',
   typescript: {
     outputFile: path.resolve(dirname, 'payload.types.ts'),
   },
