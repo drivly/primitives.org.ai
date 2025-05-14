@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { StringValueNode } from 'graphql'
 import { Thing } from '@/payload.types'
 import { ai } from 'ai-functions'
+import type { AI } from 'ai-functions'
 
 export const model = createOpenAI({
   compatibility: 'compatible',
@@ -24,4 +25,5 @@ export const getSettings = cache(async () => {
 })
 
 export { ai }
+export type { AI }
 
