@@ -62,6 +62,13 @@ const config = buildConfig({
   jobs: {
     tasks: [seedFunctions, seedModels, seedRoles, seedSchema],
     workflows: [executeFunction, generateThing, generateDatabase, seed, executeWorkflow],
+    jobsCollectionOverrides: ({defaultJobsCollection}) => {
+      if(!defaultJobsCollection.admin){
+        defaultJobsCollection.admin = {};
+      }
+      defaultJobsCollection.admin.hidden = false;
+      return defaultJobsCollection
+    }
   },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || 'secret',
