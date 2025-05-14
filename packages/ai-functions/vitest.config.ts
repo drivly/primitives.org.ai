@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config'
+import { resolve } from 'path'
 
 export default defineConfig({
   test: {
@@ -6,7 +7,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'ai-providers': '/home/ubuntu/repos/primitives.org.ai/packages/ai-providers',
+      'ai-providers': resolve(__dirname, '../ai-providers'),
     },
   },
 })
