@@ -1,6 +1,6 @@
 {
   "name": "ai-primitives",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unified entry point for all AI functionality by re-exporting from various AI packages",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
