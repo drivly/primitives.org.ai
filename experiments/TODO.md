@@ -49,6 +49,14 @@
 - [x] Update README.md with final implementation details
 - [x] Document any additional features or considerations
 
+## Blockers
+
+### 1. AI Provider Initialization Issues
+- [ ] CI tests failing with "Failed to initialize provider for gpt-4.1" in ai-functions package
+- [ ] Error occurs when trying to initialize AI providers during tests
+- [ ] This is a dependency issue with the ai-providers package and not directly related to our implementation
+- [ ] Local tests pass after building the ai-providers package, but CI tests still fail
+
 ## Technical Considerations
 - Use temperature range [0, 0.3, 0.7, 1.0] for experiments
 - File naming convention: `${experiment.name}-${model}-${temperature}.md`
