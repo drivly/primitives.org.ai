@@ -1,1 +1,41 @@
-# Site
+---
+title: AI Site
+description: Zero-config solution for creating AI-powered Next.js websites
+$type: package
+---
+
+# AI Site
+
+AI Site is a zero-config solution for creating AI-powered Next.js websites using `ai-functions` and `ai-props`. It provides automatic integration with minimal setup, enabling you to quickly build AI-enhanced websites.
+
+The package includes pass-through commands to Next.js (dev/build/start), default Next.js configuration and app directory templates, and supports custom Next.js configuration and app directory customization. All you need is a simple configuration file to get started.
+
+## Usage Example
+
+```tsx
+// site.config.ts
+export default {
+  name: 'My AI-Powered Site',
+  description: 'Generated with ai-site',
+  
+  // Custom Next.js configuration (optional)
+  nextConfig: {
+    // Your custom Next.js configuration
+  },
+  
+  // AI functions configuration (optional)
+  aiFunctions: {
+    // AI functions configuration
+  },
+  
+  // AI props configuration (optional)
+  aiProps: {
+    // AI props configuration
+  },
+}
+
+// Run in terminal:
+// npx ai-site dev   # Start development server
+// npx ai-site build # Build for production
+// npx ai-site start # Start production server
+```

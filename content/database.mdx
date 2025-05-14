@@ -1,1 +1,34 @@
-# Database
+---
+title: AI Database
+description: Minimalistic package that exports Payload CMS collection configurations and Next.js API route handlers
+$type: package
+---
+
+# AI Database
+
+AI Database is a minimalistic package that exports Payload CMS collection configurations and Next.js API route handlers to simplify database operations in AI applications. It provides a foundation for storing and retrieving data related to AI models, functions, generations, and more.
+
+The package includes collection definitions for entities like Nouns, Verbs, Things, Events, Functions, Models, and Generations, making it easy to organize AI-related data and integrate it with your applications.
+
+## Usage Example
+
+```tsx
+import { db } from 'ai-database'
+
+// Find a user by email
+const user = await db.users.findOne({ email: 'user@example.com' })
+
+// Create a new user
+const newUser = await db.users.create({
+  email: 'new-user@example.com',
+  password: 'password',
+})
+
+// Store an AI generation result
+const generation = await db.generations.create({
+  provider: 'openai',
+  model: 'gpt-4o',
+  input: 'Generate a product description',
+  output: 'A revolutionary product that transforms...',
+})
+```

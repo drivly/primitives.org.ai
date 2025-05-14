@@ -1,1 +1,38 @@
-# Provider
+---
+title: AI Providers
+description: Provider router for AI models including OpenAI, Anthropic, Google, and more
+$type: package
+---
+
+# AI Providers
+
+AI Providers is a provider router for AI models including OpenAI, Anthropic, Google, and more. It offers a unified interface for working with multiple AI providers, making it easy to switch between different models or use models from different providers in the same application.
+
+The package supports a wide range of language models from providers like OpenAI, Anthropic, Google, XAI, Groq, Amazon Bedrock, Perplexity, and many others. It also includes support for speech and audio models from providers like ElevenLabs, AssemblyAI, and more.
+
+## Usage Example
+
+```tsx
+import { languageModel } from 'ai-providers'
+
+// Create a model interface for a specific provider and model
+const model = languageModel('openai/gpt-4')
+
+// Generate text using the model
+const response = await model.generate({
+  messages: [{ role: 'user', content: 'Hello, world!' }],
+})
+
+// Use a different model
+const claudeModel = languageModel('anthropic/claude-3-sonnet')
+const claudeResponse = await claudeModel.generate({
+  messages: [{ role: 'user', content: 'Explain quantum computing' }],
+})
+
+// Access speech models
+const speechModel = languageModel('elevenlabs/eleven')
+const audioResponse = await speechModel.generateSpeech({
+  text: 'Welcome to our application!',
+  voice: 'alloy',
+})
+```
