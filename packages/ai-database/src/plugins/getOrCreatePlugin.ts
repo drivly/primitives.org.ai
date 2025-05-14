@@ -1,4 +1,4 @@
-import { Config } from 'payload'
+import { Config, CollectionSlug } from 'payload'
 
 /**
  * Plugin that adds a getOrCreate method to the database interface
@@ -22,7 +22,7 @@ export const getOrCreatePlugin = () => {
         data,
         where
       }: {
-        collection: string,
+        collection: CollectionSlug,
         data: Record<string, any>,
         where: Record<string, any>
       }): Promise<T> {
