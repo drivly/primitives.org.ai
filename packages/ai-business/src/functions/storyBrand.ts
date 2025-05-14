@@ -1,4 +1,5 @@
 import { model } from 'ai-providers'
+import { languageModel } from 'ai-providers'
 import { z } from 'zod'
 
 /**
