@@ -19,7 +19,7 @@ const float32Array = customType<{
   },
 })
 
-export const db = sqliteAdapter({
+const adapter = sqliteAdapter({
   idType: 'uuid',
   client: {
     url: process.env.DATABASE_URI || 'file:./ai.db',
@@ -54,3 +54,5 @@ export const db = sqliteAdapter({
     },
   ]
 })
+
+export const db = adapter

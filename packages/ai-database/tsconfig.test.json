@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/databases/*": ["./src/databases/*"],
+      "@/collections/*": ["./src/collections/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/workflows/*": ["./src/workflows/*"]
+    }
+  },
+  "include": ["src/**/*", "tests/**/*"]
+}

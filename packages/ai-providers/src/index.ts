@@ -1,5 +1,4 @@
-export * from './provider.js'
-export * from './ai.js'
+export * from '../index.js'
 export * from './registry.js'
 
 export * from '@ai-sdk/openai'

@@ -50,7 +50,24 @@ export const registry: ReturnType<typeof createProviderRegistry> = createProvide
 )
 
 export const languageModel = (modelId: string) => {
-  const [providerName, modelName] = modelId.split('/')
+  let providerName = 'openai'
+  let modelName = modelId
+  
+  if (modelId.includes('/')) {
+    const parts = modelId.split('/')
+    providerName = parts[0]
+    modelName = parts[1]
+  } else {
+    if (modelId.startsWith('gpt-')) {
+      providerName = 'openai'
+      modelName = modelId
+    }
+    else if (modelId.startsWith('claude-')) {
+      providerName = 'anthropic'
+      modelName = modelId
+    }
+  }
+  
   console.log(`Using provider: ${providerName}, model: ${modelName}`)
   
   try {
