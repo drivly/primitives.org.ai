@@ -9,3 +9,14 @@ export const model = createOpenAI({
     'X-Title': 'Workflows.do Business-as-Code',
   },
 })
+
+export * from './src/registry.js'
+
+export * from '@ai-sdk/openai'
+export * from '@ai-sdk/anthropic'
+export * from '@ai-sdk/google'
+export * from '@ai-sdk/mistral'
+export * from '@ai-sdk/amazon-bedrock'
+export * from '@ai-sdk/perplexity'
+export * from '@ai-sdk/groq'
+export * from '@ai-sdk/replicate'
