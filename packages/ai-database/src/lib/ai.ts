@@ -6,6 +6,7 @@ import { cache } from 'react'
 import { z } from 'zod'
 import { StringValueNode } from 'graphql'
 import { Thing } from '@/payload.types'
+import { ai, AI } from 'ai-functions'
 
 export const model = createOpenAI({
   compatibility: 'compatible',
@@ -21,4 +22,6 @@ export const getSettings = cache(async () => {
   const payload = await getPayload({ config })
   return payload.findGlobal({ slug: 'settings' })
 })
+
+export { ai, AI }
 
