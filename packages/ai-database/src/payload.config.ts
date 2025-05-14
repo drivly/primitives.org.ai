@@ -3,6 +3,7 @@ import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
+import { getOrCreatePlugin } from './plugins/getOrCreatePlugin'
 import type { Config } from './payload.types'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -42,7 +43,7 @@ import { db } from './databases/sqlite'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-export default buildConfig({
+const config = buildConfig({
   admin: {
     user: Users.slug,
     autoLogin: process.env.AUTOLOGIN_EMAIL ?  { email: process.env.AUTOLOGIN_EMAIL, password: process.env.AUTOLOGIN_PASSWORD || '' } : undefined,
@@ -90,6 +91,9 @@ export default buildConfig({
       },
     }),
     payloadCloudPlugin(),
+    getOrCreatePlugin(),
     // storage-adapter-placeholder
   ],
 })
+
+export default config

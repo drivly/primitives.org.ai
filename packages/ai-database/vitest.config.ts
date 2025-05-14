@@ -9,6 +9,7 @@ export default defineConfig({
       inline: ['vitest-mock-extended'],
     },
     css: false,
+    include: ['src/**/*.test.ts', 'tests/**/*.test.ts'],
   },
   resolve: {
     alias: {
