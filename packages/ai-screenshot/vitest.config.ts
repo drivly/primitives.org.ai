@@ -5,6 +5,7 @@ export default defineConfig({
   test: {
     environment: 'node',
     deps: {
+      inline: ['ai-functions', 'ai-providers'],
       optimizer: {
         web: {
           include: ['ai-functions', 'ai-providers']
