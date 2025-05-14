@@ -6,6 +6,16 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     css: false,
+    deps: {
+      optimizer: {
+        web: {
+          include: ['ai-functions', 'ai-providers']
+        },
+        ssr: {
+          include: ['ai-functions', 'ai-providers']
+        }
+      }
+    },
   },
   resolve: {
     alias: {
@@ -14,6 +24,8 @@ export default defineConfig({
       '@/collections': resolve(__dirname, './src/collections'),
       '@/lib': resolve(__dirname, './src/lib'),
       '@/workflows': resolve(__dirname, './src/workflows'),
+      'ai-functions': resolve(__dirname, '../ai-functions/src'),
+      'ai-providers': resolve(__dirname, '../ai-providers/src'),
     },
   },
 })
