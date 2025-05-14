@@ -6,12 +6,20 @@ export default defineConfig({
     environment: 'node',
     deps: {
       inline: ['ai-functions', 'ai-providers'],
+      optimizer: {
+        web: {
+          include: ['ai-functions', 'ai-providers']
+        },
+        ssr: {
+          include: ['ai-functions', 'ai-providers']
+        }
+      }
     },
   },
   resolve: {
     alias: {
-      'ai-functions': resolve(__dirname, '../ai-functions'),
-      'ai-providers': resolve(__dirname, '../ai-providers'),
+      'ai-functions': resolve(__dirname, '../ai-functions/src'),
+      'ai-providers': resolve(__dirname, '../ai-providers/src'),
     },
   },
 })

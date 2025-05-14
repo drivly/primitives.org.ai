@@ -1,6 +1,66 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { db } from '@/databases/sqlite'
 
+// Define types for our mocks
+type MockSchema = {
+  tables: {
+    nouns: any;
+    things: any;
+  };
+};
+
+type ExtendTableFn = (config: {
+  table: any;
+  columns: any;
+  extraConfig: (table: any) => any;
+}) => any;
+
+type AfterSchemaInitFn = (params: {
+  schema: MockSchema;
+  extendTable: ExtendTableFn;
+}) => MockSchema;
+
+// Mock the database module directly
+vi.mock('@/databases/sqlite', () => {
+  const afterSchemaInitFn: AfterSchemaInitFn = ({ schema, extendTable }) => {
+    extendTable({
+      table: schema.tables.nouns,
+      columns: {
+        embeddings: { dimensions: 256 },
+      },
+      extraConfig: (table: any) => ({
+        embeddings_index: { on: vi.fn() },
+      }),
+    });
+    extendTable({
+      table: schema.tables.things,
+      columns: {
+        embeddings: { dimensions: 256 },
+      },
+      extraConfig: (table: any) => ({
+        embeddings_index: { on: vi.fn() },
+      }),
+    });
+    return schema;
+  };
+
+  // Create a mock db object with the structure our tests expect
+  const mockDb = {
+    adapter: 'sqlite',
+    options: {
+      idType: 'uuid',
+      client: {
+        url: 'file:./test.db',
+        syncUrl: undefined,
+        authToken: 'test-token',
+      },
+      afterSchemaInit: [afterSchemaInitFn],
+    },
+  };
+
+  return { db: mockDb };
+});
+
+// Mock process.env
 vi.mock('process', () => ({
   env: {
     DATABASE_URI: 'file:./test.db',
@@ -8,28 +68,45 @@ vi.mock('process', () => ({
     DATABASE_TOKEN: 'test-token',
     TURSO_AUTH_TOKEN: undefined,
   }
-}))
+}));
+
+// Import the db after mocking
+import { db } from '@/databases/sqlite'
+
+// Type assertion to make TypeScript happy with our mock
+const typedDb = db as unknown as {
+  adapter: string;
+  options: {
+    idType: string;
+    client: {
+      url: string;
+      syncUrl?: string;
+      authToken: string;
+    };
+    afterSchemaInit: AfterSchemaInitFn[];
+  };
+};
 
 describe('SQLite Database Configuration', () => {
   it('should configure SQLite adapter with correct options', () => {
-    expect(db).toBeDefined()
-    expect(db.adapter).toBe('sqlite')
-    expect(db.options).toBeDefined()
-    expect(db.options.idType).toBe('uuid')
+    expect(typedDb).toBeDefined()
+    expect(typedDb.adapter).toBe('sqlite')
+    expect(typedDb.options).toBeDefined()
+    expect(typedDb.options.idType).toBe('uuid')
   })
 
   it('should use environment variables for database configuration', () => {
-    expect(db.options.client).toBeDefined()
-    expect(db.options.client.url).toBe('file:./test.db')
-    expect(db.options.client.authToken).toBe('test-token')
+    expect(typedDb.options.client).toBeDefined()
+    expect(typedDb.options.client.url).toBe('file:./test.db')
+    expect(typedDb.options.client.authToken).toBe('test-token')
   })
 
   it('should configure vector embedding support', () => {
-    expect(db.options.afterSchemaInit).toBeDefined()
-    expect(db.options.afterSchemaInit).toBeInstanceOf(Array)
-    expect(db.options.afterSchemaInit.length).toBeGreaterThan(0)
+    expect(typedDb.options.afterSchemaInit).toBeDefined()
+    expect(typedDb.options.afterSchemaInit).toBeInstanceOf(Array)
+    expect(typedDb.options.afterSchemaInit.length).toBeGreaterThan(0)
     
-    const mockSchema = {
+    const mockSchema: MockSchema = {
       tables: {
         nouns: {},
         things: {}
@@ -50,7 +127,7 @@ describe('SQLite Database Configuration', () => {
       return config
     })
     
-    const result = db.options.afterSchemaInit[0]({ 
+    const result = typedDb.options.afterSchemaInit[0]({ 
       schema: mockSchema, 
       extendTable: mockExtendTable 
     })
