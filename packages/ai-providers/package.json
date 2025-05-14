@@ -3,12 +3,12 @@
   "version": "0.2.0",
   "description": "Provider router for AI models including OpenAI, Anthropic, Google, and more",
   "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     }
   },
@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc && esbuild src/index.ts --bundle --platform=node --outfile=dist/index.mjs --format=esm --external:@ai-sdk/* --external:ai",
     "clean": "rimraf dist",
     "lint": "tsc --noEmit",
     "prepublishOnly": "pnpm clean && pnpm build",
@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.10.5",
+    "esbuild": "^0.25.2",
     "rimraf": "^5.0.5",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3"
