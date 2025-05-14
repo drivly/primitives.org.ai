@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "rimraf dist && esbuild index.ts --bundle --platform=node --outfile=dist/index.js --format=cjs --external:* && esbuild index.ts --bundle --platform=node --outfile=dist/index.mjs --format=esm --external:* && tsc --declaration --emitDeclarationOnly",
+    "build": "node build.js",
     "clean": "rimraf dist",
     "lint": "tsc --noEmit",
     "prepublishOnly": "pnpm clean && pnpm build",
