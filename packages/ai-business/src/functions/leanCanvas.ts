@@ -39,7 +39,7 @@ export const leanCanvas = async (
   })
 
   try {
-    const result = await languageModel(modelName).generate({
+    const result = await (languageModel(modelName) as any).doGenerate({
       prompt: `Create a Lean Canvas for: \n\n${inputStr}`,
       system,
       temperature,
