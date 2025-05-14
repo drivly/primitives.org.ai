@@ -1,1 +1,56 @@
-# Workflow
+---
+title: AI Workflows
+description: Framework for creating multi-step AI workflows with state management and error handling
+$type: package
+---
+
+# AI Workflows
+
+AI Workflows provides a framework for creating multi-step AI workflows with state management and error handling. It orchestrates complex AI interactions, allowing you to define sequences of operations that involve AI models and other processing steps.
+
+The package enables you to create robust pipelines for AI processing, handling intermediate states, errors, and the flow of data between different steps of your workflow. This is particularly useful for complex AI tasks that require multiple operations or decision points.
+
+## Usage Example
+
+```tsx
+import { createWorkflow } from 'ai-workflows'
+import { languageModel } from 'ai-providers'
+
+// Create a multi-step workflow
+const summarizeAndClassify = createWorkflow({
+  name: 'Summarize and Classify',
+  steps: [
+    {
+      name: 'summarize',
+      execute: async (input, context) => {
+        const model = languageModel('openai/gpt-4o')
+        const summary = await model.generate({
+          messages: [{ role: 'user', content: `Summarize this text: ${input.text}` }],
+        })
+        return { summary: summary.content }
+      },
+    },
+    {
+      name: 'classify',
+      execute: async (input, context) => {
+        const model = languageModel('anthropic/claude-3-haiku')
+        const classification = await model.generate({
+          messages: [{ 
+            role: 'user', 
+            content: `Classify this summary into categories: ${input.summary}` 
+          }],
+        })
+        return { 
+          summary: input.summary,
+          categories: classification.content,
+        }
+      },
+    }
+  ],
+})
+
+// Execute the workflow
+const result = await summarizeAndClassify.execute({
+  text: 'Long article text...',
+})
+```

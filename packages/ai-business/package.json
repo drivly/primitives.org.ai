@@ -48,5 +48,6 @@
     "storybrand",
     "lean-canvas"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module"
 }

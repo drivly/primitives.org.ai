@@ -1,1 +1,61 @@
-# Props
+---
+title: AI Props
+description: React component for generating AI-powered props for your components
+$type: package
+---
+
+# AI Props
+
+AI Props provides a React component for generating AI-powered props for your components. It enables component-friendly, real-time streaming of AI-generated content that can be directly used in your React applications.
+
+The library supports multiple AI providers through string-based names or provider objects, schema-based generation using simple objects or Zod schemas, and offers real-time streaming capabilities for immediate feedback during content generation.
+
+## Usage Example
+
+```tsx
+import { AI } from 'ai-props'
+
+// Basic usage with string-based model
+function ArticleComponent() {
+  return (
+    <AI
+      model="gpt-4o"
+      schema={{
+        title: 'SEO-optimized title',
+        content: 'string',
+      }}
+      prompt="Generate an article about React hooks"
+    >
+      {(props) => (
+        <article>
+          <h1>{props.title}</h1>
+          <div>{props.content}</div>
+        </article>
+      )}
+    </AI>
+  )
+}
+
+// With streaming support
+function StreamingArticle() {
+  return (
+    <AI
+      model="gpt-4o"
+      stream={true}
+      schema={{
+        title: 'SEO-optimized title',
+        content: 'string',
+      }}
+      prompt="Generate an article about React"
+    >
+      {(props, { isStreaming }) => (
+        <article className={isStreaming ? 'animate-pulse' : ''}>
+          <h1>{props.title}</h1>
+          <div>{props.content}</div>
+          {isStreaming && <div>Generating content...</div>}
+        </article>
+      )}
+    </AI>
+  )
+}
+```

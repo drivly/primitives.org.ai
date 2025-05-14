@@ -1,4 +1,5 @@
 import { model } from 'ai-providers'
+import { languageModel } from 'ai-providers'
 import { z } from 'zod'
 
 /**
@@ -42,7 +43,7 @@ export const storyBrand = async (
   })
 
   try {
-    const result = await model(modelName).generate({
+    const result = await (languageModel(modelName) as any).doGenerate({
       prompt: `Create a StoryBrand framework for: \n\n${inputStr}`,
       system,
       temperature,

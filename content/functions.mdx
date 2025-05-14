@@ -1,1 +1,38 @@
-# Function
+---
+title: AI Functions
+description: Elegant, type-safe AI functions that deliver predictable results
+$type: package
+---
+
+# AI Functions
+
+AI Functions is a TypeScript library that provides strongly-typed interfaces to AI capabilities, transforming unpredictable AI outputs into reliable, deterministic components for your applications. It enables you to create elegant, type-safe interfaces to AI capabilities that seamlessly integrate with your existing codebase.
+
+The library offers features like dynamic AI functions, template literals, schema validation using Zod, list generation, and configuration options for different AI models. It's designed to make working with AI models as natural as working with any other JavaScript function.
+
+## Usage Example
+
+```tsx
+import { ai, list, AI } from 'ai-functions'
+
+// Generate text using template literals
+const text = await ai`Write a short story about a robot`
+
+// Generate a list of items
+const items = await list`List 5 programming languages`
+
+// Create custom functions with type-safe schemas
+const customAi = AI({
+  createBookProposal: {
+    title: 'proposed title of the book',
+    subtitle: 'proposed subtitle of the book',
+    author: 'name of the author',
+    summary: 'one paragraph summary of the book concept',
+  },
+})
+
+const proposal = await customAi.createBookProposal({
+  genre: 'science fiction',
+  audience: 'young adults',
+})
+```

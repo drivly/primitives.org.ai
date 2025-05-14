@@ -1,4 +1,5 @@
 import { createOpenAI } from '@ai-sdk/openai'
+import { languageModel } from './src/registry.js'
 
 export const model = createOpenAI({
   compatibility: 'compatible',
@@ -10,6 +11,7 @@ export const model = createOpenAI({
   },
 })
 
+export { languageModel }
 export * from './src/registry.js'
 
 export * from '@ai-sdk/openai'
