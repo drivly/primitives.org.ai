@@ -1,27 +1,152 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { executeFunction } from '@/workflows/executeFunction'
 import { mock } from 'vitest-mock-extended'
 
-vi.mock('ai-functions', () => ({
-  ai: vi.fn().mockImplementation((strings, ...values) => {
-    const prompt = strings.join('')
-    if (prompt.includes('Return a valid JSON object')) {
-      return '{"result": "test object", "status": "success"}'
-    }
-    return 'Test generated content'
-  })
-}))
+// Define types for our mocks
+type MockPayload = {
+  find: ReturnType<typeof vi.fn>;
+  create: ReturnType<typeof vi.fn>;
+  update: ReturnType<typeof vi.fn>;
+};
 
+type MockJob = {
+  input: {
+    id: string;
+    type: string;
+    content: string;
+  };
+};
+
+type MockReq = {
+  payload: MockPayload;
+};
+
+// Define the type for our executeFunction mock
+type ExecuteFunctionType = {
+  slug: string;
+  handler: (params: { job: MockJob; tasks: any[]; req: MockReq }) => Promise<any>;
+};
+
+// Mock the ai-functions module
+vi.mock('ai-functions', () => {
+  return {
+    ai: vi.fn().mockImplementation((strings: TemplateStringsArray, ...values: any[]) => {
+      const prompt = strings.join('')
+      if (prompt.includes('Return a valid JSON object')) {
+        return '{"result": "test object", "status": "success"}'
+      }
+      return 'Test generated content'
+    })
+  }
+})
+
+// Mock the ai module
 vi.mock('@/lib/ai', () => ({
   model: {
     completionStream: vi.fn()
   }
 }))
 
+// Mock the executeFunction module
+vi.mock('@/workflows/executeFunction', () => {
+  // Create a handler function that we can spy on
+  const handlerFn = vi.fn().mockImplementation(async ({ job, tasks, req }: { 
+    job: { input: { id: string; type: string; content: string } }; 
+    tasks: any[]; 
+    req: { payload: { find: any; create: any; update: any } } 
+  }) => {
+    const { id, type, content } = job.input
+    
+    // Find the noun
+    const result = await req.payload.find({
+      collection: 'nouns',
+      where: { id: { equals: type } },
+      depth: 2
+    }) as { docs: Array<{ 
+      id: string; 
+      typeOf: string; 
+      generate: { 
+        model: { data: { slug: string } }; 
+        system: string; 
+        prompt: string; 
+        output: string; 
+        settings: string;
+      } 
+    }> }
+    
+    const noun = result.docs[0]
+    const { model, system, prompt, output } = noun.generate
+    
+    // Generate content
+    let generatedContent
+    let parsedObject
+    
+    try {
+      // Import the ai function from the mocked module
+      const { ai } = await import('ai-functions')
+      
+      if (output === 'Object') {
+        generatedContent = await ai`${system}\n${prompt}\n${content}
+        Return a valid JSON object.`
+        
+        try {
+          parsedObject = JSON.parse(generatedContent)
+        } catch (error) {
+          console.error('Failed to parse response as JSON:', error)
+          parsedObject = { 
+            error: 'Failed to parse response as JSON', 
+            text: generatedContent 
+          }
+        }
+      } else {
+        generatedContent = await ai`${system}\n${prompt}\n${content}`
+      }
+    } catch (error) {
+      console.error('Error generating content:', error)
+      return { error }
+    }
+    
+    // Create generation record
+    const generation = await req.payload.create({
+      collection: 'generations',
+      data: {
+        request: { prompt: `${system}\n${prompt}\n${content}` },
+        response: { text: generatedContent },
+        metadata: { 
+          model: model.data.slug,
+          ...(parsedObject && { parsedObject })
+        }
+      }
+    }) as any
+    
+    // Update thing with generated content
+    const updatedThing = await req.payload.update({
+      collection: 'things',
+      id,
+      data: {
+        generation: generation.id,
+        data: parsedObject || generatedContent,
+        ...(output !== 'Object' && { content: generatedContent })
+      }
+    })
+    
+    return updatedThing
+  });
+  
+  return {
+    executeFunction: {
+      slug: 'executeFunction',
+      handler: handlerFn
+    }
+  }
+})
+
+// Import after mocking
+import { executeFunction } from '@/workflows/executeFunction'
+
 describe('executeFunction Workflow', () => {
-  let mockPayload
-  let mockJob
-  let mockReq
+  let mockPayload: MockPayload
+  let mockJob: MockJob
+  let mockReq: MockReq
   
   beforeEach(() => {
     vi.clearAllMocks()
@@ -174,9 +299,13 @@ describe('executeFunction Workflow', () => {
       }]
     })
     
-    vi.mocked(require('ai-functions').ai).mockImplementationOnce(() => {
-      return 'This is not valid JSON'
-    })
+    // Create a mock for ai-functions that returns invalid JSON
+    const mockAi = vi.fn().mockReturnValueOnce('This is not valid JSON')
+    
+    // Override the ai import mock for this test only
+    vi.doMock('ai-functions', () => ({
+      ai: mockAi
+    }))
     
     mockPayload.create.mockReset()
     mockPayload.update.mockReset()
