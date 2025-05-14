@@ -1,2 +1,1 @@
-export { ai, model } from './lib/ai'
-export type { AI } from './lib/ai'
+export { ai, model, AI } from './lib/ai'
