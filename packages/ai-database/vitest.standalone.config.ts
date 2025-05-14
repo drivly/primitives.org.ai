@@ -5,10 +5,6 @@ export default defineConfig({
   test: {
     environment: 'node',
     globals: true,
-    deps: {
-      inline: ['vitest-mock-extended'],
-    },
-    css: false,
   },
   resolve: {
     alias: {
