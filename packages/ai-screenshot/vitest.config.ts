@@ -4,6 +4,9 @@ import { resolve } from 'path'
 export default defineConfig({
   test: {
     environment: 'node',
+    deps: {
+      inline: ['ai-functions', 'ai-providers'],
+    },
   },
   resolve: {
     alias: {
