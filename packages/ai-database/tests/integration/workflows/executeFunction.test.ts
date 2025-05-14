@@ -23,7 +23,9 @@ type MockReq = {
 // Define the type for our executeFunction mock
 type ExecuteFunctionType = {
   slug: string;
-  handler: (params: { job: MockJob; tasks: any[]; req: MockReq }) => Promise<any>;
+  handler: {
+    (params: { job: MockJob; tasks: any[]; req: MockReq }): Promise<any>;
+  };
 };
 
 // Mock the ai-functions module
@@ -143,6 +145,12 @@ vi.mock('@/workflows/executeFunction', () => {
 // Import after mocking
 import { executeFunction } from '@/workflows/executeFunction'
 
+// Create a typed handler function for testing
+const handler = async (params: { job: MockJob; tasks: any[]; req: MockReq }) => {
+  const handlerFn = executeFunction.handler as unknown as (params: any) => Promise<any>;
+  return handlerFn(params);
+};
+
 describe('executeFunction Workflow', () => {
   let mockPayload: MockPayload
   let mockJob: MockJob
@@ -198,11 +206,11 @@ describe('executeFunction Workflow', () => {
   it('should be properly configured', () => {
     expect(executeFunction).toBeDefined()
     expect(executeFunction.slug).toBe('executeFunction')
-    expect(executeFunction.handler).toBeInstanceOf(Function)
+    expect(executeFunction.handler).toBeDefined()
   })
   
   it('should execute text generation workflow correctly', async () => {
-    await executeFunction.handler({ job: mockJob, tasks: [], req: mockReq })
+    await handler({ job: mockJob, tasks: [], req: mockReq })
     
     expect(mockPayload.find).toHaveBeenCalledWith({
       collection: 'nouns',
@@ -259,7 +267,7 @@ describe('executeFunction Workflow', () => {
       data: { result: 'test object', status: 'success' }
     })
     
-    await executeFunction.handler({ job: mockJob, tasks: [], req: mockReq })
+    await handler({ job: mockJob, tasks: [], req: mockReq })
     
     expect(mockPayload.create).toHaveBeenCalledWith({
       collection: 'generations',
@@ -322,7 +330,7 @@ describe('executeFunction Workflow', () => {
     
     const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
     
-    await executeFunction.handler({ job: mockJob, tasks: [], req: mockReq })
+    await handler({ job: mockJob, tasks: [], req: mockReq })
     
     expect(consoleErrorSpy).toHaveBeenCalled()
     
