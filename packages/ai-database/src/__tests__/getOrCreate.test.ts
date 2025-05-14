@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { CollectionSlug } from 'payload'
 
 const mockFindOne = vi.fn();
 const mockCreate = vi.fn();
@@ -32,13 +33,13 @@ describe('getOrCreate', () => {
     mockFindOne.mockReturnValueOnce(Promise.resolve(mockRecord));
 
     const result = await mockPayload.db.getOrCreate({
-      collection: 'test-collection',
+      collection: 'roles' as CollectionSlug,
       data: { name: 'Test Record' },
       where: { id: { equals: 'test-id' } }
     });
 
     expect(mockFindOne).toHaveBeenCalledWith({
-      collection: 'test-collection',
+      collection: 'roles',
       where: { id: { equals: 'test-id' } }
     });
     expect(mockCreate).not.toHaveBeenCalled();
@@ -52,17 +53,17 @@ describe('getOrCreate', () => {
     mockCreate.mockReturnValueOnce(Promise.resolve(createdRecord));
 
     const result = await mockPayload.db.getOrCreate({
-      collection: 'test-collection',
+      collection: 'roles' as CollectionSlug,
       data: newData,
       where: { name: { equals: 'New Record' } }
     });
 
     expect(mockFindOne).toHaveBeenCalledWith({
-      collection: 'test-collection',
+      collection: 'roles',
       where: { name: { equals: 'New Record' } }
     });
     expect(mockCreate).toHaveBeenCalledWith({
-      collection: 'test-collection',
+      collection: 'roles',
       data: newData
     });
     expect(result).toEqual(createdRecord);
@@ -73,7 +74,7 @@ describe('getOrCreate', () => {
     mockFindOne.mockReturnValueOnce(Promise.reject(error));
     
     await expect(mockPayload.db.getOrCreate({
-      collection: 'test-collection',
+      collection: 'roles' as CollectionSlug,
       data: { name: 'Error Record' },
       where: { id: { equals: 'error-id' } }
     })).rejects.toThrow('Database error');
