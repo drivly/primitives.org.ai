@@ -2,14 +2,13 @@
   "name": "ai-providers",
   "version": "0.2.0",
   "description": "Provider router for AI models including OpenAI, Anthropic, Google, and more",
+  "type": "module",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "files": [
@@ -17,13 +16,12 @@
   ],
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "rimraf dist && tsc && esbuild src/index.ts --bundle --platform=node --outfile=dist/index.mjs --format=esm --external:@ai-sdk/* --external:ai",
+    "build": "rimraf dist && tsc",
     "clean": "rimraf dist",
     "lint": "tsc --noEmit",
     "prepublishOnly": "pnpm clean && pnpm build",
     "typecheck": "tsc --noEmit"
   },
-  "type": "module",
   "dependencies": {
     "@ai-sdk/amazon-bedrock": "^1.0.0",
     "@ai-sdk/anthropic": "^1.2.0",
