@@ -40,8 +40,9 @@
   },
   "homepage": "https://primitives.org.ai",
   "dependencies": {
-    "zod": "^3.24.3",
-    "ai-providers": "workspace:*"
+    "ai-providers": "workspace:*",
+    "axios": "^1.9.0",
+    "zod": "^3.24.3"
   },
   "peerDependencies": {
     "react": "^19.0.0",

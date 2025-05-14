@@ -50,12 +50,14 @@ describe('Worker function', () => {
 
   it('should initialize with provided context and plans', () => {
     const initialContext = { key: 'value' }
-    const initialPlans: Plan[] = [{ 
-      name: 'Plan1', 
-      steps: ['step1', 'step2'], 
-      status: 'pending' 
-    }]
-    
+    const initialPlans: Plan[] = [
+      {
+        name: 'Plan1',
+        steps: ['step1', 'step2'],
+        status: 'pending',
+      },
+    ]
+
     const config: WorkerConfig = {
       name: 'TestWorker',
       description: 'A test worker',
@@ -75,7 +77,7 @@ describe('Worker function', () => {
       kpis: ['kpi1', 'kpi2'],
       okrs: { kpi1: { target: '> 90%', weight: 1 } },
     }
-    
+
     const config = {
       name: 'TestWorker',
       description: 'A test worker',
@@ -84,17 +86,14 @@ describe('Worker function', () => {
 
     Worker(config)
 
-    expect(scheduling.setupEventLoop).toHaveBeenCalledWith(
-      expect.anything(),
-      eventLoopConfig
-    )
+    expect(scheduling.setupEventLoop).toHaveBeenCalledWith(expect.anything(), eventLoopConfig)
   })
 
   it('should set up communication if config is provided', () => {
     const communicationConfig = {
       slack: { token: 'slack-token' },
     }
-    
+
     const config = {
       name: 'TestWorker',
       description: 'A test worker',
@@ -103,10 +102,7 @@ describe('Worker function', () => {
 
     Worker(config)
 
-    expect(communication.setupCommunication).toHaveBeenCalledWith(
-      expect.anything(),
-      communicationConfig
-    )
+    expect(communication.setupCommunication).toHaveBeenCalledWith(expect.anything(), communicationConfig)
   })
 
   it('should create agent with correct configuration', () => {

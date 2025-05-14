@@ -7,11 +7,9 @@ import { EmailHumanFunction } from '../platforms/email'
 /**
  * Create a strongly-typed human function
  */
-export function createHumanFunction<TInput, TOutput>(
-  options: CreateHumanFunctionOptions
-): HumanFunction<TInput, TOutput> {
+export function createHumanFunction<TInput, TOutput>(options: CreateHumanFunctionOptions): HumanFunction<TInput, TOutput> {
   const { platform } = options
-  
+
   switch (platform) {
     case 'slack':
       return new SlackHumanFunction<TInput, TOutput>(options)

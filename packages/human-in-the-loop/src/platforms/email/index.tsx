@@ -9,7 +9,7 @@ export function EmailTemplate({
   title,
   description,
   options,
-  callbackUrl
+  callbackUrl,
 }: {
   taskId: string
   title: string
@@ -21,7 +21,7 @@ export function EmailTemplate({
     <div>
       <h1>{title}</h1>
       <p>{description}</p>
-      
+
       {options && options.length > 0 && (
         <div>
           <p>Please select one of the following options:</p>
@@ -29,10 +29,8 @@ export function EmailTemplate({
             {options.map((option, index) => {
               const value = typeof option === 'string' ? option : option.value
               const label = typeof option === 'string' ? option : option.label
-              const responseUrl = callbackUrl 
-                ? `${callbackUrl}?taskId=${taskId}&option=${encodeURIComponent(value)}`
-                : '#'
-              
+              const responseUrl = callbackUrl ? `${callbackUrl}?taskId=${taskId}&option=${encodeURIComponent(value)}` : '#'
+
               return (
                 <li key={index}>
                   <a href={responseUrl}>{label}</a>
@@ -42,10 +40,8 @@ export function EmailTemplate({
           </ul>
         </div>
       )}
-      
-      <p>
-        Or, you can reply to this email with your response.
-      </p>
+
+      <p>Or, you can reply to this email with your response.</p>
     </div>
   )
 }
@@ -64,8 +60,7 @@ export async function sendEmail(
   console.log(`Sending email to ${config.to}`)
   console.log(`Title: ${config.title}`)
   console.log(`Description: ${config.description}`)
-  
-  
+
   return { messageId: `email-${config.taskId}-${Date.now()}` }
 }
 
@@ -74,7 +69,7 @@ export async function sendEmail(
  */
 export async function getEmailResponse<TOutput>(taskId: string): Promise<TOutput | null> {
   console.log(`Getting response for email task ${taskId}`)
-  
+
   return null
 }
 
@@ -82,28 +77,30 @@ export async function getEmailResponse<TOutput>(taskId: string): Promise<TOutput
  * Implementation of HumanFunction for Email
  */
 export class EmailHumanFunction<TInput, TOutput> implements HumanFunction<TInput, TOutput> {
-  private config: EmailConfig & { 
+  private config: EmailConfig & {
     title: string
     description: string
     options?: string[] | Array<{ value: string; label: string }>
   }
-  
-  constructor(config: EmailConfig & { 
-    title: string
-    description: string
-    options?: string[] | Array<{ value: string; label: string }>
-  }) {
+
+  constructor(
+    config: EmailConfig & {
+      title: string
+      description: string
+      options?: string[] | Array<{ value: string; label: string }>
+    }
+  ) {
     this.config = config
   }
-  
+
   async request(input: TInput): Promise<HumanTaskRequest> {
     const taskId = `task-${Date.now()}`
-    
+
     const { messageId } = await sendEmail({
       ...this.config,
-      taskId
+      taskId,
     })
-    
+
     return {
       taskId,
       status: 'pending',
@@ -111,15 +108,15 @@ export class EmailHumanFunction<TInput, TOutput> implements HumanFunction<TInput
         slack: '',
         teams: '',
         react: '',
-        email: messageId
-      }
+        email: messageId,
+      },
     }
   }
-  
+
   async getResponse(taskId: string): Promise<TOutput | null> {
     return getEmailResponse<TOutput>(taskId)
   }
-  
+
   /**
    * Get a React component for this email template
    */

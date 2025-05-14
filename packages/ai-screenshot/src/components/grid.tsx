@@ -31,7 +31,7 @@ export const GridComponent: React.FC<GridComponentProps> = ({ grid, theme }) => 
           {title}
         </h3>
       )}
-      
+
       <div
         style={{
           display: 'grid',
@@ -76,7 +76,7 @@ export const GridComponent: React.FC<GridComponentProps> = ({ grid, theme }) => 
                 />
               </div>
             )}
-            
+
             <h4
               style={{
                 margin: '0 0 8px 0',
@@ -87,7 +87,7 @@ export const GridComponent: React.FC<GridComponentProps> = ({ grid, theme }) => 
             >
               {item.title}
             </h4>
-            
+
             {item.description && (
               <p
                 style={{
@@ -101,7 +101,7 @@ export const GridComponent: React.FC<GridComponentProps> = ({ grid, theme }) => 
                 {item.description}
               </p>
             )}
-            
+
             {item.link && (
               <div
                 style={{

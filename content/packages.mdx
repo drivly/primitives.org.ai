@@ -1,0 +1,21 @@
+# Packages
+
+import Link from 'next/link'
+import fs from 'fs'
+
+<Packages/>
+
+export function Packages() {
+  const packages = fs.readdirSync('packages')
+  console.log(packages)
+  return (
+    <ul>
+      <br/>
+      {packages.map((pkg) => (
+        <li key={pkg}>
+          <code><Link href={`/packages/${pkg}`}>{pkg}</Link></code>
+        </li>
+      ))}
+    </ul>
+  )
+}

@@ -11,22 +11,18 @@ export interface BlogCardProps {
 
 export function BlogCard({ post, compact = false }: BlogCardProps) {
   return (
-    <div className="blog-card">
+    <div className='blog-card'>
       {post.image && (
-        <div className="blog-card-image">
-          <img src={post.image} alt={post.title} className="blog-card-img" />
+        <div className='blog-card-image'>
+          <img src={post.image} alt={post.title} className='blog-card-img' />
         </div>
       )}
-      <div className="blog-card-content">
-        <h3 className="blog-card-title">{post.title}</h3>
-        {!compact && (
-          <p className="blog-card-description">{post.description}</p>
-        )}
-        <div className="blog-card-footer">
-          <span className="blog-card-category">{post.category}</span>
-          {post.readingTime && (
-            <span className="blog-card-reading-time">{post.readingTime}</span>
-          )}
+      <div className='blog-card-content'>
+        <h3 className='blog-card-title'>{post.title}</h3>
+        {!compact && <p className='blog-card-description'>{post.description}</p>}
+        <div className='blog-card-footer'>
+          <span className='blog-card-category'>{post.category}</span>
+          {post.readingTime && <span className='blog-card-reading-time'>{post.readingTime}</span>}
         </div>
       </div>
     </div>

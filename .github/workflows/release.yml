@@ -2,9 +2,13 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish packages to npm (requires approval)'
+        type: boolean
+        default: false
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -31,7 +35,7 @@ jobs:
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 10.8.1
 
       - name: Install Dependencies
         run: pnpm install --no-frozen-lockfile
@@ -40,7 +44,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm run release
+          publish: ${{ github.event.inputs.publish == 'true' && 'pnpm run release' || '' }}
           version: pnpm run version
           commit: "chore: version packages"
           title: "chore: version packages"

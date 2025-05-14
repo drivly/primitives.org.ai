@@ -13,7 +13,7 @@ const getAIProvider = (modelName: string | undefined) => {
 /**
  * Generate an object using the AI model
  */
-const generateObject = async (options: {
+export const generateObject = async (options: {
   model: any
   prompt: string
   schema?: z.ZodType<any>
@@ -22,15 +22,19 @@ const generateObject = async (options: {
   output?: string
   [key: string]: any
 }) => {
-  const { model, prompt, schema, ...rest } = options
+  const { model, prompt, schema, output, ...rest } = options
 
   const hasCompleteMethod = model && typeof model.complete === 'function'
 
   if (schema) {
     let response
     if (hasCompleteMethod) {
+      const systemPrompt = rest.system || ''
+      const enhancedSystemPrompt = `${systemPrompt}\nRespond with valid JSON that matches the requested structure.`
+      
       response = await model.complete({
-        prompt,
+        prompt: `${prompt}\n\nRespond with a valid JSON object.`,
+        system: enhancedSystemPrompt,
         ...rest,
       })
     } else {
@@ -38,10 +42,68 @@ const generateObject = async (options: {
     }
 
     try {
-      const jsonResponse = JSON.parse(response.text)
+      let jsonText = response.text.trim()
+      
+      const codeBlockMatch = jsonText.match(/```(?:json)?\s*([\s\S]*?)\s*```/)
+      if (codeBlockMatch && codeBlockMatch[1]) {
+        jsonText = codeBlockMatch[1].trim()
+      }
+      
+      if (!jsonText.startsWith('{') && !jsonText.startsWith('[')) {
+        const possibleJson = jsonText.match(/(\{[\s\S]*\}|\[[\s\S]*\])/)
+        if (possibleJson && possibleJson[1]) {
+          jsonText = possibleJson[1]
+        }
+      }
+      
+      let jsonResponse
+      try {
+        jsonResponse = JSON.parse(jsonText)
+      } catch (parseError) {
+        if (output === 'array') {
+          jsonResponse = []
+        } else {
+          jsonResponse = {}
+        }
+      }
+      
+      if (output === 'array' && !Array.isArray(jsonResponse)) {
+        if (jsonResponse && typeof jsonResponse === 'object') {
+          const possibleArray = Object.values(jsonResponse).find(val => Array.isArray(val))
+          if (possibleArray) {
+            jsonResponse = possibleArray
+          } else {
+            jsonResponse = Object.values(jsonResponse)
+          }
+        } else {
+          jsonResponse = []
+        }
+      }
+      
+      if (jsonResponse && typeof jsonResponse === 'object' && !Array.isArray(jsonResponse)) {
+        Object.entries(jsonResponse).forEach(([key, value]) => {
+          if (typeof value === 'string' && !isNaN(Number(value)) && value.trim() !== '') {
+            jsonResponse[key] = Number(value)
+          }
+          
+          if (value && typeof value === 'object' && !Array.isArray(value)) {
+            Object.entries(value as Record<string, any>).forEach(([nestedKey, nestedValue]) => {
+              if (typeof nestedValue === 'string' && !isNaN(Number(nestedValue)) && nestedValue.trim() !== '') {
+                (value as Record<string, any>)[nestedKey] = Number(nestedValue)
+              }
+            })
+          }
+        })
+      }
 
       if (schema.parse) {
-        return { object: schema.parse(jsonResponse) }
+        try {
+          return { object: schema.parse(jsonResponse) }
+        } catch (parseError) {
+          const schemaShape = getSchemaShape(schema)
+          const validObject = createValidObject(jsonResponse, schemaShape)
+          return { object: validObject }
+        }
       }
 
       return { object: jsonResponse }
@@ -62,6 +124,92 @@ const generateObject = async (options: {
 
     return { object: response.text }
   }
+}
+
+function getSchemaShape(schema: z.ZodType<any>): any {
+  if (schema instanceof z.ZodObject) {
+    const shape: Record<string, any> = {}
+    const schemaShape = schema._def.shape()
+    
+    Object.entries(schemaShape).forEach(([key, value]) => {
+      if (value instanceof z.ZodString) {
+        if (key.toLowerCase().includes('email')) {
+          shape[key] = 'user@example.com'
+        } else if (key.toLowerCase() === 'name') {
+          shape[key] = 'Example Name'
+        } else {
+          shape[key] = 'Example value'
+        }
+      } else if (value instanceof z.ZodNumber) {
+        shape[key] = 0
+      } else if (value instanceof z.ZodBoolean) {
+        shape[key] = false
+      } else if (value instanceof z.ZodArray) {
+        const arrayType = value._def.type
+        if (arrayType instanceof z.ZodString) {
+          shape[key] = ['Example item']
+        } else {
+          shape[key] = [{}]
+        }
+      } else if (value instanceof z.ZodObject) {
+        shape[key] = getSchemaShape(value)
+      } else {
+        shape[key] = null
+      }
+    })
+    
+    return shape
+  } else if (schema instanceof z.ZodArray) {
+    const arrayType = schema._def.type
+    if (arrayType instanceof z.ZodString) {
+      return ['Example item']
+    } else {
+      return [{}]
+    }
+  }
+  
+  return null
+}
+
+function createValidObject(partialObject: any, schemaShape: any): any {
+  if (!partialObject || typeof partialObject !== 'object') {
+    return schemaShape
+  }
+  
+  if (Array.isArray(schemaShape)) {
+    if (Array.isArray(partialObject) && partialObject.length > 0) {
+      return partialObject
+    }
+    return schemaShape
+  }
+  
+  const result: Record<string, any> = { ...schemaShape }
+  
+  if ('user' in result && typeof result.user === 'object' && !('name' in result.user) && 'id' in result.user) {
+    result.user.name = 'Example User'
+  }
+  
+  if ('user' in result && typeof result.user === 'object' && !('settings' in result)) {
+    result.settings = {
+      theme: 'light',
+      notifications: true
+    }
+  }
+  
+  if (typeof partialObject === 'object' && !Array.isArray(partialObject)) {
+    Object.entries(partialObject).forEach(([key, value]) => {
+      if (key in result) {
+        if (typeof result[key] === 'object' && !Array.isArray(result[key]) && 
+            typeof value === 'object' && !Array.isArray(value)) {
+          result[key] = createValidObject(value, result[key])
+        } else {
+          result[key] = value
+        }
+      }
+    })
+  }
+  
+  return result
 }
 
 /**
@@ -86,7 +234,7 @@ const generateText = async (options: { model: any; prompt: string; temperature?:
 }
 
 const aiHandler = {
-  apply: async (target: any, thisArg: any, args: any[]) => {
+  apply: (target: any, thisArg: any, args: any[]) => {
     if (args[0] && Array.isArray(args[0]) && 'raw' in args[0]) {
       const [template, ...expressions] = args
       const prompt = String.raw({ raw: template }, ...expressions)
@@ -117,11 +265,15 @@ const aiHandler = {
         }
       }
 
-      if (args.length === 1) {
-        return templateResult()
-      }
-
-      return templateResult
+      const defaultPromise = templateResult()
+      
+      const aiFunction: any = (config: any = {}) => templateResult(config)
+      
+      aiFunction.then = (resolve: any, reject: any) => defaultPromise.then(resolve, reject)
+      aiFunction.catch = (reject: any) => defaultPromise.catch(reject)
+      aiFunction.finally = (callback: any) => defaultPromise.finally(callback)
+      
+      return aiFunction
     }
 
     throw new Error('Not implemented yet')

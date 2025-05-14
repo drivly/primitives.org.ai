@@ -1,6 +1,6 @@
 {
   "name": "ai-primitives",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unified entry point for all AI functionality by re-exporting from various AI packages",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --format=cjs --external:* && esbuild src/index.ts --bundle --platform=node --outfile=dist/index.mjs --format=esm --external:*",
-    "dev": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --format=cjs --watch",
+    "dev": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --format=cjs --watch --external:*",
     "test": "npm run build && vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
@@ -41,6 +41,7 @@
     "ai-props": "workspace:*",
     "ai-providers": "workspace:*",
     "ai-database": "workspace:*",
+    "ai-admin": "workspace:*",
     "ai-brand": "workspace:*",
     "ai-business": "workspace:*",
     "ai-directory": "workspace:*",

@@ -8,10 +8,10 @@ export interface DirectoryListProps {
 
 export function DirectoryList({ items, viewMode = 'grid' }: DirectoryListProps) {
   const containerClass = viewMode === 'grid' ? 'directory-grid' : 'directory-list'
-  
+
   return (
     <div className={containerClass}>
-      {items.map(item => (
+      {items.map((item) => (
         <DirectoryItem key={item.id} item={item} viewMode={viewMode} />
       ))}
     </div>

@@ -8,10 +8,7 @@ import { contentConfigSchema, ContentConfig } from './types'
  * @param schema Zod schema for validation
  * @returns Complete content configuration with AI-generated values
  */
-export const generateMissingProps = async (
-  partialConfig: Partial<ContentConfig>,
-  schema: z.ZodType = contentConfigSchema
-): Promise<ContentConfig> => {
+export const generateMissingProps = async (partialConfig: Partial<ContentConfig>, schema: z.ZodType = contentConfigSchema): Promise<ContentConfig> => {
   const prompt = `
     Generate SaaS UI content based on this partial configuration:
     ${JSON.stringify(partialConfig, null, 2)}

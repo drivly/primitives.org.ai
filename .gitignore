@@ -17,9 +17,12 @@
 # next.js
 /.next/
 /out/
+/**/.next
+/**/out
 
 # production
 /build
+**/dist/
 
 # misc
 .DS_Store
@@ -46,4 +49,4 @@ packages/*/node_modules
 
 # turbo
 .turbo
-packages/ai-primitives/dist
+packages/ai-database/ai.db
