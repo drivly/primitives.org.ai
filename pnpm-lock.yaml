@@ -770,9 +770,6 @@ importers:
       '@types/node':
         specifier: ^20.10.5
         version: 20.17.41
-      esbuild:
-        specifier: ^0.25.2
-        version: 0.25.4
       rimraf:
         specifier: ^5.0.5
         version: 5.0.10
