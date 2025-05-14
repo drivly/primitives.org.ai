@@ -43,7 +43,7 @@ export const storyBrand = async (
   })
 
   try {
-    const result = await model(modelName).generate({
+    const result = await languageModel(modelName).generate({
       prompt: `Create a StoryBrand framework for: \n\n${inputStr}`,
       system,
       temperature,
