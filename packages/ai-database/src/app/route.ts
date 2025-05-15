@@ -2,6 +2,8 @@ import config from '@payload-config'
 import { waitUntil } from '@vercel/functions'
 import { getPayload } from 'payload'
 
+export const maxDuration = 800
+
 export const GET = async (request: Request) => {
   const start = Date.now()
   const { headers } = request
