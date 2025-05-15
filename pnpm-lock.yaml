@@ -392,6 +392,9 @@ importers:
       embla-carousel-react:
         specifier: 8.5.1
         version: 8.5.1(react@19.1.0)
+      functions.do:
+        specifier: ^0.0.5
+        version: 0.0.5
       input-otp:
         specifier: 1.4.1
         version: 1.4.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -434,6 +437,9 @@ importers:
       vaul:
         specifier: ^0.9.6
         version: 0.9.9(@types/react-dom@19.1.2(@types/react@19.1.0))(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      workflows.do:
+        specifier: ^0.0.1
+        version: 0.0.1
       zod:
         specifier: ^3.24.1
         version: 3.24.4
