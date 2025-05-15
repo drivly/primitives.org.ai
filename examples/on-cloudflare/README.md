@@ -1,40 +1,36 @@
-# Next.js Platform Example - Cloudflare Deployment
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-This example demonstrates deploying a Next.js application to Cloudflare Pages using OpenNext.
+## Getting Started
 
-## Features
-
-- Deploy Next.js applications to Cloudflare's global network
-- Use Cloudflare Workers for API routes and server components
-- Leverage Cloudflare's edge capabilities
-
-## Prerequisites
-
-- Cloudflare account
-- Wrangler CLI installed (`npm install -g wrangler`)
-
-## Deployment
-
-1. Log in to Cloudflare:
+First, run the development server:
 
 ```bash
-wrangler login
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-2. Deploy your application:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```bash
-npm run deploy
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Configuration
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-This example includes several configuration files:
+## Learn More
 
-- `wrangler.jsonc`: Configuration for the Cloudflare Worker
-- `open-next.config.ts`: Custom OpenNext configuration
-- `cloudflare-env.d.ts`: TypeScript definitions for Cloudflare environment
+To learn more about Next.js, take a look at the following resources:
 
-The deployment process uses OpenNext, which adapts Next.js applications to run on Cloudflare Pages and Workers.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-For more information, see the [OpenNext documentation for Cloudflare](https://opennext.js.org/cloudflare/get_started).
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
