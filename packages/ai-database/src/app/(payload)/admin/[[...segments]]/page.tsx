@@ -6,6 +6,8 @@ import config from '@payload-config'
 import { RootPage, generatePageMetadata } from '@payloadcms/next/views'
 import { importMap } from '../importMap'
 
+export const maxDuration = 800
+
 type Args = {
   params: Promise<{
     segments: string[]
