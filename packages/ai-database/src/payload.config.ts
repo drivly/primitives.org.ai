@@ -85,7 +85,7 @@ const config = buildConfig({
     deleteJobOnComplete: false,
   },
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || 'secret',
+  secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload.types.ts'),
   },

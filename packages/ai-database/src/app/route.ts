@@ -22,8 +22,12 @@ export const GET = async (request: Request) => {
   })
 
   if (things.totalDocs === 0) {
-    const seedStart = Date.now()
-    const job = await payload.jobs.queue({ workflow: 'seed', input: {} })
+    const jobs = await payload.find({ collection: 'payload-jobs' })
+    if (jobs.totalDocs === 0) {
+      const seedStart = Date.now()
+      const job = await payload.jobs.queue({ workflow: 'seed', input: {} })
+      console.log(`Seed job queued: ${job.id}`)
+    }
   }
 
 
