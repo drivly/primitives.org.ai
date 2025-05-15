@@ -18,8 +18,8 @@ export const Things: CollectionConfig = {
     { name: 'data', type: 'json', admin: { editorOptions } },
     { name: 'content', type: 'code', admin: { language: 'mdx', editorOptions } },
     { name: 'relationships', type: 'array', fields: [
-      { name: 'verb', type: 'relationship', relationTo: 'verbs' },
-      { name: 'thing', type: 'relationship', relationTo: 'things' },
+      { name: 'predicate', type: 'relationship', relationTo: ['verbs','properties','actions'] },
+      { name: 'object', type: 'relationship', relationTo: 'things' },
     ]},
     { name: 'events', type: 'join', collection: 'events', on: 'thing', admin: { condition: ({ events }) => !!events } },
   ],

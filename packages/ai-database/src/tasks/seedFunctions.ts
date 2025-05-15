@@ -113,6 +113,16 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
       },
       where: { name: { equals: 'generateUI' } },
     })
+    payload.db.upsert({
+      collection: 'functions',
+      data: { 
+        name: 'research', 
+        output: 'Text',
+        model: 'perplexity/sonar-deep-research',
+        prompt: 'Research {data}'
+      },
+      where: { name: { equals: 'research' } },
+    })
 
     return {
       output: {},

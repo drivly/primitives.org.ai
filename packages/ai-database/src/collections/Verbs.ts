@@ -9,6 +9,6 @@ export const Verbs: CollectionConfig = {
   fields: [
     // { name: 'ns', type: 'text', label: 'Namespace' },
     { name: 'id', type: 'text', required: true, label: 'Verb' },
-    { name: 'things', type: 'join', collection: 'things', on: 'relationships.verb' },
+    { name: 'things', type: 'join', collection: 'things', on: 'relationships.predicate' },
   ],
 }

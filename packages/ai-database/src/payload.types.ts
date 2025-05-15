@@ -421,8 +421,20 @@ export interface Thing {
   content?: string | null;
   relationships?:
     | {
-        verb?: (string | null) | Verb;
-        thing?: (string | null) | Thing;
+        predicate?:
+          | ({
+              relationTo: 'verbs';
+              value: string | Verb;
+            } | null)
+          | ({
+              relationTo: 'properties';
+              value: string | Property;
+            } | null)
+          | ({
+              relationTo: 'actions';
+              value: string | Action;
+            } | null);
+        object?: (string | null) | Thing;
         id?: string | null;
       }[]
     | null;
@@ -450,18 +462,6 @@ export interface Verb {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "webhooks".
- */
-export interface Webhook {
-  id: string;
-  type?: ('Incoming' | 'Outgoing') | null;
-  events?: ('Create' | 'Update' | 'Delete')[] | null;
-  things?: (string | Thing)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "properties".
  */
 export interface Property {
@@ -477,6 +477,18 @@ export interface Property {
 export interface Action {
   id: string;
   data?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "webhooks".
+ */
+export interface Webhook {
+  id: string;
+  type?: ('Incoming' | 'Outgoing') | null;
+  events?: ('Create' | 'Update' | 'Delete')[] | null;
+  things?: (string | Thing)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -789,8 +801,8 @@ export interface ThingsSelect<T extends boolean = true> {
   relationships?:
     | T
     | {
-        verb?: T;
-        thing?: T;
+        predicate?: T;
+        object?: T;
         id?: T;
       };
   events?: T;
@@ -1114,8 +1126,20 @@ export interface WorkflowExecuteFunction {
     content?: string | null;
     relationships?:
       | {
-          verb?: (string | null) | Verb;
-          thing?: (string | null) | Thing;
+          predicate?:
+            | ({
+                relationTo: 'verbs';
+                value: string | Verb;
+              } | null)
+            | ({
+                relationTo: 'properties';
+                value: string | Property;
+              } | null)
+            | ({
+                relationTo: 'actions';
+                value: string | Action;
+              } | null);
+          object?: (string | null) | Thing;
           id?: string | null;
         }[]
       | null;
@@ -1149,8 +1173,20 @@ export interface WorkflowGenerateThing {
     content?: string | null;
     relationships?:
       | {
-          verb?: (string | null) | Verb;
-          thing?: (string | null) | Thing;
+          predicate?:
+            | ({
+                relationTo: 'verbs';
+                value: string | Verb;
+              } | null)
+            | ({
+                relationTo: 'properties';
+                value: string | Property;
+              } | null)
+            | ({
+                relationTo: 'actions';
+                value: string | Action;
+              } | null);
+          object?: (string | null) | Thing;
           id?: string | null;
         }[]
       | null;
