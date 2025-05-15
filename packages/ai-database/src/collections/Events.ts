@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { editorOptions } from '@/lib/collections'
 import { isLoggedIn } from '@/lib/collections'
+import { onEventCreate } from '@/hooks/onEventCreate'
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -16,6 +17,7 @@ export const Events: CollectionConfig = {
   },
   fields: [
     { type: 'row', fields: [
+      // { name: 'id', type: 'text', admin: { hidden: true } },
       { name: 'status', type: 'select', defaultValue: 'Pending', options: ['Pending', 'Processing', 'Success', 'Error'], admin: { readOnly: true } },
       { name: 'execution', type: 'relationship', relationTo: 'functions', admin: { readOnly: true, condition: ({ execution }) => !!execution } },
       { name: 'generation', type: 'relationship', relationTo: 'generations', admin: { readOnly: true, condition: ({ generation }) => !!generation } },
@@ -31,4 +33,7 @@ export const Events: CollectionConfig = {
       { name: 'data', type: 'json' },
     ]},
   ],
+  hooks: {
+    afterOperation: [onEventCreate],
+  },
 }

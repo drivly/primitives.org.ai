@@ -1111,9 +1111,12 @@ export interface TaskSeedSchema {
  */
 export interface WorkflowExecuteFunction {
   input: {
-    id: string;
-    type: string | Noun;
+    status?: ('Pending' | 'Processing' | 'Success' | 'Error') | null;
+    execution?: (string | null) | Function;
     generation?: (string | null) | Generation;
+    noun?: (string | null) | Noun;
+    thing?: (string | null) | Thing;
+    input?: string | null;
     data?:
       | {
           [k: string]: unknown;
@@ -1123,31 +1126,23 @@ export interface WorkflowExecuteFunction {
       | number
       | boolean
       | null;
-    content?: string | null;
-    relationships?:
+    webhooks?:
       | {
-          predicate?:
-            | ({
-                relationTo: 'verbs';
-                value: string | Verb;
-              } | null)
-            | ({
-                relationTo: 'properties';
-                value: string | Property;
-              } | null)
-            | ({
-                relationTo: 'actions';
-                value: string | Action;
-              } | null);
-          object?: (string | null) | Thing;
+          webhook?: (string | null) | Webhook;
+          timestamp?: string | null;
+          status?: ('Pending' | 'Success' | 'Error') | null;
+          data?:
+            | {
+                [k: string]: unknown;
+              }
+            | unknown[]
+            | string
+            | number
+            | boolean
+            | null;
           id?: string | null;
         }[]
       | null;
-    events?: {
-      docs?: (string | Event)[];
-      hasNextPage?: boolean;
-      totalDocs?: number;
-    };
     updatedAt?: string | null;
     createdAt?: string | null;
   };
