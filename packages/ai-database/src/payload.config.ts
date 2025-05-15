@@ -3,7 +3,6 @@ import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
-import { getOrCreatePlugin } from './plugins/getOrCreatePlugin'
 import type { Config } from './payload.types'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -39,6 +38,7 @@ import { seedModels } from './tasks/seedModels'
 import { seedRoles } from './tasks/seedRoles'
 import { seedSchema } from './tasks/seedSchema'
 import { db } from './databases/sqlite'
+import { editorOptions } from './lib/collections'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -64,11 +64,25 @@ const config = buildConfig({
     workflows: [executeFunction, generateThing, generateDatabase, seed, executeWorkflow],
     jobsCollectionOverrides: ({defaultJobsCollection}) => {
       if(!defaultJobsCollection.admin){
-        defaultJobsCollection.admin = {};
+        defaultJobsCollection.admin = {}
       }
-      defaultJobsCollection.admin.hidden = false;
+      defaultJobsCollection.admin.hidden = false
+      defaultJobsCollection.admin.group = 'Admin'
+      defaultJobsCollection.labels = {
+        singular: 'Job',
+        plural: 'Jobs',
+      }
+      defaultJobsCollection.fields.map((field) => {
+        if(field.type === 'json'){
+          field.admin = {
+            ...field.admin, editorOptions
+          }
+        }
+      })
       return defaultJobsCollection
-    }
+    },
+    addParentToTaskLog: true,
+    deleteJobOnComplete: false,
   },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || 'secret',
@@ -98,7 +112,6 @@ const config = buildConfig({
       },
     }),
     payloadCloudPlugin(),
-    getOrCreatePlugin(),
     // storage-adapter-placeholder
   ],
 })

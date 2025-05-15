@@ -6,7 +6,7 @@ type EditorOptions =
     undefined
   >
 
-export const editorOptions: EditorOptions = { padding: { top: 20, bottom: 20 } }
+export const editorOptions: EditorOptions = { padding: { top: 20, bottom: 20 }, lineNumbers: 'off' }
 
 export const isLoggedIn: Access = ({ req: { user } }) => user != null
 

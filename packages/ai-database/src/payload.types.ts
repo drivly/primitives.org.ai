@@ -160,6 +160,7 @@ export interface Config {
       generateThing: WorkflowGenerateThing;
       generateDatabase: WorkflowGenerateDatabase;
       seed: WorkflowSeed;
+      executeWorkflow: WorkflowExecuteWorkflow;
     };
   };
 }
@@ -612,10 +613,14 @@ export interface PayloadJob {
           | number
           | boolean
           | null;
+        parent?: {
+          taskSlug?: ('inline' | 'seedFunctions' | 'seedModels' | 'seedRoles' | 'seedSchema') | null;
+          taskID?: string | null;
+        };
         id?: string | null;
       }[]
     | null;
-  workflowSlug?: ('executeFunction' | 'generateThing' | 'generateDatabase' | 'seed') | null;
+  workflowSlug?: ('executeFunction' | 'generateThing' | 'generateDatabase' | 'seed' | 'executeWorkflow') | null;
   taskSlug?: ('inline' | 'seedFunctions' | 'seedModels' | 'seedRoles' | 'seedSchema') | null;
   queue?: string | null;
   waitUntil?: string | null;
@@ -980,6 +985,12 @@ export interface PayloadJobsSelect<T extends boolean = true> {
         output?: T;
         state?: T;
         error?: T;
+        parent?:
+          | T
+          | {
+              taskSlug?: T;
+              taskID?: T;
+            };
         id?: T;
       };
   workflowSlug?: T;
@@ -1165,6 +1176,26 @@ export interface WorkflowGenerateDatabase {
  */
 export interface WorkflowSeed {
   input?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WorkflowExecuteWorkflow".
+ */
+export interface WorkflowExecuteWorkflow {
+  input: {
+    workflowId: string;
+    input?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    timeout?: number | null;
+    memoryLimit?: number | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
