@@ -118,7 +118,7 @@ export const seedFunctions: TaskConfig<'seedFunctions'> = {
       data: { 
         name: 'research', 
         output: 'Text',
-        model: 'perplexity/sonar-deep-research',
+        model: 'sonar-deep-research',
         prompt: 'Research {data}'
       },
       where: { name: { equals: 'research' } },
