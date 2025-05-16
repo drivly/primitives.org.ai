@@ -44,7 +44,7 @@ export const seedSchema: TaskConfig<'seedSchema'> = {
               collection: 'actions',
               data: {
                 id: id.replace('Action', ''),
-                data: description ? JSON.stringify({ description }) : undefined,
+                data: description ? JSON.stringify({ description }, null, 2) : undefined,
               },
               where: { id: { equals: id.replace('Action', '') } },
             })
@@ -53,7 +53,7 @@ export const seedSchema: TaskConfig<'seedSchema'> = {
               collection: 'types',
               data: {
                 id,
-                data: description ? JSON.stringify({ description }) : undefined,
+                data: description ? JSON.stringify({ description }, null, 2) : undefined,
               },
               where: { id: { equals: id } },
             })
@@ -80,7 +80,7 @@ export const seedSchema: TaskConfig<'seedSchema'> = {
             data: {
               id,
               domainIncludes,
-              data: description ? JSON.stringify({ description }) : undefined,
+              data: description ? JSON.stringify({ description }, null, 2) : undefined,
             },
             where: { id: { equals: id } },
           })
