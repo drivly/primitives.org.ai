@@ -12,7 +12,7 @@ const dummyAdapter = {
   disconnect: async () => {},
 };
 
-let adapter = dummyAdapter;
+const adapter = dummyAdapter;
 
 if (!isVercel && typeof window === 'undefined') {
   console.log('Using PostgreSQL adapter for non-Vercel environment');
