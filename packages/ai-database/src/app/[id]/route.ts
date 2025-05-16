@@ -1,18 +1,15 @@
 import config from '@payload-config'
 import { waitUntil } from '@vercel/functions'
 import { getPayload } from 'payload'
-import { NextRequest, NextResponse } from 'next/server'
 
 export const maxDuration = 800
 
-export const GET = async (
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) => {
+export async function GET(request: Request) {
   const start = Date.now()
   const { headers } = request
-  const { origin, searchParams } = new URL(request.url)
-  const { id } = params
+  const { origin, searchParams, pathname } = new URL(request.url)
+  
+  const id = pathname.split('/').pop() || ''
   
   const payload = await getPayload({ config })
   const { user } = await payload.auth({ headers })

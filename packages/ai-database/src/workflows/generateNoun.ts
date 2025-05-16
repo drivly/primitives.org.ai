@@ -64,7 +64,6 @@ export const generateNoun: WorkflowConfig<'generateNoun'> = {
       })
       
       console.log(`Created Noun/${id}:`, noun)
-      return noun
     } catch (error) {
       const noun = await payload.update({ 
         collection: 'nouns', 
@@ -76,7 +75,6 @@ export const generateNoun: WorkflowConfig<'generateNoun'> = {
       })
       
       console.log(`Updated Noun/${id}:`, noun)
-      return noun
     }
   },
 }
