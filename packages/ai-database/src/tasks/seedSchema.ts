@@ -8,8 +8,9 @@ export const seedSchema: TaskConfig<'seedSchema'> = {
   handler: async ({ req }) => {
     const { payload } = req
 
-    const data = await fetch('https://schema.org/version/latest/schemaorg-current-https.jsonld').then(res => res.json())
-
+    const data = await fetch(
+      'https://schema.org/version/latest/schemaorg-current-https.jsonld',
+    ).then((res) => res.json())
 
     // await payload.db.upsert({
     //   collection: 'databases',
@@ -26,26 +27,70 @@ export const seedSchema: TaskConfig<'seedSchema'> = {
         // continue
       }
       const type = schema['@type'].replace('rdfs:', '').replace('rdf:', '').replace('schema:', '')
-      const id = typeof(schema['rdfs:label']) === 'string' ? schema['rdfs:label'] : schema['rdfs:label']['@value']
+      const id =
+        typeof schema['rdfs:label'] === 'string'
+          ? schema['rdfs:label']
+          : schema['rdfs:label']['@value']
       try {
         if (type === 'Class') {
+          const description = schema['rdfs:comment']
+            ? typeof schema['rdfs:comment'] === 'string'
+              ? schema['rdfs:comment']
+              : schema['rdfs:comment']['@value']
+            : null
+
+          const subClassOf = schema['rdfs:subClassOf']
+            ? typeof schema['rdfs:subClassOf'] === 'string'
+              ? schema['rdfs:subClassOf'].replace('schema:', '')
+              : schema['rdfs:subClassOf']['@id']
+                ? schema['rdfs:subClassOf']['@id'].replace('schema:', '')
+                : null
+            : null
+
           if (id.endsWith('Action')) {
             await payload.db.upsert({
               collection: 'actions',
-              data: { id: id.replace('Action', '') },
+              data: {
+                id: id.replace('Action', ''),
+                data: description ? JSON.stringify({ description }) : undefined,
+              },
               where: { id: { equals: id.replace('Action', '') } },
             })
           } else {
             await payload.db.upsert({
               collection: 'types',
-              data: { id },
+              data: {
+                id,
+                data: description ? JSON.stringify({ description }) : undefined,
+                subClassOf: subClassOf || undefined,
+              },
               where: { id: { equals: id } },
             })
           }
         } else if (type === 'Property') {
+          const description = schema['rdfs:comment']
+            ? typeof schema['rdfs:comment'] === 'string'
+              ? schema['rdfs:comment']
+              : schema['rdfs:comment']['@value']
+            : null
+
+          let domainIncludes = null
+          if (schema['schema:domainIncludes']) {
+            if (
+              typeof schema['schema:domainIncludes'] === 'object' &&
+              schema['schema:domainIncludes']['@id']
+            ) {
+              domainIncludes = schema['schema:domainIncludes']['@id'].replace('schema:', '')
+            }
+          }
+
           await payload.db.upsert({
             collection: 'properties',
-            data: { id, type },
+            data: {
+              id,
+              domainIncludes,
+              data: description ? JSON.stringify({ description }) : undefined,
+            },
             where: { id: { equals: id } },
           })
         } else {
@@ -64,21 +109,34 @@ export const seedSchema: TaskConfig<'seedSchema'> = {
     for (const schema of data['@graph']) {
       if (['rdfs:Class', 'rdf:Property'].includes(schema['@type'])) continue
       const type = schema['@type'].replace('rdfs:', '').replace('rdf:', '').replace('schema:', '')
-      const id = typeof(schema['rdfs:label']) === 'string' ? schema['rdfs:label'] : schema['rdfs:label']['@value']
+      const id =
+        typeof schema['rdfs:label'] === 'string'
+          ? schema['rdfs:label']
+          : schema['rdfs:label']['@value']
       try {
+        const description = schema['rdfs:comment']
+          ? typeof schema['rdfs:comment'] === 'string'
+            ? schema['rdfs:comment']
+            : schema['rdfs:comment']['@value']
+          : null
+
         await payload.db.upsert({
           collection: 'enums',
-          data: { id, type },
+          data: {
+            id,
+            type,
+            data: description ? JSON.stringify({ description }) : undefined,
+          },
           where: { id: { equals: id } },
         })
       } catch (error) {
         console.error(error, schema)
       }
     }
-    
+
     return {
       output: {},
-      state: 'succeeded'
+      state: 'succeeded',
     }
   },
 }
