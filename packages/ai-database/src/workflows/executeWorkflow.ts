@@ -5,6 +5,7 @@ type WorkflowInput = {
   input?: any;
   timeout?: number;
   memoryLimit?: number;
+  eventId?: string;
 };
 
 type WorkflowOutput = {
@@ -20,23 +21,62 @@ export const executeWorkflow: WorkflowConfig<any> = {
     { name: 'input', type: 'json' },
     { name: 'timeout', type: 'number' },
     { name: 'memoryLimit', type: 'number' },
+    { name: 'eventId', type: 'text' },
   ],
   handler: async function({ job, tasks, req }) {
     const { payload } = req;
     
     const input = job.input as unknown as WorkflowInput;
-    const { workflowId, timeout = 5000, memoryLimit = 128 } = input;
+    const { workflowId, timeout = 5000, memoryLimit = 128, eventId } = input;
     
+    let event;
     try {
+      if (eventId) {
+        event = await payload.findByID({
+          collection: 'events',
+          id: eventId,
+        });
+        
+        if (!event) {
+          throw new Error(`Event with ID ${eventId} not found`);
+        }
+        
+        await payload.update({
+          collection: 'events',
+          id: eventId,
+          data: { status: 'Processing' }
+        });
+      } else {
+        event = await payload.create({
+          collection: 'events',
+          data: {
+            input: JSON.stringify(input.input),
+            status: 'Processing',
+            data: { workflowId }
+          }
+        });
+      }
+      
       const workflow = await payload.findByID({
         collection: 'workflows',
         id: workflowId,
       });
       
       if (!workflow) {
+        const errorMessage = `Workflow with ID ${workflowId} not found`;
+        
+        await payload.update({
+          collection: 'events',
+          id: event.id,
+          data: {
+            status: 'Error',
+            data: { error: errorMessage }
+          }
+        });
+        
         const output = { 
           result: null,
-          error: `Workflow with ID ${workflowId} not found`,
+          error: errorMessage,
           logs: [] 
         } as WorkflowOutput;
         
@@ -131,8 +171,32 @@ export const executeWorkflow: WorkflowConfig<any> = {
       let result = null;
       try {
         result = await script.run(context, { timeout });
+        
+        await payload.update({
+          collection: 'events',
+          id: event.id,
+          data: {
+            status: 'Success',
+            data: {
+              result,
+              logs
+            }
+          }
+        });
       } catch (error: any) {
         const errorMessage = error instanceof Error ? error.message : String(error);
+        
+        await payload.update({
+          collection: 'events',
+          id: event.id,
+          data: {
+            status: 'Error',
+            data: { 
+              error: errorMessage,
+              logs
+            }
+          }
+        });
         
         const output = {
           result: null,
@@ -175,9 +239,25 @@ export const executeWorkflow: WorkflowConfig<any> = {
       
       return;
     } catch (error: any) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      
+      if (event) {
+        await payload.update({
+          collection: 'events',
+          id: event.id,
+          data: {
+            status: 'Error',
+            data: { 
+              error: errorMessage,
+              stack: error.stack
+            }
+          }
+        });
+      }
+      
       const output = {
         result: null,
-        error: error.message || String(error),
+        error: errorMessage,
         logs: [],
       } as WorkflowOutput;
       
