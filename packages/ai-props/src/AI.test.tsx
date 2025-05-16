@@ -57,12 +57,14 @@ describe('AI Component', () => {
         },
       })
 
+      const schema = {
+        title: 'string',
+      }
+
       render(
         <AI
           model='gpt-4o'
-          schema={{
-            title: 'string',
-          }}
+          schema={schema}
           prompt='Generate a title'
         >
           {(props) => <h1 data-testid='title'>{props.title}</h1>}
@@ -74,6 +76,12 @@ describe('AI Component', () => {
       })
 
       expect(generateObject).toHaveBeenCalledTimes(1)
+      expect(generateObject).toHaveBeenCalledWith(
+        expect.objectContaining({
+          prompt: 'Generate a title',
+          schema: expect.anything(),
+        })
+      )
     })
 
     it('should render with all configuration options', async () => {
