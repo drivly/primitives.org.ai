@@ -7,6 +7,7 @@ import type { Config } from './payload.types'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
+import { getOrCreatePlugin } from './plugins/getOrCreatePlugin'
 
 import { Database } from './globals/Database'
 import { Functions } from './collections/Functions'
@@ -113,6 +114,7 @@ const config = buildConfig({
     }),
     payloadCloudPlugin(),
     // storage-adapter-placeholder
+    getOrCreatePlugin(),
   ],
 })
 
