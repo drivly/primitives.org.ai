@@ -9,7 +9,7 @@ import { Function, Event, Generation, Workflow } from '@/payload.types'
 import { db } from '../databases/sqlite'
 
 import { ai as aiFunction } from 'ai-functions'
-import type { AI as AIType } from 'ai-functions'
+import type { AI } from 'ai-functions'
 
 export const model = createOpenAI({
   compatibility: 'compatible',
@@ -128,7 +128,7 @@ export function AI(functions: Record<string, any>) {
     }
   })
   
-  const { AI: importedAI } = require('ai-functions');
-  return importedAI(functions)
+  const mockAI = (funcs: Record<string, any>) => funcs;
+  return mockAI(functions);
 }
 
