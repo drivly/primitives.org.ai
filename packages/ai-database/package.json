@@ -20,6 +20,8 @@
   "dependencies": {
     "@ai-sdk/openai": "^1.3.22",
     "@libsql/client": "^0.15.4",
+    "@payloadcms/db-mongodb": "^3.38.0",
+    "@payloadcms/db-postgres": "^3.38.0",
     "@payloadcms/db-sqlite": "3.33.0",
     "@payloadcms/next": "3.33.0",
     "@payloadcms/payload-cloud": "3.33.0",

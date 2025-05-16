@@ -37,7 +37,7 @@ import { seedFunctions } from './tasks/seedFunctions'
 import { seedModels } from './tasks/seedModels'
 import { seedRoles } from './tasks/seedRoles'
 import { seedSchema } from './tasks/seedSchema'
-import { db } from './databases/sqlite'
+import { db } from './databases'
 import { editorOptions } from './lib/collections'
 
 const filename = fileURLToPath(import.meta.url)
