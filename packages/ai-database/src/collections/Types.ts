@@ -5,7 +5,7 @@ import { isLoggedIn } from '@/lib/collections'
 export const Types: CollectionConfig = {
   slug: 'types',
   admin: {
-    group: 'Schema.org'
+    group: 'Schema.org',
   },
   access: {
     read: isLoggedIn,
@@ -18,5 +18,7 @@ export const Types: CollectionConfig = {
     { name: 'data', type: 'code', admin: { language: 'mdx', editorOptions } },
     { name: 'subClassOf', type: 'relationship', relationTo: 'types' },
     { name: 'subClasses', type: 'join', collection: 'types', on: 'subClassOf' },
+    { name: 'properties', type: 'join', collection: 'properties', on: 'domainIncludes' },
+    { name: 'enums', type: 'join', collection: 'enums', on: 'type' },
   ],
 }
