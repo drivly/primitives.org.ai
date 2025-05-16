@@ -14,8 +14,8 @@ const eslintConfig = [
   {
     rules: {
       '@typescript-eslint/ban-ts-comment': 'warn',
-      '@typescript-eslint/no-empty-object-type': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unsafe-declaration-merging': 'off',
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {
