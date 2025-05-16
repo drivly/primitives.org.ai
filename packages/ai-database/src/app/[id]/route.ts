@@ -4,11 +4,14 @@ import { getPayload } from 'payload'
 
 export const maxDuration = 800
 
-export const GET = async (request: Request, { params }: { params: { id: string } }) => {
+export const GET = async (
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) => {
   const start = Date.now()
   const { headers } = request
   const { origin, searchParams } = new URL(request.url)
-  const { id } = params
+  const { id } = await params
   
   const payload = await getPayload({ config })
   const { user } = await payload.auth({ headers })
