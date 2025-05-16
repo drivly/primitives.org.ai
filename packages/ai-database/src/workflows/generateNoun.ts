@@ -8,8 +8,20 @@ type GenerateNounInput = {
   queryContext?: Record<string, string>
 }
 
-export const generateNoun: WorkflowConfig<'generateThing'> = {
+export const generateNoun: WorkflowConfig<'generateNoun'> = {
   slug: 'generateNoun',
+  inputSchema: [
+    { 
+      name: 'id', 
+      type: 'text', 
+      required: true 
+    },
+    { 
+      name: 'queryContext', 
+      type: 'json', 
+      required: false 
+    }
+  ],
   handler: async ({ job, tasks, req }) => {
     const { payload } = req
     const settings = await payload.findGlobal({ slug: 'settings' })
@@ -39,7 +51,7 @@ export const generateNoun: WorkflowConfig<'generateThing'> = {
       request: JSON.parse(results.request.body || '{}'),
       response: results.response,
       metadata: results.usage,
-    }})
+    } })
   
     try {
       const noun = await payload.create({ 
