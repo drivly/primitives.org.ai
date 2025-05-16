@@ -5,8 +5,10 @@ import { getPayload } from 'payload'
 import { cache } from 'react'
 import { z } from 'zod'
 import { StringValueNode } from 'graphql'
-import { Thing } from '@/payload.types'
-import { ai } from 'ai-functions'
+import { Function, Event, Generation, Workflow } from '@/payload.types'
+import { db } from '../databases/sqlite'
+
+import * as aiFunctions from 'ai-functions'
 
 export const model = createOpenAI({
   compatibility: 'compatible',
@@ -23,10 +25,110 @@ export const getSettings = cache(async () => {
   return payload.findGlobal({ slug: 'settings' })
 })
 
-export { ai }
+interface AIOptions {
+  function?: string;
+  output?: string;
+  model?: string;
+  system?: string;
+  temperature?: number;
+  maxTokens?: number;
+  [key: string]: any;
+}
+
+export const ai = async (promptOrTemplate: string | TemplateStringsArray, ...args: any[]) => {
+  let prompt: string;
+  let options: AIOptions = {};
+  
+  if (typeof promptOrTemplate === 'string') {
+    prompt = promptOrTemplate;
+    if (args.length > 0 && typeof args[0] === 'object') {
+      options = args[0];
+    }
+  } else {
+    prompt = String.raw(promptOrTemplate, ...args);
+  }
+  
+  const functionName = options.function || 'default';
+  let functionRecord = await (db as any).findOne({
+    collection: 'functions',
+    where: { name: { equals: functionName } }
+  }) as Function;
+
+  if (!functionRecord) {
+    functionRecord = await (db as any).create({
+      collection: 'functions',
+      data: { 
+        name: functionName,
+        output: options.output || 'Text',
+        model: options.model || 'gpt-4o',
+        prompt: prompt,
+        system: options.system || '',
+        settings: JSON.stringify({
+          temperature: options.temperature || 1.0,
+          maxTokens: options.maxTokens || undefined
+        })
+      }
+    }) as Function;
+  }
+  
+  const aiModule = await import('ai-functions');
+  const aiFunc = aiModule.ai as any;
+  const result = typeof promptOrTemplate === 'string' 
+    ? await aiFunc(prompt, options)
+    : await aiFunc(promptOrTemplate, ...args);
+  
+  const event = await (db as any).create({
+    collection: 'events',
+    data: {
+      status: 'Success',
+      execution: functionRecord.id,
+      input: prompt,
+      data: result
+    }
+  }) as Event;
+  
+  const generation = await (db as any).create({
+    collection: 'generations',
+    data: {
+      provider: options.model || 'openai',
+      type: 'Realtime',
+      request: { prompt, ...options },
+      response: { result },
+      metadata: {
+        model: options.model || 'gpt-4o',
+        temperature: options.temperature || 1.0,
+        tokens: options.maxTokens || null
+      }
+    }
+  }) as Generation;
+  
+  await (db as any).update({
+    collection: 'events',
+    id: event.id,
+    data: {
+      generation: generation.id
+    }
+  });
+  
+  return result;
+}
 
 export function AI(functions: Record<string, any>) {
-  const aiFunctions = require('ai-functions')
-  return aiFunctions.AI(functions)
+  Object.entries(functions).forEach(([name, definition]) => {
+    if (typeof definition === 'function') {
+      const functionString = definition.toString();
+      
+      (db as any).getOrCreate({
+        collection: 'workflows',
+        data: { 
+          name,
+          code: functionString
+        },
+        where: { name: { equals: name } }
+      })
+    }
+  })
+  
+  return (aiFunctions as any).AI(functions)
 }
 
