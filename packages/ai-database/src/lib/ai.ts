@@ -11,6 +11,13 @@ import { db } from '../databases/sqlite'
 import { ai as aiFunction } from 'ai-functions'
 import type { AI } from 'ai-functions'
 
+interface DbOperations {
+  findOne: (args: { collection: string, where: Record<string, any> }) => Promise<any>;
+  create: (args: { collection: string, data: Record<string, any> }) => Promise<any>;
+  update: (args: { collection: string, id: string, data: Record<string, any> }) => Promise<any>;
+  getOrCreate: (args: { collection: string, data: Record<string, any>, where: Record<string, any> }) => Promise<any>;
+}
+
 
 export const model = createOpenAI({
   compatibility: 'compatible',
@@ -51,15 +58,13 @@ export const ai = async (promptOrTemplate: string | TemplateStringsArray, ...arg
   }
   
   const functionName = options.function || 'default';
-  let functionRecord = await // Using 'any' is necessary due to the complex database adapter type structure
-(db as any).findOne({
+  let functionRecord = await (db as unknown as DbOperations).findOne({
     collection: 'functions',
     where: { name: { equals: functionName } }
   }) as FunctionType;
 
   if (!functionRecord) {
-    functionRecord = await // Using 'any' is necessary due to the complex database adapter type structure
-(db as any).create({
+    functionRecord = await (db as unknown as DbOperations).create({
       collection: 'functions',
       data: { 
         name: functionName,
@@ -79,8 +84,7 @@ export const ai = async (promptOrTemplate: string | TemplateStringsArray, ...arg
     ? await aiFunction(prompt as any, options)
     : await aiFunction(promptOrTemplate as any, ...args);
   
-  const event = await // Using 'any' is necessary due to the complex database adapter type structure
-(db as any).create({
+  const event = await (db as unknown as DbOperations).create({
     collection: 'events',
     data: {
       status: 'Success',
@@ -90,8 +94,7 @@ export const ai = async (promptOrTemplate: string | TemplateStringsArray, ...arg
     }
   }) as Event;
   
-  const generation = await // Using 'any' is necessary due to the complex database adapter type structure
-(db as any).create({
+  const generation = await (db as unknown as DbOperations).create({
     collection: 'generations',
     data: {
       provider: options.model || 'openai',
@@ -106,8 +109,7 @@ export const ai = async (promptOrTemplate: string | TemplateStringsArray, ...arg
     }
   }) as Generation;
   
-  await // Using 'any' is necessary due to the complex database adapter type structure
-(db as any).update({
+  await (db as unknown as DbOperations).update({
     collection: 'events',
     id: event.id,
     data: {
@@ -123,7 +125,7 @@ export function AI(functions: Record<string, any>) {
     if (typeof definition === 'function') {
       const functionString = definition.toString();
       
-(db as any).getOrCreate({
+(db as unknown as DbOperations).getOrCreate({
         collection: 'workflows',
         data: { 
           name,
