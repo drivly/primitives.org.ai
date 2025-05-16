@@ -39,14 +39,6 @@ export const seedSchema: TaskConfig<'seedSchema'> = {
               : schema['rdfs:comment']['@value']
             : null
 
-          const subClassOf = schema['rdfs:subClassOf']
-            ? typeof schema['rdfs:subClassOf'] === 'string'
-              ? schema['rdfs:subClassOf'].replace('schema:', '')
-              : schema['rdfs:subClassOf']['@id']
-                ? schema['rdfs:subClassOf']['@id'].replace('schema:', '')
-                : null
-            : null
-
           if (id.endsWith('Action')) {
             await payload.db.upsert({
               collection: 'actions',
@@ -62,7 +54,6 @@ export const seedSchema: TaskConfig<'seedSchema'> = {
               data: {
                 id,
                 data: description ? JSON.stringify({ description }) : undefined,
-                subClassOf: subClassOf || undefined,
               },
               where: { id: { equals: id } },
             })
@@ -105,6 +96,49 @@ export const seedSchema: TaskConfig<'seedSchema'> = {
       }
     }
 
+    for (const schema of data['@graph']) {
+      if (typeof schema['@type'] !== 'string') {
+        if (Array.isArray(schema['@type'])) {
+          schema['@type'].sort()
+          schema['@type'] = schema['@type'][0]
+        }
+      }
+      
+      const type = schema['@type'].replace('rdfs:', '').replace('rdf:', '').replace('schema:', '')
+      
+      if (type === 'Class') {
+        const id =
+          typeof schema['rdfs:label'] === 'string'
+            ? schema['rdfs:label']
+            : schema['rdfs:label']['@value']
+        
+        if (!id.endsWith('Action')) {
+          const subClassOf = schema['rdfs:subClassOf']
+            ? typeof schema['rdfs:subClassOf'] === 'string'
+              ? schema['rdfs:subClassOf'].replace('schema:', '')
+              : schema['rdfs:subClassOf']['@id']
+                ? schema['rdfs:subClassOf']['@id'].replace('schema:', '')
+                : null
+            : null
+          
+          if (subClassOf) {
+            try {
+              await payload.db.upsert({
+                collection: 'types',
+                data: {
+                  id,
+                  subClassOf,
+                },
+                where: { id: { equals: id } },
+              })
+            } catch (error) {
+              console.error(`Failed to update subClassOf for ${id}:`, error)
+            }
+          }
+        }
+      }
+    }
+    
     // now add enums
     for (const schema of data['@graph']) {
       if (['rdfs:Class', 'rdf:Property'].includes(schema['@type'])) continue
