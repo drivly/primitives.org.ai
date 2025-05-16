@@ -301,7 +301,7 @@ importers:
     dependencies:
       '@opennextjs/cloudflare':
         specifier: ^1.0.2
-        version: 1.0.2(wrangler@4.14.4)
+        version: 1.0.2(wrangler@4.14.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))
       next:
         specifier: 15.3.2
         version: 15.3.2(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4)
@@ -332,7 +332,7 @@ importers:
         version: 5.8.3
       wrangler:
         specifier: ^4.14.4
-        version: 4.14.4
+        version: 4.14.4(bufferutil@4.0.9)(utf-8-validate@6.0.5)
 
   examples/service-directory:
     dependencies:
@@ -513,13 +513,13 @@ importers:
     dependencies:
       '@payloadcms/db-mongodb':
         specifier: ^3.37.0
-        version: 3.37.0(@aws-sdk/credential-providers@3.804.0)(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(socks@2.8.4)
+        version: 3.38.0(@aws-sdk/credential-providers@3.804.0)(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(socks@2.8.4)
       next:
         specifier: ^14.0.0
         version: 14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@18.3.1))(react@18.3.1)(sass@1.77.4)
       payload:
         specifier: ^3.37.0
-        version: 3.37.0(graphql@16.8.1)(typescript@5.8.3)
+        version: 3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5)
       react:
         specifier: ^18.0.0
         version: 18.3.1
@@ -563,7 +563,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^1.2.1
-        version: 1.6.1(@types/node@20.17.47)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
+        version: 1.6.1(@types/node@20.17.47)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
 
   packages/ai-business:
     dependencies:
@@ -661,7 +661,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^3.0.9
-        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
   packages/ai-database:
     dependencies:
@@ -670,31 +670,37 @@ importers:
         version: 1.3.22(zod@3.24.4)
       '@libsql/client':
         specifier: ^0.15.4
-        version: 0.15.4
+        version: 0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       '@payloadcms/db-mongodb':
         specifier: ^3.38.0
-        version: 3.38.0(@aws-sdk/credential-providers@3.804.0)(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(socks@2.8.4)
+        version: 3.38.0(@aws-sdk/credential-providers@3.804.0)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(socks@2.8.4)
       '@payloadcms/db-postgres':
         specifier: ^3.38.0
-        version: 3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4)(@opentelemetry/api@1.9.0)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(postgres@3.4.5)(react@19.1.0)
+        version: 3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(postgres@3.4.5)(react@19.1.0)
       '@payloadcms/db-sqlite':
         specifier: 3.33.0
-        version: 3.33.0(@cloudflare/workers-types@4.20250506.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
+        version: 3.33.0(@cloudflare/workers-types@4.20250506.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(bufferutil@4.0.9)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)(utf-8-validate@6.0.5)
+      '@payloadcms/db-vercel-postgres':
+        specifier: ^3.38.0
+        version: 3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(postgres@3.4.5)(react@19.1.0)
       '@payloadcms/next':
         specifier: 3.33.0
-        version: 3.33.0(@types/react@19.1.0)(graphql@16.8.1)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)
+        version: 3.33.0(@types/react@19.1.0)(graphql@16.8.1)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)
       '@payloadcms/payload-cloud':
         specifier: 3.33.0
-        version: 3.33.0(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))
+        version: 3.33.0(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))
       '@payloadcms/plugin-multi-tenant':
         specifier: ^3.37.0
-        version: 3.37.0(@payloadcms/ui@3.37.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3))(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))
+        version: 3.37.0(@payloadcms/ui@3.37.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3))(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))
       '@payloadcms/richtext-lexical':
         specifier: 3.33.0
-        version: 3.33.0(@faceless-ui/modal@3.0.0-beta.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@faceless-ui/scroll-info@2.0.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@payloadcms/next@3.33.0(@types/react@19.1.0)(graphql@16.8.1)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3))(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)(yjs@13.6.26)
+        version: 3.33.0(@faceless-ui/modal@3.0.0-beta.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@faceless-ui/scroll-info@2.0.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@payloadcms/next@3.33.0(@types/react@19.1.0)(graphql@16.8.1)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3))(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)(yjs@13.6.26)
       '@vercel/functions':
         specifier: ^2.0.3
         version: 2.0.3(@aws-sdk/credential-provider-web-identity@3.810.0)
+      '@vercel/postgres':
+        specifier: ^0.10.0
+        version: 0.10.0(utf-8-validate@6.0.5)
       ai:
         specifier: ^4.3.15
         version: 4.3.15(react@19.1.0)(zod@3.24.4)
@@ -727,7 +733,7 @@ importers:
         version: 15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4)
       payload:
         specifier: 3.33.0
-        version: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+        version: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -764,7 +770,7 @@ importers:
         version: 19.1.2(@types/react@19.1.0)
       '@vitest/coverage-v8':
         specifier: ^1.0.0
-        version: 1.6.1(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1))
+        version: 1.6.1(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1))
       eslint:
         specifier: ^9.16.0
         version: 9.26.0(jiti@2.4.2)
@@ -779,10 +785,10 @@ importers:
         version: 5.7.3
       vitest:
         specifier: ^3.1.3
-        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
       vitest-mock-extended:
         specifier: ^1.3.1
-        version: 1.3.2(typescript@5.7.3)(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1))
+        version: 1.3.2(typescript@5.7.3)(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1))
 
   packages/ai-directory:
     dependencies:
@@ -834,13 +840,13 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^1.0.0
-        version: 1.6.1(@types/node@20.17.47)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
+        version: 1.6.1(@types/node@20.17.47)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
 
   packages/ai-experiments:
     dependencies:
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@20.17.47)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
+        version: 1.6.1(@types/node@20.17.47)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
     devDependencies:
       '@types/node':
         specifier: ^20.17.0
@@ -881,7 +887,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^3.0.9
-        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
   packages/ai-management:
     dependencies:
@@ -903,34 +909,34 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^1.2.1
-        version: 1.6.1(@types/node@22.15.12)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
+        version: 1.6.1(@types/node@22.15.12)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
 
   packages/ai-observability:
     dependencies:
       '@payloadcms/db-mongodb':
         specifier: ^3.37.0
-        version: 3.37.0(@aws-sdk/credential-providers@3.804.0)(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(socks@2.8.4)
+        version: 3.38.0(@aws-sdk/credential-providers@3.804.0)(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(socks@2.8.4)
       '@payloadcms/db-postgres':
         specifier: ^3.37.0
-        version: 3.37.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/react@19.1.3)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(postgres@3.4.5)(react@18.3.1)
+        version: 3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(postgres@3.4.5)(react@18.3.1)
       '@payloadcms/db-sqlite':
         specifier: ^3.37.0
-        version: 3.37.0(@cloudflare/workers-types@4.20250506.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)
+        version: 3.37.0(@cloudflare/workers-types@4.20250506.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(bufferutil@4.0.9)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)(utf-8-validate@6.0.5)
       '@payloadcms/richtext-slate':
         specifier: ^3.37.0
-        version: 3.37.0(@types/react@19.1.3)(monaco-editor@0.38.0)(next@14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(sass@1.77.4))(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(typescript@5.8.3)
+        version: 3.37.0(@types/react@19.1.3)(monaco-editor@0.38.0)(next@14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(sass@1.77.4))(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(typescript@5.8.3)
       next:
         specifier: ^14.0.0
         version: 14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(sass@1.77.4)
       payload:
         specifier: ^3.37.0
-        version: 3.37.0(graphql@16.8.1)(typescript@5.8.3)
+        version: 3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5)
       react:
         specifier: ^18.0.0
         version: 18.3.1
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@20.17.47)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
+        version: 1.6.1(@types/node@20.17.47)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
     devDependencies:
       '@types/node':
         specifier: ^20.17.0
@@ -1037,7 +1043,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^3.0.9
-        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
   packages/ai-projects:
     dependencies:
@@ -1068,16 +1074,16 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^1.2.1
-        version: 1.6.1(@types/node@22.15.12)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
+        version: 1.6.1(@types/node@22.15.12)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
 
   packages/ai-props:
     dependencies:
       ai-functions:
         specifier: ^0.1.0
-        version: 0.1.4(ws@8.18.2)(zod@3.24.4)
+        version: 0.1.4(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)
       ai-providers:
         specifier: ^0.2.0
-        version: 0.2.0(@cloudflare/workers-types@4.20250506.0)(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(@langchain/openai@0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(ws@8.18.2))(@types/debug@4.1.12)(jiti@2.4.2)(jsdom@26.1.0)(langchain@0.3.24(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.97.0(ws@8.18.2)(zod@3.24.4))(ws@8.18.2))(lightningcss@1.29.2)(openai@4.97.0(ws@8.18.2)(zod@3.24.4))(react@19.1.0)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)(zod@3.24.4)
+        version: 0.2.0(@cloudflare/workers-types@4.20250506.0)(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(@langchain/openai@0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(@types/debug@4.1.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(langchain@0.3.24(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(lightningcss@1.29.2)(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))(react@19.1.0)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)(zod@3.24.4)
       react:
         specifier: '>=18.0.0'
         version: 19.1.0
@@ -1120,7 +1126,7 @@ importers:
         version: 5.2.0(eslint@9.26.0(jiti@2.4.2))
       jsdom:
         specifier: ^26.1.0
-        version: 26.1.0
+        version: 26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       prettier:
         specifier: ^3.4.2
         version: 3.5.3
@@ -1129,10 +1135,10 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^3.0.9
-        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
       vitest-dom:
         specifier: ^0.1.1
-        version: 0.1.1(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1))
+        version: 0.1.1(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1))
 
   packages/ai-providers:
     dependencies:
@@ -1284,7 +1290,7 @@ importers:
         version: 5.2.0(eslint@9.26.0(jiti@2.4.2))
       jsdom:
         specifier: ^26.1.0
-        version: 26.1.0
+        version: 26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       prettier:
         specifier: ^3.4.2
         version: 3.5.3
@@ -1293,10 +1299,10 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^3.0.9
-        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
       vitest-dom:
         specifier: ^0.1.1
-        version: 0.1.1(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1))
+        version: 0.1.1(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1))
 
   packages/ai-service:
     dependencies:
@@ -1333,7 +1339,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^3.0.9
-        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
   packages/ai-site:
     dependencies:
@@ -1382,7 +1388,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^1.0.0
-        version: 1.6.1(@types/node@20.17.47)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
+        version: 1.6.1(@types/node@20.17.47)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
 
   packages/ai-startups:
     dependencies:
@@ -1419,7 +1425,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^1.4.0
-        version: 1.6.1(@types/node@22.15.12)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
+        version: 1.6.1(@types/node@22.15.12)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
 
   packages/ai-waitlist:
     dependencies:
@@ -1477,7 +1483,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^3.0.9
-        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
   packages/ai-workflows:
     dependencies:
@@ -1496,7 +1502,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^1.3.1
-        version: 1.6.1(@types/node@22.15.12)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
+        version: 1.6.1(@types/node@22.15.12)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
 
   packages/autonomous-agents:
     devDependencies:
@@ -1511,7 +1517,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^3.1.3
-        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
   packages/business-as-code:
     dependencies:
@@ -1573,7 +1579,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^3.1.3
-        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
   packages/human-in-the-loop:
     dependencies:
@@ -1619,7 +1625,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^3.0.9
-        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
   packages/language-models:
     dependencies:
@@ -1665,7 +1671,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^1.0.0
-        version: 1.6.1(@types/node@18.19.96)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
+        version: 1.6.1(@types/node@18.19.96)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)
 
   packages/services-as-software:
     dependencies:
@@ -1696,7 +1702,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^3.0.9
-        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+        version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
 packages:
 
@@ -4824,6 +4830,9 @@ packages:
   '@neon-rs/load@0.0.4':
     resolution: {integrity: sha512-kTPhdZyTQxB+2wpiRcFWrDcejc4JI6tkPuS7UZCG4l6Zvc5kU/gGQ/ozvHTh1XR5tS+UlfAfGuPajjzQjCiHCw==}
 
+  '@neondatabase/serverless@0.9.5':
+    resolution: {integrity: sha512-siFas6gItqv6wD/pZnvdu34wEqgG3nSE6zWZdq5j2DEsa+VvX8i/5HXJOo06qrw5axPXn+lGCxeR+NLaSPIXug==}
+
   '@next/env@14.2.28':
     resolution: {integrity: sha512-PAmWhJfJQlP+kxZwCjrVd9QnR5x0R3u0mTXTiZDgSd4h5LdXmjxCCWbN9kq6hkZBOax8Rm3xDW5HagWyJuT37g==}
 
@@ -5325,20 +5334,10 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@payloadcms/db-mongodb@3.37.0':
-    resolution: {integrity: sha512-4u4YZZCr5gJtivXptTs6vTNzDl9Lb87+9/Rl6qog8mmCtrjrJGJMUixWoatGClrFL8JctmuEu7CPINNBEDD7qA==}
-    peerDependencies:
-      payload: 3.37.0
-
   '@payloadcms/db-mongodb@3.38.0':
     resolution: {integrity: sha512-S/1qtbN2n69uWrsFCcmydwUcSwh92IxVuPkH2V8mGuZGfwsRX1NmAlfrylHAXxg7OODOxGOp9n1IaeAD5T5T2g==}
     peerDependencies:
       payload: 3.38.0
-
-  '@payloadcms/db-postgres@3.37.0':
-    resolution: {integrity: sha512-ffEwoBFLPXlscRuYWL395Z2TyLCcYOPFqKHAuCH0RNrpBN7f0XE6HLOK503+BBNKR2T3DFLt8xu/ygMDrM1VDQ==}
-    peerDependencies:
-      payload: 3.37.0
 
   '@payloadcms/db-postgres@3.38.0':
     resolution: {integrity: sha512-ItdUUxPhemlD2B3NXroixV6WAY1aB2+SOUkewHoBPg2bEcrERKocGiKeMndqNX5HPgtWRlUEMw2RraNPdTTLSg==}
@@ -5354,6 +5353,11 @@ packages:
     resolution: {integrity: sha512-RtGX7zqOoddarYic/rbbXXAUjKV2M8FF6U9i8cubRMBZLR9SR1CFVmlFN5jBgoS73OQBb7AoqbY3b6QpbebEhg==}
     peerDependencies:
       payload: 3.37.0
+
+  '@payloadcms/db-vercel-postgres@3.38.0':
+    resolution: {integrity: sha512-StDyBPblkaHxG7mOSsxrcwwbdhEy7V2ycz4/ccPQbXcXm2KgKTZY5qYnqFqPQd6gFBbPQwcXsXcWxh/nTdwZaQ==}
+    peerDependencies:
+      payload: 3.38.0
 
   '@payloadcms/drizzle@3.33.0':
     resolution: {integrity: sha512-M+twNVoAzh6cC833gjwkvlVJdFAaasLGCR4uX4ijJ4DV9qkEXuMZcqSj3CD6LIGLKQpnPOccJ4QmeYSQ8V6uKQ==}
@@ -7245,6 +7249,9 @@ packages:
   '@types/pg@8.10.2':
     resolution: {integrity: sha512-MKFs9P6nJ+LAeHLU3V0cODEOgyThJ3OAnmOlsZsxux6sfQs3HRXR5bBn7xG5DjckEFhTAxsXi7k7cd0pCMxpJw==}
 
+  '@types/pg@8.11.6':
+    resolution: {integrity: sha512-/2WmmBXHLsfRqzfHW7BNZ8SbYzE8OSk7i3WjFYvfgRHj7S1xj+16Je5fUKv3lVdVzk/zn9TXOqf+avFCFIE0yQ==}
+
   '@types/prop-types@15.7.14':
     resolution: {integrity: sha512-gNMvNH49DJ7OJYv+KAKn0Xp45p8PLl6zo2YnvDIbTd4J6MER2BmWN49TG7n9LvkyihINxeKW8+3bfS2yDC9dzQ==}
 
@@ -7495,6 +7502,14 @@ packages:
     peerDependenciesMeta:
       '@aws-sdk/credential-provider-web-identity':
         optional: true
+
+  '@vercel/postgres@0.10.0':
+    resolution: {integrity: sha512-fSD23DxGND40IzSkXjcFcxr53t3Tiym59Is0jSYIFpG4/0f0KO9SGtcp1sXiebvPaGe7N/tU05cH4yt2S6/IPg==}
+    engines: {node: '>=18.14'}
+
+  '@vercel/postgres@0.9.0':
+    resolution: {integrity: sha512-WiI2g3+ce2g1u1gP41MoDj2DsMuQQ+us7vHobysRixKECGaLHpfTI7DuVZmHU087ozRAGr3GocSyqmWLLo+fig==}
+    engines: {node: '>=14.6'}
 
   '@vitejs/plugin-react@4.4.1':
     resolution: {integrity: sha512-IpEm5ZmeXAP/osiBXVVP5KjFMzbWOonMs0NaQQl+xYnUAcq4oHUBsF2+p4MgKWG4YMmFYJU8A6sxRPuowllm6w==}
@@ -8135,6 +8150,10 @@ packages:
 
   buffer@6.0.3:
     resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
+
+  bufferutil@4.0.9:
+    resolution: {integrity: sha512-WDtdLmJvAuNNPzByAYpRo2rF1Mmradw6gvWsQKf63476DDXmomT9zUiGypLcG4ibIM67vhAj8jJRdbmEws2Aqw==}
+    engines: {node: '>=6.14.2'}
 
   bundle-name@4.1.0:
     resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
@@ -12284,6 +12303,10 @@ packages:
     resolution: {integrity: sha512-dRB78srN/l6gqWulah9SrxeYnxeddIG30+GOqK/9OlLVyLg3HPnr6SqOWTWOXKRwC2eGYCkZ59NNuSgvSrpgOA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
+  node-gyp-build@4.8.4:
+    resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
+    hasBin: true
+
   node-releases@2.0.19:
     resolution: {integrity: sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==}
 
@@ -15130,6 +15153,10 @@ packages:
     resolution: {integrity: sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  utf-8-validate@6.0.5:
+    resolution: {integrity: sha512-EYZR+OpIXp9Y1eG1iueg8KRsY8TuT8VNgnanZ0uA3STqhHQTLwbl+WX76/9X5OY12yQubymBpaBSmMPkSTQcKA==}
+    engines: {node: '>=6.14.2'}
 
   utf8-byte-length@1.0.5:
     resolution: {integrity: sha512-Xn0w3MtiQ6zoz2vFyUVruaCL53O/DwUvkEeOvj+uulMm0BkUGYWmBYVyElqZaSLhY6ZD0ulfU3aBra2aVT4xfA==}
@@ -19377,14 +19404,14 @@ snapshots:
 
   '@juggle/resize-observer@3.4.0': {}
 
-  '@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4))':
+  '@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))':
     dependencies:
       '@cfworker/json-schema': 4.1.1
       ansi-styles: 5.2.0
       camelcase: 6.3.0
       decamelize: 1.2.0
       js-tiktoken: 1.0.20
-      langsmith: 0.3.27(openai@4.97.0(ws@8.18.2)(zod@3.24.4))
+      langsmith: 0.3.27(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))
       mustache: 4.2.0
       p-queue: 6.6.2
       p-retry: 4.6.2
@@ -19394,20 +19421,20 @@ snapshots:
     transitivePeerDependencies:
       - openai
 
-  '@langchain/openai@0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(ws@8.18.2)':
+  '@langchain/openai@0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))':
     dependencies:
-      '@langchain/core': 0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4))
+      '@langchain/core': 0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))
       js-tiktoken: 1.0.20
-      openai: 4.97.0(ws@8.18.2)(zod@3.24.4)
+      openai: 4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)
       zod: 3.24.4
       zod-to-json-schema: 3.24.5(zod@3.24.4)
     transitivePeerDependencies:
       - encoding
       - ws
 
-  '@langchain/textsplitters@0.1.0(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))':
+  '@langchain/textsplitters@0.1.0(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))':
     dependencies:
-      '@langchain/core': 0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4))
+      '@langchain/core': 0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))
       js-tiktoken: 1.0.20
 
   '@levischuck/tiny-cbor@0.2.11': {}
@@ -19561,10 +19588,10 @@ snapshots:
       lexical: 0.28.0
       yjs: 13.6.26
 
-  '@libsql/client@0.14.0':
+  '@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)':
     dependencies:
       '@libsql/core': 0.14.0
-      '@libsql/hrana-client': 0.7.0
+      '@libsql/hrana-client': 0.7.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       js-base64: 3.7.7
       libsql: 0.4.7
       promise-limit: 2.7.0
@@ -19572,10 +19599,10 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@libsql/client@0.15.4':
+  '@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5)':
     dependencies:
       '@libsql/core': 0.15.4
-      '@libsql/hrana-client': 0.7.0
+      '@libsql/hrana-client': 0.7.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       js-base64: 3.7.7
       libsql: 0.5.10
       promise-limit: 2.7.0
@@ -19603,10 +19630,10 @@ snapshots:
   '@libsql/darwin-x64@0.5.10':
     optional: true
 
-  '@libsql/hrana-client@0.7.0':
+  '@libsql/hrana-client@0.7.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)':
     dependencies:
       '@libsql/isomorphic-fetch': 0.3.1
-      '@libsql/isomorphic-ws': 0.1.5
+      '@libsql/isomorphic-ws': 0.1.5(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       js-base64: 3.7.7
       node-fetch: 3.3.2
     transitivePeerDependencies:
@@ -19615,10 +19642,10 @@ snapshots:
 
   '@libsql/isomorphic-fetch@0.3.1': {}
 
-  '@libsql/isomorphic-ws@0.1.5':
+  '@libsql/isomorphic-ws@0.1.5(bufferutil@4.0.9)(utf-8-validate@6.0.5)':
     dependencies:
       '@types/ws': 8.18.1
-      ws: 8.18.2
+      ws: 8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -19876,6 +19903,10 @@ snapshots:
     optional: true
 
   '@neon-rs/load@0.0.4': {}
+
+  '@neondatabase/serverless@0.9.5':
+    dependencies:
+      '@types/pg': 8.11.6
 
   '@next/env@14.2.28': {}
 
@@ -20257,14 +20288,14 @@ snapshots:
       - aws-crt
       - supports-color
 
-  '@opennextjs/cloudflare@1.0.2(wrangler@4.14.4)':
+  '@opennextjs/cloudflare@1.0.2(wrangler@4.14.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))':
     dependencies:
       '@dotenvx/dotenvx': 1.31.0
       '@opennextjs/aws': 3.6.1
       enquirer: 2.4.1
       glob: 11.0.2
       ts-tqdm: 0.8.6
-      wrangler: 4.14.4
+      wrangler: 4.14.4(bufferutil@4.0.9)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
       - aws-crt
       - supports-color
@@ -20286,11 +20317,11 @@ snapshots:
   '@pagefind/windows-x64@1.3.0':
     optional: true
 
-  '@payloadcms/db-mongodb@3.37.0(@aws-sdk/credential-providers@3.804.0)(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(socks@2.8.4)':
+  '@payloadcms/db-mongodb@3.38.0(@aws-sdk/credential-providers@3.804.0)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(socks@2.8.4)':
     dependencies:
       mongoose: 8.9.5(@aws-sdk/credential-providers@3.804.0)(socks@2.8.4)
       mongoose-paginate-v2: 1.8.5
-      payload: 3.37.0(graphql@16.8.1)(typescript@5.8.3)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
       prompts: 2.4.2
       uuid: 10.0.0
     transitivePeerDependencies:
@@ -20303,11 +20334,11 @@ snapshots:
       - socks
       - supports-color
 
-  '@payloadcms/db-mongodb@3.38.0(@aws-sdk/credential-providers@3.804.0)(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(socks@2.8.4)':
+  '@payloadcms/db-mongodb@3.38.0(@aws-sdk/credential-providers@3.804.0)(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(socks@2.8.4)':
     dependencies:
       mongoose: 8.9.5(@aws-sdk/credential-providers@3.804.0)(socks@2.8.4)
       mongoose-paginate-v2: 1.8.5
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      payload: 3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5)
       prompts: 2.4.2
       uuid: 10.0.0
     transitivePeerDependencies:
@@ -20320,14 +20351,14 @@ snapshots:
       - socks
       - supports-color
 
-  '@payloadcms/db-postgres@3.37.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/react@19.1.3)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(postgres@3.4.5)(react@18.3.1)':
+  '@payloadcms/db-postgres@3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(postgres@3.4.5)(react@18.3.1)':
     dependencies:
-      '@payloadcms/drizzle': 3.37.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)
+      '@payloadcms/drizzle': 3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)
       '@types/pg': 8.10.2
       console-table-printer: 2.12.1
       drizzle-kit: 0.28.0
-      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)
-      payload: 3.37.0(graphql@16.8.1)(typescript@5.8.3)
+      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)
+      payload: 3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5)
       pg: 8.11.3
       prompts: 2.4.2
       to-snake-case: 1.0.0
@@ -20363,14 +20394,14 @@ snapshots:
       - sqlite3
       - supports-color
 
-  '@payloadcms/db-postgres@3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4)(@opentelemetry/api@1.9.0)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(postgres@3.4.5)(react@19.1.0)':
+  '@payloadcms/db-postgres@3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(postgres@3.4.5)(react@19.1.0)':
     dependencies:
-      '@payloadcms/drizzle': 3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
+      '@payloadcms/drizzle': 3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
       '@types/pg': 8.10.2
       console-table-printer: 2.12.1
       drizzle-kit: 0.28.0
-      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
       pg: 8.11.3
       prompts: 2.4.2
       to-snake-case: 1.0.0
@@ -20406,14 +20437,14 @@ snapshots:
       - sqlite3
       - supports-color
 
-  '@payloadcms/db-sqlite@3.33.0(@cloudflare/workers-types@4.20250506.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)':
+  '@payloadcms/db-sqlite@3.33.0(@cloudflare/workers-types@4.20250506.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(bufferutil@4.0.9)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)(utf-8-validate@6.0.5)':
     dependencies:
-      '@libsql/client': 0.14.0
-      '@payloadcms/drizzle': 3.33.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
+      '@libsql/client': 0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      '@payloadcms/drizzle': 3.33.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
       console-table-printer: 2.12.1
       drizzle-kit: 0.28.0
-      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
       prompts: 2.4.2
       to-snake-case: 1.0.0
       uuid: 9.0.0
@@ -20450,14 +20481,14 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@payloadcms/db-sqlite@3.37.0(@cloudflare/workers-types@4.20250506.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)':
+  '@payloadcms/db-sqlite@3.37.0(@cloudflare/workers-types@4.20250506.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(bufferutil@4.0.9)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)(utf-8-validate@6.0.5)':
     dependencies:
-      '@libsql/client': 0.14.0
-      '@payloadcms/drizzle': 3.37.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)
+      '@libsql/client': 0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      '@payloadcms/drizzle': 3.37.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)
       console-table-printer: 2.12.1
       drizzle-kit: 0.28.0
-      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)
-      payload: 3.37.0(graphql@16.8.1)(typescript@5.8.3)
+      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)
+      payload: 3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5)
       prompts: 2.4.2
       to-snake-case: 1.0.0
       uuid: 9.0.0
@@ -20494,11 +20525,54 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@payloadcms/drizzle@3.33.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)':
+  '@payloadcms/db-vercel-postgres@3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(postgres@3.4.5)(react@19.1.0)':
+    dependencies:
+      '@payloadcms/drizzle': 3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.9.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
+      '@vercel/postgres': 0.9.0
+      console-table-printer: 2.12.1
+      drizzle-kit: 0.28.0
+      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.9.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
+      pg: 8.11.3
+      prompts: 2.4.2
+      to-snake-case: 1.0.0
+      uuid: 10.0.0
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@opentelemetry/api'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/pg'
+      - '@types/react'
+      - '@types/sql.js'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bun-types
+      - expo-sqlite
+      - knex
+      - kysely
+      - mysql2
+      - pg-native
+      - postgres
+      - prisma
+      - react
+      - sql.js
+      - sqlite3
+      - supports-color
+
+  '@payloadcms/drizzle@3.33.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)':
     dependencies:
       console-table-printer: 2.12.1
-      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
       prompts: 2.4.2
       to-snake-case: 1.0.0
       uuid: 9.0.0
@@ -20533,11 +20607,11 @@ snapshots:
       - sql.js
       - sqlite3
 
-  '@payloadcms/drizzle@3.37.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)':
+  '@payloadcms/drizzle@3.37.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)':
     dependencies:
       console-table-printer: 2.12.1
-      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)
-      payload: 3.37.0(graphql@16.8.1)(typescript@5.8.3)
+      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)
+      payload: 3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5)
       prompts: 2.4.2
       to-snake-case: 1.0.0
       uuid: 9.0.0
@@ -20572,12 +20646,12 @@ snapshots:
       - sql.js
       - sqlite3
 
-  '@payloadcms/drizzle@3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)':
+  '@payloadcms/drizzle@3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)':
     dependencies:
       console-table-printer: 2.12.1
       dequal: 2.0.3
-      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@18.3.1)
+      payload: 3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5)
       prompts: 2.4.2
       to-snake-case: 1.0.0
       uuid: 9.0.0
@@ -20612,28 +20686,108 @@ snapshots:
       - sql.js
       - sqlite3
 
-  '@payloadcms/email-nodemailer@3.33.0(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))':
+  '@payloadcms/drizzle@3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)':
+    dependencies:
+      console-table-printer: 2.12.1
+      dequal: 2.0.3
+      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
+      prompts: 2.4.2
+      to-snake-case: 1.0.0
+      uuid: 9.0.0
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@opentelemetry/api'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/pg'
+      - '@types/react'
+      - '@types/sql.js'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bun-types
+      - expo-sqlite
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - react
+      - sql.js
+      - sqlite3
+
+  '@payloadcms/drizzle@3.38.0(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.9.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)':
+    dependencies:
+      console-table-printer: 2.12.1
+      dequal: 2.0.3
+      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.9.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
+      prompts: 2.4.2
+      to-snake-case: 1.0.0
+      uuid: 9.0.0
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@opentelemetry/api'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/pg'
+      - '@types/react'
+      - '@types/sql.js'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bun-types
+      - expo-sqlite
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - react
+      - sql.js
+      - sqlite3
+
+  '@payloadcms/email-nodemailer@3.33.0(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))':
     dependencies:
       nodemailer: 6.9.16
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
 
-  '@payloadcms/graphql@3.33.0(graphql@16.8.1)(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(typescript@5.7.3)':
+  '@payloadcms/graphql@3.33.0(graphql@16.8.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(typescript@5.7.3)':
     dependencies:
       graphql: 16.8.1
       graphql-scalars: 1.22.2(graphql@16.8.1)
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
       pluralize: 8.0.0
       ts-essentials: 10.0.3(typescript@5.7.3)
       tsx: 4.19.2
     transitivePeerDependencies:
       - typescript
 
-  '@payloadcms/next@3.33.0(@types/react@19.1.0)(graphql@16.8.1)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)':
+  '@payloadcms/next@3.33.0(@types/react@19.1.0)(graphql@16.8.1)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)':
     dependencies:
       '@dnd-kit/core': 6.0.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@payloadcms/graphql': 3.33.0(graphql@16.8.1)(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(typescript@5.7.3)
+      '@payloadcms/graphql': 3.33.0(graphql@16.8.1)(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(typescript@5.7.3)
       '@payloadcms/translations': 3.33.0
-      '@payloadcms/ui': 3.33.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)
+      '@payloadcms/ui': 3.33.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)
       busboy: 1.6.0
       dequal: 2.0.3
       file-type: 19.3.0
@@ -20643,7 +20797,7 @@ snapshots:
       http-status: 2.1.0
       next: 15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4)
       path-to-regexp: 6.3.0
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
       qs-esm: 7.0.2
       react-diff-viewer-continued: 4.0.5(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       sass: 1.77.4
@@ -20656,27 +20810,27 @@ snapshots:
       - supports-color
       - typescript
 
-  '@payloadcms/payload-cloud@3.33.0(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))':
+  '@payloadcms/payload-cloud@3.33.0(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))':
     dependencies:
       '@aws-sdk/client-cognito-identity': 3.804.0
       '@aws-sdk/client-s3': 3.804.0
       '@aws-sdk/credential-providers': 3.804.0
       '@aws-sdk/lib-storage': 3.804.0(@aws-sdk/client-s3@3.804.0)
-      '@payloadcms/email-nodemailer': 3.33.0(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))
+      '@payloadcms/email-nodemailer': 3.33.0(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))
       amazon-cognito-identity-js: 6.3.15
       nodemailer: 6.9.16
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
       - aws-crt
       - encoding
 
-  '@payloadcms/plugin-multi-tenant@3.37.0(@payloadcms/ui@3.37.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3))(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))':
+  '@payloadcms/plugin-multi-tenant@3.37.0(@payloadcms/ui@3.37.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3))(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))':
     dependencies:
-      '@payloadcms/ui': 3.37.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)
+      '@payloadcms/ui': 3.37.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)
       next: 15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4)
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
 
-  '@payloadcms/richtext-lexical@3.33.0(@faceless-ui/modal@3.0.0-beta.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@faceless-ui/scroll-info@2.0.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@payloadcms/next@3.33.0(@types/react@19.1.0)(graphql@16.8.1)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3))(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)(yjs@13.6.26)':
+  '@payloadcms/richtext-lexical@3.33.0(@faceless-ui/modal@3.0.0-beta.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@faceless-ui/scroll-info@2.0.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@payloadcms/next@3.33.0(@types/react@19.1.0)(graphql@16.8.1)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3))(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)(yjs@13.6.26)':
     dependencies:
       '@faceless-ui/modal': 3.0.0-beta.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@faceless-ui/scroll-info': 2.0.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -20690,9 +20844,9 @@ snapshots:
       '@lexical/selection': 0.28.0
       '@lexical/table': 0.28.0
       '@lexical/utils': 0.28.0
-      '@payloadcms/next': 3.33.0(@types/react@19.1.0)(graphql@16.8.1)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)
+      '@payloadcms/next': 3.33.0(@types/react@19.1.0)(graphql@16.8.1)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)
       '@payloadcms/translations': 3.33.0
-      '@payloadcms/ui': 3.33.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)
+      '@payloadcms/ui': 3.33.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)
       '@types/uuid': 10.0.0
       acorn: 8.12.1
       bson-objectid: 2.0.4
@@ -20703,7 +20857,7 @@ snapshots:
       mdast-util-from-markdown: 2.0.2
       mdast-util-mdx-jsx: 3.1.3
       micromark-extension-mdx-jsx: 3.0.1
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
       qs-esm: 7.0.2
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
@@ -20718,12 +20872,12 @@ snapshots:
       - typescript
       - yjs
 
-  '@payloadcms/richtext-slate@3.37.0(@types/react@19.1.3)(monaco-editor@0.38.0)(next@14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(sass@1.77.4))(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(typescript@5.8.3)':
+  '@payloadcms/richtext-slate@3.37.0(@types/react@19.1.3)(monaco-editor@0.38.0)(next@14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(sass@1.77.4))(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(typescript@5.8.3)':
     dependencies:
       '@payloadcms/translations': 3.37.0
-      '@payloadcms/ui': 3.37.0(@types/react@19.1.3)(monaco-editor@0.38.0)(next@14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(sass@1.77.4))(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(typescript@5.8.3)
+      '@payloadcms/ui': 3.37.0(@types/react@19.1.3)(monaco-editor@0.38.0)(next@14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(sass@1.77.4))(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(typescript@5.8.3)
       is-hotkey: 0.2.0
-      payload: 3.37.0(graphql@16.8.1)(typescript@5.8.3)
+      payload: 3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5)
       react: 18.3.1
       slate: 0.91.4
       slate-history: 0.86.0(slate@0.91.4)
@@ -20745,7 +20899,7 @@ snapshots:
     dependencies:
       date-fns: 3.6.0
 
-  '@payloadcms/ui@3.33.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)':
+  '@payloadcms/ui@3.33.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)':
     dependencies:
       '@date-fns/tz': 1.2.0
       '@dnd-kit/core': 6.0.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -20761,7 +20915,7 @@ snapshots:
       md5: 2.3.0
       next: 15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4)
       object-to-formdata: 4.5.1
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
       qs-esm: 7.0.2
       react: 19.1.0
       react-datepicker: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -20779,7 +20933,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@payloadcms/ui@3.37.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(graphql@16.8.1)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)':
+  '@payloadcms/ui@3.37.0(@types/react@19.1.0)(monaco-editor@0.38.0)(next@15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)':
     dependencies:
       '@date-fns/tz': 1.2.0
       '@dnd-kit/core': 6.0.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -20795,7 +20949,7 @@ snapshots:
       md5: 2.3.0
       next: 15.3.0(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4)
       object-to-formdata: 4.5.1
-      payload: 3.33.0(graphql@16.8.1)(typescript@5.7.3)
+      payload: 3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5)
       qs-esm: 7.0.2
       react: 19.1.0
       react-datepicker: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -20813,7 +20967,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@payloadcms/ui@3.37.0(@types/react@19.1.3)(monaco-editor@0.38.0)(next@14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(sass@1.77.4))(payload@3.37.0(graphql@16.8.1)(typescript@5.8.3))(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(typescript@5.8.3)':
+  '@payloadcms/ui@3.37.0(@types/react@19.1.3)(monaco-editor@0.38.0)(next@14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(sass@1.77.4))(payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(typescript@5.8.3)':
     dependencies:
       '@date-fns/tz': 1.2.0
       '@dnd-kit/core': 6.0.8(react-dom@19.1.0(react@19.1.0))(react@18.3.1)
@@ -20829,7 +20983,7 @@ snapshots:
       md5: 2.3.0
       next: 14.2.28(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@18.3.1)(sass@1.77.4)
       object-to-formdata: 4.5.1
-      payload: 3.37.0(graphql@16.8.1)(typescript@5.8.3)
+      payload: 3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5)
       qs-esm: 7.0.2
       react: 18.3.1
       react-datepicker: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@18.3.1)
@@ -23024,6 +23178,12 @@ snapshots:
       pg-protocol: 1.9.5
       pg-types: 4.0.2
 
+  '@types/pg@8.11.6':
+    dependencies:
+      '@types/node': 20.17.47
+      pg-protocol: 1.9.5
+      pg-types: 4.0.2
+
   '@types/prop-types@15.7.14': {}
 
   '@types/react-dom@18.3.7(@types/react@18.3.21)':
@@ -23378,6 +23538,21 @@ snapshots:
     optionalDependencies:
       '@aws-sdk/credential-provider-web-identity': 3.810.0
 
+  '@vercel/postgres@0.10.0(utf-8-validate@6.0.5)':
+    dependencies:
+      '@neondatabase/serverless': 0.9.5
+      bufferutil: 4.0.9
+      ws: 8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+    transitivePeerDependencies:
+      - utf-8-validate
+
+  '@vercel/postgres@0.9.0':
+    dependencies:
+      '@neondatabase/serverless': 0.9.5
+      bufferutil: 4.0.9
+      utf-8-validate: 6.0.5
+      ws: 8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+
   '@vitejs/plugin-react@4.4.1(vite@6.3.5(@types/node@22.15.12)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1))':
     dependencies:
       '@babel/core': 7.27.1
@@ -23389,7 +23564,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-v8@1.6.1(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1))':
+  '@vitest/coverage-v8@1.6.1(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -23404,7 +23579,7 @@ snapshots:
       std-env: 3.9.0
       strip-literal: 2.1.1
       test-exclude: 6.0.0
-      vitest: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+      vitest: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -23663,11 +23838,11 @@ snapshots:
       clean-stack: 5.2.0
       indent-string: 5.0.0
 
-  ai-functions@0.1.4(ws@8.18.2)(zod@3.24.4):
+  ai-functions@0.1.4(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4):
     dependencies:
       camelcase-keys: 9.1.3
       js-yaml: 4.1.0
-      openai: 4.97.0(ws@8.18.2)(zod@3.24.4)
+      openai: 4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)
       partial-json-parser: 1.2.2
       yaml: 2.7.1
     transitivePeerDependencies:
@@ -23731,15 +23906,15 @@ snapshots:
     transitivePeerDependencies:
       - zod
 
-  ai-providers@0.2.0(@cloudflare/workers-types@4.20250506.0)(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(@langchain/openai@0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(ws@8.18.2))(@types/debug@4.1.12)(jiti@2.4.2)(jsdom@26.1.0)(langchain@0.3.24(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.97.0(ws@8.18.2)(zod@3.24.4))(ws@8.18.2))(lightningcss@1.29.2)(openai@4.97.0(ws@8.18.2)(zod@3.24.4))(react@19.1.0)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)(zod@3.24.4):
+  ai-providers@0.2.0(@cloudflare/workers-types@4.20250506.0)(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(@langchain/openai@0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(@types/debug@4.1.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(langchain@0.3.24(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(lightningcss@1.29.2)(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))(react@19.1.0)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)(zod@3.24.4):
     dependencies:
       '@ai-sdk/anthropic': 1.2.10(zod@3.24.4)
       '@ai-sdk/google': 1.2.15(zod@3.24.4)
       '@ai-sdk/google-vertex': 2.2.19(zod@3.24.4)
       '@ai-sdk/openai': 1.3.21(zod@3.24.4)
       ai: 4.3.13(react@19.1.0)(zod@3.24.4)
-      composio-core: 0.5.36(@ai-sdk/openai@1.3.21(zod@3.24.4))(@cloudflare/workers-types@4.20250506.0)(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(@langchain/openai@0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(ws@8.18.2))(ai@4.3.13(react@19.1.0)(zod@3.24.4))(langchain@0.3.24(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.97.0(ws@8.18.2)(zod@3.24.4))(ws@8.18.2))(openai@4.97.0(ws@8.18.2)(zod@3.24.4))
-      language-models: 0.1.0(@types/debug@4.1.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+      composio-core: 0.5.36(@ai-sdk/openai@1.3.21(zod@3.24.4))(@cloudflare/workers-types@4.20250506.0)(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(@langchain/openai@0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(ai@4.3.13(react@19.1.0)(zod@3.24.4))(langchain@0.3.24(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))
+      language-models: 0.1.0(@types/debug@4.1.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - '@edge-runtime/vm'
@@ -24259,6 +24434,10 @@ snapshots:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
+  bufferutil@4.0.9:
+    dependencies:
+      node-gyp-build: 4.8.4
+
   bundle-name@4.1.0:
     dependencies:
       run-applescript: 7.0.0
@@ -24627,23 +24806,23 @@ snapshots:
       array-ify: 1.0.0
       dot-prop: 5.3.0
 
-  composio-core@0.5.36(@ai-sdk/openai@1.3.21(zod@3.24.4))(@cloudflare/workers-types@4.20250506.0)(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(@langchain/openai@0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(ws@8.18.2))(ai@4.3.13(react@19.1.0)(zod@3.24.4))(langchain@0.3.24(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.97.0(ws@8.18.2)(zod@3.24.4))(ws@8.18.2))(openai@4.97.0(ws@8.18.2)(zod@3.24.4)):
+  composio-core@0.5.36(@ai-sdk/openai@1.3.21(zod@3.24.4))(@cloudflare/workers-types@4.20250506.0)(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(@langchain/openai@0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(ai@4.3.13(react@19.1.0)(zod@3.24.4))(langchain@0.3.24(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)))(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)):
     dependencies:
       '@ai-sdk/openai': 1.3.21(zod@3.24.4)
       '@cloudflare/workers-types': 4.20250506.0
       '@composio/mcp': 1.0.3-0
       '@hey-api/client-axios': 0.2.12(axios@1.9.0)
-      '@langchain/core': 0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4))
-      '@langchain/openai': 0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(ws@8.18.2)
+      '@langchain/core': 0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))
+      '@langchain/openai': 0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))
       ai: 4.3.13(react@19.1.0)(zod@3.24.4)
       axios: 1.9.0
       chalk: 4.1.2
       cli-progress: 3.12.0
       commander: 12.1.0
       inquirer: 10.2.2
-      langchain: 0.3.24(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.97.0(ws@8.18.2)(zod@3.24.4))(ws@8.18.2)
+      langchain: 0.3.24(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))
       open: 8.4.2
-      openai: 4.97.0(ws@8.18.2)(zod@3.24.4)
+      openai: 4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)
       pusher-js: 8.4.0-rc2
       resolve-package-path: 4.0.3
       uuid: 10.0.0
@@ -25398,13 +25577,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0):
+  drizzle-orm@0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20250506.0
-      '@libsql/client': 0.14.0
+      '@libsql/client': 0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      '@neondatabase/serverless': 0.9.5
       '@opentelemetry/api': 1.9.0
       '@types/pg': 8.10.2
       '@types/react': 19.1.0
+      '@vercel/postgres': 0.10.0(utf-8-validate@6.0.5)
       better-sqlite3: 11.9.1
       kysely: 0.27.6
       mysql2: 3.14.1
@@ -25412,13 +25593,15 @@ snapshots:
       postgres: 3.4.5
       react: 19.1.0
 
-  drizzle-orm@0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@18.3.1):
+  drizzle-orm@0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@18.3.1):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20250506.0
-      '@libsql/client': 0.14.0
+      '@libsql/client': 0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      '@neondatabase/serverless': 0.9.5
       '@opentelemetry/api': 1.9.0
       '@types/pg': 8.10.2
       '@types/react': 19.1.3
+      '@vercel/postgres': 0.10.0(utf-8-validate@6.0.5)
       better-sqlite3: 11.9.1
       kysely: 0.27.6
       mysql2: 3.14.1
@@ -25426,13 +25609,47 @@ snapshots:
       postgres: 3.4.5
       react: 18.3.1
 
-  drizzle-orm@0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0):
+  drizzle-orm@0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(@types/react@19.1.3)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@18.3.1):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20250506.0
-      '@libsql/client': 0.15.4
+      '@libsql/client': 0.14.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      '@neondatabase/serverless': 0.9.5
+      '@opentelemetry/api': 1.9.0
+      '@types/pg': 8.11.6
+      '@types/react': 19.1.3
+      '@vercel/postgres': 0.10.0(utf-8-validate@6.0.5)
+      better-sqlite3: 11.9.1
+      kysely: 0.27.6
+      mysql2: 3.14.1
+      pg: 8.11.3
+      postgres: 3.4.5
+      react: 18.3.1
+
+  drizzle-orm@0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.10.0(utf-8-validate@6.0.5))(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0):
+    optionalDependencies:
+      '@cloudflare/workers-types': 4.20250506.0
+      '@libsql/client': 0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      '@neondatabase/serverless': 0.9.5
       '@opentelemetry/api': 1.9.0
       '@types/pg': 8.10.2
       '@types/react': 19.1.0
+      '@vercel/postgres': 0.10.0(utf-8-validate@6.0.5)
+      better-sqlite3: 11.9.1
+      kysely: 0.27.6
+      mysql2: 3.14.1
+      pg: 8.11.3
+      postgres: 3.4.5
+      react: 19.1.0
+
+  drizzle-orm@0.36.1(@cloudflare/workers-types@4.20250506.0)(@libsql/client@0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.10.2)(@types/react@19.1.0)(@vercel/postgres@0.9.0)(better-sqlite3@11.9.1)(kysely@0.27.6)(mysql2@3.14.1)(pg@8.11.3)(postgres@3.4.5)(react@19.1.0):
+    optionalDependencies:
+      '@cloudflare/workers-types': 4.20250506.0
+      '@libsql/client': 0.15.4(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      '@neondatabase/serverless': 0.9.5
+      '@opentelemetry/api': 1.9.0
+      '@types/pg': 8.10.2
+      '@types/react': 19.1.0
+      '@vercel/postgres': 0.9.0
       better-sqlite3: 11.9.1
       kysely: 0.27.6
       mysql2: 3.14.1
@@ -25901,8 +26118,8 @@ snapshots:
       '@typescript-eslint/parser': 6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3)
       eslint: 9.26.0(jiti@2.4.2)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2))
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2))
+      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.31.0)(eslint@9.26.0(jiti@2.4.2))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.26.0(jiti@2.4.2))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.26.0(jiti@2.4.2))
       eslint-plugin-react: 7.37.5(eslint@9.26.0(jiti@2.4.2))
       eslint-plugin-react-hooks: 5.2.0(eslint@9.26.0(jiti@2.4.2))
@@ -25921,7 +26138,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2)):
+  eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0)(eslint@9.26.0(jiti@2.4.2)):
     dependencies:
       '@nolyfill/is-core-module': 1.0.39
       debug: 4.4.0
@@ -25932,22 +26149,22 @@ snapshots:
       tinyglobby: 0.2.13
       unrs-resolver: 1.7.2
     optionalDependencies:
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.26.0(jiti@2.4.2))
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2)):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1)(eslint@9.26.0(jiti@2.4.2)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3)
       eslint: 9.26.0(jiti@2.4.2)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2))
+      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.31.0)(eslint@9.26.0(jiti@2.4.2))
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2)):
+  eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.26.0(jiti@2.4.2)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.8
@@ -25958,7 +26175,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.26.0(jiti@2.4.2)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.31.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2)))(eslint@9.26.0(jiti@2.4.2))
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@6.21.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1)(eslint@9.26.0(jiti@2.4.2))
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
@@ -27776,7 +27993,7 @@ snapshots:
 
   jsbn@1.1.0: {}
 
-  jsdom@26.1.0:
+  jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5):
     dependencies:
       cssstyle: 4.3.1
       data-urls: 5.0.0
@@ -27796,7 +28013,7 @@ snapshots:
       whatwg-encoding: 3.1.1
       whatwg-mimetype: 4.0.0
       whatwg-url: 14.2.0
-      ws: 8.18.2
+      ws: 8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       xml-name-validator: 5.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -27966,15 +28183,15 @@ snapshots:
 
   kysely@0.27.6: {}
 
-  langchain@0.3.24(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.97.0(ws@8.18.2)(zod@3.24.4))(ws@8.18.2):
+  langchain@0.3.24(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(axios@1.9.0)(handlebars@4.7.8)(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)):
     dependencies:
-      '@langchain/core': 0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4))
-      '@langchain/openai': 0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))(ws@8.18.2)
-      '@langchain/textsplitters': 0.1.0(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2)(zod@3.24.4)))
+      '@langchain/core': 0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))
+      '@langchain/openai': 0.5.10(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))
+      '@langchain/textsplitters': 0.1.0(@langchain/core@0.3.53(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)))
       js-tiktoken: 1.0.20
       js-yaml: 4.1.0
       jsonpointer: 5.0.1
-      langsmith: 0.3.27(openai@4.97.0(ws@8.18.2)(zod@3.24.4))
+      langsmith: 0.3.27(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4))
       openapi-types: 12.1.3
       p-retry: 4.6.2
       uuid: 10.0.0
@@ -27997,7 +28214,7 @@ snapshots:
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.0.8
 
-  langsmith@0.3.27(openai@4.97.0(ws@8.18.2)(zod@3.24.4)):
+  langsmith@0.3.27(openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)):
     dependencies:
       '@types/uuid': 10.0.0
       chalk: 4.1.2
@@ -28007,14 +28224,14 @@ snapshots:
       semver: 7.7.1
       uuid: 10.0.0
     optionalDependencies:
-      openai: 4.97.0(ws@8.18.2)(zod@3.24.4)
+      openai: 4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4)
 
-  language-models@0.1.0(@types/debug@4.1.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1):
+  language-models@0.1.0(@types/debug@4.1.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1):
     dependencies:
       '@types/node': 22.15.12
       camelcase: 8.0.0
       flat: 6.0.1
-      vitest: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+      vitest: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
     transitivePeerDependencies:
       - '@edge-runtime/vm'
       - '@types/debug'
@@ -28986,7 +29203,7 @@ snapshots:
 
   min-indent@1.0.1: {}
 
-  miniflare@4.20250507.0:
+  miniflare@4.20250507.0(bufferutil@4.0.9)(utf-8-validate@6.0.5):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       acorn: 8.14.0
@@ -28996,7 +29213,7 @@ snapshots:
       stoppable: 1.1.0
       undici: 5.29.0
       workerd: 1.20250507.0
-      ws: 8.18.0
+      ws: 8.18.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       youch: 3.3.4
       zod: 3.22.3
     transitivePeerDependencies:
@@ -29541,6 +29758,8 @@ snapshots:
       fetch-blob: 3.2.0
       formdata-polyfill: 4.0.10
 
+  node-gyp-build@4.8.4: {}
+
   node-releases@2.0.19: {}
 
   nodemailer@6.9.15: {}
@@ -29711,7 +29930,7 @@ snapshots:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
-  openai@4.97.0(ws@8.18.2)(zod@3.24.4):
+  openai@4.97.0(ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5))(zod@3.24.4):
     dependencies:
       '@types/node': 18.19.96
       '@types/node-fetch': 2.6.12
@@ -29721,7 +29940,7 @@ snapshots:
       formdata-node: 4.4.1
       node-fetch: 2.7.0
     optionalDependencies:
-      ws: 8.18.2
+      ws: 8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       zod: 3.24.4
     transitivePeerDependencies:
       - encoding
@@ -30155,7 +30374,7 @@ snapshots:
       - uglify-js
       - webpack
 
-  payload@3.33.0(graphql@16.8.1)(typescript@5.7.3):
+  payload@3.33.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.7.3)(utf-8-validate@6.0.5):
     dependencies:
       '@next/env': 15.3.1
       '@payloadcms/translations': 3.33.0
@@ -30186,13 +30405,13 @@ snapshots:
       ts-essentials: 10.0.3(typescript@5.7.3)
       tsx: 4.19.2
       uuid: 10.0.0
-      ws: 8.18.2
+      ws: 8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
       - bufferutil
       - typescript
       - utf-8-validate
 
-  payload@3.37.0(graphql@16.8.1)(typescript@5.8.3):
+  payload@3.37.0(bufferutil@4.0.9)(graphql@16.8.1)(typescript@5.8.3)(utf-8-validate@6.0.5):
     dependencies:
       '@next/env': 15.3.1
       '@payloadcms/translations': 3.37.0
@@ -30223,7 +30442,7 @@ snapshots:
       ts-essentials: 10.0.3(typescript@5.8.3)
       tsx: 4.19.2
       uuid: 10.0.0
-      ws: 8.18.2
+      ws: 8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -33140,6 +33359,10 @@ snapshots:
     dependencies:
       react: 19.1.0
 
+  utf-8-validate@6.0.5:
+    dependencies:
+      node-gyp-build: 4.8.4
+
   utf8-byte-length@1.0.5: {}
 
   util-deprecate@1.0.2: {}
@@ -33342,7 +33565,7 @@ snapshots:
       tsx: 4.19.4
       yaml: 2.7.1
 
-  vitest-dom@0.1.1(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)):
+  vitest-dom@0.1.1(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)):
     dependencies:
       aria-query: 5.3.2
       chalk: 5.4.1
@@ -33350,15 +33573,15 @@ snapshots:
       dom-accessibility-api: 0.6.3
       lodash-es: 4.17.21
       redent: 4.0.0
-      vitest: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+      vitest: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
-  vitest-mock-extended@1.3.2(typescript@5.7.3)(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)):
+  vitest-mock-extended@1.3.2(typescript@5.7.3)(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)):
     dependencies:
       ts-essentials: 10.0.3(typescript@5.7.3)
       typescript: 5.7.3
-      vitest: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
+      vitest: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1)
 
-  vitest@1.6.1(@types/node@18.19.96)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0):
+  vitest@1.6.1(@types/node@18.19.96)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0):
     dependencies:
       '@vitest/expect': 1.6.1
       '@vitest/runner': 1.6.1
@@ -33382,7 +33605,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 18.19.96
-      jsdom: 26.1.0
+      jsdom: 26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
       - less
       - lightningcss
@@ -33393,7 +33616,7 @@ snapshots:
       - supports-color
       - terser
 
-  vitest@1.6.1(@types/node@20.17.47)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0):
+  vitest@1.6.1(@types/node@20.17.47)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0):
     dependencies:
       '@vitest/expect': 1.6.1
       '@vitest/runner': 1.6.1
@@ -33417,7 +33640,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 20.17.47
-      jsdom: 26.1.0
+      jsdom: 26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
       - less
       - lightningcss
@@ -33428,7 +33651,7 @@ snapshots:
       - supports-color
       - terser
 
-  vitest@1.6.1(@types/node@22.15.12)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0):
+  vitest@1.6.1(@types/node@22.15.12)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0):
     dependencies:
       '@vitest/expect': 1.6.1
       '@vitest/runner': 1.6.1
@@ -33452,7 +33675,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.15.12
-      jsdom: 26.1.0
+      jsdom: 26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
       - less
       - lightningcss
@@ -33463,7 +33686,7 @@ snapshots:
       - supports-color
       - terser
 
-  vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1):
+  vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.12)(jiti@2.4.2)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5))(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1):
     dependencies:
       '@vitest/expect': 3.1.3
       '@vitest/mocker': 3.1.3(vite@6.3.5(@types/node@22.15.12)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.77.4)(terser@5.39.0)(tsx@4.19.4)(yaml@2.7.1))
@@ -33489,7 +33712,7 @@ snapshots:
     optionalDependencies:
       '@types/debug': 4.1.12
       '@types/node': 22.15.12
-      jsdom: 26.1.0
+      jsdom: 26.1.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
       - jiti
       - less
@@ -33766,13 +33989,13 @@ snapshots:
       symbol-observable: 1.2.0
       zone.js: 0.6.26
 
-  wrangler@4.14.4:
+  wrangler@4.14.4(bufferutil@4.0.9)(utf-8-validate@6.0.5):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.0
       '@cloudflare/unenv-preset': 2.3.1(unenv@2.0.0-rc.15)(workerd@1.20250507.0)
       blake3-wasm: 2.1.5
       esbuild: 0.25.4
-      miniflare: 4.20250507.0
+      miniflare: 4.20250507.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       path-to-regexp: 6.3.0
       unenv: 2.0.0-rc.15
       workerd: 1.20250507.0
@@ -33803,9 +34026,15 @@ snapshots:
 
   wrappy@1.0.2: {}
 
-  ws@8.18.0: {}
+  ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@6.0.5):
+    optionalDependencies:
+      bufferutil: 4.0.9
+      utf-8-validate: 6.0.5
 
-  ws@8.18.2: {}
+  ws@8.18.2(bufferutil@4.0.9)(utf-8-validate@6.0.5):
+    optionalDependencies:
+      bufferutil: 4.0.9
+      utf-8-validate: 6.0.5
 
   xml-name-validator@5.0.0: {}
 
