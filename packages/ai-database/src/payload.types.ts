@@ -107,6 +107,11 @@ export interface Config {
     };
     types: {
       subClasses: 'types';
+      properties: 'properties';
+      enums: 'enums';
+    };
+    actions: {
+      properties: 'properties';
     };
   };
   collectionsSelect: {
@@ -256,6 +261,38 @@ export interface Type {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
+  properties?: {
+    docs?: (string | Property)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  enums?: {
+    docs?: (string | Enum)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "properties".
+ */
+export interface Property {
+  id: string;
+  domainIncludes?: (string | null) | Type;
+  data?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "enums".
+ */
+export interface Enum {
+  id: string;
+  type: string | Type;
+  data?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -315,6 +352,7 @@ export interface Event {
   id: string;
   status?: ('Pending' | 'Processing' | 'Success' | 'Error') | null;
   execution?: (string | null) | Function;
+  workflow?: (string | null) | Workflow;
   generation?: (string | null) | Generation;
   noun?: (string | null) | Noun;
   thing?: (string | null) | Thing;
@@ -345,6 +383,17 @@ export interface Event {
         id?: string | null;
       }[]
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workflows".
+ */
+export interface Workflow {
+  id: string;
+  name: string;
+  code?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -463,21 +512,16 @@ export interface Verb {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "properties".
- */
-export interface Property {
-  id: string;
-  data?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "actions".
  */
 export interface Action {
   id: string;
   data?: string | null;
+  properties?: {
+    docs?: (string | Property)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -490,28 +534,6 @@ export interface Webhook {
   type?: ('Incoming' | 'Outgoing') | null;
   events?: ('Create' | 'Update' | 'Delete')[] | null;
   things?: (string | Thing)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "workflows".
- */
-export interface Workflow {
-  id: string;
-  name: string;
-  code?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "enums".
- */
-export interface Enum {
-  id: string;
-  type: string | Type;
-  data?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -819,6 +841,7 @@ export interface ThingsSelect<T extends boolean = true> {
 export interface EventsSelect<T extends boolean = true> {
   status?: T;
   execution?: T;
+  workflow?: T;
   generation?: T;
   noun?: T;
   thing?: T;
@@ -906,6 +929,8 @@ export interface TypesSelect<T extends boolean = true> {
   data?: T;
   subClassOf?: T;
   subClasses?: T;
+  properties?: T;
+  enums?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -916,6 +941,7 @@ export interface TypesSelect<T extends boolean = true> {
 export interface ActionsSelect<T extends boolean = true> {
   id?: T;
   data?: T;
+  properties?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -936,6 +962,7 @@ export interface EnumsSelect<T extends boolean = true> {
  */
 export interface PropertiesSelect<T extends boolean = true> {
   id?: T;
+  domainIncludes?: T;
   data?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1116,6 +1143,7 @@ export interface WorkflowExecuteFunction {
   input: {
     status?: ('Pending' | 'Processing' | 'Success' | 'Error') | null;
     execution?: (string | null) | Function;
+    workflow?: (string | null) | Workflow;
     generation?: (string | null) | Generation;
     noun?: (string | null) | Noun;
     thing?: (string | null) | Thing;
@@ -1229,6 +1257,7 @@ export interface WorkflowExecuteWorkflow {
       | null;
     timeout?: number | null;
     memoryLimit?: number | null;
+    eventId?: string | null;
   };
 }
 /**

@@ -7,10 +7,24 @@ export const onEventCreate: CollectionAfterOperationHook<'events'> = async ({ re
   if (operation !== 'create') return result
 
   console.log(result)
+  
   if (result.execution) {
     const job = await payload.jobs.queue({ workflow: 'executeFunction', input: result })
     console.log(job)
-    // const job = await payload.jobs.queue({ workflow: 'generateThing', input: result })
+    waitUntil(payload.jobs.run())
+  }
+  
+  const workflowId = (result as any).workflow
+  if (workflowId) {
+    const job = await payload.jobs.queue({ 
+      workflow: 'executeWorkflow', 
+      input: { 
+        workflowId, 
+        input: result.input ? JSON.parse(result.input) : undefined,
+        eventId: result.id 
+      } 
+    })
+    console.log(job)
     waitUntil(payload.jobs.run())
   }
 

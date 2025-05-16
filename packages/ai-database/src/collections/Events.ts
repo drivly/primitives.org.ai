@@ -20,6 +20,7 @@ export const Events: CollectionConfig = {
       // { name: 'id', type: 'text', admin: { hidden: true } },
       { name: 'status', type: 'select', defaultValue: 'Pending', options: ['Pending', 'Processing', 'Success', 'Error'], admin: { readOnly: true } },
       { name: 'execution', type: 'relationship', relationTo: 'functions', admin: { readOnly: true, condition: ({ execution }) => !!execution } },
+      { name: 'workflow', type: 'relationship', relationTo: 'workflows', admin: { readOnly: true, condition: ({ workflow }) => !!workflow } },
       { name: 'generation', type: 'relationship', relationTo: 'generations', admin: { readOnly: true, condition: ({ generation }) => !!generation } },
       { name: 'noun', type: 'relationship', relationTo: 'nouns', admin: { readOnly: true, condition: ({ noun }) => !!noun } },
       { name: 'thing', type: 'relationship', relationTo: 'things', admin: { readOnly: true, condition: ({ thing }) => !!thing } },
