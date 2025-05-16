@@ -2,7 +2,7 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Your Next.js config here
+  // No special webpack configuration needed with Vercel Postgres adapter
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })

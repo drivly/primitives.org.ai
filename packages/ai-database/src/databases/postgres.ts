@@ -2,7 +2,7 @@
  * PostgreSQL adapter with vector storage support
  * 
  * This file is conditionally imported based on environment.
- * On Vercel, we use SQLite to avoid cloudflare:sockets import issues.
+ * On Vercel, we use SQLite adapter instead.
  */
 
 const isVercel = process.env.VERCEL === '1' || !!process.env.VERCEL_ENV;

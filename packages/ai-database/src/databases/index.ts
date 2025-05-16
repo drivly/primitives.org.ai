@@ -20,7 +20,7 @@ export const detectDatabaseType = (uri?: string): 'sqlite' | 'mongodb' | 'postgr
   }
   
   if (process.env.VERCEL === '1' || process.env.VERCEL_ENV) {
-    console.log('Running on Vercel, using SQLite adapter to avoid cloudflare:sockets import issues')
+    console.log('Running on Vercel, using SQLite adapter')
     return 'sqlite'
   }
   
