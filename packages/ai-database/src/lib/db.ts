@@ -1,4 +1,4 @@
-import { db } from '../databases/sqlite'
+import { db as adapter } from '../databases/sqlite'
 import { z } from 'zod'
 import { Noun, Thing } from '@/payload.types'
 
@@ -31,7 +31,7 @@ export function DB(nounDefinition: NounDefinition) {
   }
 
   const createOrUpdateNoun = async () => {
-    return await (db as any).getOrCreate({
+    return await (adapter as any).getOrCreate({
       collection: 'nouns',
       data: {
         id,
@@ -55,7 +55,7 @@ export function DB(nounDefinition: NounDefinition) {
         schema.parse(data)
       }
 
-      return await (db as any).create({
+      return await (adapter as any).create({
         collection: 'things',
         data: {
           id: `${id}-${Date.now()}`,
@@ -71,7 +71,7 @@ export function DB(nounDefinition: NounDefinition) {
      * @returns Array of Things
      */
     find: async (query: NounQuery = {}) => {
-      return await (db as any).find({
+      return await (adapter as any).find({
         collection: 'things',
         where: {
           type: { equals: id },
@@ -86,7 +86,7 @@ export function DB(nounDefinition: NounDefinition) {
      * @returns Thing or null
      */
     findOne: async (query: NounQuery = {}) => {
-      return await (db as any).findOne({
+      return await (adapter as any).findOne({
         collection: 'things',
         where: {
           type: { equals: id },
@@ -102,7 +102,7 @@ export function DB(nounDefinition: NounDefinition) {
      * @returns Updated Thing
      */
     update: async (thingId: string, data: any) => {
-      return await (db as any).update({
+      return await (adapter as any).update({
         collection: 'things',
         id: thingId,
         data: { data }
@@ -114,10 +114,16 @@ export function DB(nounDefinition: NounDefinition) {
      * @param id Thing ID
      */
     delete: async (thingId: string) => {
-      return await (db as any).delete({
+      return await (adapter as any).delete({
         collection: 'things',
         id: thingId
       })
     }
   }
 }
+
+/**
+ * db function for comprehensive search and CRUD operations on all entities
+ * @returns Object with methods for searching and CRUD operations
+ */
+export const db = adapter;
