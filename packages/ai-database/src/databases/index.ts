@@ -19,6 +19,11 @@ export const detectDatabaseType = (uri?: string): 'sqlite' | 'mongodb' | 'postgr
     return 'mongodb'
   }
   
+  if (process.env.VERCEL === '1' || process.env.VERCEL_ENV) {
+    console.log('Running on Vercel, using SQLite adapter to avoid cloudflare:sockets import issues')
+    return 'sqlite'
+  }
+  
   if (uri.startsWith('postgres://') || uri.startsWith('postgresql://')) {
     return 'postgres'
   }
@@ -29,7 +34,7 @@ export const detectDatabaseType = (uri?: string): 'sqlite' | 'mongodb' | 'postgr
 /**
  * Get the appropriate database adapter based on the connection URI
  */
-const uri = process.env.DATABASE_URI
+const uri = process.env.DATABASE_URI || process.env.POSTGRES_URL
 const dbType = detectDatabaseType(uri)
 
 let db: any // Using any type to avoid type conflicts between adapters
