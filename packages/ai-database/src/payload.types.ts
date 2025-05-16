@@ -161,6 +161,7 @@ export interface Config {
       generateDatabase: WorkflowGenerateDatabase;
       seed: WorkflowSeed;
       executeWorkflow: WorkflowExecuteWorkflow;
+      generateNoun: WorkflowGenerateNoun;
     };
   };
 }
@@ -632,7 +633,9 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  workflowSlug?: ('executeFunction' | 'generateThing' | 'generateDatabase' | 'seed' | 'executeWorkflow') | null;
+  workflowSlug?:
+    | ('executeFunction' | 'generateThing' | 'generateDatabase' | 'seed' | 'executeWorkflow' | 'generateNoun')
+    | null;
   taskSlug?: ('inline' | 'seedFunctions' | 'seedModels' | 'seedRoles' | 'seedSchema') | null;
   queue?: string | null;
   waitUntil?: string | null;
@@ -1227,6 +1230,13 @@ export interface WorkflowExecuteWorkflow {
     timeout?: number | null;
     memoryLimit?: number | null;
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WorkflowGenerateNoun".
+ */
+export interface WorkflowGenerateNoun {
+  input?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -33,6 +33,7 @@ import { generateDatabase } from './workflows/generateDatabase'
 import { executeFunction } from './workflows/executeFunction'
 import { generateThing } from './workflows/generateThing'
 import { executeWorkflow } from './workflows/executeWorkflow'
+import { generateNoun } from './workflows/generateNoun'
 import { seedFunctions } from './tasks/seedFunctions'
 import { seedModels } from './tasks/seedModels'
 import { seedRoles } from './tasks/seedRoles'
@@ -61,7 +62,7 @@ const config = buildConfig({
   globals: [Settings],  
   jobs: {
     tasks: [seedFunctions, seedModels, seedRoles, seedSchema],
-    workflows: [executeFunction, generateThing, generateDatabase, seed, executeWorkflow],
+    workflows: [executeFunction, generateThing, generateDatabase, seed, executeWorkflow, generateNoun],
     jobsCollectionOverrides: ({defaultJobsCollection}) => {
       if(!defaultJobsCollection.admin){
         defaultJobsCollection.admin = {}
