@@ -157,7 +157,7 @@ import { AI } from 'ai-props'
 | `stream`      | `boolean`                                                          | `false`     | Whether to stream the AI response in real-time                                         |
 | `output`      | `'object' \| 'array'`                                              | `'object'`  | Output format for the generated content                                                |
 | `cols`        | `number`                                                           | `1`         | Number of columns for array output (only used when output='array')                     |
-| `children`    | `(props: any, state: { isStreaming: boolean }) => React.ReactNode` | Required    | Render function that receives the generated props                                      |
+| `children`    | `(props: any, state: { isStreaming: boolean; error: Error | null }) => React.ReactNode` | Required    | Render function that receives the generated props                                      |
 | `apiEndpoint` | `string`                                                           | `undefined` | Optional API endpoint for proxy implementation                                         |
 
 ## Dependencies
