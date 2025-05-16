@@ -1,7 +1,7 @@
 import { Payload, CollectionSlug } from 'payload'
 
 export const extendDatabase = (payload: Payload): void => {
-  payload.db.getOrCreate = async function<T = any>({
+  (payload.db as any).getOrCreate = async function<T = any>({
     collection,
     data,
     where
