@@ -1,21 +1,154 @@
-# Hello Ideas
+# AI Product/Service Ideas Generator
 
 <Hero 
-  title="Innovative Software Solutions"
-  subtitle="Discover our collection of powerful tools and frameworks designed to streamline your development process"
-  ctaText="Explore Now"
-  ctaLink="#categories"
+  title="AI Product & Service Idea Generator"
+  subtitle="Generate innovative AI product and service ideas using entity types from our database, then develop them through a business development pipeline"
+  ctaText="Generate Ideas"
+  ctaLink="#ideas"
 />
 
-import { softwareCategories } from '@/data/softwareCategories'
+import { entityTypes, generateIdeasFromEntities, developIdea, generateLandingPage } from '@/data/entityTypes'
+import { IdeaCard } from '@/components/IdeaCard'
+import { BusinessModelCanvas } from '@/components/BusinessModelCanvas'
+import { StoryBrandMessaging } from '@/components/StoryBrandMessaging'
+import { LandingPagePreview } from '@/components/LandingPagePreview'
 
-{Object.entries(softwareCategories).map(([category, software]) => (
-  <div key={category}>
-    <h2>{category}</h2>
-    <ul>
-      {software.map((software) => (
-        <li key={software}><a href={`/${category.replaceAll(' ', '_')}/${software.replaceAll(' ', '_')}`}>{software}</a></li>
-      ))}
-    </ul>
+<div className="py-12" id="entity-types">
+  <h2 className="text-2xl font-bold mb-6">Entity Types</h2>
+  <p className="mb-6">
+    We use different entity types from our database to inspire AI product and service ideas. 
+    These entities help us identify patterns and opportunities for innovation.
+  </p>
+  
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+    <div className="bg-white shadow rounded-lg overflow-hidden">
+      <div className="px-6 py-4 bg-indigo-50 border-b border-indigo-100">
+        <h3 className="text-lg font-bold text-indigo-700">Nouns</h3>
+      </div>
+      <div className="p-4">
+        <ul className="list-disc pl-5 space-y-1">
+          {entityTypes.nouns.slice(0, 10).map((noun, index) => (
+            <li key={index} className="text-gray-700">{noun}</li>
+          ))}
+        </ul>
+        <p className="text-sm text-gray-500 mt-2">+ {entityTypes.nouns.length - 10} more nouns</p>
+      </div>
+    </div>
+    
+    <div className="bg-white shadow rounded-lg overflow-hidden">
+      <div className="px-6 py-4 bg-indigo-50 border-b border-indigo-100">
+        <h3 className="text-lg font-bold text-indigo-700">Verbs</h3>
+      </div>
+      <div className="p-4">
+        <ul className="list-disc pl-5 space-y-1">
+          {entityTypes.verbs.slice(0, 10).map((verb, index) => (
+            <li key={index} className="text-gray-700">{verb}</li>
+          ))}
+        </ul>
+        <p className="text-sm text-gray-500 mt-2">+ {entityTypes.verbs.length - 10} more verbs</p>
+      </div>
+    </div>
+    
+    <div className="bg-white shadow rounded-lg overflow-hidden">
+      <div className="px-6 py-4 bg-indigo-50 border-b border-indigo-100">
+        <h3 className="text-lg font-bold text-indigo-700">Things</h3>
+      </div>
+      <div className="p-4">
+        <ul className="list-disc pl-5 space-y-1">
+          {entityTypes.things.slice(0, 10).map((thing, index) => (
+            <li key={index} className="text-gray-700">{thing}</li>
+          ))}
+        </ul>
+        <p className="text-sm text-gray-500 mt-2">+ {entityTypes.things.length - 10} more things</p>
+      </div>
+    </div>
   </div>
-))}
+</div>
+
+<div className="py-12 border-t border-gray-200" id="ideas">
+  <h2 className="text-2xl font-bold mb-6">Generated Ideas</h2>
+  <p className="mb-6">
+    Based on the entity types, we've generated the following AI product and service ideas.
+    Each idea combines different entities to create innovative solutions for various markets.
+  </p>
+  
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+    {generateIdeasFromEntities(entityTypes).map((idea, index) => (
+      <IdeaCard key={index} idea={idea} />
+    ))}
+  </div>
+</div>
+
+<div className="py-12 border-t border-gray-200" id="development">
+  <h2 className="text-2xl font-bold mb-6">Business Development Process</h2>
+  <p className="mb-6">
+    We process ideas through a workflow similar to the 24 steps of Disciplined Entrepreneurship,
+    extending them into product definitions with StoryBrand messaging.
+  </p>
+  
+  {(() => {
+    const selectedIdea = generateIdeasFromEntities(entityTypes)[0]
+    const developedIdea = developIdea(selectedIdea)
+    const landingPage = generateLandingPage(developedIdea)
+    
+    return (
+      <div>
+        <h3 className="text-xl font-bold mb-4">Selected Idea: {selectedIdea.name}</h3>
+        
+        <BusinessModelCanvas businessModel={developedIdea.businessModel} />
+        <StoryBrandMessaging messaging={developedIdea.messaging} />
+        <LandingPagePreview landingPage={landingPage} />
+      </div>
+    )
+  })()}
+</div>
+
+<div className="py-12 border-t border-gray-200" id="workflow">
+  <h2 className="text-2xl font-bold mb-6">Idea Generation Workflow</h2>
+  
+  <div className="bg-white shadow rounded-lg overflow-hidden mb-8">
+    <div className="px-6 py-4 bg-indigo-50 border-b border-indigo-100">
+      <h2 className="text-xl font-bold text-indigo-700">Workflow Steps</h2>
+    </div>
+    
+    <div className="p-6">
+      <ol className="relative border-l border-gray-200 ml-3">
+        <li className="mb-10 ml-6">
+          <span className="absolute flex items-center justify-center w-6 h-6 bg-indigo-100 rounded-full -left-3 ring-8 ring-white">
+            <span className="text-indigo-800 font-bold">1</span>
+          </span>
+          <h3 className="font-medium leading-tight text-gray-900">Entity Type Collection</h3>
+          <p className="text-sm text-gray-600 mt-1">Fetch and list different entity types (Nouns, Verbs, Things) from our database</p>
+        </li>
+        <li className="mb-10 ml-6">
+          <span className="absolute flex items-center justify-center w-6 h-6 bg-indigo-100 rounded-full -left-3 ring-8 ring-white">
+            <span className="text-indigo-800 font-bold">2</span>
+          </span>
+          <h3 className="font-medium leading-tight text-gray-900">Idea Generation</h3>
+          <p className="text-sm text-gray-600 mt-1">Use entity types to identify new AI product/service ideas</p>
+        </li>
+        <li className="mb-10 ml-6">
+          <span className="absolute flex items-center justify-center w-6 h-6 bg-indigo-100 rounded-full -left-3 ring-8 ring-white">
+            <span className="text-indigo-800 font-bold">3</span>
+          </span>
+          <h3 className="font-medium leading-tight text-gray-900">Business Development</h3>
+          <p className="text-sm text-gray-600 mt-1">Process ideas through a workflow similar to the 24 steps of Disciplined Entrepreneurship</p>
+        </li>
+        <li className="mb-10 ml-6">
+          <span className="absolute flex items-center justify-center w-6 h-6 bg-indigo-100 rounded-full -left-3 ring-8 ring-white">
+            <span className="text-indigo-800 font-bold">4</span>
+          </span>
+          <h3 className="font-medium leading-tight text-gray-900">StoryBrand Messaging</h3>
+          <p className="text-sm text-gray-600 mt-1">Extend ideas into product definitions with StoryBrand messaging framework</p>
+        </li>
+        <li className="ml-6">
+          <span className="absolute flex items-center justify-center w-6 h-6 bg-indigo-100 rounded-full -left-3 ring-8 ring-white">
+            <span className="text-indigo-800 font-bold">5</span>
+          </span>
+          <h3 className="font-medium leading-tight text-gray-900">Landing Page Generation</h3>
+          <p className="text-sm text-gray-600 mt-1">Generate landing pages with waitlist signup functionality</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
