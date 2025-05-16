@@ -6,8 +6,9 @@ import { cache } from 'react'
 import { z } from 'zod'
 import { StringValueNode } from 'graphql'
 import { Function, Event, Generation, Workflow } from '@/payload.types'
-import { ai as aiFunctionsAi } from 'ai-functions'
 import { db } from '../databases/sqlite'
+
+import * as aiFunctions from 'ai-functions'
 
 export const model = createOpenAI({
   compatibility: 'compatible',
@@ -34,12 +35,24 @@ interface AIOptions {
   [key: string]: any;
 }
 
-export const ai = async (prompt: string, options: AIOptions = {}) => {
-  const functionName = options.function || 'default'
+export const ai = async (promptOrTemplate: string | TemplateStringsArray, ...args: any[]) => {
+  let prompt: string;
+  let options: AIOptions = {};
+  
+  if (typeof promptOrTemplate === 'string') {
+    prompt = promptOrTemplate;
+    if (args.length > 0 && typeof args[0] === 'object') {
+      options = args[0];
+    }
+  } else {
+    prompt = String.raw(promptOrTemplate, ...args);
+  }
+  
+  const functionName = options.function || 'default';
   let functionRecord = await (db as any).findOne({
     collection: 'functions',
     where: { name: { equals: functionName } }
-  }) as Function
+  }) as Function;
 
   if (!functionRecord) {
     functionRecord = await (db as any).create({
@@ -55,10 +68,14 @@ export const ai = async (prompt: string, options: AIOptions = {}) => {
           maxTokens: options.maxTokens || undefined
         })
       }
-    }) as Function
+    }) as Function;
   }
   
-  const result = await aiFunctionsAi`${prompt}`(options as any)
+  const aiModule = await import('ai-functions');
+  const aiFunc = aiModule.ai as any;
+  const result = typeof promptOrTemplate === 'string' 
+    ? await aiFunc(prompt, options)
+    : await aiFunc(promptOrTemplate, ...args);
   
   const event = await (db as any).create({
     collection: 'events',
@@ -68,7 +85,7 @@ export const ai = async (prompt: string, options: AIOptions = {}) => {
       input: prompt,
       data: result
     }
-  }) as Event
+  }) as Event;
   
   const generation = await (db as any).create({
     collection: 'generations',
@@ -83,7 +100,7 @@ export const ai = async (prompt: string, options: AIOptions = {}) => {
         tokens: options.maxTokens || null
       }
     }
-  }) as Generation
+  }) as Generation;
   
   await (db as any).update({
     collection: 'events',
@@ -91,54 +108,27 @@ export const ai = async (prompt: string, options: AIOptions = {}) => {
     data: {
       generation: generation.id
     }
-  })
+  });
   
-  return result
+  return result;
 }
 
-interface WorkflowDefinition {
-  code: string;
-  [key: string]: any;
-}
-
-type WorkflowFunction = (input: any, options?: Record<string, any>) => Promise<any>;
-
-export function AI(functions: Record<string, any | WorkflowDefinition>) {
-  const isWorkflow = Object.entries(functions).some(([_, definition]) => 
-    definition && typeof definition === 'object' && 'code' in definition
-  )
-
-  if (isWorkflow) {
-    const workflows: Record<string, WorkflowFunction> = {}
-    
-    Object.entries(functions).forEach(async ([name, definition]) => {
-      await (db as any).getOrCreate({
+export function AI(functions: Record<string, any>) {
+  Object.entries(functions).forEach(([name, definition]) => {
+    if (typeof definition === 'function') {
+      const functionString = definition.toString();
+      
+      (db as any).getOrCreate({
         collection: 'workflows',
         data: { 
           name,
-          code: (definition as WorkflowDefinition).code || `export default (event, { ai, db }) => {\n  // Default implementation\n}`
+          code: functionString
         },
         where: { name: { equals: name } }
-      }) as Workflow
-      
-      workflows[name] = async (input: any, options: Record<string, any> = {}) => {
-        const result = await (db as any).create({
-          collection: 'events',
-          data: {
-            status: 'Pending',
-            input,
-            data: options
-          }
-        })
-        
-        return result
-      }
-    })
-    
-    return workflows
-  } else {
-    const aiFunctions = require('ai-functions')
-    return aiFunctions.AI(functions)
-  }
+      })
+    }
+  })
+  
+  return (aiFunctions as any).AI(functions)
 }
 

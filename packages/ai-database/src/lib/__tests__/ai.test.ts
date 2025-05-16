@@ -3,6 +3,35 @@ import { ai, AI } from '../ai'
 import { DB } from '../db'
 import { db } from '../../databases/sqlite'
 
+vi.mock('@payload-config', () => ({
+  default: {}
+}))
+
+vi.mock('@ai-sdk/openai', () => ({
+  createOpenAI: vi.fn().mockReturnValue({})
+}))
+
+vi.mock('payload', () => ({
+  getPayload: vi.fn().mockResolvedValue({
+    findGlobal: vi.fn().mockResolvedValue({})
+  })
+}))
+
+vi.mock('react', () => ({
+  cache: (fn: any) => fn
+}))
+
+vi.mock('graphql', () => ({
+  StringValueNode: vi.fn()
+}))
+
+vi.mock('ai', () => ({
+  embed: vi.fn(),
+  embedMany: vi.fn(),
+  generateObject: vi.fn(),
+  generateText: vi.fn()
+}))
+
 vi.mock('../../databases/sqlite', () => ({
   db: {
     findOne: vi.fn(),
@@ -14,32 +43,36 @@ vi.mock('../../databases/sqlite', () => ({
   }
 }))
 
-vi.mock('ai-functions', () => ({
-  ai: vi.fn().mockResolvedValue('mocked ai response'),
-  AI: vi.fn().mockImplementation((funcs) => {
-    return Object.fromEntries(
-      Object.entries(funcs).map(([key]) => [
-        key,
-        vi.fn().mockResolvedValue({ result: `mocked ${key} response` })
-      ])
-    )
+vi.mock('ai-functions', () => {
+  const mockAi = vi.fn().mockImplementation((prompt, options) => {
+    return Promise.resolve('mocked ai response')
   })
-}))
+  
+  const mockAIFactory = vi.fn().mockImplementation((funcs) => {
+    return funcs
+  })
+  
+  return {
+    ai: mockAi,
+    AI: mockAIFactory
+  }
+})
 
 describe('Enhanced AI functions', () => {
   beforeEach(() => {
-    vi.resetAllMocks()
+    vi.resetAllMocks && vi.resetAllMocks()
     
-    (db as any).findOne.mockResolvedValue(null)
-    (db as any).create.mockImplementation((params: any) => Promise.resolve({
+    const mockedDb = db as any
+    mockedDb.findOne.mockResolvedValue(null)
+    mockedDb.create.mockImplementation((params: any) => Promise.resolve({
       id: 'mock-id',
       ...params.data
     }))
-    (db as any).update.mockImplementation((params: any) => Promise.resolve({
+    mockedDb.update.mockImplementation((params: any) => Promise.resolve({
       id: params.id,
       ...params.data
     }))
-    (db as any).getOrCreate.mockImplementation((params: any) => Promise.resolve({
+    mockedDb.getOrCreate.mockImplementation((params: any) => Promise.resolve({
       id: 'mock-id',
       ...params.data
     }))
@@ -76,21 +109,20 @@ describe('Enhanced AI functions', () => {
   })
 
   describe('AI function', () => {
-    it('should handle workflow definitions', async () => {
-      const workflowFunctions = AI({
-        testWorkflow: {
-          code: 'export default () => { return "test" }'
-        }
+    it('should handle workflow definitions with direct functions', async () => {
+      const testFunction = () => { return "test" }
+      
+      AI({
+        testWorkflow: testFunction
       })
       
       expect((db as any).getOrCreate).toHaveBeenCalledWith(expect.objectContaining({
         collection: 'workflows',
         data: expect.objectContaining({
-          name: 'testWorkflow'
+          name: 'testWorkflow',
+          code: testFunction.toString()
         })
       }))
-      
-      expect(typeof workflowFunctions.testWorkflow).toBe('function')
     })
   })
 
