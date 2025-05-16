@@ -6,12 +6,12 @@ export const maxDuration = 800
 
 export const GET = async (
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) => {
   const start = Date.now()
   const { headers } = request
   const { origin, searchParams } = new URL(request.url)
-  const { id } = await params
+  const { id } = params
   
   const payload = await getPayload({ config })
   const { user } = await payload.auth({ headers })
