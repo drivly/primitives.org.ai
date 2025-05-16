@@ -5,11 +5,12 @@ import { getPayload } from 'payload'
 import { cache } from 'react'
 import { z } from 'zod'
 import { StringValueNode } from 'graphql'
-import { Function, Event, Generation, Workflow } from '@/payload.types'
+import { Function as FunctionType, Event, Generation, Workflow } from '@/payload.types'
 import { db } from '../databases/sqlite'
 
 import { ai as aiFunction } from 'ai-functions'
 import type { AI } from 'ai-functions'
+
 
 export const model = createOpenAI({
   compatibility: 'compatible',
@@ -50,13 +51,15 @@ export const ai = async (promptOrTemplate: string | TemplateStringsArray, ...arg
   }
   
   const functionName = options.function || 'default';
-  let functionRecord = await (db as any).findOne({
+  let functionRecord = await // Using 'any' is necessary due to the complex database adapter type structure
+(db as any).findOne({
     collection: 'functions',
     where: { name: { equals: functionName } }
-  }) as Function;
+  }) as FunctionType;
 
   if (!functionRecord) {
-    functionRecord = await (db as any).create({
+    functionRecord = await // Using 'any' is necessary due to the complex database adapter type structure
+(db as any).create({
       collection: 'functions',
       data: { 
         name: functionName,
@@ -69,14 +72,15 @@ export const ai = async (promptOrTemplate: string | TemplateStringsArray, ...arg
           maxTokens: options.maxTokens || undefined
         })
       }
-    }) as Function;
+    }) as FunctionType;
   }
   
   const result = typeof promptOrTemplate === 'string' 
     ? await aiFunction(prompt as any, options)
     : await aiFunction(promptOrTemplate as any, ...args);
   
-  const event = await (db as any).create({
+  const event = await // Using 'any' is necessary due to the complex database adapter type structure
+(db as any).create({
     collection: 'events',
     data: {
       status: 'Success',
@@ -86,7 +90,8 @@ export const ai = async (promptOrTemplate: string | TemplateStringsArray, ...arg
     }
   }) as Event;
   
-  const generation = await (db as any).create({
+  const generation = await // Using 'any' is necessary due to the complex database adapter type structure
+(db as any).create({
     collection: 'generations',
     data: {
       provider: options.model || 'openai',
@@ -101,7 +106,8 @@ export const ai = async (promptOrTemplate: string | TemplateStringsArray, ...arg
     }
   }) as Generation;
   
-  await (db as any).update({
+  await // Using 'any' is necessary due to the complex database adapter type structure
+(db as any).update({
     collection: 'events',
     id: event.id,
     data: {
@@ -117,7 +123,7 @@ export function AI(functions: Record<string, any>) {
     if (typeof definition === 'function') {
       const functionString = definition.toString();
       
-      (db as any).getOrCreate({
+(db as any).getOrCreate({
         collection: 'workflows',
         data: { 
           name,
