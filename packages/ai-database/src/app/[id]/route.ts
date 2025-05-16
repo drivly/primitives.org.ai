@@ -6,9 +6,8 @@ export const maxDuration = 800
 
 export const GET = async (
   request: Request,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) => {
-  const { params } = context;
   const start = Date.now()
   const { headers } = request
   const { origin, searchParams } = new URL(request.url)
