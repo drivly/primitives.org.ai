@@ -1,0 +1,21 @@
+# Hello Ideas
+
+<Hero 
+  title="Innovative Software Solutions"
+  subtitle="Discover our collection of powerful tools and frameworks designed to streamline your development process"
+  ctaText="Explore Now"
+  ctaLink="#categories"
+/>
+
+import { softwareCategories } from '@/data/softwareCategories'
+
+{Object.entries(softwareCategories).map(([category, software]) => (
+  <div key={category}>
+    <h2>{category}</h2>
+    <ul>
+      {software.map((software) => (
+        <li key={software}><a href={`/${category.replaceAll(' ', '_')}/${software.replaceAll(' ', '_')}`}>{software}</a></li>
+      ))}
+    </ul>
+  </div>
+))}
