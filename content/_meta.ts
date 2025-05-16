@@ -12,7 +12,7 @@ export default {
 
   functions: '',
   agents: '',
-  humans: '',
+  humans: { display: 'hidden' },
   workflows: '',
 
   _: { type: 'separator' },
@@ -30,6 +30,7 @@ export default {
 
   _marketing: { type: 'separator' },
   sites: '',
+  props: '',
   brand: { display: 'hidden' },
 
   _packages: { type: 'separator' },
