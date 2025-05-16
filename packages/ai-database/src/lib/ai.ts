@@ -8,7 +8,8 @@ import { StringValueNode } from 'graphql'
 import { Function, Event, Generation, Workflow } from '@/payload.types'
 import { db } from '../databases/sqlite'
 
-import * as aiFunctions from 'ai-functions'
+import { ai as aiFunction } from 'ai-functions'
+import type { AI as AIType } from 'ai-functions'
 
 export const model = createOpenAI({
   compatibility: 'compatible',
@@ -71,11 +72,9 @@ export const ai = async (promptOrTemplate: string | TemplateStringsArray, ...arg
     }) as Function;
   }
   
-  const aiModule = await import('ai-functions');
-  const aiFunc = aiModule.ai as any;
   const result = typeof promptOrTemplate === 'string' 
-    ? await aiFunc(prompt, options)
-    : await aiFunc(promptOrTemplate, ...args);
+    ? await aiFunction(prompt as any, options)
+    : await aiFunction(promptOrTemplate as any, ...args);
   
   const event = await (db as any).create({
     collection: 'events',
@@ -129,6 +128,7 @@ export function AI(functions: Record<string, any>) {
     }
   })
   
-  return (aiFunctions as any).AI(functions)
+  const { AI: importedAI } = require('ai-functions');
+  return importedAI(functions)
 }
 
