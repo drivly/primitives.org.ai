@@ -7,6 +7,7 @@ import type { Config } from './payload.types'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
+import { getOrCreatePlugin } from './plugins/getOrCreatePlugin'
 
 import { Database } from './globals/Database'
 import { Functions } from './collections/Functions'
@@ -38,7 +39,7 @@ import { seedFunctions } from './tasks/seedFunctions'
 import { seedModels } from './tasks/seedModels'
 import { seedRoles } from './tasks/seedRoles'
 import { seedSchema } from './tasks/seedSchema'
-import { db } from './databases/sqlite'
+import { db } from './databases'
 import { editorOptions } from './lib/collections'
 
 const filename = fileURLToPath(import.meta.url)
@@ -114,6 +115,7 @@ const config = buildConfig({
     }),
     payloadCloudPlugin(),
     // storage-adapter-placeholder
+    getOrCreatePlugin(),
   ],
 })
 
