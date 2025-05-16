@@ -1,11 +1,12 @@
 import config from '@payload-config'
 import { waitUntil } from '@vercel/functions'
 import { getPayload } from 'payload'
+import { NextRequest, NextResponse } from 'next/server'
 
 export const maxDuration = 800
 
 export const GET = async (
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) => {
   const start = Date.now()
