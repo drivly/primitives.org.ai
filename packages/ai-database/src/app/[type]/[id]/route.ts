@@ -4,14 +4,15 @@ import { getPayload } from 'payload'
 
 export const maxDuration = 800
 
-export async function GET(request: Request) {
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ type: string; id: string }> }
+) {
   const start = Date.now()
   const { headers } = request
-  const { origin, searchParams, pathname } = new URL(request.url)
+  const { origin, searchParams } = new URL(request.url)
   
-  const paths = pathname.split('/')
-  const id = paths.pop() || ''
-  const type = paths.pop() || ''
+  const { type, id } = await params
   
   const payload = await getPayload({ config })
   const { user } = await payload.auth({ headers })
